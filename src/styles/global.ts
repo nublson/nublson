@@ -13,7 +13,7 @@ export default createGlobalStyle`
   }
 
   body{
-    background-color: #000;
-    color: #fff;
+    background-color: ${(props) => props.theme.colors.background};
+    color: ${(props) => props.theme.colors.body};
   }
 `;
