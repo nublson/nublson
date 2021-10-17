@@ -16,5 +16,25 @@ export default createGlobalStyle`
     font: 400 1.6rem 'Poppins', sans-serif;
     background-color: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.body};
+    line-height: 25px;
+  }
+
+  h1, h2, h3{
+    font-weight: 700;
+  }
+
+  h1{
+    font-size: 6.4rem;
+    line-height: 66px;
+  }
+
+  h2{
+    font-size: 4.8rem;
+    line-height: 50px;
+  }
+
+  h3{
+    font-size: 3.2rem;
+    line-height: 34px;
   }
 `;
