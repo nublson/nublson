@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { Header } from "../shared";
+import { Header, Footer } from "../shared";
 
 import theme from "../../styles/theme";
 import GlobalStyles from "../../styles/global";
@@ -30,6 +30,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Container>
         <Header />
         {children}
+        <Footer />
       </Container>
       <GlobalStyles />
     </ThemeProvider>
