@@ -12,6 +12,7 @@ export const Container = styled.div`
 
 export const Heading = styled.div`
   width: 100%;
+  text-align: center;
 
   display: flex;
   flex-direction: column;

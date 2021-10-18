@@ -10,6 +10,18 @@ export default createGlobalStyle`
 
   html{
     font-size: 62.5%;
+
+    @media ${(props) => props.theme.mediaQueries.larger} {
+      font-size: 60%;
+    }
+
+    @media ${(props) => props.theme.mediaQueries.large} {
+      font-size: 57.5%;
+    }
+
+    @media ${(props) => props.theme.mediaQueries.small} {
+      font-size: 55%;
+    }
   }
 
   body{

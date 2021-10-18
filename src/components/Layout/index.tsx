@@ -16,7 +16,7 @@ const Container = styled.main`
   min-height: 100vh;
   margin: 0 auto;
 
-  padding: 5rem 0 10rem;
+  padding: 5rem 2rem 10rem;
 
   display: flex;
   flex-direction: column;

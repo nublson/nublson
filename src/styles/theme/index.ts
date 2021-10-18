@@ -1,3 +1,5 @@
+import mediaQueries from "../mediaQueries";
+
 const theme = {
   colors: {
     title: "#FBFBFB",
@@ -10,6 +12,7 @@ const theme = {
     off_black: "#020202",
     off_white: "#FCFCFC",
   },
+  mediaQueries,
 };
 
 export default theme;
