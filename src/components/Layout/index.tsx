@@ -9,21 +9,19 @@ interface LayoutProps {
 }
 
 const Container = styled.main`
+  position: relative;
+
   max-width: 121.4rem;
   width: 100%;
   height: 100vh;
   margin: 0 auto;
 
-  padding: 5rem 2rem 10rem;
+  padding: 0rem 2rem;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-
-  @media ${(props) => props.theme.mediaQueries.small} {
-    padding: 2rem 2rem 10rem;
-  }
 `;
 
 const Layout = ({ children }: LayoutProps) => {
