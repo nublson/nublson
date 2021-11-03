@@ -28,9 +28,9 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        {/* <Header /> */}
+        <Header />
         {children}
-        {/* <Footer /> */}
+        <Footer />
       </Container>
       <GlobalStyles />
     </ThemeProvider>
