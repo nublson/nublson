@@ -22,7 +22,7 @@ const Container = styled.main`
   justify-content: space-between;
 
   @media ${(props) => props.theme.mediaQueries.small} {
-    padding: 2rem 2rem 6rem;
+    padding: 2rem 2rem 10rem;
   }
 `;
 
