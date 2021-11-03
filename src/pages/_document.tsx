@@ -43,6 +43,11 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
 
+          <meta
+            name="description"
+            content="I'm a Developer and Content Creator with also xp in UI Design!"
+          />
+
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
@@ -54,7 +59,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
 
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/favicon.svg" />
         </Head>
 
         <body>
