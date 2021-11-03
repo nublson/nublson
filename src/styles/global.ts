@@ -25,10 +25,9 @@ export default createGlobalStyle`
   }
 
   body{
-    font: 400 1.6rem 'Poppins', sans-serif;
+    font: 400 1.8rem 'Poppins', sans-serif;
     background-color: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.body};
-    line-height: 25px;
   }
 
   h1, h2, h3{
@@ -48,5 +47,9 @@ export default createGlobalStyle`
   h3{
     font-size: 3.2rem;
     line-height: 34px;
+  }
+
+  p{
+    line-height: 25px;
   }
 `;

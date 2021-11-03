@@ -1,10 +1,8 @@
 import { ReactNode } from "react";
 import styled, { ThemeProvider } from "styled-components";
-
-import { Header, Footer } from "../shared";
-
-import theme from "../../styles/theme";
 import GlobalStyles from "../../styles/global";
+import theme from "../../styles/theme";
+import { Footer, Header } from "../shared";
 
 interface LayoutProps {
   children: ReactNode;
