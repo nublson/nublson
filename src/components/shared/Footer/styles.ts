@@ -37,7 +37,7 @@ export const Container = styled.div`
       gap: 1.5rem;
 
       a {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
     }
   }
