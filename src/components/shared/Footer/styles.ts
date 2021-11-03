@@ -30,7 +30,7 @@ export const Container = styled.div`
   }
 
   @media ${(props) => props.theme.mediaQueries.small} {
-    bottom: 13rem;
+    bottom: 5rem;
     gap: 1rem;
 
     .icons {
