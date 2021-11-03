@@ -20,6 +20,10 @@ const Container = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    padding-bottom: 3rem;
+  }
 `;
 
 const Layout = ({ children }: LayoutProps) => {

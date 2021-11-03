@@ -9,4 +9,8 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    gap: 0.5rem;
+  }
 `;

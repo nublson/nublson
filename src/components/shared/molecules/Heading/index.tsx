@@ -1,4 +1,4 @@
-import { Texts } from "../../atoms";
+import { Texts, Titles } from "../../atoms";
 import { Container } from "./styles";
 
 interface HeadingProps {
@@ -11,7 +11,7 @@ function Heading({ top, title, subtitle }: HeadingProps) {
   return (
     <Container>
       <Texts.Medium content={top} />
-      <h1>{title}</h1>
+      <Titles.Large content={title} />
       <Texts.Large content={subtitle} />
     </Container>
   );

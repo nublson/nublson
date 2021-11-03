@@ -11,11 +11,11 @@ export default createGlobalStyle`
   html{
     font-size: 62.5%;
 
-    @media ${(props) => props.theme.mediaQueries.larger} {
+    @media ${(props) => props.theme.mediaQueries.large} {
       font-size: 60%;
     }
 
-    @media ${(props) => props.theme.mediaQueries.large} {
+    @media ${(props) => props.theme.mediaQueries.medium} {
       font-size: 57.5%;
     }
 
@@ -26,30 +26,9 @@ export default createGlobalStyle`
 
   body{
     font: 400 1.8rem 'Poppins', sans-serif;
+    line-height: 1.6;
     background-color: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.body};
   }
 
-  h1, h2, h3{
-    font-weight: 700;
-  }
-
-  h1{
-    font-size: 6.4rem;
-    line-height: 66px;
-  }
-
-  h2{
-    font-size: 4.8rem;
-    line-height: 50px;
-  }
-
-  h3{
-    font-size: 3.2rem;
-    line-height: 34px;
-  }
-
-  p{
-    line-height: 25px;
-  }
 `;
