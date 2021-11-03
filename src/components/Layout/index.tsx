@@ -11,7 +11,7 @@ interface LayoutProps {
 const Container = styled.main`
   max-width: 121.4rem;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0 auto;
 
   padding: 5rem 2rem 10rem;
@@ -22,7 +22,7 @@ const Container = styled.main`
   justify-content: space-between;
 
   @media ${(props) => props.theme.mediaQueries.small} {
-    padding-bottom: 3rem;
+    padding: 2rem 2rem 6rem;
   }
 `;
 

@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 100%;
   font-size: 1.4rem;
   color: ${(props) => props.theme.colors.label};
 
@@ -22,6 +21,18 @@ export const Container = styled.div`
     a {
       color: ${(props) => props.theme.colors.off_white};
       font-size: 2.5rem;
+    }
+  }
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    gap: 1rem;
+
+    .icons {
+      gap: 1.5rem;
+
+      a {
+        font-size: 2rem;
+      }
     }
   }
 `;
