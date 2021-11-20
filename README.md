@@ -6,7 +6,7 @@
 
 - 🧑🏽‍💻 I work with **Web and Mobile Development**
 
-- 💻 Ask me about **Linux 🐧**
+- 💻 Addicted and passionate about **Linux 🐧**
 
 - 🚀 You can reach me at [nublson.com](https://nublson.com)
 
