@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalStyles from "../../styles/global";
 import theme from "../../styles/theme";
-import { Footer, Header } from "../shared/molecules";
+import { Header } from "../shared/molecules";
 
 interface LayoutProps {
   children: ReactNode;
@@ -22,7 +22,6 @@ const Container = styled.main`
 const Content = styled.div`
   width: 100%;
   max-width: 121.8rem;
-  height: 100%;
 
   margin: 0 auto;
 
@@ -31,7 +30,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 const Layout = ({ children }: LayoutProps) => {
@@ -40,7 +39,6 @@ const Layout = ({ children }: LayoutProps) => {
       <Container>
         <Header />
         <Content>{children}</Content>
-        <Footer />
       </Container>
       <GlobalStyles />
     </ThemeProvider>

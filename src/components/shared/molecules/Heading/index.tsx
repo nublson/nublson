@@ -7,9 +7,12 @@ interface HeadingProps {
   title: string;
   subtitle: string;
   image: StaticImageData;
+  article?: boolean;
 }
 
-function Heading({ top, title, subtitle, image }: HeadingProps) {
+function Heading({ top, title, subtitle, image, article }: HeadingProps) {
+  console.log({ article });
+
   return (
     <Container>
       <Content>
@@ -17,8 +20,8 @@ function Heading({ top, title, subtitle, image }: HeadingProps) {
         <Titles.Large content={title} />
         <Texts.Large content={subtitle} />
       </Content>
-      <Thumbnail>
-        <Image src={image} alt="Thumbnail" />
+      <Thumbnail article={article}>
+        <Image src={image} alt="Thumbnail" objectFit="cover" layout="fill" />
       </Thumbnail>
     </Container>
   );

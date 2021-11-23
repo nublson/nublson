@@ -1,16 +1,24 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Container } from "../styles/pages/Home";
+
+import HomeSection from "../section/Home";
+
+import home from "../assets/img/home.jpg";
 
 const Home: NextPage = () => {
   return (
-    <Container>
+    <>
       <Head>
         <title>Nubelson Fernandes | Developer &#38; Content Creator</title>
       </Head>
 
-      <h1>Hello World!</h1>
-    </Container>
+      <HomeSection
+        top="Hi, my name is"
+        title="Nubelson Fernandes"
+        subtitle="Developer and Content Creator with also xp in UI Design"
+        image={home}
+      />
+    </>
   );
 };
 
