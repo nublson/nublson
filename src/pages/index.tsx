@@ -13,7 +13,7 @@ const Home: NextPage = () => {
       <Heading
         top="Hi, my name is"
         title="Nubelson Fernandes"
-        subtitle="Developer and Content Creator with also xp in UI Design"
+        subtitle="Developer and Content Creator with also XP in UI Design"
       />
     </Container>
   );
