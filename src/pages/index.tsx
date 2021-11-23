@@ -1,9 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-
-import HomeSection from "../section/Home";
-
 import home from "../assets/img/home.jpg";
+import HomeSection from "../section/Home";
+import WorkSection from "../section/Work";
 
 const Home: NextPage = () => {
   return (
@@ -18,6 +17,7 @@ const Home: NextPage = () => {
         subtitle="Developer and Content Creator with also xp in UI Design"
         image={home}
       />
+      <WorkSection />
     </>
   );
 };
