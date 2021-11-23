@@ -1,9 +1,14 @@
 import { Container } from "./styles";
+import { Texts } from "../../atoms";
 
 function Footer() {
   return (
     <Container>
-      <p>Footer</p>
+      <div className="content">
+        <Texts.Small content="With ❤️ and ☕" />
+
+        <Texts.Small content="&copy; 2021, Nubelson Fernandes" />
+      </div>
     </Container>
   );
 }
