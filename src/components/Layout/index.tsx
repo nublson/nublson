@@ -9,14 +9,24 @@ interface LayoutProps {
 }
 
 const Container = styled.main`
-  position: relative;
-
-  max-width: 121.4rem;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  padding-top: 5rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Content = styled.div`
+  width: 100%;
+  max-width: 121.8rem;
+  height: 100%;
+
   margin: 0 auto;
 
-  padding: 0rem 2rem;
+  flex: 1;
 
   display: flex;
   flex-direction: column;
@@ -29,7 +39,7 @@ const Layout = ({ children }: LayoutProps) => {
     <ThemeProvider theme={theme}>
       <Container>
         <Header />
-        {children}
+        <Content>{children}</Content>
         <Footer />
       </Container>
       <GlobalStyles />
