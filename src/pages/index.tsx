@@ -3,6 +3,7 @@ import Head from "next/head";
 import home from "../assets/img/home.jpg";
 import HomeSection from "../section/Home";
 import WorkSection from "../section/Work";
+import BlogSection from "../section/Blog";
 
 const Home: NextPage = () => {
   return (
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
         image={home}
       />
       <WorkSection />
+      <BlogSection />
     </>
   );
 };

@@ -1,8 +1,9 @@
-import { Texts, Titles } from "../../atoms";
-import { WorkContainer } from "./styles";
 import { ReactNode } from "react";
-
 import { IconContext } from "react-icons";
+import { Texts, Titles } from "../../atoms";
+import { BlogContainer, WorkContainer, Thumbnail } from "./styles";
+
+import Image from "next/image";
 
 interface CardsProps {
   title: string;
@@ -13,6 +14,12 @@ interface WorkCard extends CardsProps {
   link: string;
   stats: string;
   icon: ReactNode;
+}
+
+interface BlogCard extends CardsProps {
+  thumbnail: StaticImageData;
+  publish_date: string;
+  read_time: number;
 }
 
 function Work({ title, description, link, stats, icon }: WorkCard) {
@@ -43,8 +50,41 @@ function Work({ title, description, link, stats, icon }: WorkCard) {
   );
 }
 
+function Blog({
+  thumbnail,
+  title,
+  description,
+  publish_date,
+  read_time,
+}: BlogCard) {
+  return (
+    <BlogContainer>
+      <Thumbnail>
+        <Image
+          src={thumbnail}
+          alt="Thumbnail"
+          objectFit="cover"
+          layout="fill"
+        />
+      </Thumbnail>
+      <div className="data">
+        <div className="heading">
+          <Titles.Small content={title} />
+          <Texts.Medium content={description} />
+        </div>
+
+        <div className="footer">
+          <Texts.XSmall content={publish_date} />
+          <Texts.XSmall content={`${read_time} min read`} />
+        </div>
+      </div>
+    </BlogContainer>
+  );
+}
+
 const Cards = {
   Work,
+  Blog,
 };
 
 export default Cards;

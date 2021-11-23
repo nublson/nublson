@@ -1,13 +1,12 @@
-import { Container } from "./styles";
 import {
   RiInstagramLine,
-  RiYoutubeLine,
-  RiUnsplashLine,
   RiStoreLine,
+  RiUnsplashLine,
+  RiYoutubeLine,
 } from "react-icons/ri";
-
 import { Section } from "../../components/Layout/elements";
 import { Cards } from "../../components/shared/molecules";
+import { Container } from "./styles";
 
 function Work() {
   return (

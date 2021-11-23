@@ -19,7 +19,7 @@ const StyledSection = styled.section`
   justify-content: center;
 
   & > :first-child {
-    max-width: 50%;
+    max-width: 60%;
     margin: 0 auto 10rem;
     text-align: center;
   }
