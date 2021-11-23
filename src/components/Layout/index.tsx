@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalStyles from "../../styles/global";
 import theme from "../../styles/theme";
-import { Footer, Header } from "../shared";
+import { Footer, Header } from "../shared/molecules";
 
 interface LayoutProps {
   children: ReactNode;

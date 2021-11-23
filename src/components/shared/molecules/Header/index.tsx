@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import logoWhite from "../../../assets/img/logo_white.svg";
+import logoWhite from "../../../../assets/img/logo_white.svg";
 
 import { Container } from "./styles";
 

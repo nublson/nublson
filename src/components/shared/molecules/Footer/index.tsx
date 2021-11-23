@@ -1,7 +1,7 @@
 import { RiInstagramLine, RiUnsplashLine, RiYoutubeLine } from "react-icons/ri";
 import { Container } from "./styles";
 
-import { Texts } from "../atoms";
+import { Texts } from "../../atoms";
 
 function Footer() {
   return (
