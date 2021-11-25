@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, HTMLAttributes } from "react";
 import { IconContext } from "react-icons";
 import { Texts, Titles } from "../../atoms";
 import { BlogContainer, WorkContainer, Thumbnail } from "./styles";
@@ -24,7 +24,7 @@ interface BlogCard extends CardsProps {
 
 function Work({ title, description, link, stats, icon }: WorkCard) {
   return (
-    <WorkContainer>
+    <WorkContainer href={link} target="_blank" rel="noreferrer">
       <IconContext.Provider
         value={{
           color: "#fcfcfc",

@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export const WorkContainer = styled.div`
+export const WorkContainer = styled.a`
   width: 100%;
   padding: 5rem 5rem 3rem;
   border: 4px solid ${(props) => props.theme.colors.line};
+  text-decoration: none;
 
   &:hover {
     border-color: ${(props) => props.theme.colors.off_white};
@@ -32,6 +33,10 @@ export const WorkContainer = styled.div`
     align-items: flex-start;
     justify-content: center;
     gap: 2rem;
+
+    p {
+      color: ${(props) => props.theme.colors.body};
+    }
   }
 
   .footer {

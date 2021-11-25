@@ -12,6 +12,12 @@ export const Container = styled.div`
   & > :last-child {
     font-weight: 600;
     color: ${(props) => props.theme.colors.off_white};
+    text-decoration: underline transparent;
+
+    &:hover {
+      text-decoration: underline;
+      transition: all 0.2s;
+    }
   }
 `;
 
