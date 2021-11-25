@@ -4,6 +4,7 @@ import home from "../assets/img/home.jpg";
 import HomeSection from "../section/Home";
 import WorkSection from "../section/Work";
 import BlogSection from "../section/Blog";
+import ContactSection from "../section/Contact";
 
 const Home: NextPage = () => {
   return (
@@ -20,6 +21,7 @@ const Home: NextPage = () => {
       />
       <WorkSection />
       <BlogSection />
+      <ContactSection />
     </>
   );
 };

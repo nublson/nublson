@@ -11,8 +11,6 @@ interface HeadingProps {
 }
 
 function Heading({ top, title, subtitle, image, article }: HeadingProps) {
-  console.log({ article });
-
   return (
     <Container>
       <Content>

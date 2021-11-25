@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalStyles from "../../styles/global";
 import theme from "../../styles/theme";
-import { Header } from "../shared/molecules";
+import { Header, Footer } from "../shared/molecules";
 
 interface LayoutProps {
   children: ReactNode;
@@ -39,6 +39,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Container>
         <Header />
         <Content>{children}</Content>
+        <Footer />
       </Container>
       <GlobalStyles />
     </ThemeProvider>

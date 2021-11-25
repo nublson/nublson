@@ -1,11 +1,8 @@
-import { Section } from "../../components/Layout/elements";
-import { Container, BlogList } from "./styles";
-
 import blog1 from "../../assets/img/blog1.jpg";
 import blog2 from "../../assets/img/blog2.jpg";
-
-import { Cards } from "../../components/shared/molecules";
-import { Texts } from "../../components/shared/atoms";
+import { Section } from "../../components/Layout/elements";
+import { Buttons, Cards } from "../../components/shared/molecules";
+import { BlogList, Container } from "./styles";
 
 function Blog() {
   return (
@@ -28,7 +25,7 @@ function Blog() {
           />
         </BlogList>
 
-        <Texts.Small content="See all blog posts" />
+        <Buttons.Text title="See all blog posts" />
       </Container>
     </Section>
   );
