@@ -18,6 +18,7 @@ const Home: NextPage = () => {
         title="Nubelson Fernandes"
         subtitle="Developer and Content Creator with also xp in UI Design"
         image={home}
+        id="home"
       />
       <WorkSection />
       <BlogSection />

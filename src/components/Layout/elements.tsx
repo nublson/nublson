@@ -1,9 +1,9 @@
-import { ReactNode } from "react";
+import { ReactNode, HTMLAttributes } from "react";
 import styled from "styled-components";
 
 import { Titles } from "../shared/atoms";
 
-interface SectionProps {
+interface SectionProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   children: ReactNode;
 }
@@ -36,9 +36,9 @@ const SectionContent = styled.div`
   justify-content: center;
 `;
 
-export const Section = ({ title, children }: SectionProps) => {
+export const Section = ({ title, children, ...rest }: SectionProps) => {
   return (
-    <StyledSection>
+    <StyledSection {...rest}>
       <Titles.Medium content={title} />
       <SectionContent>{children}</SectionContent>
     </StyledSection>

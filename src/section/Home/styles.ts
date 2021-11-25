@@ -1,3 +1,4 @@
+import { Link } from "react-scroll";
 import styled from "styled-components";
 
 interface HomeProps {
@@ -21,4 +22,8 @@ export const Container = styled.div<HomeProps>`
     `
     padding-bottom: 1rem;
   `}
+`;
+
+export const ScrollLink = styled(Link)`
+  cursor: pointer;
 `;

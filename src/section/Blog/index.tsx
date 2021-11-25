@@ -6,7 +6,10 @@ import { BlogList, Container } from "./styles";
 
 function Blog() {
   return (
-    <Section title="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+    <Section
+      id="blog"
+      title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    >
       <Container>
         <BlogList>
           <Cards.Blog

@@ -1,8 +1,9 @@
 import { RiArrowDownSLine } from "react-icons/ri";
 import { Heading } from "../../components/shared/molecules";
-import { Container } from "./styles";
+import { Container, ScrollLink } from "./styles";
+import { HTMLAttributes } from "react";
 
-interface HomeProps {
+interface HomeProps extends HTMLAttributes<HTMLDivElement> {
   top: string;
   title: string;
   subtitle: string;
@@ -10,9 +11,9 @@ interface HomeProps {
   article?: boolean;
 }
 
-function Home({ top, title, subtitle, image, article }: HomeProps) {
+function Home({ top, title, subtitle, image, article, ...rest }: HomeProps) {
   return (
-    <Container article={article}>
+    <Container article={article} {...rest}>
       <Heading
         top={top}
         title={title}
@@ -20,7 +21,11 @@ function Home({ top, title, subtitle, image, article }: HomeProps) {
         image={image}
         article={article}
       />
-      {!article && <RiArrowDownSLine size={30} color="#FCFCFC" />}
+      {!article && (
+        <ScrollLink to="work" spy={true} smooth={true} duration={1000}>
+          <RiArrowDownSLine size={30} color="#FCFCFC" />
+        </ScrollLink>
+      )}
     </Container>
   );
 }

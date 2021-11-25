@@ -1,3 +1,4 @@
+import { Link } from "react-scroll";
 import styled from "styled-components";
 
 export const Container = styled.nav`
@@ -13,4 +14,8 @@ export const Container = styled.nav`
     justify-content: center;
     gap: 3rem;
   }
+`;
+
+export const ScrollLink = styled(Link)`
+  cursor: pointer;
 `;

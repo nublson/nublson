@@ -10,7 +10,7 @@ import { Container } from "./styles";
 
 function Work() {
   return (
-    <Section title="Lectus vivamus nam ornare mauris lacinia.">
+    <Section id="work" title="Lectus vivamus nam ornare mauris lacinia.">
       <Container>
         <Cards.Work
           icon={<RiInstagramLine />}
