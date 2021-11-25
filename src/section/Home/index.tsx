@@ -8,10 +8,19 @@ interface HomeProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   subtitle: string;
   image: StaticImageData;
+  scrollTo: string;
   article?: boolean;
 }
 
-function Home({ top, title, subtitle, image, article, ...rest }: HomeProps) {
+function Home({
+  top,
+  title,
+  subtitle,
+  image,
+  scrollTo,
+  article,
+  ...rest
+}: HomeProps) {
   return (
     <Container article={article} {...rest}>
       <Heading
@@ -22,7 +31,7 @@ function Home({ top, title, subtitle, image, article, ...rest }: HomeProps) {
         article={article}
       />
       {!article && (
-        <ScrollLink to="work" spy={true} smooth={true} duration={1000}>
+        <ScrollLink to={scrollTo} spy={true} smooth={true} duration={1000}>
           <RiArrowDownSLine size={30} color="#FCFCFC" />
         </ScrollLink>
       )}
