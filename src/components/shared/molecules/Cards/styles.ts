@@ -71,23 +71,26 @@ export const BlogContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 1rem;
 
   .data {
+    flex: 1;
     width: 100%;
-    padding: 1rem;
+    padding: 0 1rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
     .heading {
+      flex: 1;
       text-align: center;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 1rem;
     }
 
