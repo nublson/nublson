@@ -1,13 +1,12 @@
-import { useState } from "react";
 import blog1 from "../../assets/img/blog1.jpg";
 import { Section } from "../../components/Layout/elements";
 import { RouteLink } from "../../components/shared/atoms";
 import { Buttons, Cards } from "../../components/shared/molecules";
-import { articles as data } from "../../utils/articles.json";
+import data from "../../utils/articles.json";
 import { BlogList, Container } from "./styles";
 
 function Blog() {
-  const [articles] = useState(data);
+  const { articles } = data;
 
   return (
     <Section

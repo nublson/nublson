@@ -13,28 +13,28 @@ function Work() {
     <Section id="work" title="Lectus vivamus nam ornare mauris lacinia.">
       <Container>
         <Cards.Work
-          icon={<RiInstagramLine />}
+          icon={<RiInstagramLine size="40" color="#fcfcfc" />}
           title="Instagram"
           description="Volutpat sed risus tristique purus justo massa tempor egestas. Arcu non diam a, justo, morbi dolor elit."
           link="https://instagram.com/nublson"
           stats="2K followers"
         />
         <Cards.Work
-          icon={<RiYoutubeLine />}
+          icon={<RiYoutubeLine size="40" color="#fcfcfc" />}
           title="Youtube"
           description="Volutpat sed risus tristique purus justo massa tempor egestas. Arcu non diam a, justo, morbi dolor elit."
           link="https://www.youtube.com/channel/UC0kP3MzeS1re1XqQ7ebKIrA"
           stats="81 subscribers"
         />
         <Cards.Work
-          icon={<RiUnsplashLine />}
+          icon={<RiUnsplashLine size="40" color="#fcfcfc" />}
           title="Unsplash"
           description="Volutpat sed risus tristique purus justo massa tempor egestas. Arcu non diam a, justo, morbi dolor elit."
           link="https://unsplash.com/@nublson"
           stats="7.3M views/last 30 days"
         />
         <Cards.Work
-          icon={<RiStoreLine />}
+          icon={<RiStoreLine size="40" color="#fcfcfc" />}
           title="Online Store"
           description="Volutpat sed risus tristique purus justo massa tempor egestas. Arcu non diam a, justo, morbi dolor elit."
           link="https://gumroad.com/nublson"

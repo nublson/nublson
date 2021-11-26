@@ -1,9 +1,7 @@
-import { ReactNode, HTMLAttributes } from "react";
-import { IconContext } from "react-icons";
-import { Texts, Titles } from "../../atoms";
-import { BlogContainer, WorkContainer, Thumbnail } from "./styles";
-
 import Image from "next/image";
+import { ReactNode } from "react";
+import { Texts, Titles } from "../../atoms";
+import { BlogContainer, Thumbnail, WorkContainer } from "./styles";
 
 interface CardsProps {
   title: string;
@@ -25,14 +23,7 @@ interface BlogCard extends CardsProps {
 function Work({ title, description, link, stats, icon }: WorkCard) {
   return (
     <WorkContainer href={link} target="_blank" rel="noreferrer">
-      <IconContext.Provider
-        value={{
-          color: "#fcfcfc",
-          size: "40",
-        }}
-      >
-        {icon}
-      </IconContext.Provider>
+      {icon}
       <div className="body">
         <div className="content">
           <Titles.Small content={title} />

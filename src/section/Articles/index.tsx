@@ -1,10 +1,10 @@
 import { FormHandles, SubmitHandler } from "@unform/core";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import thumbnail from "../../assets/img/blog3.jpg";
 import { Section } from "../../components/Layout/elements";
 import { Buttons, Cards, Input } from "../../components/shared/molecules";
-import { articles as data } from "../../utils/articles.json";
+import data from "../../utils/articles.json";
 import { ArticleList, Container, StyledForm } from "./styles";
 
 interface FormData {
@@ -12,8 +12,7 @@ interface FormData {
 }
 
 function Articles() {
-  const [articles] = useState(data);
-
+  const { articles } = data;
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit: SubmitHandler<FormData> = (data, { reset }) => {
