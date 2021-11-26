@@ -15,38 +15,6 @@
       "description": "Ac nulla purus platea nec est proin turpis. Et orci purus gravida volutpat ac libero pretium.",
       "publish_date": "September 10, 2021",
       "read_time": 4
-    },
-    {
-      "id": 2,
-      "thumbnail": "../assets/img/blog3.jpg",
-      "title": "In at interdum adipiscing urna pellentesque at.",
-      "description": "Pulvinar at viverra ac arcu tellus neque, neque quis. At ornare odio sed feugiat phasellus iaculis metus tincidunt in.",
-      "publish_date": "September 18, 2021",
-      "read_time": 3
-    },
-    {
-      "id": 3,
-      "thumbnail": "../assets/img/blog4.jpg",
-      "title": "Orci lectus felis commodo eget pellentesque.",
-      "description": "Consequat consectetur viverra blandit tristique suspendisse amet varius odio fringilla. A id ultrices viverra id tempus et.",
-      "publish_date": "September 18, 2021",
-      "read_time": 5
-    },
-    {
-      "id": 4,
-      "thumbnail": "../assets/img/blog5.jpg",
-      "title": "Ut proin aenean elementum pellentesque diam cum eleifend.",
-      "description": "At dui blandit suspendisse consectetur euismod viverra et. Eget id bibendum nisi vitae est faucibus auctor suspendisse.",
-      "publish_date": "September 18, 2021",
-      "read_time": 3
-    },
-    {
-      "id": 5,
-      "thumbnail": "../assets/img/blog6.jpg",
-      "title": "Libero mollis mauris magna in quam dui.",
-      "description": "Risus mauris sociis ipsum, turpis. Pellentesque adipiscing ultricies pharetra, diam sed id.",
-      "publish_date": "September 18, 2021",
-      "read_time": 3
     }
   ]
 }

@@ -16,8 +16,8 @@ const Blog: NextPage = () => {
       <HomeSection
         id="home"
         top="Welcome to my"
-        title="Personal Blog"
-        subtitle="Suscipit facilisi sed sed duis augue erat commodo."
+        title="Blog"
+        subtitle="Sharing ideas, thoughts and experience"
         image={blog}
         scrollTo="articles"
       />

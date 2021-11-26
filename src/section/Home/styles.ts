@@ -9,7 +9,7 @@ export const Container = styled.div<HomeProps>`
   width: 100%;
   flex: 1;
 
-  padding-top: 10rem;
+  padding-top: 8rem;
 
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@ export const Container = styled.div<HomeProps>`
   ${(props) =>
     !props.article &&
     `
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
   `}
 `;
 
