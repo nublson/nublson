@@ -5,6 +5,7 @@ import blog from "../assets/img/blog.jpg";
 
 import HomeSection from "../section/Home";
 import ArticlesSection from "../section/Articles";
+import ContactSection from "../section/Contact";
 
 const Blog: NextPage = () => {
   return (
@@ -21,6 +22,7 @@ const Blog: NextPage = () => {
         scrollTo="articles"
       />
       <ArticlesSection />
+      <ContactSection />
     </>
   );
 };
