@@ -1,8 +1,13 @@
+import { ReactNode, HTMLAttributes } from "react";
 import { Texts } from "../../atoms";
-import { Container } from "./styles";
+import { Container, StyledIcon } from "./styles";
 
 interface ButtonsProps {
   title: string;
+}
+
+interface ButtonIconProps extends HTMLAttributes<HTMLButtonElement> {
+  icon: ReactNode;
 }
 
 function Main({ title }: ButtonsProps) {
@@ -17,9 +22,14 @@ function Text({ title }: ButtonsProps) {
   return <Texts.Small content={title} />;
 }
 
+function Icon({ icon, ...rest }: ButtonIconProps) {
+  return <StyledIcon {...rest}>{icon}</StyledIcon>;
+}
+
 const Buttons = {
   Main,
   Text,
+  Icon,
 };
 
 export default Buttons;

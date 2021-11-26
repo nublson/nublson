@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Titles } from "../shared/atoms";
 
 interface SectionProps extends HTMLAttributes<HTMLDivElement> {
-  title: string;
+  title?: string;
   children: ReactNode;
 }
 
@@ -18,7 +18,7 @@ const StyledSection = styled.section`
   align-items: center;
   justify-content: center;
 
-  & > :first-child {
+  h2 {
     max-width: 60%;
     margin: 0 auto 10rem;
     text-align: center;
@@ -39,7 +39,7 @@ const SectionContent = styled.div`
 export const Section = ({ title, children, ...rest }: SectionProps) => {
   return (
     <StyledSection {...rest}>
-      <Titles.Medium content={title} />
+      {title && <Titles.Medium content={title} />}
       <SectionContent>{children}</SectionContent>
     </StyledSection>
   );
