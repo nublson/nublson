@@ -11,7 +11,7 @@ const Blog: NextPage = () => {
   return (
     <>
       <Head>
-        <title>NUBLog - by Nubelson Fernandes</title>
+        <title>Blog - Nubelson Fernandes</title>
       </Head>
       <HomeSection
         id="home"
