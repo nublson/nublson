@@ -19,7 +19,13 @@ function Heading({ top, title, subtitle, image, article }: HeadingProps) {
         <Texts.Large content={subtitle} />
       </Content>
       <Thumbnail article={article}>
-        <Image src={image} alt="Thumbnail" objectFit="cover" layout="fill" />
+        <Image
+          src={image}
+          alt="Thumbnail"
+          objectFit="cover"
+          layout="fill"
+          priority
+        />
       </Thumbnail>
     </Container>
   );

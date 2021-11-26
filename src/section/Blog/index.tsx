@@ -1,12 +1,14 @@
+import { useState } from "react";
 import blog1 from "../../assets/img/blog1.jpg";
-import blog2 from "../../assets/img/blog2.jpg";
 import { Section } from "../../components/Layout/elements";
+import { RouteLink } from "../../components/shared/atoms";
 import { Buttons, Cards } from "../../components/shared/molecules";
+import { articles as data } from "../../utils/articles.json";
 import { BlogList, Container } from "./styles";
 
-import { RouteLink } from "../../components/shared/atoms";
-
 function Blog() {
+  const [articles] = useState(data);
+
   return (
     <Section
       id="blog"
@@ -14,20 +16,16 @@ function Blog() {
     >
       <Container>
         <BlogList>
-          <Cards.Blog
-            thumbnail={blog1}
-            title="Dolor potenti diam varius nisi, enim, vitae."
-            description="Ipsum arcu ultrices nunc blandit urna, enim. Varius turpis sagittis ipsum aliquam at rhoncus praesent est."
-            publish_date="September 18, 2021"
-            read_time={3}
-          />
-          <Cards.Blog
-            thumbnail={blog2}
-            title="Nunc donec faucibus mattis non pellentesque nam amet, est."
-            description="Turpis massa in vitae fermentum ut. A, in vitae pharetra in tristique ultrices consectetur sit."
-            publish_date="September 10, 2021"
-            read_time={5}
-          />
+          {articles.map((article) => (
+            <Cards.Blog
+              key={article.id}
+              thumbnail={blog1}
+              title={article.title}
+              description={article.description}
+              publish_date={article.publish_date}
+              read_time={article.read_time}
+            />
+          ))}
         </BlogList>
 
         <RouteLink href="/blog">

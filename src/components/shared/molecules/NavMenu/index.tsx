@@ -31,6 +31,21 @@ const NavMenu = () => {
                 >
                   <Texts.Medium content={item.name} />
                 </ScrollLink>
+              ) : item.name === "Work" ? (
+                pathname === "/" ? (
+                  <ScrollLink
+                    to={item.path}
+                    spy={true}
+                    smooth={true}
+                    duration={1000}
+                  >
+                    <Texts.Medium content={item.name} />
+                  </ScrollLink>
+                ) : (
+                  <RouteLink href={`/#${item.path}`}>
+                    <Texts.Medium content={item.name} />
+                  </RouteLink>
+                )
               ) : (
                 <RouteLink href={`/${item.path}`}>
                   <Texts.Medium content={item.name} />
