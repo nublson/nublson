@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-}
+  env: {
+    NOTION_ACCESS_TOKEN: process.env.NOTION_ACCESS_TOKEN,
+    NOTION_DATABASE_ID: process.env.NOTION_DATABASE_ID,
+  },
+};
