@@ -2,7 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
-import home from "../assets/img/home.jpg";
+import home from "../assets/img/home.webp";
 import BlogSection from "../section/Blog";
 import ContactSection from "../section/Contact";
 import HomeSection from "../section/Home";
@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps = async () => {
       posts: results,
     },
 
-    revalidate: 1,
+    revalidate: 10,
   };
 };
 

@@ -1,10 +1,7 @@
-import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { Texts, RouteLink } from "../../atoms";
-
-import { Container, ScrollLink } from "./styles";
-
 import { navItems } from "../../../../utils/navItems";
+import { RouteLink, Texts } from "../../atoms";
+import { Container, ScrollLink } from "./styles";
 
 const NavMenu = () => {
   const { pathname } = useRouter();
