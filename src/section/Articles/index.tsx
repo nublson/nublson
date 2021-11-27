@@ -1,7 +1,6 @@
 import { FormHandles, SubmitHandler } from "@unform/core";
 import { useRef } from "react";
 import { RiSearchLine } from "react-icons/ri";
-import thumbnail from "../../assets/img/blog3.jpg";
 import { Section } from "../../components/Layout/elements";
 import { Buttons, Cards, Input } from "../../components/shared/molecules";
 import { BlogItem } from "../../utils/types";
@@ -39,7 +38,7 @@ function Articles({ posts }: ArticlesProps) {
           {posts.map((article) => (
             <Cards.Blog
               key={article.id}
-              thumbnail={thumbnail}
+              thumbnail={article.thumbnail}
               title={article.title}
               description={article.description}
               publish_date={article.publish_date}

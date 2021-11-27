@@ -20,7 +20,7 @@ function Blog({ posts }: BlogProps) {
           {posts.map((article) => (
             <Cards.Blog
               key={article.id}
-              thumbnail={blog1}
+              thumbnail={article.thumbnail}
               title={article.title}
               description={article.description}
               publish_date={article.publish_date}

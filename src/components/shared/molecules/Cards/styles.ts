@@ -60,6 +60,7 @@ export const WorkContainer = styled.a`
 `;
 
 export const BlogContainer = styled.div`
+  position: relative;
   width: 100%;
   cursor: pointer;
   border: 4px solid transparent;
