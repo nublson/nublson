@@ -46,9 +46,10 @@ export const WorkContainer = styled.a`
     align-items: center;
     justify-content: space-between;
 
-    .link {
+    & > :first-child {
       color: ${(props) => props.theme.colors.off_white};
       font-weight: 600;
+      text-decoration: underline;
     }
 
     & > :last-child {

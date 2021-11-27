@@ -31,9 +31,7 @@ function Work({ title, description, link, stats, icon }: WorkCard) {
         </div>
 
         <div className="footer">
-          <a className="link" href={link} target="_blank" rel="noreferrer">
-            <Texts.Small content="Visit" />
-          </a>
+          <Texts.Small content="Visit" />
           <Texts.Small content={stats} />
         </div>
       </div>

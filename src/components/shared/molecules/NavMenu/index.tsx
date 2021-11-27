@@ -9,10 +9,6 @@ import { navItems } from "../../../../utils/navItems";
 const NavMenu = () => {
   const { pathname } = useRouter();
 
-  useEffect(() => {
-    console.log(pathname);
-  }, [pathname]);
-
   return (
     <Container>
       <ul>
