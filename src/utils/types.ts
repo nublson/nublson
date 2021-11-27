@@ -13,10 +13,13 @@ export type DatabaseResult = {
   created_time: string;
   last_edited_time: string;
   cover: {
-    type: string;
+    type: "external" | "file";
     file: {
       url: string;
       expiry_time: string;
+    };
+    external: {
+      url: string;
     };
   };
   icon: {

@@ -19,7 +19,10 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
     const formatedPosts: BlogItem[] = posts.map((item) => {
       return {
         id: item.id,
-        thumbnail: item.cover.file.url,
+        thumbnail:
+          item.cover.type === "file"
+            ? item.cover.file.url
+            : item.cover.external.url,
         title: item.properties.Name.title[0].text.content,
         description: item.properties.description.rich_text[0].text.content,
         publish_date: item.properties.publish_date.date.start,
