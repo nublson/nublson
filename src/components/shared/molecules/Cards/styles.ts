@@ -94,6 +94,11 @@ export const BlogContainer = styled.div`
       align-items: center;
       justify-content: flex-start;
       gap: 1rem;
+      text-decoration: none;
+
+      & > * {
+        color: ${(props) => props.theme.colors.body};
+      }
     }
 
     .footer {

@@ -27,3 +27,8 @@ export const getDatabase = async (databaseId: string) => {
 
   return results;
 };
+
+export const getPage = async (pageId: string) => {
+  const response = await api.pages.retrieve({ page_id: pageId });
+  return response;
+};

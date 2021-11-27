@@ -3,8 +3,10 @@ import { useRef } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import { Section } from "../../components/Layout/elements";
 import { Buttons, Cards, Input } from "../../components/shared/molecules";
+import { RouteLink } from "../../components/shared/atoms";
 import { BlogItem } from "../../utils/types";
 import { ArticleList, Container, StyledForm } from "./styles";
+import slugify from "slugify";
 
 interface FormData {
   search: string;
@@ -36,14 +38,18 @@ function Articles({ posts }: ArticlesProps) {
 
         <ArticleList>
           {posts.map((article) => (
-            <Cards.Blog
+            <RouteLink
               key={article.id}
-              thumbnail={article.thumbnail}
-              title={article.title}
-              description={article.description}
-              publish_date={article.publish_date}
-              read_time={article.read_time}
-            />
+              href={`/blog/${slugify(article.title.toLowerCase())}`}
+            >
+              <Cards.Blog
+                thumbnail={article.thumbnail}
+                title={article.title}
+                description={article.description}
+                publish_date={article.publish_date}
+                read_time={article.read_time}
+              />
+            </RouteLink>
           ))}
         </ArticleList>
       </Container>

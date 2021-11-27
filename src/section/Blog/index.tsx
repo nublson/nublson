@@ -1,9 +1,9 @@
-import blog1 from "../../assets/img/blog1.jpg";
 import { Section } from "../../components/Layout/elements";
 import { RouteLink } from "../../components/shared/atoms";
 import { Buttons, Cards } from "../../components/shared/molecules";
 import { BlogItem } from "../../utils/types";
 import { BlogList, Container } from "./styles";
+import slugify from "slugify";
 
 interface BlogProps {
   posts: BlogItem[];
@@ -18,14 +18,18 @@ function Blog({ posts }: BlogProps) {
       <Container>
         <BlogList>
           {posts.map((article) => (
-            <Cards.Blog
+            <RouteLink
               key={article.id}
-              thumbnail={article.thumbnail}
-              title={article.title}
-              description={article.description}
-              publish_date={article.publish_date}
-              read_time={article.read_time}
-            />
+              href={`/blog/${slugify(article.title.toLowerCase())}`}
+            >
+              <Cards.Blog
+                thumbnail={article.thumbnail}
+                title={article.title}
+                description={article.description}
+                publish_date={article.publish_date}
+                read_time={article.read_time}
+              />
+            </RouteLink>
           ))}
         </BlogList>
 
