@@ -1,11 +1,11 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import blog from "../assets/img/blog.webp";
 import ArticlesSection from "../section/Articles";
 import ContactSection from "../section/Contact";
 import HomeSection from "../section/Home";
 import { getDatabase } from "../services/api";
+import files from "../utils/files.json";
 import { BlogItem, DatabaseResult } from "../utils/types";
 
 type BlogProps = {
@@ -43,7 +43,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
         top="Welcome to my"
         title="Blog"
         subtitle="Sharing ideas, thoughts and experience"
-        image={blog}
+        image={files.images.blog}
         scrollTo="articles"
       />
       <ArticlesSection posts={articles} />

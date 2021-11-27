@@ -1,15 +1,13 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-
-import home from "../assets/img/home.webp";
 import BlogSection from "../section/Blog";
 import ContactSection from "../section/Contact";
 import HomeSection from "../section/Home";
 import WorkSection from "../section/Work";
-
 import { getDatabase } from "../services/api";
-import { DatabaseResult, BlogItem } from "../utils/types";
+import files from "../utils/files.json";
+import { BlogItem, DatabaseResult } from "../utils/types";
 
 type HomeProps = {
   posts: DatabaseResult[];
@@ -47,7 +45,7 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
         top="Hi, my name is"
         title="Nubelson Fernandes"
         subtitle="Developer and Content Creator with also xp in UI Design"
-        image={home}
+        image={files.images.home}
         scrollTo="work"
       />
       <WorkSection />

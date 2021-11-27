@@ -6,7 +6,7 @@ interface HeadingProps {
   top: string;
   title: string;
   subtitle: string;
-  image: StaticImageData;
+  image: string | StaticImageData;
   article?: boolean;
 }
 

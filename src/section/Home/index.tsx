@@ -7,7 +7,7 @@ interface HomeProps extends HTMLAttributes<HTMLDivElement> {
   top: string;
   title: string;
   subtitle: string;
-  image: StaticImageData;
+  image: string | StaticImageData;
   scrollTo: string;
   article?: boolean;
 }
