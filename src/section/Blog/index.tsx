@@ -2,12 +2,14 @@ import blog1 from "../../assets/img/blog1.jpg";
 import { Section } from "../../components/Layout/elements";
 import { RouteLink } from "../../components/shared/atoms";
 import { Buttons, Cards } from "../../components/shared/molecules";
-import data from "../../utils/articles.json";
+import { BlogItem } from "../../utils/types";
 import { BlogList, Container } from "./styles";
 
-function Blog() {
-  const { articles } = data;
+interface BlogProps {
+  posts: BlogItem[];
+}
 
+function Blog({ posts }: BlogProps) {
   return (
     <Section
       id="blog"
@@ -15,7 +17,7 @@ function Blog() {
     >
       <Container>
         <BlogList>
-          {articles.map((article) => (
+          {posts.map((article) => (
             <Cards.Blog
               key={article.id}
               thumbnail={blog1}

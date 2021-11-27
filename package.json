@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@notionhq/client": "^0.4.9",
     "@unform/core": "^2.1.6",
     "@unform/web": "^2.1.6",
     "next": "11.1.2",

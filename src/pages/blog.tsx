@@ -6,8 +6,11 @@ import blog from "../assets/img/blog.jpg";
 import HomeSection from "../section/Home";
 import ArticlesSection from "../section/Articles";
 import ContactSection from "../section/Contact";
+import data from "../utils/articles.json";
 
 const Blog: NextPage = () => {
+  const { articles } = data;
+
   return (
     <>
       <Head>
@@ -21,7 +24,7 @@ const Blog: NextPage = () => {
         image={blog}
         scrollTo="articles"
       />
-      <ArticlesSection />
+      <ArticlesSection posts={articles} />
       <ContactSection />
     </>
   );

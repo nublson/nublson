@@ -15,7 +15,7 @@ interface WorkCard extends CardsProps {
 }
 
 interface BlogCard extends CardsProps {
-  thumbnail: StaticImageData;
+  thumbnail: string | StaticImageData;
   publish_date: string;
   read_time: number;
 }

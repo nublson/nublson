@@ -4,15 +4,18 @@ import { RiSearchLine } from "react-icons/ri";
 import thumbnail from "../../assets/img/blog3.jpg";
 import { Section } from "../../components/Layout/elements";
 import { Buttons, Cards, Input } from "../../components/shared/molecules";
-import data from "../../utils/articles.json";
+import { BlogItem } from "../../utils/types";
 import { ArticleList, Container, StyledForm } from "./styles";
 
 interface FormData {
   search: string;
 }
 
-function Articles() {
-  const { articles } = data;
+interface ArticlesProps {
+  posts: BlogItem[];
+}
+
+function Articles({ posts }: ArticlesProps) {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit: SubmitHandler<FormData> = (data, { reset }) => {
@@ -33,7 +36,7 @@ function Articles() {
         </StyledForm>
 
         <ArticleList>
-          {articles.map((article) => (
+          {posts.map((article) => (
             <Cards.Blog
               key={article.id}
               thumbnail={thumbnail}

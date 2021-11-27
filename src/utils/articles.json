@@ -1,16 +1,48 @@
 {
   "articles": [
     {
-      "id": 0,
-      "thumbnail": "../assets/img/blog1.jpg",
+      "id": 1,
+      "thumbnail": "/src/assets/img/blog1.jpg",
       "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       "description": "Ipsum arcu ultrices nunc blandit urna, enim. Varius turpis sagittis ipsum aliquam at rhoncus praesent est.",
       "publish_date": "September 18, 2021",
       "read_time": 3
     },
     {
-      "id": 1,
-      "thumbnail": "../assets/img/blog2.jpg",
+      "id": 2,
+      "thumbnail": "/src/assets/img/blog2.jpg",
+      "title": "Aliquet facilisis etiam sem non erat.",
+      "description": "Ac nulla purus platea nec est proin turpis.",
+      "publish_date": "September 10, 2021",
+      "read_time": 4
+    },
+    {
+      "id": 3,
+      "thumbnail": "/src/assets/img/blog3.jpg",
+      "title": "Aliquet facilisis etiam sem non erat.",
+      "description": "Ac nulla purus platea nec est proin turpis.",
+      "publish_date": "September 10, 2021",
+      "read_time": 4
+    },
+    {
+      "id": 4,
+      "thumbnail": "/src/assets/img/blog4.jpg",
+      "title": "Aliquet facilisis etiam sem non erat.",
+      "description": "Ac nulla purus platea nec est proin turpis.",
+      "publish_date": "September 10, 2021",
+      "read_time": 4
+    },
+    {
+      "id": 5,
+      "thumbnail": "/src/assets/img/blog5.jpg",
+      "title": "Aliquet facilisis etiam sem non erat.",
+      "description": "Ac nulla purus platea nec est proin turpis.",
+      "publish_date": "September 10, 2021",
+      "read_time": 4
+    },
+    {
+      "id": 6,
+      "thumbnail": "/src/assets/img/blog6.jpg",
       "title": "Aliquet facilisis etiam sem non erat.",
       "description": "Ac nulla purus platea nec est proin turpis.",
       "publish_date": "September 10, 2021",
