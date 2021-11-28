@@ -1,5 +1,5 @@
 export type BlogItem = {
-  id: number | string;
+  id: string;
   thumbnail: string;
   title: string;
   description: string;

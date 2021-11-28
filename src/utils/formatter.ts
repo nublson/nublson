@@ -45,3 +45,15 @@ export const formatSlug = (data: string | any) => {
 export const formatDate = (date: string) => {
   return moment(date).format("MMMM D, YYYY");
 };
+
+export const formatBlockWithChildren = (blocks: any[], childBlocks: any[]) => {
+  return blocks.map((block) => {
+    if (block.has_children && !block[block.type].children) {
+      block[block.type]["children"] = childBlocks.find(
+        (x) => x.id === block.id
+      )?.children;
+    }
+
+    return block;
+  });
+};

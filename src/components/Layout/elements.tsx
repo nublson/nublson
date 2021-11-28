@@ -25,6 +25,10 @@ const StyledSection = styled.section`
   }
 `;
 
+const StyledArticle = styled(StyledSection)`
+  padding-top: 10rem;
+`;
+
 const SectionContent = styled.div`
   width: 100%;
   height: 100%;
@@ -42,5 +46,13 @@ export const Section = ({ title, children, ...rest }: SectionProps) => {
       {title && <Titles.Medium content={title} />}
       <SectionContent>{children}</SectionContent>
     </StyledSection>
+  );
+};
+
+export const ArticleSection = ({ children, ...rest }: SectionProps) => {
+  return (
+    <StyledArticle {...rest}>
+      <SectionContent>{children}</SectionContent>
+    </StyledArticle>
   );
 };

@@ -36,7 +36,6 @@ export const getPage = async (pageId: string) => {
 export const getBlocks = async (blockId: string) => {
   const response = await api.blocks.children.list({
     block_id: blockId,
-    page_size: 50,
   });
   return response.results;
 };
