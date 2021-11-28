@@ -2,8 +2,8 @@ import { Section } from "../../components/Layout/elements";
 import { RouteLink } from "../../components/shared/atoms";
 import { Buttons, Cards } from "../../components/shared/molecules";
 import { BlogItem } from "../../utils/types";
+import { formatSlug } from "../../utils/formatter";
 import { BlogList, Container } from "./styles";
-import slugify from "slugify";
 
 interface BlogProps {
   posts: BlogItem[];
@@ -20,7 +20,7 @@ function Blog({ posts }: BlogProps) {
           {posts.map((article) => (
             <RouteLink
               key={article.id}
-              href={`/blog/${slugify(article.title.toLowerCase())}`}
+              href={`/blog/${formatSlug(article.title)}`}
             >
               <Cards.Blog
                 thumbnail={article.thumbnail}

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ReactNode } from "react";
 import { Texts, Titles } from "../../atoms";
 import { BlogContainer, Thumbnail, WorkContainer } from "./styles";
-import moment from "moment";
+import { formatDate } from "../../../../utils/formatter";
 
 interface CardsProps {
   title: string;
@@ -64,7 +64,7 @@ function Blog({
         </div>
 
         <div className="footer">
-          <Texts.XSmall content={moment(publish_date).format("MMMM D, YYYY")} />
+          <Texts.XSmall content={formatDate(publish_date)} />
           <Texts.XSmall content={`${read_time} min read`} />
         </div>
       </div>

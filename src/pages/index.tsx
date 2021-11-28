@@ -6,6 +6,7 @@ import HomeSection from "../section/Home";
 import WorkSection from "../section/Work";
 import { getDatabase } from "../services/api";
 import files from "../utils/files.json";
+import { formatPosts } from "../utils/formatter";
 import { BlogItem } from "../utils/types";
 
 type HomeProps = {
@@ -28,7 +29,7 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
         scrollTo="work"
       />
       <WorkSection />
-      <BlogSection posts={posts.slice(0, 2)} />
+      <BlogSection posts={posts} />
       <ContactSection />
     </>
   );
@@ -37,17 +38,7 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const results = await getDatabase(process.env.NOTION_DATABASE_ID);
 
-  const posts: BlogItem[] = results.map((post) => ({
-    id: post.id,
-    thumbnail:
-      post.cover.type === "file"
-        ? post.cover.file.url
-        : post.cover.external.url,
-    title: post.properties.Name.title[0].text.content,
-    description: post.properties.description.rich_text[0].text.content,
-    publish_date: post.properties.publish_date.date.start,
-    read_time: 3,
-  }));
+  const posts = formatPosts(results).slice(0, 2);
 
   return {
     props: {

@@ -5,6 +5,7 @@ import ContactSection from "../section/Contact";
 import HomeSection from "../section/Home";
 import { getDatabase } from "../services/api";
 import files from "../utils/files.json";
+import { formatPosts } from "../utils/formatter";
 import { BlogItem } from "../utils/types";
 
 type BlogProps = {
@@ -34,17 +35,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const results = await getDatabase(process.env.NOTION_DATABASE_ID);
 
-  const posts: BlogItem[] = results.map((post) => ({
-    id: post.id,
-    thumbnail:
-      post.cover.type === "file"
-        ? post.cover.file.url
-        : post.cover.external.url,
-    title: post.properties.Name.title[0].text.content,
-    description: post.properties.description.rich_text[0].text.content,
-    publish_date: post.properties.publish_date.date.start,
-    read_time: 3,
-  }));
+  const posts = formatPosts(results);
 
   return {
     props: {

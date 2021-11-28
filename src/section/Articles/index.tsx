@@ -5,8 +5,8 @@ import { Section } from "../../components/Layout/elements";
 import { Buttons, Cards, Input } from "../../components/shared/molecules";
 import { RouteLink } from "../../components/shared/atoms";
 import { BlogItem } from "../../utils/types";
+import { formatSlug } from "../../utils/formatter";
 import { ArticleList, Container, StyledForm } from "./styles";
-import slugify from "slugify";
 
 interface FormData {
   search: string;
@@ -40,7 +40,7 @@ function Articles({ posts }: ArticlesProps) {
           {posts.map((article) => (
             <RouteLink
               key={article.id}
-              href={`/blog/${slugify(article.title.toLowerCase())}`}
+              href={`/blog/${formatSlug(article.title)}`}
             >
               <Cards.Blog
                 thumbnail={article.thumbnail}

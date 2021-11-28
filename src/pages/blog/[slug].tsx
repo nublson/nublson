@@ -1,20 +1,14 @@
-import moment from "moment";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { ParsedUrlQuery } from "querystring";
-import { useEffect } from "react";
-import slugify from "slugify";
 import ContactSection from "../../section/Contact";
 import HomeSection from "../../section/Home";
 import { getDatabase } from "../../services/api";
+import { formatPageProps, formatSlug, formatDate } from "../../utils/formatter";
+import { BlogItem } from "../../utils/types";
 
 type SlugProps = {
-  pageProps: {
-    publish_date: string;
-    title: string;
-    description: string;
-    thumbnail: string;
-  };
+  pageProps: BlogItem;
 };
 
 interface Params extends ParsedUrlQuery {
@@ -28,9 +22,7 @@ const Slug: NextPage<SlugProps> = ({ pageProps }) => {
         <title>{pageProps.title} - Nubelson Fernandes</title>
       </Head>
       <HomeSection
-        top={`Published at ${moment(pageProps.publish_date).format(
-          "MMMM D, YYYY"
-        )}`}
+        top={`Published at ${formatDate(pageProps.publish_date)}`}
         title={pageProps.title}
         subtitle={pageProps.description}
         image={pageProps.thumbnail}
@@ -47,11 +39,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const paths = database.map((post) => ({
     params: {
-      slug: slugify(post.properties.Name.title[0].text.content).toLowerCase(),
+      slug: formatSlug(post),
     },
   }));
-
-  console.log({ paths });
 
   return {
     paths,
@@ -69,22 +59,10 @@ export const getStaticProps: GetStaticProps<SlugProps, Params> = async (
   const database = await getDatabase(process.env.NOTION_DATABASE_ID);
 
   const pageExists = database.find((result) => {
-    const resultSlug = slugify(
-      result.properties.Name.title[0].text.content
-    ).toLowerCase();
-
-    return resultSlug === slug;
+    return formatSlug(result) === slug;
   });
 
-  const pageProps = {
-    thumbnail:
-      pageExists.cover.type === "file"
-        ? pageExists.cover.file.url
-        : pageExists.cover.external.url,
-    title: pageExists.properties.Name.title[0].text.content,
-    description: pageExists.properties.description.rich_text[0].text.content,
-    publish_date: pageExists.properties.publish_date.date.start,
-  };
+  const pageProps = formatPageProps(pageExists);
 
   return {
     props: {
