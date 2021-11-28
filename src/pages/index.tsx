@@ -1,39 +1,18 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useState } from "react";
 import BlogSection from "../section/Blog";
 import ContactSection from "../section/Contact";
 import HomeSection from "../section/Home";
 import WorkSection from "../section/Work";
 import { getDatabase } from "../services/api";
 import files from "../utils/files.json";
-import { BlogItem, DatabaseResult } from "../utils/types";
+import { BlogItem } from "../utils/types";
 
 type HomeProps = {
-  posts: DatabaseResult[];
+  posts: BlogItem[];
 };
 
 const Home: NextPage<HomeProps> = ({ posts }) => {
-  const [articles, setArticles] = useState<BlogItem[]>([]);
-
-  useEffect(() => {
-    const formatedPosts: BlogItem[] = posts.map((item) => {
-      return {
-        id: item.id,
-        thumbnail:
-          item.cover.type === "file"
-            ? item.cover.file.url
-            : item.cover.external.url,
-        title: item.properties.Name.title[0].text.content,
-        description: item.properties.description.rich_text[0].text.content,
-        publish_date: item.properties.publish_date.date.start,
-        read_time: 3,
-      };
-    });
-
-    setArticles(formatedPosts);
-  }, [posts]);
-
   return (
     <>
       <Head>
@@ -49,7 +28,7 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
         scrollTo="work"
       />
       <WorkSection />
-      <BlogSection posts={articles.slice(0, 2)} />
+      <BlogSection posts={posts.slice(0, 2)} />
       <ContactSection />
     </>
   );
@@ -58,9 +37,21 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const results = await getDatabase(process.env.NOTION_DATABASE_ID);
 
+  const posts: BlogItem[] = results.map((post) => ({
+    id: post.id,
+    thumbnail:
+      post.cover.type === "file"
+        ? post.cover.file.url
+        : post.cover.external.url,
+    title: post.properties.Name.title[0].text.content,
+    description: post.properties.description.rich_text[0].text.content,
+    publish_date: post.properties.publish_date.date.start,
+    read_time: 3,
+  }));
+
   return {
     props: {
-      posts: results,
+      posts,
     },
 
     revalidate: 1,
