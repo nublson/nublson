@@ -6,6 +6,10 @@ export const Container = styled.div`
 
   color: ${(props) => props.theme.colors.off_black};
   font-weight: 600;
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    padding: 0.5rem 2.5rem;
+  }
 `;
 
 export const StyledIcon = styled.button`

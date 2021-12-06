@@ -21,6 +21,12 @@ export const WorkContainer = styled.a`
     padding: 3rem 3rem 1rem;
   }
 
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    padding: 2rem 2rem 1rem;
+
+    gap: 3rem;
+  }
+
   .body {
     width: 100%;
     display: flex;

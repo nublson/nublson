@@ -9,6 +9,10 @@ export const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 15rem;
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    gap: 10rem;
+  }
 `;
 
 export const StyledForm = styled(Form)`
@@ -38,4 +42,11 @@ export const ArticleList = styled.div`
   grid-template-rows: 1fr;
   grid-column-gap: 1.5rem;
   grid-row-gap: 5rem;
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    width: 80%;
+
+    grid-template-columns: 1fr;
+    grid-gap: 3.5rem;
+  }
 `;

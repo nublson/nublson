@@ -22,6 +22,12 @@ export const Container = styled.div<HomeProps>`
     `
     padding-bottom: 2rem;
   `}
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    padding-top: 5rem;
+
+    gap: 3rem;
+  }
 `;
 
 export const ScrollLink = styled(Link)`

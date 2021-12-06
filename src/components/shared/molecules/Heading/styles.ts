@@ -15,8 +15,12 @@ export const Container = styled.div`
   justify-content: center;
   gap: 5rem;
 
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    gap: 3rem;
+  }
+
   @media ${(props) => props.theme.mediaQueries.small} {
-    gap: 0.5rem;
+    gap: 2rem;
   }
 `;
 
@@ -28,6 +32,10 @@ export const Content = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    width: 100%;
+  }
 `;
 
 export const Thumbnail = styled.div<ThumbnailProps>`

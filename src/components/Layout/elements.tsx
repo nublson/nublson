@@ -18,15 +18,29 @@ const StyledSection = styled.section`
   align-items: center;
   justify-content: center;
 
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    padding: 10rem 0 3rem;
+  }
+
   h2 {
-    max-width: 60%;
+    width: 60%;
     margin: 0 auto 10rem;
     text-align: center;
+
+    @media ${(props) => props.theme.mediaQueries.medium} {
+      width: 100%;
+
+      margin-bottom: 8rem;
+    }
   }
 `;
 
 const StyledArticle = styled(StyledSection)`
   padding-top: 10rem;
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    padding-top: 5rem;
+  }
 `;
 
 const SectionContent = styled.div`
