@@ -28,13 +28,22 @@ function Content({ blocks }: ContentProps) {
           <Texts.Small content="Share this article on" />
 
           <div className="links">
-            <ShareLink on="facebook" content={`https://nublson.com${asPath}`}>
+            <ShareLink
+              on="facebook"
+              content={`${process.env.BASE_URL}${asPath}`}
+            >
               <Texts.Medium content="Facebook" />
             </ShareLink>
-            <ShareLink on="twitter" content={`https://nublson.com${asPath}`}>
+            <ShareLink
+              on="twitter"
+              content={`${process.env.BASE_URL}${asPath}`}
+            >
               <Texts.Medium content="Twitter" />
             </ShareLink>
-            <ShareLink on="whatsapp" content={`https://nublson.com${asPath}`}>
+            <ShareLink
+              on="whatsapp"
+              content={`${process.env.BASE_URL}${asPath}`}
+            >
               <Texts.Medium content="Whatsapp" />
             </ShareLink>
           </div>
