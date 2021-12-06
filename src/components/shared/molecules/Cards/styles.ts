@@ -6,16 +6,20 @@ export const WorkContainer = styled.a`
   border: 4px solid ${(props) => props.theme.colors.line};
   text-decoration: none;
 
-  &:hover {
-    border-color: ${(props) => props.theme.colors.off_white};
-    transition: all 0.2s;
-  }
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   gap: 4.5rem;
+
+  &:hover {
+    border-color: ${(props) => props.theme.colors.off_white};
+    transition: all 0.2s;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    padding: 3rem 3rem 1rem;
+  }
 
   .body {
     width: 100%;

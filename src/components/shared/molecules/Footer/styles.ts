@@ -10,9 +10,13 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
+  @media ${(props) => props.theme.mediaQueries.large} {
+    padding: 0rem 2rem;
+  }
+
   .content {
-    width: 100%;
     max-width: 121.8rem;
+    width: 100%;
     margin: 0 auto;
 
     display: flex;

@@ -17,6 +17,10 @@ const Container = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    padding: 4rem 2rem 0rem;
+  }
 `;
 
 const Content = styled.div`
@@ -39,8 +43,8 @@ const Layout = ({ children }: LayoutProps) => {
       <Container>
         <Header />
         <Content>{children}</Content>
-        <Footer />
       </Container>
+      <Footer />
       <GlobalStyles />
     </ThemeProvider>
   );
