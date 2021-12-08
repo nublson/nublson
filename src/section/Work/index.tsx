@@ -1,44 +1,55 @@
-import {
-  RiInstagramLine,
-  RiStoreLine,
-  RiUnsplashLine,
-  RiYoutubeLine,
-} from "react-icons/ri";
+import { useEffect, useState } from "react";
 import { Section } from "../../components/Layout/elements";
 import { Cards } from "../../components/shared/molecules";
+import { getUnsplashViews } from "../../services/unsplash";
+import { getYoutubeSubscriptions } from "../../services/youtube";
+import { formatNumbers } from "../../utils/formatter";
 import { Container } from "./styles";
 
 function Work() {
+  const [unsplashViews, setUnsplashViews] = useState<string | number>(0);
+  const [youtubeSubs, setYoutubeSubs] = useState<string | number>(0);
+
+  useEffect(() => {
+    getUnsplashViews().then((response) => {
+      const convertedValue = formatNumbers(response);
+      setUnsplashViews(convertedValue);
+    });
+  }, [unsplashViews]);
+
+  useEffect(() => {
+    getYoutubeSubscriptions().then((response) => {
+      const convertedValue = formatNumbers(response);
+      setYoutubeSubs(convertedValue);
+    });
+  }, [youtubeSubs]);
+
   return (
     <Section id="work" title="Lectus vivamus nam ornare mauris lacinia.">
       <Container>
         <Cards.Work
-          icon={<RiInstagramLine size="40" color="#fcfcfc" />}
           title="Instagram"
           description="Volutpat sed risus tristique purus justo massa tempor egestas. Arcu non diam a, justo, morbi dolor elit."
           link="https://instagram.com/nublson"
-          stats="2K followers"
+          stats="2.7K followers"
         />
         <Cards.Work
-          icon={<RiYoutubeLine size="40" color="#fcfcfc" />}
           title="Youtube"
           description="Volutpat sed risus tristique purus justo massa tempor egestas. Arcu non diam a, justo, morbi dolor elit."
           link="https://www.youtube.com/channel/UC0kP3MzeS1re1XqQ7ebKIrA"
-          stats="81 subscribers"
+          stats={`${youtubeSubs} subscribers`}
         />
         <Cards.Work
-          icon={<RiUnsplashLine size="40" color="#fcfcfc" />}
           title="Unsplash"
           description="Volutpat sed risus tristique purus justo massa tempor egestas. Arcu non diam a, justo, morbi dolor elit."
           link="https://unsplash.com/@nublson"
-          stats="7.3M views/last 30 days"
+          stats={`${unsplashViews} views/last 30 days`}
         />
         <Cards.Work
-          icon={<RiStoreLine size="40" color="#fcfcfc" />}
           title="Online Store"
           description="Volutpat sed risus tristique purus justo massa tempor egestas. Arcu non diam a, justo, morbi dolor elit."
           link="https://gumroad.com/nublson"
-          stats="927 sells"
+          stats={`${formatNumbers(1104)} sells`}
         />
       </Container>
     </Section>

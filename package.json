@@ -13,6 +13,7 @@
     "@types/moment": "^2.13.0",
     "@unform/core": "^2.1.6",
     "@unform/web": "^2.1.6",
+    "axios": "^0.24.0",
     "moment": "^2.29.1",
     "next": "11.1.2",
     "react": "17.0.2",
@@ -20,9 +21,11 @@
     "react-icons": "^4.3.1",
     "react-scroll": "^1.8.4",
     "slugify": "^1.6.3",
-    "styled-components": "^5.3.1"
+    "styled-components": "^5.3.1",
+    "unsplash-js": "^7.0.15"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/react": "17.0.30",
     "@types/react-icons": "^3.0.0",
     "@types/react-scroll": "^1.8.3",

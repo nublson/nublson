@@ -3,6 +3,13 @@ import { ReactNode } from "react";
 import { Texts, Titles } from "../../atoms";
 import { BlogContainer, Thumbnail, WorkContainer } from "./styles";
 import { formatDate } from "../../../../utils/formatter";
+import { IconContext } from "react-icons";
+import {
+  RiInstagramLine,
+  RiStoreLine,
+  RiUnsplashLine,
+  RiYoutubeLine,
+} from "react-icons/ri";
 
 interface CardsProps {
   title: string;
@@ -12,7 +19,6 @@ interface CardsProps {
 interface WorkCard extends CardsProps {
   link: string;
   stats: string;
-  icon: ReactNode;
 }
 
 interface BlogCard extends CardsProps {
@@ -21,10 +27,18 @@ interface BlogCard extends CardsProps {
   read_time: number;
 }
 
-function Work({ title, description, link, stats, icon }: WorkCard) {
+function Work({ title, description, link, stats }: WorkCard) {
   return (
     <WorkContainer href={link} target="_blank" rel="noreferrer">
-      {icon}
+      {title === "Instagram" ? (
+        <RiInstagramLine className="icon" />
+      ) : title === "Youtube" ? (
+        <RiYoutubeLine className="icon" />
+      ) : title === "Unsplash" ? (
+        <RiUnsplashLine className="icon" />
+      ) : (
+        title === "Online Store" && <RiStoreLine className="icon" />
+      )}
       <div className="body">
         <div className="content">
           <Titles.Small content={title} />

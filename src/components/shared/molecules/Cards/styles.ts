@@ -12,6 +12,11 @@ export const WorkContainer = styled.a`
   justify-content: space-between;
   gap: 4.5rem;
 
+  .icon {
+    font-size: 4rem;
+    color: ${(props) => props.theme.colors.off_white};
+  }
+
   &:hover {
     border-color: ${(props) => props.theme.colors.off_white};
     transition: all 0.2s;
@@ -25,6 +30,14 @@ export const WorkContainer = styled.a`
     padding: 2rem 2rem 1rem;
 
     gap: 3rem;
+
+    .icon {
+      font-size: 3rem;
+    }
+  }
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    gap: 2rem;
   }
 
   .body {
