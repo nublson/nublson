@@ -21,8 +21,7 @@
     "react-icons": "^4.3.1",
     "react-scroll": "^1.8.4",
     "slugify": "^1.6.3",
-    "styled-components": "^5.3.1",
-    "unsplash-js": "^7.0.15"
+    "styled-components": "^5.3.1"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",

@@ -30,14 +30,14 @@ export const WorkContainer = styled.a`
     padding: 2rem 2rem 1rem;
 
     gap: 3rem;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    gap: 2rem;
 
     .icon {
       font-size: 3rem;
     }
-  }
-
-  @media ${(props) => props.theme.mediaQueries.medium} {
-    gap: 2rem;
   }
 
   .body {
