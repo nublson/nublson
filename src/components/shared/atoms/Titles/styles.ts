@@ -7,7 +7,7 @@ export const StyledTitleLarge = styled.h1`
   font-weight: 700;
 
   @media ${(props) => props.theme.mediaQueries.small} {
-    font-size: 3rem;
+    font-size: 3.6rem;
     line-height: 36px;
   }
 `;

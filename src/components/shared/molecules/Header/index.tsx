@@ -4,7 +4,7 @@ import logo from "../../../../assets/img/logo_white.svg";
 import { Container } from "./styles";
 import { RouteLink } from "../../atoms";
 
-import NavMenu from "../NavMenu";
+import Menu from "../Menu";
 
 function Header() {
   const { pathname } = useRouter();
@@ -19,7 +19,7 @@ function Header() {
         </RouteLink>
       )}
 
-      <NavMenu />
+      <Menu />
     </Container>
   );
 }

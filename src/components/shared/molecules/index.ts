@@ -4,6 +4,6 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Heading from "./Heading";
 import Input from "./Input";
-import NavMenu from "./NavMenu";
+import Menu from "./Menu";
 
-export { Header, Heading, Footer, NavMenu, Cards, Buttons, Input };
+export { Header, Heading, Footer, Menu, Cards, Buttons, Input };

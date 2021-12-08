@@ -1,19 +1,37 @@
 import { Link } from "react-scroll";
 import styled from "styled-components";
 
-export const Container = styled.nav`
+export const WebContainer = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
 
-  ul {
-    list-style: none;
+  @media ${(props) => props.theme.mediaQueries.small} {
+    display: none;
+  }
+`;
 
+export const MobileContainer = styled.div`
+  display: none;
+
+  @media ${(props) => props.theme.mediaQueries.small} {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
   }
+`;
+
+export const ScrollLink = styled(Link)`
+  cursor: pointer;
+`;
+
+export const StyledItems = styled.ul`
+  list-style: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
 
   .active {
     font-weight: 600;
@@ -28,8 +46,4 @@ export const Container = styled.nav`
       transition: all 0.2s;
     }
   }
-`;
-
-export const ScrollLink = styled(Link)`
-  cursor: pointer;
 `;

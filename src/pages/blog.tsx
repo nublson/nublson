@@ -22,7 +22,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
         id="home"
         top="Welcome to my"
         title="Blog"
-        subtitle="Sharing ideas, thoughts and experience"
+        subtitle="Sharing ideas, thoughts and experience with everyone"
         image={files.images.blog}
         scrollTo="articles"
       />

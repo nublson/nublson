@@ -22,6 +22,10 @@ const StyledSection = styled.section`
     padding: 10rem 0 3rem;
   }
 
+  @media ${(props) => props.theme.mediaQueries.small} {
+    padding: 5rem 0 1rem;
+  }
+
   h2 {
     width: 60%;
     margin: 0 auto 10rem;
@@ -31,6 +35,12 @@ const StyledSection = styled.section`
       width: 100%;
 
       margin-bottom: 8rem;
+    }
+
+    @media ${(props) => props.theme.mediaQueries.small} {
+      width: 100%;
+
+      margin-bottom: 5rem;
     }
   }
 `;

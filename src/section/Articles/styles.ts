@@ -13,11 +13,14 @@ export const Container = styled.div`
   @media ${(props) => props.theme.mediaQueries.medium} {
     gap: 10rem;
   }
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    gap: 8rem;
+  }
 `;
 
 export const StyledForm = styled(Form)`
-  width: 100%;
-  max-width: 60%;
+  width: 60%;
   margin: 0 auto;
   height: 5rem;
   padding: 0.5rem;
@@ -31,6 +34,10 @@ export const StyledForm = styled(Form)`
 
   & > :first-child {
     flex: 1;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    width: 85%;
   }
 `;
 
@@ -48,5 +55,9 @@ export const ArticleList = styled.div`
 
     grid-template-columns: 1fr;
     grid-gap: 3.5rem;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    width: 100%;
   }
 `;

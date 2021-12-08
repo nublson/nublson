@@ -39,4 +39,8 @@ export const BlogList = styled.div`
     grid-template-columns: 1fr;
     grid-gap: 3.5rem;
   }
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    width: 100%;
+  }
 `;
