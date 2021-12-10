@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { ArticleSection } from "../../components/Layout/elements";
 import { RichText, ShareLink, Texts } from "../../components/shared/atoms";
 import { Container, ShareContent, StyledContent } from "./styles";
-import { useEffect } from "react";
 
 interface ContentProps {
   blocks: any[];

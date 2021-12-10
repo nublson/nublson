@@ -86,6 +86,8 @@ export const BlogContainer = styled.div`
   height: 100%;
   position: relative;
   width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
   cursor: pointer;
   border: 4px solid transparent;
 

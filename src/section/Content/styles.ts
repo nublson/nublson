@@ -11,12 +11,21 @@ export const Container = styled.div`
 `;
 
 export const StyledContent = styled.div`
-  width: 100%;
+  width: 80%;
+  text-align: center;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    width: 90%;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    width: 100%;
+  }
 `;
 
 export const ShareContent = styled.div`

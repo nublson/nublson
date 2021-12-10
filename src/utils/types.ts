@@ -103,3 +103,56 @@ export type DatabaseResult = {
   };
   url: string;
 };
+
+export type RichTextData = {
+  annotations: {
+    bold?: boolean;
+    italic?: boolean;
+    strikethrough?: boolean;
+    underline?: boolean;
+    code?: boolean;
+    color?: "default" | string;
+  };
+  href: string | null;
+  plain_text: string;
+  text: {
+    content: string;
+    link: {
+      url: string;
+    } | null;
+  };
+  type: string;
+};
+
+export type RichTextProps = {
+  id: string;
+  type:
+    | "paragraph"
+    | "heading_1"
+    | "heading_2"
+    | "heading_3"
+    | "bulleted_list_item"
+    | "numbered_list_item"
+    | "to_do"
+    | "toggle"
+    | "child_page"
+    | "child_database"
+    | "embed"
+    | "image"
+    | "video"
+    | "file"
+    | "pdf"
+    | "bookmark"
+    | "callout"
+    | "quote"
+    | "equation"
+    | "divider"
+    | "table_of_contents"
+    | "column"
+    | "column_list"
+    | "link_preview"
+    | "synced_block"
+    | "template"
+    | "link_to_page"
+    | "unsupported";
+};

@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import { Section } from "../../components/Layout/elements";
 import { Buttons, Cards, Input } from "../../components/shared/molecules";
-import { RouteLink } from "../../components/shared/atoms";
+import { RouteLink, Texts } from "../../components/shared/atoms";
 import { BlogItem } from "../../utils/types";
 import { formatSlug } from "../../utils/formatter";
 import { ArticleList, Container, StyledForm } from "./styles";
@@ -36,21 +36,25 @@ function Articles({ posts }: ArticlesProps) {
           />
         </StyledForm>
 
-        <ArticleList>
-          {posts.map((article) => (
-            <RouteLink
-              key={article.id}
-              href={`/blog/${formatSlug(article.title)}`}
-            >
-              <Cards.Blog
-                thumbnail={article.thumbnail}
-                title={article.title}
-                description={article.description}
-                publish_date={article.publish_date}
-                read_time={article.read_time}
-              />
-            </RouteLink>
-          ))}
+        <ArticleList center={posts.length <= 1}>
+          {!posts.length ? (
+            <Texts.Medium content="No articles published yet." />
+          ) : (
+            posts.map((article) => (
+              <RouteLink
+                key={article.id}
+                href={`/blog/${formatSlug(article.title)}`}
+              >
+                <Cards.Blog
+                  thumbnail={article.thumbnail}
+                  title={article.title}
+                  description={article.description}
+                  publish_date={article.publish_date}
+                  read_time={article.read_time}
+                />
+              </RouteLink>
+            ))
+          )}
         </ArticleList>
       </Container>
     </Section>

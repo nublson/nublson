@@ -1,5 +1,5 @@
 import { Section } from "../../components/Layout/elements";
-import { RouteLink } from "../../components/shared/atoms";
+import { RouteLink, Texts } from "../../components/shared/atoms";
 import { Buttons, Cards } from "../../components/shared/molecules";
 import { BlogItem } from "../../utils/types";
 import { formatSlug } from "../../utils/formatter";
@@ -16,21 +16,25 @@ function Blog({ posts }: BlogProps) {
       title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     >
       <Container>
-        <BlogList>
-          {posts.map((article) => (
-            <RouteLink
-              key={article.id}
-              href={`/blog/${formatSlug(article.title)}`}
-            >
-              <Cards.Blog
-                thumbnail={article.thumbnail}
-                title={article.title}
-                description={article.description}
-                publish_date={article.publish_date}
-                read_time={article.read_time}
-              />
-            </RouteLink>
-          ))}
+        <BlogList center={posts.length <= 1}>
+          {!posts.length ? (
+            <Texts.Medium content="No articles published yet." />
+          ) : (
+            posts.map((article) => (
+              <RouteLink
+                key={article.id}
+                href={`/blog/${formatSlug(article.title)}`}
+              >
+                <Cards.Blog
+                  thumbnail={article.thumbnail}
+                  title={article.title}
+                  description={article.description}
+                  publish_date={article.publish_date}
+                  read_time={article.read_time}
+                />
+              </RouteLink>
+            ))
+          )}
         </BlogList>
 
         <RouteLink href="/blog">

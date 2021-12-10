@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface BlogListProps {
+  center?: boolean;
+}
+
 export const Container = styled.div`
   width: 100%;
 
@@ -25,11 +29,13 @@ export const Container = styled.div`
   }
 `;
 
-export const BlogList = styled.div`
+export const BlogList = styled.div<BlogListProps>`
   width: 100%;
+  text-align: center;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: ${(props) =>
+    props.center ? `1fr` : `repeat(2, 1fr)`};
   grid-template-rows: 1fr;
   grid-gap: 1.5rem;
 

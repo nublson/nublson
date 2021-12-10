@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { Form } from "@unform/web";
 
+interface ArticleListProps {
+  center?: boolean;
+}
+
 export const Container = styled.div`
   width: 100%;
 
@@ -41,11 +45,14 @@ export const StyledForm = styled(Form)`
   }
 `;
 
-export const ArticleList = styled.div`
+export const ArticleList = styled.div<ArticleListProps>`
   width: 100%;
 
+  text-align: center;
+
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: ${(props) =>
+    props.center ? `1fr` : `repeat(2, 1fr)`};
   grid-template-rows: 1fr;
   grid-column-gap: 1.5rem;
   grid-row-gap: 5rem;

@@ -1,15 +1,13 @@
 import Image from "next/image";
-import { ReactNode } from "react";
-import { Texts, Titles } from "../../atoms";
-import { BlogContainer, Thumbnail, WorkContainer } from "./styles";
-import { formatDate } from "../../../../utils/formatter";
-import { IconContext } from "react-icons";
 import {
   RiInstagramLine,
   RiStoreLine,
   RiUnsplashLine,
   RiYoutubeLine,
 } from "react-icons/ri";
+import { formatDate } from "../../../../utils/formatter";
+import { Texts, Titles } from "../../atoms";
+import { BlogContainer, Thumbnail, WorkContainer } from "./styles";
 
 interface CardsProps {
   title: string;
