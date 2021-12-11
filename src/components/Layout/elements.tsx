@@ -11,7 +11,7 @@ interface SectionProps extends HTMLAttributes<HTMLDivElement> {
 const StyledSection = styled.section`
   width: 100%;
   height: 100%;
-  padding: 15rem 0 5rem;
+  padding: 10rem 0 5rem;
 
   display: flex;
   flex-direction: column;
@@ -46,11 +46,7 @@ const StyledSection = styled.section`
 `;
 
 const StyledArticle = styled(StyledSection)`
-  padding-top: 10rem;
-
-  @media ${(props) => props.theme.mediaQueries.medium} {
-    padding-top: 5rem;
-  }
+  padding-top: 0;
 `;
 
 const SectionContent = styled.div`

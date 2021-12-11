@@ -38,7 +38,7 @@ function Articles({ posts }: ArticlesProps) {
 
         <ArticleList center={posts.length <= 1}>
           {!posts.length ? (
-            <Texts.Medium content="No articles published yet." />
+            <Texts.Medium content="No articles published" />
           ) : (
             posts.map((article) => (
               <RouteLink

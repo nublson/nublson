@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { ArticleSection } from "../../components/Layout/elements";
 import { RichText, ShareLink, Texts } from "../../components/shared/atoms";
 import { Container, ShareContent, StyledContent } from "./styles";
+import { Render } from "@9gustin/react-notion-render";
 
 interface ContentProps {
   blocks: any[];
@@ -19,9 +20,7 @@ function Content({ blocks }: ContentProps) {
     <ArticleSection>
       <Container>
         <StyledContent>
-          {blocks.map((item) => (
-            <RichText key={item.id} content={item} />
-          ))}
+          <Render blocks={blocks} classNames />
         </StyledContent>
 
         <ShareContent>

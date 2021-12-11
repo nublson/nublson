@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@9gustin/react-notion-render@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@9gustin/react-notion-render/-/react-notion-render-3.4.0.tgz#ca6e1cf3b0d5653869eec05b8e4b47bd7aeb605d"
+  integrity sha512-l5/FpPHeI0NgI7nDbNzVUJ74GBjMBjB24hdAJf9xkGaJgbwn5O1nr1OtSNqZzqg/atdm/PpRXupjVJa8f8/+fg==
+
 "@babel/code-frame@7.12.11":
   version "7.12.11"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.12.11.tgz#f4ad435aa263db935b8f10f2c552d23fb716a63f"
