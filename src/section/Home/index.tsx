@@ -8,7 +8,7 @@ interface HomeProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   subtitle: string;
   image: string | StaticImageData;
-  scrollTo: string;
+  scrollTo?: string;
   article?: boolean;
 }
 
@@ -30,11 +30,12 @@ function Home({
         image={image}
         article={article}
       />
-      {!article && (
-        <ScrollLink to={scrollTo} spy={true} smooth={true} duration={1000}>
-          <RiArrowDownSLine size={30} color="#FCFCFC" />
-        </ScrollLink>
-      )}
+      {!article &&
+        (scrollTo ? (
+          <ScrollLink to={scrollTo!} spy={true} smooth={true} duration={1000}>
+            <RiArrowDownSLine size={30} color="#FCFCFC" />
+          </ScrollLink>
+        ) : null)}
     </Container>
   );
 }
