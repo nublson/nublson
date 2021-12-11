@@ -1,5 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import ArticlesSection from "../section/Articles";
 import ContactSection from "../section/Contact";
 import HomeSection from "../section/Home";
@@ -7,7 +8,6 @@ import { getDatabase } from "../services/api";
 import files from "../utils/files.json";
 import { formatPosts } from "../utils/formatter";
 import { BlogItem } from "../utils/types";
-import { useRouter } from "next/router";
 
 type BlogProps = {
   posts: BlogItem[];

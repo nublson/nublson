@@ -1,5 +1,5 @@
+import Texts from "../../atoms/Texts";
 import { Container } from "./styles";
-import { Texts } from "../../atoms";
 
 function Footer() {
   return (

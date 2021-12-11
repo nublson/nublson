@@ -1,7 +1,8 @@
 import { Render } from "@9gustin/react-notion-render";
 import { useRouter } from "next/router";
 import { ArticleSection } from "../../components/Layout/elements";
-import { ShareLink, Texts } from "../../components/shared/atoms";
+import ShareLink from "../../components/shared/atoms/ShareLink";
+import Texts from "../../components/shared/atoms/Texts";
 import { Container, ShareContent, StyledContent } from "./styles";
 
 interface ContentProps {

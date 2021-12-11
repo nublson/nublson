@@ -6,7 +6,8 @@ import {
   RiYoutubeLine,
 } from "react-icons/ri";
 import { formatDate } from "../../../../utils/formatter";
-import { Texts, Titles } from "../../atoms";
+import Texts from "../../atoms/Texts";
+import Titles from "../../atoms/Titles";
 import { BlogContainer, Thumbnail, WorkContainer } from "./styles";
 
 interface CardsProps {

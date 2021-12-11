@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Texts, Titles } from "../../atoms";
+import Texts from "../../atoms/Texts";
+import Titles from "../../atoms/Titles";
 import { Container, Content, Thumbnail } from "./styles";
 
 interface HeadingProps {

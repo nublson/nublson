@@ -1,10 +1,9 @@
-import { useRouter } from "next/router";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import logo from "../../../../assets/img/logo_white.svg";
-import { Container } from "./styles";
-import { RouteLink } from "../../atoms";
-
+import RouteLink from "../../atoms/RouteLink";
 import Menu from "../Menu";
+import { Container } from "./styles";
 
 function Header() {
   const { pathname } = useRouter();

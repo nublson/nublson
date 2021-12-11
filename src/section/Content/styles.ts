@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { RiAttachmentLine } from "react-icons/ri";
 
 export const Container = styled.div`
   width: 100%;

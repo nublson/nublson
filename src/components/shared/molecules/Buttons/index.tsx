@@ -1,5 +1,5 @@
-import { ReactNode, HTMLAttributes } from "react";
-import { Texts } from "../../atoms";
+import { HTMLAttributes, ReactNode } from "react";
+import Texts from "../../atoms/Texts";
 import { Container, StyledIcon } from "./styles";
 
 interface ButtonsProps {

@@ -2,10 +2,13 @@ import { FormHandles, SubmitHandler } from "@unform/core";
 import { useRef } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import { Section } from "../../components/Layout/elements";
-import { Buttons, Cards, Input } from "../../components/shared/molecules";
-import { RouteLink, Texts } from "../../components/shared/atoms";
-import { BlogItem } from "../../utils/types";
+import RouteLink from "../../components/shared/atoms/RouteLink";
+import Texts from "../../components/shared/atoms/Texts";
+import Buttons from "../../components/shared/molecules/Buttons";
+import Cards from "../../components/shared/molecules/Cards";
+import Input from "../../components/shared/molecules/Input";
 import { formatSlug } from "../../utils/formatter";
+import { BlogItem } from "../../utils/types";
 import { ArticleList, Container, StyledForm } from "./styles";
 
 interface FormData {

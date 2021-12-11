@@ -1,8 +1,10 @@
 import { Section } from "../../components/Layout/elements";
-import { RouteLink, Texts } from "../../components/shared/atoms";
-import { Buttons, Cards } from "../../components/shared/molecules";
-import { BlogItem } from "../../utils/types";
+import RouteLink from "../../components/shared/atoms/RouteLink";
+import Texts from "../../components/shared/atoms/Texts";
+import Buttons from "../../components/shared/molecules/Buttons";
+import Cards from "../../components/shared/molecules/Cards";
 import { formatSlug } from "../../utils/formatter";
+import { BlogItem } from "../../utils/types";
 import { BlogList, Container } from "./styles";
 
 interface BlogProps {

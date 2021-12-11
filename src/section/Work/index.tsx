@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Section } from "../../components/Layout/elements";
-import { Cards } from "../../components/shared/molecules";
+import Cards from "../../components/shared/molecules/Cards";
 import { getUnsplashViews } from "../../services/unsplash";
 import { getYoutubeSubscriptions } from "../../services/youtube";
 import { formatNumbers } from "../../utils/formatter";

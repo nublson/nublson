@@ -1,7 +1,7 @@
-import { RiArrowDownSLine } from "react-icons/ri";
-import { Heading } from "../../components/shared/molecules";
-import { Container, ScrollLink } from "./styles";
 import { HTMLAttributes } from "react";
+import { RiArrowDownSLine } from "react-icons/ri";
+import Heading from "../../components/shared/molecules/Heading";
+import { Container, ScrollLink } from "./styles";
 
 interface HomeProps extends HTMLAttributes<HTMLDivElement> {
   top: string;

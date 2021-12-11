@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { RouteLink, Texts } from "../../atoms";
+import RouteLink from "../../atoms/RouteLink";
+import Texts from "../../atoms/Texts";
 import { ScrollLink, StyledItems } from "./styles";
 
 interface ItemsProps {

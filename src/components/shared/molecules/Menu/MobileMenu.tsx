@@ -1,5 +1,5 @@
-import { MobileContainer } from "./styles";
 import { RiMenu3Line } from "react-icons/ri";
+import { MobileContainer } from "./styles";
 
 export const MobileMenu = () => {
   return (

@@ -1,7 +1,6 @@
-import { ReactNode, HTMLAttributes } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
-
-import { Titles } from "../shared/atoms";
+import Titles from "../shared/atoms/Titles";
 
 interface SectionProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;

@@ -1,5 +1,5 @@
-import { WebMenu } from "./WebMenu";
 import { MobileMenu } from "./MobileMenu";
+import { WebMenu } from "./WebMenu";
 
 const Menu = () => {
   return (
