@@ -25,7 +25,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
         <meta property="og:title" content={"Blog | Nubelson Fernandes"} />
         <meta
           property="og:description"
-          content={"Sharing ideas, thoughts and experience with everyone"}
+          content={"Sharing ideas, thoughts and experience"}
         />
         <meta property="og:image" content={files.images.blog} />
         <meta property="og:url" content={`${process.env.BASE_URL}${asPath}`} />
@@ -39,7 +39,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
         <meta name="twitter:title" content={"Blog | Nubelson Fernandes"} />
         <meta
           name="twitter:description"
-          content={"Sharing ideas, thoughts and experience with everyone"}
+          content={"Sharing ideas, thoughts and experience"}
         />
         <meta name="twitter:image" content={files.images.blog} />
       </Head>
@@ -47,7 +47,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
         id="home"
         top="Welcome to my"
         title="Blog"
-        subtitle="Sharing ideas, thoughts and experience with everyone"
+        subtitle="I don’t just shoot and develop. Here I share my ideas, thoughts and experience."
         image={files.images.blog}
         scrollTo="articles"
       />

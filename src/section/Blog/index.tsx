@@ -11,10 +11,7 @@ interface BlogProps {
 
 function Blog({ posts }: BlogProps) {
   return (
-    <Section
-      id="blog"
-      title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    >
+    <Section id="blog" title="Sometimes I also write down words.">
       <Container>
         <BlogList center={posts.length <= 1}>
           {!posts.length ? (

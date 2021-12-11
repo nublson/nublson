@@ -5,7 +5,7 @@ import { Container, StyledLink } from "./styles";
 
 function Contact() {
   return (
-    <Section id="contact" title="Amet varius etiam diam, sit mauris egestas.">
+    <Section id="contact" title="Have a project in mind? Let's work together.">
       <Container>
         <StyledLink href="mailto: me@nublson.com">
           <Buttons.Main title="Let's talk" />
