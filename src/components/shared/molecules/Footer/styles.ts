@@ -2,43 +2,25 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  font-size: 1.4rem;
-  color: ${(props) => props.theme.colors.label};
-
-  position: absolute;
-  bottom: 10rem;
-  left: 0;
-  right: 0;
+  height: 8rem;
+  background-color: ${(props) => props.theme.colors.off_white};
+  color: ${(props) => props.theme.colors.off_black};
 
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
 
-  .icons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5rem;
-
-    a {
-      color: ${(props) => props.theme.colors.off_white};
-      font-size: 2.5rem;
-    }
+  @media ${(props) => props.theme.mediaQueries.large} {
+    padding: 0rem 2rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
-    bottom: 5rem;
-    gap: 1rem;
+  .content {
+    max-width: 121.8rem;
+    width: 100%;
+    margin: 0 auto;
 
-    .icons {
-      gap: 1.5rem;
-
-      a {
-        font-size: 2.2rem;
-      }
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 `;

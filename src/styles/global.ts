@@ -9,6 +9,7 @@ export default createGlobalStyle`
   }
 
   html{
+    height: 100%;
     font-size: 62.5%;
 
     @media ${(props) => props.theme.mediaQueries.large} {
@@ -29,4 +30,9 @@ export default createGlobalStyle`
     background-color: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.body};
   }
+
+  a{
+    text-decoration: none;
+  }
+
 `;
