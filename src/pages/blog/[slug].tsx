@@ -1,15 +1,17 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
+import { useEffect } from "react";
 import ContactSection from "../../section/Contact";
 import ContentSection from "../../section/Content";
 import HomeSection from "../../section/Home";
 import { getBlocks, getDatabase } from "../../services/api";
 import {
+  formatBlockWithChildren,
   formatDate,
   formatPageProps,
   formatSlug,
-  formatBlockWithChildren,
 } from "../../utils/formatter";
 import { BlogItem } from "../../utils/types";
 
@@ -23,10 +25,37 @@ interface Params extends ParsedUrlQuery {
 }
 
 const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
+  const { asPath } = useRouter();
+
   return (
     <>
       <Head>
-        <title>{pageProps.title} - Nubelson Fernandes</title>
+        <title>{pageProps.title} | Nubelson Fernandes</title>
+        <meta name="description" content={pageProps.description} />
+
+        <meta
+          property="og:title"
+          content={`${pageProps.title} | Nubelson Fernandes`}
+        />
+        <meta property="og:description" content={pageProps.description} />
+        <meta property="og:image" content={pageProps.thumbnail} />
+        <meta property="og:url" content={`${process.env.BASE_URL}${asPath}`} />
+        <meta
+          property="og:site_name"
+          content={`${pageProps.title} | Nubelson Fernandes`}
+        />
+        <meta property="og:type" content="article" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@nublson" />
+        <meta name="twitter:creator" content="@nublson" />
+        <meta name="twitter:url" content={`${process.env.BASE_URL}${asPath}`} />
+        <meta
+          name="twitter:title"
+          content={`${pageProps.title} | Nubelson Fernandes`}
+        />
+        <meta name="twitter:description" content={pageProps.description} />
+        <meta name="twitter:image" content={pageProps.thumbnail} />
       </Head>
       <HomeSection
         top={`Published at ${formatDate(pageProps.publish_date)}`}

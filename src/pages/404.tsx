@@ -7,7 +7,8 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Nubelson Fernandes | Developer &#38; Content Creator</title>
+        <title>Page not found | Nubelson Fernandes</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
       <HomeSection

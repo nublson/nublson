@@ -1,9 +1,8 @@
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { ArticleSection } from "../../components/Layout/elements";
-import { RichText, ShareLink, Texts } from "../../components/shared/atoms";
-import { Container, ShareContent, StyledContent } from "./styles";
 import { Render } from "@9gustin/react-notion-render";
+import { useRouter } from "next/router";
+import { ArticleSection } from "../../components/Layout/elements";
+import { ShareLink, Texts } from "../../components/shared/atoms";
+import { Container, ShareContent, StyledContent } from "./styles";
 
 interface ContentProps {
   blocks: any[];
@@ -11,10 +10,6 @@ interface ContentProps {
 
 function Content({ blocks }: ContentProps) {
   const { asPath } = useRouter();
-
-  useEffect(() => {
-    console.log({ blocks });
-  }, [blocks]);
 
   return (
     <ArticleSection>

@@ -60,6 +60,7 @@ export default class MyDocument extends Document {
           />
 
           <link rel="icon" href="/favicon.svg" />
+          <link rel="canonical" href={process.env.BASE_URL} />
         </Head>
 
         <body>
