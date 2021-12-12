@@ -19,8 +19,12 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
   return (
     <>
       <Head>
-        <title>Blog | Nubelson Fernandes</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>Blog | Nubelson Fernandes</title>
+        <meta
+          name="description"
+          content={"Sharing ideas, thoughts and experience"}
+        />
 
         <meta property="og:title" content={"Blog | Nubelson Fernandes"} />
         <meta
@@ -47,7 +51,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
         id="home"
         top="Welcome to my"
         title="Blog"
-        subtitle="I don’t just shoot and develop. Here I share my ideas, thoughts and experience."
+        subtitle="I don&#39;t just shoot and develop. Here I share my ideas, thoughts and experience."
         image={files.images.blog}
         scrollTo="articles"
       />

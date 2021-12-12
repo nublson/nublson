@@ -23,30 +23,22 @@ const About: NextPage<AboutProps> = ({ pageProps, blocks }) => {
   return (
     <>
       <Head>
-        <title>{pageProps.title} | Nubelson Fernandes</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>About | Nubelson Fernandes</title>
         <meta name="description" content={pageProps.description} />
 
-        <meta
-          property="og:title"
-          content={`${pageProps.title} | Nubelson Fernandes`}
-        />
+        <meta property="og:title" content={"About | Nubelson Fernandes"} />
         <meta property="og:description" content={pageProps.description} />
         <meta property="og:image" content={pageProps.thumbnail} />
         <meta property="og:url" content={`${process.env.BASE_URL}${asPath}`} />
-        <meta
-          property="og:site_name"
-          content={`${pageProps.title} | Nubelson Fernandes`}
-        />
+        <meta property="og:site_name" content={"About | Nubelson Fernandes"} />
         <meta property="og:type" content="article" />
 
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@nublson" />
         <meta name="twitter:creator" content="@nublson" />
         <meta name="twitter:url" content={`${process.env.BASE_URL}${asPath}`} />
-        <meta
-          name="twitter:title"
-          content={`${pageProps.title} | Nubelson Fernandes`}
-        />
+        <meta name="twitter:title" content={"About | Nubelson Fernandes"} />
         <meta name="twitter:description" content={pageProps.description} />
         <meta name="twitter:image" content={pageProps.thumbnail} />
       </Head>
