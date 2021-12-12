@@ -35,15 +35,29 @@ export const BlogList = styled.div<BlogListProps>`
 
   display: grid;
   grid-template-columns: ${(props) =>
-    props.center ? `1fr` : `repeat(2, 1fr)`};
+    props.center ? `0.5fr 1fr 0.5fr` : `repeat(2, 1fr)`};
   grid-template-rows: 1fr;
   grid-gap: 1.5rem;
 
+  ${(props) =>
+    props.center &&
+    `
+      & > :first-child {
+        grid-column-start: 2;
+        grid-column-end: 3;
+      }
+  `}
+
   @media ${(props) => props.theme.mediaQueries.medium} {
-    width: 80%;
+    width: 75%;
 
     grid-template-columns: 1fr;
     grid-gap: 3.5rem;
+
+    & > * {
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
   }
 
   @media ${(props) => props.theme.mediaQueries.small} {
