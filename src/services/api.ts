@@ -8,7 +8,13 @@ export const getDatabase = async (databaseId: string) => {
   const { results } = await api.databases.query({
     database_id: databaseId,
     filter: {
-      or: [
+      and: [
+        {
+          property: "type",
+          select: {
+            equals: "article",
+          },
+        },
         {
           property: "state",
           select: {
