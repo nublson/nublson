@@ -30,10 +30,15 @@ const fetchYoutubeSubscribers = (url: string) =>
 function Work() {
   const { data: unsplashViews } = useSWR(
     "/users/nublson/statistics",
-    fetchUnsplashViews
+    fetchUnsplashViews,
+    {
+      refreshInterval: 500,
+    }
   );
 
-  const { data: youtubeSubs } = useSWR("/channels", fetchYoutubeSubscribers);
+  const { data: youtubeSubs } = useSWR("/channels", fetchYoutubeSubscribers, {
+    refreshInterval: 500,
+  });
 
   return (
     <Section
