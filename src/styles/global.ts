@@ -27,6 +27,7 @@ export default createGlobalStyle`
 
   body{
     font: 400 1.8rem 'Poppins', sans-serif;
+    font-display: optional;
     background-color: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.body};
   }
