@@ -59,8 +59,6 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
 
-          <link rel="preload" />
-
           <link rel="icon" href="/favicon.svg" />
           <link rel="canonical" href={process.env.BASE_URL} />
         </Head>

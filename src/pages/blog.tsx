@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import ArticlesSection from "../section/Articles";
 import ContactSection from "../section/Contact";
 import HomeSection from "../section/Home";
-import { getDatabase } from "../services/api";
+import { getArticles } from "../services/api";
 import files from "../utils/files.json";
 import { formatPosts } from "../utils/formatter";
 import { BlogItem } from "../utils/types";
@@ -58,7 +58,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const results = await getDatabase(process.env.NOTION_DATABASE_ID);
+  const results = await getArticles(process.env.NOTION_DATABASE_ID);
 
   const posts = formatPosts(results);
 
