@@ -1,28 +1,39 @@
-import { useEffect, useState } from "react";
+import useSWR from "swr";
 import { Section } from "../../components/Layout/elements";
 import Cards from "../../components/shared/molecules/Cards";
-import { getUnsplashViews } from "../../services/unsplash";
-import { getYoutubeSubscriptions } from "../../services/youtube";
+import { unsplash } from "../../services/unsplash";
+import { youtube } from "../../services/youtube";
 import { formatNumbers } from "../../utils/formatter";
 import { Container } from "./styles";
 
+const fetchUnsplashViews = (url: string) =>
+  unsplash.get(url).then(({ data }) => {
+    const value = data.views.historical.change;
+
+    return formatNumbers(value);
+  });
+
+const fetchYoutubeSubscribers = (url: string) =>
+  youtube
+    .get(url, {
+      params: {
+        part: "statistics",
+        id: "UC0kP3MzeS1re1XqQ7ebKIrA",
+      },
+    })
+    .then(({ data }) => {
+      const value = data.items[0].statistics.subscriberCount;
+
+      return formatNumbers(value);
+    });
+
 function Work() {
-  const [unsplashViews, setUnsplashViews] = useState<string | number>(0);
-  const [youtubeSubs, setYoutubeSubs] = useState<string | number>(0);
+  const { data: unsplashViews } = useSWR(
+    "/users/nublson/statistics",
+    fetchUnsplashViews
+  );
 
-  useEffect(() => {
-    getUnsplashViews().then((response) => {
-      const convertedValue = formatNumbers(response);
-      setUnsplashViews(convertedValue);
-    });
-  }, [unsplashViews]);
-
-  useEffect(() => {
-    getYoutubeSubscriptions().then((response) => {
-      const convertedValue = formatNumbers(response);
-      setYoutubeSubs(convertedValue);
-    });
-  }, [youtubeSubs]);
+  const { data: youtubeSubs } = useSWR("/channels", fetchYoutubeSubscribers);
 
   return (
     <Section
@@ -40,13 +51,13 @@ function Work() {
           title="Youtube"
           description="I'm also diving into the world of video creation. Videos about technology, photography and lifestyle."
           link="https://www.youtube.com/channel/UC0kP3MzeS1re1XqQ7ebKIrA"
-          stats={`${youtubeSubs} subscribers`}
+          stats={`${youtubeSubs ? youtubeSubs : 0} subscribers`}
         />
         <Cards.Work
           title="Unsplash"
           description="You can see a selected collection of my photography work."
           link="https://unsplash.com/@nublson"
-          stats={`${unsplashViews} views/last 30 days`}
+          stats={`${unsplashViews ? unsplashViews : 0} views/last 30 days`}
         />
         <Cards.Work
           title="Online Store"
