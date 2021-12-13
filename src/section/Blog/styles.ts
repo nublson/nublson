@@ -50,14 +50,17 @@ export const BlogList = styled.div<BlogListProps>`
 
   @media ${(props) => props.theme.mediaQueries.medium} {
     width: 75%;
-
     grid-template-columns: 1fr;
     grid-gap: 3.5rem;
 
-    & > * {
-      grid-column-start: 1;
-      grid-column-end: 2;
-    }
+    ${(props) =>
+      props.center &&
+      `
+      & > :first-child {
+        grid-column-start: 1;
+        grid-column-end: 2;
+      }
+    `}
   }
 
   @media ${(props) => props.theme.mediaQueries.small} {

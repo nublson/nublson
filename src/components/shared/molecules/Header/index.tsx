@@ -11,10 +11,22 @@ function Header() {
   return (
     <Container>
       {pathname === "/" ? (
-        <Image src={logo} alt="NUBL logo" width="50" height="50" />
+        <Image
+          src={logo}
+          alt="NUBL logo"
+          width="50"
+          height="50"
+          className="logo"
+        />
       ) : (
         <RouteLink href="/">
-          <Image src={logo} alt="NUBL logo" width="50" height="50" />
+          <Image
+            src={logo}
+            alt="NUBL logo"
+            width="50"
+            height="50"
+            className="logo"
+          />
         </RouteLink>
       )}
 

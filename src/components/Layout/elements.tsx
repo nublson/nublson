@@ -31,13 +31,13 @@ const StyledSection = styled.section`
     text-align: center;
 
     @media ${(props) => props.theme.mediaQueries.medium} {
-      width: 100%;
+      width: 90%;
 
       margin-bottom: 8rem;
     }
 
     @media ${(props) => props.theme.mediaQueries.small} {
-      width: 100%;
+      width: 90%;
 
       margin-bottom: 5rem;
     }
