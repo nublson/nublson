@@ -68,6 +68,7 @@ function Blog({
           alt="Thumbnail"
           objectFit="cover"
           layout="fill"
+          priority={true}
         />
       </Thumbnail>
       <div className="data">
