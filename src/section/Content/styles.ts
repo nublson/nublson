@@ -136,6 +136,10 @@ export const StyledContent = styled.div`
       border-radius: 3px;
       margin: 2rem 0;
 
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+
       @media ${(props) => props.theme.mediaQueries.medium} {
         margin: 1rem 0;
       }
@@ -147,7 +151,7 @@ export const StyledContent = styled.div`
       span {
         font-size: 1.8rem;
         line-height: 25px;
-        margin: 1rem;
+        margin: 0 1rem;
 
         @media ${(props) => props.theme.mediaQueries.small} {
           font-size: 1.6rem;
@@ -157,7 +161,7 @@ export const StyledContent = styled.div`
 
     &quote {
       width: 100%;
-      padding: 2rem;
+      padding: 0 2rem;
       margin: 2rem 0;
       border-left: 3px solid ${(props) => props.theme.colors.off_white};
       font-size: 1.8rem;
