@@ -25,7 +25,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  width: 80%;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
@@ -33,27 +33,35 @@ export const Content = styled.div`
   justify-content: center;
   gap: 1rem;
 
+  & > :first-child,
+  h1 {
+    width: 80%;
+  }
+
+  & > :last-child {
+    width: 90%;
+  }
+
   @media ${(props) => props.theme.mediaQueries.medium} {
-    width: 100%;
+    & > :first-child,
+    h1 {
+      width: 100%;
+    }
+
+    & > :last-child {
+      width: 100%;
+    }
   }
 
   @media ${(props) => props.theme.mediaQueries.small} {
     flex: 1;
 
     gap: 0.5rem;
-
-    & > :last-child {
-      width: 90%;
-    }
   }
 
   @media ${(props) => props.theme.mediaQueries.smallest} {
     h1 {
       font-size: 3rem;
-    }
-
-    & > :last-child {
-      width: 100%;
     }
   }
 `;

@@ -48,7 +48,14 @@ export default class MyDocument extends Document {
             content="I'm a Developer and Content Creator with also xp in UI Design!"
           />
 
+          <link
+            rel="preload"
+            as="style"
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+          />
+
           <link rel="preconnect" href="https://fonts.googleapis.com" />
+
           <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
@@ -58,8 +65,6 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
             rel="stylesheet"
           />
-
-          <link rel="preload" />
 
           <link rel="icon" href="/favicon.svg" />
           <link rel="canonical" href={process.env.BASE_URL} />

@@ -35,6 +35,11 @@ export const StyledItems = styled.ul`
 
   .active {
     font-weight: 600;
+    border-bottom: 2px solid ${(props) => props.theme.colors.off_white};
+
+    & > :hover {
+      text-decoration: none;
+    }
   }
 
   a {

@@ -1,58 +1,44 @@
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ParsedUrlQuery } from "querystring";
-import ContactSection from "../../section/Contact";
-import ContentSection from "../../section/Content";
-import HomeSection from "../../section/Home";
-import { getBlocks, getArticles } from "../../services/api";
+import ContactSection from "../section/Contact";
+import ContentSection from "../section/Content";
+import HomeSection from "../section/Home";
+import { getBlocks, getPage } from "../services/api";
 import {
   formatBlockWithChildren,
   formatDate,
   formatPageProps,
-  formatSlug,
-} from "../../utils/formatter";
-import { BlogItem } from "../../utils/types";
+} from "../utils/formatter";
+import { BlogItem } from "../utils/types";
 
-type SlugProps = {
+type AboutProps = {
   pageProps: BlogItem;
   blocks: any[];
 };
 
-interface Params extends ParsedUrlQuery {
-  slug: string;
-}
-
-const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
+const About: NextPage<AboutProps> = ({ pageProps, blocks }) => {
   const { asPath } = useRouter();
 
   return (
     <>
       <Head>
-        <title>{pageProps.title} | Nubelson Fernandes</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>About | Nubelson Fernandes</title>
         <meta name="description" content={pageProps.description} />
 
-        <meta
-          property="og:title"
-          content={`${pageProps.title} | Nubelson Fernandes`}
-        />
+        <meta property="og:title" content={"About | Nubelson Fernandes"} />
         <meta property="og:description" content={pageProps.description} />
         <meta property="og:image" content={pageProps.thumbnail} />
         <meta property="og:url" content={`${process.env.BASE_URL}${asPath}`} />
-        <meta
-          property="og:site_name"
-          content={`${pageProps.title} | Nubelson Fernandes`}
-        />
+        <meta property="og:site_name" content={"About | Nubelson Fernandes"} />
         <meta property="og:type" content="article" />
 
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@nublson" />
         <meta name="twitter:creator" content="@nublson" />
         <meta name="twitter:url" content={`${process.env.BASE_URL}${asPath}`} />
-        <meta
-          name="twitter:title"
-          content={`${pageProps.title} | Nubelson Fernandes`}
-        />
+        <meta name="twitter:title" content={"About | Nubelson Fernandes"} />
         <meta name="twitter:description" content={pageProps.description} />
         <meta name="twitter:image" content={pageProps.thumbnail} />
       </Head>
@@ -70,35 +56,10 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const database = await getArticles(process.env.NOTION_DATABASE_ID);
+export const getStaticProps: GetStaticProps<AboutProps> = async (context) => {
+  const page = await getPage(process.env.NOTION_ABOUT_ID);
 
-  const paths = database.map((post) => ({
-    params: {
-      slug: formatSlug(post),
-    },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps<SlugProps, Params> = async (
-  context
-) => {
-  const params = context.params!;
-
-  const { slug } = params;
-
-  const database = await getArticles(process.env.NOTION_DATABASE_ID);
-
-  const pageExists = database.find((result) => {
-    return formatSlug(result) === slug;
-  });
-
-  const pageProps = formatPageProps(pageExists);
+  const pageProps = formatPageProps(page);
 
   const blocks = await getBlocks(pageProps.id);
 
@@ -124,4 +85,4 @@ export const getStaticProps: GetStaticProps<SlugProps, Params> = async (
   };
 };
 
-export default Slug;
+export default About;

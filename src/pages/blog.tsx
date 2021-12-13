@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import ArticlesSection from "../section/Articles";
 import ContactSection from "../section/Contact";
 import HomeSection from "../section/Home";
-import { getDatabase } from "../services/api";
+import { getArticles } from "../services/api";
 import files from "../utils/files.json";
 import { formatPosts } from "../utils/formatter";
 import { BlogItem } from "../utils/types";
@@ -19,8 +19,12 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
   return (
     <>
       <Head>
-        <title>Blog | Nubelson Fernandes</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>Blog | Nubelson Fernandes</title>
+        <meta
+          name="description"
+          content={"Sharing ideas, thoughts and experience"}
+        />
 
         <meta property="og:title" content={"Blog | Nubelson Fernandes"} />
         <meta
@@ -47,7 +51,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
         id="home"
         top="Welcome to my"
         title="Blog"
-        subtitle="I don’t just shoot and develop. Here I share my ideas, thoughts and experience."
+        subtitle="I don&#39;t just shoot and develop. Here I share my ideas, thoughts and experience."
         image={files.images.blog}
         scrollTo="articles"
       />
@@ -58,7 +62,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const results = await getDatabase(process.env.NOTION_DATABASE_ID);
+  const results = await getArticles(process.env.NOTION_DATABASE_ID);
 
   const posts = formatPosts(results);
 

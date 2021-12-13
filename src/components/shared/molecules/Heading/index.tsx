@@ -25,7 +25,7 @@ function Heading({ top, title, subtitle, image, article }: HeadingProps) {
           alt="Thumbnail"
           objectFit="cover"
           layout="fill"
-          priority
+          priority={true}
         />
       </Thumbnail>
     </Container>
