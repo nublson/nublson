@@ -1,58 +1,46 @@
 import { useRouter } from "next/router";
+import { Link } from "react-scroll";
 import RouteLink from "../../atoms/RouteLink";
 import Texts from "../../atoms/Texts";
-import { ScrollLink, StyledItems } from "./styles";
+import { StyledItem } from "./styles";
 
 interface ItemsProps {
   items: {
     name: string;
     path: string;
   }[];
+  scrollAction?(): any;
 }
 
-export const NavItems = ({ items }: ItemsProps) => {
+export const NavItems = ({ items, scrollAction }: ItemsProps) => {
   const { pathname } = useRouter();
 
   return (
-    <StyledItems>
+    <ul>
       {items.map((item, index) => {
         return (
-          <li
+          <StyledItem
             key={index}
             className={pathname === `/${item.path}` ? "active" : ""}
           >
             {item.name === "Contact" ? (
-              <ScrollLink
+              <Link
                 to={item.path}
                 spy={true}
                 smooth={true}
                 duration={1000}
+                onClick={scrollAction}
               >
                 <Texts.Medium content={item.name} />
-              </ScrollLink>
-            ) : item.name === "Work" ? (
-              pathname === "/" ? (
-                <ScrollLink
-                  to={item.path}
-                  spy={true}
-                  smooth={true}
-                  duration={1000}
-                >
-                  <Texts.Medium content={item.name} />
-                </ScrollLink>
-              ) : (
-                <RouteLink href={`/#${item.path}`}>
-                  <Texts.Medium content={item.name} />
-                </RouteLink>
-              )
+              </Link>
             ) : (
               <RouteLink href={`/${item.path}`}>
                 <Texts.Medium content={item.name} />
               </RouteLink>
             )}
-          </li>
+          </StyledItem>
         );
       })}
-    </StyledItems>
+    </ul>
   );
 };

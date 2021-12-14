@@ -22,7 +22,7 @@ const StyledSection = styled.section`
   }
 
   @media ${(props) => props.theme.mediaQueries.small} {
-    padding: 5rem 0 1rem;
+    padding: 5rem 2rem 1rem;
   }
 
   h2 {

@@ -10,6 +10,7 @@ interface LayoutProps {
 }
 
 const Container = styled.main`
+  position: relative;
   width: 100%;
   min-height: 100vh;
   padding-top: 5rem;
@@ -24,7 +25,7 @@ const Container = styled.main`
   }
 
   @media ${(props) => props.theme.mediaQueries.small} {
-    padding-top: 0rem;
+    padding: 0;
   }
 `;
 
@@ -45,8 +46,8 @@ const Content = styled.div`
 const Layout = ({ children }: LayoutProps) => {
   return (
     <ThemeProvider theme={theme}>
-      <Header />
       <Container>
+        <Header />
         <Content>{children}</Content>
       </Container>
       <Footer />

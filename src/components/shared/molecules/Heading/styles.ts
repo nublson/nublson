@@ -21,6 +21,7 @@ export const Container = styled.div`
 
   @media ${(props) => props.theme.mediaQueries.small} {
     gap: 2rem;
+    padding: 0 2rem;
   }
 `;
 
