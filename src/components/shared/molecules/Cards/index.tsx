@@ -4,6 +4,8 @@ import {
   RiStoreLine,
   RiUnsplashLine,
   RiYoutubeLine,
+  RiGithubLine,
+  RiGlobalLine,
 } from "react-icons/ri";
 import { formatDate } from "../../../../utils/formatter";
 import Texts from "../../atoms/Texts";
@@ -16,6 +18,7 @@ interface CardsProps {
 }
 
 interface WorkCard extends CardsProps {
+  id: string;
   link: string;
   stats: string;
 }
@@ -26,17 +29,21 @@ interface BlogCard extends CardsProps {
   read_time: number;
 }
 
-function Work({ title, description, link, stats }: WorkCard) {
+function Work({ id, title, description, link, stats }: WorkCard) {
   return (
     <WorkContainer href={link} target="_blank" rel="noreferrer">
-      {title === "Instagram" ? (
+      {id === "instagram" ? (
         <RiInstagramLine className="icon" />
-      ) : title === "Youtube" ? (
+      ) : id === "youtube" ? (
         <RiYoutubeLine className="icon" />
-      ) : title === "Unsplash" ? (
+      ) : id === "unsplash" ? (
         <RiUnsplashLine className="icon" />
+      ) : id === "store" ? (
+        <RiStoreLine className="icon" />
+      ) : id === "github" ? (
+        <RiGithubLine className="icon" />
       ) : (
-        title === "Online Store" && <RiStoreLine className="icon" />
+        <RiGlobalLine className="icon" />
       )}
       <div className="body">
         <div className="content">

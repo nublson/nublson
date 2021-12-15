@@ -9,6 +9,7 @@ module.exports = {
     UNSPLASH_ACCESS_TOKEN: process.env.UNSPLASH_ACCESS_TOKEN,
     UNSPLASH_SECRET_KEY: process.env.UNSPLASH_SECRET_KEY,
     YOUTUBE_ACCESS_TOKEN: process.env.YOUTUBE_ACCESS_TOKEN,
+    GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
   },
   images: {
     domains: ["s3.us-west-2.amazonaws.com", "images.unsplash.com"],

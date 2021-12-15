@@ -9,5 +9,6 @@ namespace NodeJS {
     UNSPLASH_ACCESS_TOKEN: string;
     UNSPLASH_SECRET_KEY: string;
     YOUTUBE_ACCESS_TOKEN: string;
+    GITHUB_ACCESS_TOKEN: string;
   }
 }

@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const WorkContainer = styled.a`
   width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
   padding: 5rem 5rem 3rem;
   border: 4px solid ${(props) => props.theme.colors.line};
   text-decoration: none;

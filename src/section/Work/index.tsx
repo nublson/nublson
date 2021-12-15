@@ -3,17 +3,20 @@ import { Section } from "../../components/Layout/elements";
 import Cards from "../../components/shared/molecules/Cards";
 import { unsplash } from "../../services/unsplash";
 import { youtube } from "../../services/youtube";
+import { github } from "../../services/github";
 import { formatNumbers } from "../../utils/formatter";
 import { Container } from "./styles";
+import { workItems } from "../../utils/workItems";
+import { useEffect } from "react";
 
-const fetchUnsplashViews = (url: string) =>
+const unsplashFetcher = (url: string) =>
   unsplash.get(url).then(({ data }) => {
     const value = data.views.historical.change;
 
     return formatNumbers(value);
   });
 
-const fetchYoutubeSubscribers = (url: string) =>
+const youtubeFetcher = (url: string) =>
   youtube
     .get(url, {
       params: {
@@ -27,18 +30,43 @@ const fetchYoutubeSubscribers = (url: string) =>
       return formatNumbers(value);
     });
 
+const githubFetcher = (url: string) =>
+  github.get(url).then(({ data }) => {
+    const publicRepos = data.length;
+
+    return formatNumbers(publicRepos);
+  });
+
 function Work() {
   const { data: unsplashViews } = useSWR(
     "/users/nublson/statistics",
-    fetchUnsplashViews,
+    unsplashFetcher,
     {
       refreshInterval: 500,
     }
   );
 
-  const { data: youtubeSubs } = useSWR("/channels", fetchYoutubeSubscribers, {
+  const { data: youtubeSubs } = useSWR("/channels", youtubeFetcher, {
     refreshInterval: 500,
   });
+
+  const { data: githubRepos } = useSWR("/user/repos", githubFetcher, {
+    refreshInterval: 500,
+  });
+
+  const getStats = (id: string) => {
+    if (id === "instagram") {
+      return formatNumbers(2793);
+    } else if (id === "youtube") {
+      return youtubeSubs ? youtubeSubs : 0;
+    } else if (id === "unsplash") {
+      return unsplashViews ? unsplashViews : 0;
+    } else if (id === "store") {
+      return formatNumbers(1100);
+    } else if (id === "github") {
+      return githubRepos ? githubRepos : 0;
+    }
+  };
 
   return (
     <Section
@@ -46,30 +74,16 @@ function Work() {
       title="Working every day with everything I like the most."
     >
       <Container>
-        <Cards.Work
-          title="Instagram"
-          description="My daily life as a content creator and partnerships with different brands."
-          link="https://instagram.com/nublson"
-          stats="2.7K followers"
-        />
-        <Cards.Work
-          title="Youtube"
-          description="I'm also diving into the world of video creation. Videos about technology, photography and lifestyle."
-          link="https://www.youtube.com/channel/UC0kP3MzeS1re1XqQ7ebKIrA"
-          stats={`${youtubeSubs ? youtubeSubs : 0} subscribers`}
-        />
-        <Cards.Work
-          title="Unsplash"
-          description="You can see a selected collection of my photography work."
-          link="https://unsplash.com/@nublson"
-          stats={`${unsplashViews ? unsplashViews : 0} views/last 30 days`}
-        />
-        <Cards.Work
-          title="Online Store"
-          description="A collection of my best selling digital products. Made by me, with love."
-          link="https://gumroad.com/nublson"
-          stats={`${formatNumbers(1104)} sells`}
-        />
+        {workItems.map((item) => (
+          <Cards.Work
+            key={item.id}
+            id={item.id}
+            title={item.title}
+            description={item.description}
+            link={item.link}
+            stats={`${getStats(item.id)} ${item.stats}`}
+          />
+        ))}
       </Container>
     </Section>
   );
