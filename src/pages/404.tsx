@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import HomeSection from "../section/Home";
-import files from "../utils/files.json";
+import pageData from "../utils/pageData.json";
 
 const Home: NextPage = () => {
   return (
@@ -13,10 +13,10 @@ const Home: NextPage = () => {
 
       <HomeSection
         id="404"
-        top="Page not found"
-        title="Oops, your're lost"
-        subtitle="You fell in the middle of an infinite space. Come home!"
-        image={files.images.notFound}
+        top={pageData.notFound.top}
+        title={pageData.notFound.title}
+        subtitle={pageData.notFound.description}
+        image={pageData.notFound.image}
       />
     </>
   );

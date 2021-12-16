@@ -6,7 +6,7 @@ import ContactSection from "../section/Contact";
 import HomeSection from "../section/Home";
 import WorkSection from "../section/Work";
 import { getArticles } from "../services/api";
-import files from "../utils/files.json";
+import pageData from "../utils/pageData.json";
 import { formatPosts } from "../utils/formatter";
 import { BlogItem } from "../utils/types";
 
@@ -20,18 +20,16 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
   return (
     <>
       <Head>
-        <title>Nubelson Fernandes | Developer &#38; Content Creator</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>Nubelson Fernandes | Developer &#38; Content Creator</title>
+        <meta name="description" content={pageData.home.description} />
 
         <meta
           property="og:title"
           content={"Nubelson Fernandes | Developer & Content Creator"}
         />
-        <meta
-          property="og:description"
-          content="I'm a Developer and Content Creator with also xp in UI Design!"
-        />
-        <meta property="og:image" content={files.images.home} />
+        <meta property="og:description" content={pageData.home.description} />
+        <meta property="og:image" content={pageData.home.image} />
         <meta property="og:url" content={`${process.env.BASE_URL}${asPath}`} />
         <meta
           property="og:site_name"
@@ -47,21 +45,16 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
           name="twitter:title"
           content={"Nubelson Fernandes | Developer & Content Creator"}
         />
-        <meta
-          name="twitter:description"
-          content={
-            "I'm a Developer and Content Creator with also xp in UI Design!"
-          }
-        />
-        <meta name="twitter:image" content={files.images.home} />
+        <meta name="twitter:description" content={pageData.home.description} />
+        <meta name="twitter:image" content={pageData.home.image} />
       </Head>
 
       <HomeSection
         id="home"
-        top="Hi, my name is"
-        title="Nubelson Fernandes"
-        subtitle="Developer and Content Creator with also xp in UI Design"
-        image={files.images.home}
+        top={pageData.home.top}
+        title={pageData.home.title}
+        subtitle={pageData.home.description}
+        image={pageData.home.image}
         scrollTo="work"
       />
       <WorkSection />
