@@ -24,7 +24,15 @@ interface Params extends ParsedUrlQuery {
 }
 
 const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
-  const { asPath } = useRouter();
+  const { asPath, isFallback } = useRouter();
+
+  if (isFallback) {
+    return (
+      <div>
+        <p>loading...</p>
+      </div>
+    );
+  }
 
   return (
     <>
