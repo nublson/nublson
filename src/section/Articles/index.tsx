@@ -66,7 +66,7 @@ function Articles({ posts }: ArticlesProps) {
             />
           </StyledForm>
 
-          {posts.length && (
+          {posts.length ? (
             <CategorySection>
               {categories.map((category) => (
                 <CategoryItem
@@ -81,7 +81,7 @@ function Articles({ posts }: ArticlesProps) {
                 />
               ))}
             </CategorySection>
-          )}
+          ) : null}
         </Header>
 
         <ArticleList center={filteredPosts.length <= 1}>
