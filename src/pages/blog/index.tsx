@@ -1,13 +1,13 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import ArticlesSection from "../section/Articles";
-import ContactSection from "../section/Contact";
-import HomeSection from "../section/Home";
-import { getArticles } from "../services/api";
-import pageData from "../utils/pageData.json";
-import { formatPosts } from "../utils/formatter";
-import { BlogItem } from "../utils/types";
+import ArticlesSection from "../../section/Articles";
+import ContactSection from "../../section/Contact";
+import HomeSection from "../../section/Home";
+import { getArticles } from "../../services/api";
+import pageData from "../../utils/pageData.json";
+import { formatPosts } from "../../utils/formatter";
+import { BlogItem } from "../../utils/types";
 
 type BlogProps = {
   posts: BlogItem[];

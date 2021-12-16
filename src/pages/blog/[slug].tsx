@@ -5,7 +5,7 @@ import { ParsedUrlQuery } from "querystring";
 import ContactSection from "../../section/Contact";
 import ContentSection from "../../section/Content";
 import HomeSection from "../../section/Home";
-import { getBlocks, getArticles } from "../../services/api";
+import { getArticles, getBlocks } from "../../services/api";
 import {
   formatBlockWithChildren,
   formatDate,
@@ -81,7 +81,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
