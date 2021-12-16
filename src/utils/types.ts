@@ -1,3 +1,8 @@
+export type BlogCategory = {
+  id: string;
+  name: string;
+};
+
 export type BlogItem = {
   id: string;
   thumbnail: string;
@@ -5,6 +10,7 @@ export type BlogItem = {
   description: string;
   publish_date: string;
   read_time: number;
+  categories: BlogCategory[];
 };
 
 export type DatabaseResult = {

@@ -1,15 +1,23 @@
 import { FormHandles, SubmitHandler } from "@unform/core";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import { Section } from "../../components/Layout/elements";
+import CategoryItem from "../../components/shared/atoms/CategoryItem";
 import RouteLink from "../../components/shared/atoms/RouteLink";
 import Texts from "../../components/shared/atoms/Texts";
 import Buttons from "../../components/shared/molecules/Buttons";
 import Cards from "../../components/shared/molecules/Cards";
 import Input from "../../components/shared/molecules/Input";
 import { formatSlug } from "../../utils/formatter";
-import { BlogItem } from "../../utils/types";
-import { ArticleList, Container, StyledForm } from "./styles";
+import { getCategories } from "../../utils/getCategories";
+import { BlogCategory, BlogItem } from "../../utils/types";
+import {
+  ArticleList,
+  CategorySection,
+  Container,
+  Header,
+  StyledForm,
+} from "./styles";
 
 interface FormData {
   search: string;
@@ -20,6 +28,8 @@ interface ArticlesProps {
 }
 
 function Articles({ posts }: ArticlesProps) {
+  const [categories, setCategories] = useState<BlogCategory[]>([]);
+  const [currentCategory, setCurrentCategory] = useState("");
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit: SubmitHandler<FormData> = (data, { reset }) => {
@@ -28,16 +38,40 @@ function Articles({ posts }: ArticlesProps) {
     reset();
   };
 
+  useEffect(() => {
+    const category = getCategories(posts);
+    setCategories(category);
+  }, [currentCategory, posts]);
+
   return (
     <Section id="articles">
       <Container>
-        <StyledForm ref={formRef} onSubmit={handleSubmit}>
-          <Input name="search" placeholder="Search" />
-          <Buttons.Icon
-            onClick={formRef.current?.submitForm}
-            icon={<RiSearchLine size="24" color="#020202" />}
-          />
-        </StyledForm>
+        <Header>
+          <StyledForm ref={formRef} onSubmit={handleSubmit}>
+            <Input name="search" placeholder="Search" />
+            <Buttons.Icon
+              onClick={formRef.current?.submitForm}
+              icon={<RiSearchLine size="24" color="#020202" />}
+            />
+          </StyledForm>
+
+          {posts.length && (
+            <CategorySection>
+              {categories.map((category) => (
+                <CategoryItem
+                  key={category.id}
+                  name={category.name}
+                  className={category.name === currentCategory ? "active" : ""}
+                  onClick={() =>
+                    setCurrentCategory(
+                      category.name === currentCategory ? "" : category.name
+                    )
+                  }
+                />
+              ))}
+            </CategorySection>
+          )}
+        </Header>
 
         <ArticleList center={posts.length <= 1}>
           {!posts.length ? (

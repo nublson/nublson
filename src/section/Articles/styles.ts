@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { Form } from "@unform/web";
+import styled from "styled-components";
 
 interface ArticleListProps {
   center?: boolean;
@@ -12,15 +12,20 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 15rem;
+  gap: 10rem;
 
   @media ${(props) => props.theme.mediaQueries.medium} {
-    gap: 10rem;
-  }
-
-  @media ${(props) => props.theme.mediaQueries.small} {
     gap: 8rem;
   }
+`;
+
+export const Header = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
 `;
 
 export const StyledForm = styled(Form)`
@@ -45,6 +50,15 @@ export const StyledForm = styled(Form)`
   }
 `;
 
+export const CategorySection = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+`;
+
 export const ArticleList = styled.div<ArticleListProps>`
   width: 100%;
 
@@ -56,8 +70,6 @@ export const ArticleList = styled.div<ArticleListProps>`
   grid-template-rows: 1fr;
   grid-column-gap: 1.5rem;
   grid-row-gap: 5rem;
-  justify-content: center;
-  align-items: center;
 
   ${(props) =>
     props.center &&

@@ -1,5 +1,5 @@
-import slugify from "slugify";
 import moment from "moment";
+import slugify from "slugify";
 import { BlogItem } from "./types";
 
 export const formatSlug = (data: string | any) => {
@@ -21,6 +21,10 @@ export const formatPageProps = (page: any) => {
     description: page.properties.description.rich_text[0].text.content,
     publish_date: page.properties.publish_date.date.start,
     read_time: 3,
+    categories: page.properties.category.multi_select.map((item: any) => ({
+      id: item.id,
+      name: item.name,
+    })),
   };
 
   return formatedPage;
@@ -37,6 +41,10 @@ export const formatPosts = (database: any[]) => {
     description: post.properties.description.rich_text[0].text.content,
     publish_date: post.properties.publish_date.date.start,
     read_time: 3,
+    categories: post.properties.category.multi_select.map((item: any) => ({
+      id: item.id,
+      name: item.name,
+    })),
   }));
 
   return posts;
