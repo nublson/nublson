@@ -48,10 +48,6 @@ export const Content = styled.div`
     h1 {
       width: 100%;
     }
-
-    & > :last-child {
-      width: 100%;
-    }
   }
 
   @media ${(props) => props.theme.mediaQueries.small} {

@@ -12,8 +12,7 @@ interface LayoutProps {
 const Container = styled.main`
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  padding-top: 5rem;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
@@ -21,7 +20,7 @@ const Container = styled.main`
   justify-content: space-between;
 
   @media ${(props) => props.theme.mediaQueries.large} {
-    padding: 4rem 2rem 0rem;
+    padding: 0 2rem;
   }
 
   @media ${(props) => props.theme.mediaQueries.small} {
@@ -32,6 +31,7 @@ const Container = styled.main`
 const Content = styled.div`
   width: 100%;
   max-width: 121.8rem;
+  min-height: 100vh;
 
   margin: 0 auto;
 
@@ -46,8 +46,8 @@ const Content = styled.div`
 const Layout = ({ children }: LayoutProps) => {
   return (
     <ThemeProvider theme={theme}>
+      <Header />
       <Container>
-        <Header />
         <Content>{children}</Content>
       </Container>
       <Footer />

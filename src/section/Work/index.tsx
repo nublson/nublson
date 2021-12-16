@@ -56,7 +56,7 @@ function Work() {
 
   const getStats = (id: string) => {
     if (id === "instagram") {
-      return formatNumbers(2793);
+      return formatNumbers(2800);
     } else if (id === "youtube") {
       return youtubeSubs ? youtubeSubs : 0;
     } else if (id === "unsplash") {
