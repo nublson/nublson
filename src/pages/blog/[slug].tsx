@@ -6,6 +6,8 @@ import ContactSection from "../../section/Contact";
 import ContentSection from "../../section/Content";
 import HomeSection from "../../section/Home";
 import { getArticles, getBlocks } from "../../services/api";
+
+import Loading from "../../components/shared/molecules/Loading";
 import {
   formatBlockWithChildren,
   formatDate,
@@ -27,11 +29,7 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
   const { asPath, isFallback } = useRouter();
 
   if (isFallback) {
-    return (
-      <div>
-        <p>loading...</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
