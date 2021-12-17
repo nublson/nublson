@@ -32,9 +32,10 @@ export const MobileContainer = styled.div`
       color: ${(props) => props.theme.colors.off_white};
 
       &_close {
-        position: fixed;
-        right: 2rem;
         z-index: 10;
+        position: absolute;
+        top: 5rem;
+        right: 2rem;
       }
     }
 
@@ -46,8 +47,9 @@ export const MobileContainer = styled.div`
       bottom: 0;
       background-color: ${(props) => props.theme.colors.background};
       width: 100vw;
-      height: 100vh;
+      height: 100%;
       z-index: 9;
+      overflow: hidden;
 
       display: flex;
       align-items: center;

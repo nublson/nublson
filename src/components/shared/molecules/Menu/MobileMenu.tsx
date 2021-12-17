@@ -19,14 +19,11 @@ export const MobileMenu = () => {
 
   return (
     <MobileContainer>
-      {menuOpen ? (
-        <RiCloseLine className="icon icon_close" onClick={toggleMenu} />
-      ) : (
-        <RiMenu3Line className="icon" onClick={toggleMenu} />
-      )}
+      <RiMenu3Line className="icon" onClick={toggleMenu} />
 
       {menuOpen && (
         <div className="container">
+          <RiCloseLine className="icon icon_close" onClick={toggleMenu} />
           <NavItems items={nav.items} scrollAction={() => setMenuOpen(false)} />
         </div>
       )}
