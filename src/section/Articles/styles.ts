@@ -83,17 +83,9 @@ export const ArticleList = styled.div<ArticleListProps>`
   @media ${(props) => props.theme.mediaQueries.medium} {
     width: 75%;
 
-    grid-template-columns: 1fr;
-    grid-gap: 3.5rem;
-
-    ${(props) =>
-      props.center &&
-      `
-      & > :first-child {
-        grid-column-start: 1;
-        grid-column-end: 2;
-      }
-    `}
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   @media ${(props) => props.theme.mediaQueries.small} {

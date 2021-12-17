@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const WorkContainer = styled.a`
   width: 100%;
-  max-width: 60rem;
+  max-width: 55rem;
   margin: 0 auto;
   padding: 3rem 3rem 1rem;
   border: 4px solid ${(props) => props.theme.colors.line};
