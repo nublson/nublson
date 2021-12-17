@@ -38,7 +38,7 @@ export const BlogList = styled.div<BlogListProps>`
   grid-template-columns: ${(props) =>
     props.center ? `0.5fr 1fr 0.5fr` : `repeat(2, 1fr)`};
   grid-template-rows: 1fr;
-  grid-gap: 1.5rem;
+  grid-gap: ${(props) => (props.center ? `0` : `1.5rem`)};
 
   ${(props) =>
     props.center &&

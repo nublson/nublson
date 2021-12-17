@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { RiCloseLine, RiMenu3Line } from "react-icons/ri";
-import { navItems } from "../../../../utils/navItems";
+import nav from "../../../../utils/navItems.json";
 import { NavItems } from "./renderItems";
 import { MobileContainer } from "./styles";
 
@@ -27,7 +27,7 @@ export const MobileMenu = () => {
 
       {menuOpen && (
         <div className="container">
-          <NavItems items={navItems} scrollAction={() => setMenuOpen(false)} />
+          <NavItems items={nav.items} scrollAction={() => setMenuOpen(false)} />
         </div>
       )}
     </MobileContainer>

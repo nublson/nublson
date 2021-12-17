@@ -6,7 +6,7 @@ import { youtube } from "../../services/youtube";
 import { github } from "../../services/github";
 import { formatNumbers } from "../../utils/formatter";
 import { Container } from "./styles";
-import { workItems } from "../../utils/workItems";
+import work from "../../utils/workItems.json";
 import { useEffect } from "react";
 
 const unsplashFetcher = (url: string) =>
@@ -74,7 +74,7 @@ function Work() {
       title="Working every day with everything I like the most."
     >
       <Container>
-        {workItems.map((item) => (
+        {work.items.map((item) => (
           <Cards.Work
             key={item.id}
             id={item.id}

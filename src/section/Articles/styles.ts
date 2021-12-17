@@ -68,7 +68,7 @@ export const ArticleList = styled.div<ArticleListProps>`
   grid-template-columns: ${(props) =>
     props.center ? `0.5fr 1fr 0.5fr` : `repeat(2, 1fr)`};
   grid-template-rows: 1fr;
-  grid-column-gap: 1.5rem;
+  grid-column-gap: ${(props) => (props.center ? `0` : `1.5rem`)};
   grid-row-gap: 5rem;
 
   ${(props) =>
