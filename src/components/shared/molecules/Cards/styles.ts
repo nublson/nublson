@@ -4,7 +4,7 @@ export const WorkContainer = styled.a`
   width: 100%;
   max-width: 60rem;
   margin: 0 auto;
-  padding: 5rem 5rem 3rem;
+  padding: 3rem 3rem 1rem;
   border: 4px solid ${(props) => props.theme.colors.line};
   text-decoration: none;
 
@@ -22,10 +22,6 @@ export const WorkContainer = styled.a`
   &:hover {
     border-color: ${(props) => props.theme.colors.off_white};
     transition: all 0.2s;
-  }
-
-  @media ${(props) => props.theme.mediaQueries.large} {
-    padding: 3rem 3rem 1rem;
   }
 
   @media ${(props) => props.theme.mediaQueries.medium} {

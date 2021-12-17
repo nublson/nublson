@@ -18,14 +18,6 @@ const Container = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-
-  @media ${(props) => props.theme.mediaQueries.large} {
-    padding: 0 2rem;
-  }
-
-  @media ${(props) => props.theme.mediaQueries.small} {
-    padding: 0;
-  }
 `;
 
 const Content = styled.div`
@@ -35,22 +27,27 @@ const Content = styled.div`
 
   margin: 0 auto;
 
+  padding: 0 2rem;
   flex: 1;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    padding: 0;
+  }
 `;
 
 const Layout = ({ children }: LayoutProps) => {
   return (
     <ThemeProvider theme={theme}>
-      <Header />
       <Container>
+        <Header />
         <Content>{children}</Content>
+        <Footer />
       </Container>
-      <Footer />
       <GlobalStyles />
     </ThemeProvider>
   );

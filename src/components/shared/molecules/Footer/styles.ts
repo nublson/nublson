@@ -10,9 +10,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media ${(props) => props.theme.mediaQueries.large} {
-    padding: 0rem 2rem;
-  }
+  padding: 0rem 2rem;
 
   .content {
     max-width: 121.8rem;

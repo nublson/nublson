@@ -26,7 +26,7 @@ const StyledSection = styled.section`
   }
 
   h2 {
-    width: 55%;
+    width: 70%;
     margin: 0 auto 10rem;
     text-align: center;
 
