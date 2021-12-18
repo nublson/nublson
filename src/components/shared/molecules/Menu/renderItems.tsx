@@ -25,6 +25,7 @@ export const NavItems = ({ items, scrollAction }: ItemsProps) => {
           >
             {item.name === "Contact" ? (
               <Link
+                href="#contact"
                 to={item.path}
                 spy={true}
                 smooth={true}

@@ -2,12 +2,12 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
+import Loading from "../../components/shared/molecules/Loading";
 import ContactSection from "../../section/Contact";
 import ContentSection from "../../section/Content";
 import HomeSection from "../../section/Home";
+import NewsletterSection from "../../section/Newsletter";
 import { getArticles, getBlocks } from "../../services/api";
-
-import Loading from "../../components/shared/molecules/Loading";
 import {
   formatBlockWithChildren,
   formatDate,
@@ -71,6 +71,7 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
         article
       />
       <ContentSection blocks={blocks} />
+      <NewsletterSection />
       <ContactSection />
     </>
   );

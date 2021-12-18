@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.button`
   padding: 1rem 3.5rem;
   background-color: ${(props) => props.theme.colors.off_white};
+  border: none;
+  cursor: pointer;
 
   color: ${(props) => props.theme.colors.off_black};
   font-weight: 600;

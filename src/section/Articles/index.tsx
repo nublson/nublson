@@ -60,10 +60,7 @@ function Articles({ posts }: ArticlesProps) {
         <Header>
           <StyledForm ref={formRef} onSubmit={handleSubmit}>
             <Input name="search" placeholder="Search" />
-            <Buttons.Icon
-              onClick={formRef.current?.submitForm}
-              icon={<RiSearchLine size="24" color="#020202" />}
-            />
+            <Buttons.Icon icon={<RiSearchLine size="24" color="#020202" />} />
           </StyledForm>
 
           {posts.length ? (

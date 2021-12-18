@@ -9,7 +9,7 @@ interface Props extends HTMLAttributes<HTMLInputElement> {
 export default function Input({ name, ...rest }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { fieldName, defaultValue, registerField, error } = useField(name);
+  const { fieldName, defaultValue, registerField } = useField(name);
 
   useEffect(() => {
     registerField({

@@ -2,7 +2,7 @@ import { HTMLAttributes, ReactNode } from "react";
 import Texts from "../../atoms/Texts";
 import { Container, StyledIcon } from "./styles";
 
-interface ButtonsProps {
+interface ButtonsProps extends HTMLAttributes<HTMLButtonElement> {
   title: string;
 }
 
@@ -10,9 +10,9 @@ interface ButtonIconProps extends HTMLAttributes<HTMLButtonElement> {
   icon: ReactNode;
 }
 
-function Main({ title }: ButtonsProps) {
+function Main({ title, ...rest }: ButtonsProps) {
   return (
-    <Container>
+    <Container {...rest}>
       <Texts.Medium content={title} />
     </Container>
   );

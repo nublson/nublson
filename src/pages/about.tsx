@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import ContactSection from "../section/Contact";
 import ContentSection from "../section/Content";
 import HomeSection from "../section/Home";
+import NewsletterSection from "../section/Newsletter";
 import { getBlocks, getPage } from "../services/api";
 import {
   formatBlockWithChildren,
@@ -51,6 +52,7 @@ const About: NextPage<AboutProps> = ({ pageProps, blocks }) => {
         article
       />
       <ContentSection blocks={blocks} />
+      <NewsletterSection />
       <ContactSection />
     </>
   );

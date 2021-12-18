@@ -31,7 +31,7 @@ export const Header = styled.div`
 export const StyledForm = styled(Form)`
   width: 60%;
   margin: 0 auto;
-  height: 5rem;
+  height: 100%;
   padding: 0.5rem;
 
   border: 1px solid ${(props) => props.theme.colors.line};
