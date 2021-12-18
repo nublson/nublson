@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import { ArticleSection } from "../../components/Layout/elements";
 import ShareLink from "../../components/shared/atoms/ShareLink";
 import Texts from "../../components/shared/atoms/Texts";
-import { Container, ShareContent, StyledContent } from "./styles";
+import { StyledBlocks } from "../../styles/notion";
+import { Container, ShareContent } from "./styles";
 
 interface ContentProps {
   blocks: any[];
@@ -15,9 +16,9 @@ function Content({ blocks }: ContentProps) {
   return (
     <ArticleSection>
       <Container>
-        <StyledContent>
-          <Render blocks={blocks} classNames />
-        </StyledContent>
+        <StyledBlocks>
+          <Render blocks={blocks} classNames emptyBlocks />
+        </StyledBlocks>
 
         {pathname !== "/about" && (
           <ShareContent>

@@ -68,6 +68,14 @@ export const Thumbnail = styled.div<ThumbnailProps>`
   width: 100%;
   height: ${(props) => (props.article ? "68rem" : "46rem")};
 
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    ${(props) =>
+      props.article &&
+      `
+      height: 40rem;
+    `}
+  }
+
   @media ${(props) => props.theme.mediaQueries.small} {
     height: ${(props) => (props.article ? "23.5rem" : "50.5rem")};
   }

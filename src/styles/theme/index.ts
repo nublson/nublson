@@ -11,6 +11,18 @@ const theme = {
     background: "#121212",
     off_black: "#020202",
     off_white: "#FCFCFC",
+
+    block: {
+      gray: "#9fa4a9",
+      brown: "#d49675",
+      orange: "#d98538",
+      yellow: "#c99126",
+      green: "#71b283",
+      blue: "#66aada",
+      purple: "#b098d9",
+      pink: "#df84d1",
+      red: "#ea878c",
+    },
   },
   mediaQueries,
 };
