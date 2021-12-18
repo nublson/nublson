@@ -36,6 +36,8 @@ function Newsletter() {
           setFormError(error.message);
         });
       }
+
+      reset();
     }
   };
 
