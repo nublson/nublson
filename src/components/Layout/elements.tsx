@@ -1,9 +1,11 @@
 import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
 import Titles from "../shared/atoms/Titles";
+import Texts from "../shared/atoms/Texts";
 
 interface SectionProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
+  description?: string;
   children: ReactNode;
 }
 
@@ -25,21 +27,37 @@ const StyledSection = styled.section`
     padding: 5rem 2rem 1rem;
   }
 
-  h2 {
-    width: 70%;
+  .heading {
+    width: 100%;
     margin: 0 auto 10rem;
     text-align: center;
 
-    @media ${(props) => props.theme.mediaQueries.medium} {
-      width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
 
+    & > :first-child {
+      width: 70%;
+    }
+
+    & > :last-child {
+      width: 100%;
+    }
+
+    @media ${(props) => props.theme.mediaQueries.medium} {
       margin-bottom: 8rem;
+
+      & > :first-child {
+        width: 90%;
+      }
     }
 
     @media ${(props) => props.theme.mediaQueries.small} {
-      width: 90%;
-
       margin-bottom: 5rem;
+
+      gap: 1rem;
     }
   }
 `;
@@ -59,10 +77,21 @@ const SectionContent = styled.div`
   justify-content: center;
 `;
 
-export const Section = ({ title, children, ...rest }: SectionProps) => {
+export const Section = ({
+  title,
+  description,
+  children,
+  ...rest
+}: SectionProps) => {
   return (
     <StyledSection {...rest}>
-      {title && <Titles.Medium content={title} />}
+      {title && (
+        <div className="heading">
+          <Titles.Medium content={title} />
+          {description && <Texts.Medium content={description} />}
+        </div>
+      )}
+
       <SectionContent>{children}</SectionContent>
     </StyledSection>
   );
