@@ -32,7 +32,13 @@ function Home({
       />
       {!article &&
         (scrollTo ? (
-          <ScrollLink to={scrollTo} spy={true} smooth={true} duration={1000}>
+          <ScrollLink
+            href={`#${scrollTo}`}
+            to={scrollTo}
+            spy={true}
+            smooth={true}
+            duration={1000}
+          >
             <RiArrowDownSLine size={30} color="#FCFCFC" />
           </ScrollLink>
         ) : null)}
