@@ -1,11 +1,15 @@
 import { Form } from "@unform/web";
 import styled from "styled-components";
 
+interface FormProps {
+  feedback?: "success" | "error";
+}
+
 export const Container = styled.div`
   width: 100%;
 `;
 
-export const Content = styled.div`
+export const Content = styled.div<FormProps>`
   width: 60%;
   margin: 0 auto;
   height: 100%;
@@ -22,7 +26,11 @@ export const Content = styled.div`
   }
 
   &:last-child {
-    color: #f2545b;
+    text-align: center;
+    color: ${(props) =>
+      props.feedback === "success"
+        ? props.theme.colors.success
+        : props.feedback === "error" && props.theme.colors.error};
   }
 `;
 

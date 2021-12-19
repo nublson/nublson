@@ -10,6 +10,9 @@ module.exports = {
     UNSPLASH_SECRET_KEY: process.env.UNSPLASH_SECRET_KEY,
     YOUTUBE_ACCESS_TOKEN: process.env.YOUTUBE_ACCESS_TOKEN,
     GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
+    SENDGRID_MAIL_FROM: process.env.SENDGRID_MAIL_FROM,
+    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+    SENDGRID_LIST_KEY: process.env.SENDGRID_LIST_KEY,
   },
   images: {
     domains: ["s3.us-west-2.amazonaws.com", "images.unsplash.com"],

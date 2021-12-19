@@ -10,5 +10,8 @@ namespace NodeJS {
     UNSPLASH_SECRET_KEY: string;
     YOUTUBE_ACCESS_TOKEN: string;
     GITHUB_ACCESS_TOKEN: string;
+    SENDGRID_MAIL_FROM: string;
+    SENDGRID_API_KEY: string;
+    SENDGRID_LIST_KEY: string;
   }
 }

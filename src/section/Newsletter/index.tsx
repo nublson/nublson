@@ -1,4 +1,5 @@
 import { FormHandles, SubmitHandler } from "@unform/core";
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
 import { Section } from "../../components/Layout/elements";
@@ -11,9 +12,14 @@ interface FormData {
   email: string;
 }
 
+interface FormProps {
+  type: "success" | "error";
+  message: string;
+}
+
 function Newsletter() {
   const formRef = useRef<FormHandles>(null);
-  const [formError, setFormError] = useState("");
+  const [formFeedback, setFormFeedback] = useState<FormProps>({} as FormProps);
 
   const handleSubmit: SubmitHandler<FormData> = async (data, { reset }) => {
     try {
@@ -28,12 +34,27 @@ function Newsletter() {
         abortEarly: false,
       });
       // Validation passed
-      console.log(data);
-      reset();
+      await axios
+        .put("/api/mail", {
+          email: data.email,
+        })
+        .then((response) => {
+          setFormFeedback({
+            type: "success",
+            message: response.data.message,
+          });
+          reset();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         err.inner.forEach((error) => {
-          setFormError(error.message);
+          setFormFeedback({
+            type: "error",
+            message: error.message,
+          });
         });
       }
 
@@ -42,7 +63,7 @@ function Newsletter() {
   };
 
   useEffect(() => {
-    setFormError("");
+    setFormFeedback({} as FormProps);
   }, []);
 
   return (
@@ -52,18 +73,18 @@ function Newsletter() {
       description="No spam, just insightful content on tech, photography, filmmaking, code, and much more."
     >
       <Container>
-        <Content>
+        <Content feedback={formFeedback.type}>
           <StyledForm ref={formRef} onSubmit={handleSubmit}>
             <Input
               name="email"
               placeholder="Enter your email"
               onFocus={() => {
-                setFormError("");
+                setFormFeedback({} as FormProps);
               }}
             />
             <Buttons.Main title="Subscribe" />
           </StyledForm>
-          {formError && <Texts.XSmall content={formError} />}
+          {formFeedback && <Texts.XSmall content={formFeedback.message} />}
         </Content>
       </Container>
     </Section>

@@ -11,6 +11,8 @@ const theme = {
     background: "#121212",
     off_black: "#020202",
     off_white: "#FCFCFC",
+    error: "#f2545b",
+    success: "#6eeb83",
 
     block: {
       gray: "#9fa4a9",
