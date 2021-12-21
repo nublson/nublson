@@ -1,13 +1,12 @@
 import useSWR from "swr";
 import { Section } from "../../components/Layout/elements";
 import Cards from "../../components/shared/molecules/Cards";
+import { github } from "../../services/github";
 import { unsplash } from "../../services/unsplash";
 import { youtube } from "../../services/youtube";
-import { github } from "../../services/github";
 import { formatNumbers } from "../../utils/formatter";
-import { Container } from "./styles";
 import work from "../../utils/workItems.json";
-import { useEffect } from "react";
+import { Container } from "./styles";
 
 const unsplashFetcher = (url: string) =>
   unsplash.get(url).then(({ data }) => {

@@ -1,20 +1,25 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import mail from "../../services/mail";
+import { client } from "../../services/sendgrid";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "PUT") {
-    mail
-      .put("/marketing/contacts", {
-        contacts: [{ email: req.body.email }],
-        list_ids: [process.env.SENDGRID_LIST_KEY],
+    client
+      .request({
+        method: "PUT",
+        url: "v3/marketing/contacts",
+        body: {
+          contacts: [{ email: req.body.email }],
+          list_ids: [process.env.SENDGRID_LIST_KEY],
+        },
       })
-      .then(() => {
+      .then((response) => {
+        console.log(response);
         res.status(200).send({
           message: "You have successfully subscribed to my newsletter",
         });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         res.status(500).send({
           message:
             "Oops, there was a problem with your subscription, please try again.",
