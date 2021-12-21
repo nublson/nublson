@@ -34,7 +34,7 @@ export const MobileContainer = styled.div`
       &_close {
         z-index: 10;
         position: absolute;
-        top: 5rem;
+        top: 3.5rem;
         right: 2rem;
       }
     }
