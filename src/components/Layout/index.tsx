@@ -12,7 +12,7 @@ interface LayoutProps {
 const Container = styled.main`
   position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
 
   display: flex;
   flex-direction: column;
@@ -23,9 +23,8 @@ const Container = styled.main`
 const Content = styled.div`
   width: 100%;
   max-width: 121.8rem;
-  min-height: 100vh;
-
   margin: 0 auto;
+  height: 100%;
 
   padding: 0 2rem;
   flex: 1;
@@ -33,10 +32,12 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 
   @media ${(props) => props.theme.mediaQueries.small} {
     padding: 0;
+
+    justify-content: flex-start;
   }
 `;
 

@@ -1,6 +1,7 @@
 import { FormHandles, SubmitHandler } from "@unform/core";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import Loader from "react-loader-spinner";
 import * as Yup from "yup";
 import { Section } from "../../components/Layout/elements";
 import Texts from "../../components/shared/atoms/Texts";
@@ -20,8 +21,11 @@ interface FormProps {
 function Newsletter() {
   const formRef = useRef<FormHandles>(null);
   const [formFeedback, setFormFeedback] = useState<FormProps>({} as FormProps);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit: SubmitHandler<FormData> = async (data, { reset }) => {
+    setLoading(true);
+
     try {
       // Remove all previous errors
       formRef.current?.setErrors({});
@@ -43,10 +47,18 @@ function Newsletter() {
             type: "success",
             message: response.data.message,
           });
+
           reset();
         })
         .catch((err) => {
           console.log(err);
+          setFormFeedback({
+            type: "error",
+            message: err.message,
+          });
+        })
+        .finally(() => {
+          setLoading(false);
         });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
@@ -58,6 +70,7 @@ function Newsletter() {
         });
       }
 
+      setLoading(false);
       reset();
     }
   };
@@ -84,7 +97,11 @@ function Newsletter() {
             />
             <Buttons.Main title="Subscribe" />
           </StyledForm>
-          {formFeedback && <Texts.XSmall content={formFeedback.message} />}
+          {loading ? (
+            <Loader type="Puff" color="#fff" height={10} width={10} />
+          ) : (
+            formFeedback && <Texts.XSmall content={formFeedback.message} />
+          )}
         </Content>
       </Container>
     </Section>
