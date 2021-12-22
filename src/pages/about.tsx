@@ -25,6 +25,7 @@ const About: NextPage<AboutProps> = ({ pageProps, blocks }) => {
     <>
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="canonical" href={`${process.env.BASE_URL}/about/`} />
         <title>About | Nubelson Fernandes</title>
         <meta name="description" content={pageProps.description} />
 

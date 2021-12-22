@@ -35,6 +35,10 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
   return (
     <>
       <Head>
+        <link
+          rel="canonical"
+          href={`${process.env.BASE_URL}/blog/${formatSlug(pageProps.title)}/`}
+        />
         <title>{pageProps.title} | Nubelson Fernandes</title>
         <meta name="description" content={pageProps.description} />
 

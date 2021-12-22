@@ -21,6 +21,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
     <>
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="canonical" href={`${process.env.BASE_URL}/blog/`} />
         <title>Blog | Nubelson Fernandes</title>
         <meta name="description" content={pageData.blog.description} />
 

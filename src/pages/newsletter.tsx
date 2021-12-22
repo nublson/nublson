@@ -11,6 +11,7 @@ const Newsletter: NextPage = () => {
     <>
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="canonical" href={`${process.env.BASE_URL}/newsletter`} />
         <title>Newsletter | Nubelson Fernandes</title>
         <meta name="description" content={pageData.newsletter.description} />
 
