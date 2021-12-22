@@ -43,11 +43,6 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
 
-          <meta
-            name="description"
-            content="I'm a Developer and Content Creator with also xp in UI Design!"
-          />
-
           <link
             rel="preload"
             as="style"
