@@ -41,16 +41,16 @@ function Work() {
     "/users/nublson/statistics",
     unsplashFetcher,
     {
-      refreshInterval: 500,
+      refreshInterval: 3600000,
     }
   );
 
   const { data: youtubeSubs } = useSWR("/channels", youtubeFetcher, {
-    refreshInterval: 500,
+    refreshInterval: 1000,
   });
 
   const { data: githubRepos } = useSWR("/user/repos", githubFetcher, {
-    refreshInterval: 500,
+    refreshInterval: 1000,
   });
 
   const getStats = (id: string) => {
