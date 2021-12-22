@@ -39,7 +39,7 @@ function Newsletter() {
       });
       // Validation passed
       await api
-        .put("/mail", {
+        .put("/newsletter", {
           email: data.email,
         })
         .then((response) => {
