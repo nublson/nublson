@@ -5,7 +5,7 @@ import ContactSection from "../section/Contact";
 import ContentSection from "../section/Content";
 import HomeSection from "../section/Home";
 import NewsletterSection from "../section/Newsletter";
-import { getBlocks, getPage } from "../services/api";
+import { getBlocks, getPage } from "../services/notion";
 import {
   formatBlockWithChildren,
   formatDate,

@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { getServerSideSitemap, ISitemapField } from "next-sitemap";
-import { getArticles } from "../../services/api";
+import { getArticles } from "../../services/notion";
 import { formatPosts, formatSlug } from "../../utils/formatter";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

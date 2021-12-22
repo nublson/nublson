@@ -5,7 +5,7 @@ import ArticlesSection from "../../section/Articles";
 import ContactSection from "../../section/Contact";
 import HomeSection from "../../section/Home";
 import NewsletterSection from "../../section/Newsletter";
-import { getArticles } from "../../services/api";
+import { getArticles } from "../../services/notion";
 import { formatPosts } from "../../utils/formatter";
 import pageData from "../../utils/pageData.json";
 import { BlogItem } from "../../utils/types";

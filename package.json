@@ -12,6 +12,7 @@
   "dependencies": {
     "@9gustin/react-notion-render": "^3.5.0",
     "@notionhq/client": "^0.4.9",
+    "@sendgrid/client": "^7.6.0",
     "@types/moment": "^2.13.0",
     "@unform/core": "^2.1.6",
     "@unform/web": "^2.1.6",
