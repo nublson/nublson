@@ -1,5 +1,4 @@
 import { FormHandles, SubmitHandler } from "@unform/core";
-import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import Loader from "react-loader-spinner";
 import * as Yup from "yup";
@@ -7,6 +6,7 @@ import { Section } from "../../components/Layout/elements";
 import Texts from "../../components/shared/atoms/Texts";
 import Buttons from "../../components/shared/molecules/Buttons";
 import Input from "../../components/shared/molecules/Input";
+import { api } from "../../services/api";
 import { Container, Content, StyledForm } from "./styles";
 
 interface FormData {
@@ -38,8 +38,8 @@ function Newsletter() {
         abortEarly: false,
       });
       // Validation passed
-      await axios
-        .put("/api/mail", {
+      await api
+        .put("/mail", {
           email: data.email,
         })
         .then((response) => {
