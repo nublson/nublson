@@ -8,7 +8,8 @@ namespace NodeJS {
     NOTION_ABOUT_ID: string;
     UNSPLASH_ACCESS_TOKEN: string;
     UNSPLASH_SECRET_KEY: string;
-    YOUTUBE_ACCESS_TOKEN: string;
+    YOUTUBE_API_KEY: string;
+    YOUTUBE_CHANNEL_ID: string;
     GITHUB_ACCESS_TOKEN: string;
     SENDGRID_MAIL_FROM: string;
     SENDGRID_API_KEY: string;

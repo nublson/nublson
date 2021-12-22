@@ -24,7 +24,7 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="canonical" href={`${process.env.BASE_URL}/`} />
 
-        <title>Nubelson Fernandes | Developer &#38; Content Creator</title>
+        <title>Nublson</title>
         <meta name="description" content={pageData.home.description} />
 
         <meta

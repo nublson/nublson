@@ -20,7 +20,7 @@ const youtubeFetcher = (url: string) =>
     .get(url, {
       params: {
         part: "statistics",
-        id: "UC0kP3MzeS1re1XqQ7ebKIrA",
+        id: process.env.YOUTUBE_CHANNEL_ID,
       },
     })
     .then(({ data }) => {
