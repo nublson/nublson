@@ -30,14 +30,14 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
         <meta property="og:title" content={"Nublson"} />
         <meta property="og:description" content={pageData.home.description} />
         <meta property="og:image" content={pageData.home.image} />
-        <meta property="og:url" content={`${process.env.BASE_URL}${asPath}`} />
+        <meta property="og:url" content={`${process.env.BASE_URL}/`} />
         <meta property="og:site_name" content="Nublson" />
         <meta property="og:type" content="website" />
 
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@nublson" />
         <meta name="twitter:creator" content="@nublson" />
-        <meta name="twitter:url" content={`${process.env.BASE_URL}${asPath}`} />
+        <meta name="twitter:url" content={`${process.env.BASE_URL}/`} />
         <meta name="twitter:title" content={"Nublson"} />
         <meta name="twitter:description" content={pageData.home.description} />
         <meta name="twitter:image" content={pageData.home.image} />
