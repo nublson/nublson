@@ -27,6 +27,13 @@
       "description": "A collection of my best personal programming projects, using the best technologies on the market.",
       "link": "https://github.com/nublson",
       "stats": "public repositories"
+    },
+    {
+      "id": "store",
+      "title": "Online Store",
+      "description": "I sell digital products that I make myself like icons, wallpapers, LUTS and presets.",
+      "link": "https://gumroad.com/nublson",
+      "stats": "sells"
     }
   ]
 }

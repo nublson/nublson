@@ -55,13 +55,13 @@ function Work() {
 
   const getStats = (id: string) => {
     if (id === "instagram") {
-      return formatNumbers(2800);
+      return formatNumbers(2879);
     } else if (id === "youtube") {
       return youtubeSubs ? youtubeSubs : 0;
     } else if (id === "unsplash") {
       return unsplashViews ? unsplashViews : 0;
     } else if (id === "store") {
-      return formatNumbers(1100);
+      return formatNumbers(1023);
     } else if (id === "github") {
       return githubRepos ? githubRepos : 0;
     }
