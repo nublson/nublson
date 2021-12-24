@@ -48,6 +48,8 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
         />
         <meta property="og:description" content={pageProps.description} />
         <meta property="og:image" content={pageProps.thumbnail} />
+        <meta property="og:image:width" content="1920" />
+        <meta property="og:image:height" content="1080" />
         <meta property="og:url" content={`${process.env.BASE_URL}${asPath}`} />
         <meta
           property="og:site_name"

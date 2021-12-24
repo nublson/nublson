@@ -28,6 +28,8 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
         <meta property="og:title" content={"Blog | Nubelson Fernandes"} />
         <meta property="og:description" content={pageData.blog.description} />
         <meta property="og:image" content={pageData.blog.image} />
+        <meta property="og:image:width" content="1920" />
+        <meta property="og:image:height" content="1080" />
         <meta property="og:url" content={`${process.env.BASE_URL}${asPath}`} />
         <meta property="og:site_name" content="Blog | Nubelson Fernandes" />
         <meta property="og:type" content="blog" />

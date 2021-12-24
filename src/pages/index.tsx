@@ -27,6 +27,8 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
         <meta property="og:title" content={"Nubelson Fernandes"} />
         <meta property="og:description" content={pageData.home.description} />
         <meta property="og:image" content={pageData.home.image} />
+        <meta property="og:image:width" content="1920" />
+        <meta property="og:image:height" content="1080" />
         <meta property="og:url" content={`${process.env.BASE_URL}/`} />
         <meta property="og:site_name" content="Nubelson Fernandes" />
         <meta property="og:type" content="website" />
