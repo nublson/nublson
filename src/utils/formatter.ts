@@ -1,6 +1,6 @@
 import moment from "moment";
 import slugify from "slugify";
-import { BlogItem } from "./types";
+import { BlogItem, BlogCategory } from "./types";
 
 export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
@@ -20,11 +20,14 @@ export const formatPageProps = (page: any) => {
     title: page.properties.Name.title[0].text.content,
     description: page.properties.description.rich_text[0].text.content,
     publish_date: page.properties.publish_date.date.start,
+    modified_date: page.properties.modified_date.last_edited_time,
     read_time: 3,
-    categories: page.properties.category.multi_select.map((item: any) => ({
-      id: item.id,
-      name: item.name,
-    })),
+    categories: page.properties.category.multi_select.map(
+      (item: BlogCategory) => ({
+        id: item.id,
+        name: item.name,
+      })
+    ),
   };
 
   return formatedPage;
@@ -40,11 +43,14 @@ export const formatPosts = (database: any[]) => {
     title: post.properties.Name.title[0].text.content,
     description: post.properties.description.rich_text[0].text.content,
     publish_date: post.properties.publish_date.date.start,
+    modified_date: post.properties.modified_date.last_edited_time,
     read_time: 3,
-    categories: post.properties.category.multi_select.map((item: any) => ({
-      id: item.id,
-      name: item.name,
-    })),
+    categories: post.properties.category.multi_select.map(
+      (item: BlogCategory) => ({
+        id: item.id,
+        name: item.name,
+      })
+    ),
   }));
 
   return posts;

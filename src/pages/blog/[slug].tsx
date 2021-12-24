@@ -1,8 +1,8 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import Head from "next/head";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import Loading from "../../components/shared/molecules/Loading";
+import { useEffect } from "react";
 import ContactSection from "../../section/Contact";
 import ContentSection from "../../section/Content";
 import HomeSection from "../../section/Home";
@@ -26,15 +26,47 @@ interface Params extends ParsedUrlQuery {
 }
 
 const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
-  const { asPath, isFallback } = useRouter();
+  const { asPath } = useRouter();
 
-  if (isFallback) {
-    return <Loading />;
-  }
+  useEffect(() => {
+    const categories = pageProps.categories.map((category) => category.name);
+    console.log(categories);
+  }, [pageProps.categories]);
 
   return (
     <>
-      <Head>
+      <NextSeo
+        title={`${pageProps.title} | Nubelson Fernandes`}
+        description={pageProps.description}
+        canonical={`${process.env.BASE_URL}${asPath}`}
+        openGraph={{
+          title: pageProps.title,
+          description: pageProps.description,
+          url: `${process.env.BASE_URL}${asPath}`,
+          type: "article",
+          article: {
+            publishedTime: pageProps.publish_date,
+            modifiedTime: pageProps.modified_date,
+            authors: [`${process.env.BASE_URL}/about`],
+            tags: pageProps.categories.map((category) => category.name),
+          },
+          images: [
+            {
+              url: pageProps.thumbnail,
+              width: 850,
+              height: 750,
+              alt: pageProps.title,
+            },
+          ],
+          site_name: `${pageProps.title} | Nubelson Fernandes`,
+        }}
+        twitter={{
+          handle: "@nublson",
+          site: "@nublson",
+          cardType: "summary_large_image",
+        }}
+      />
+      {/* <Head>
         <link
           rel="canonical"
           href={`${process.env.BASE_URL}/blog/${formatSlug(pageProps.title)}/`}
@@ -67,7 +99,7 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
         />
         <meta name="twitter:description" content={pageProps.description} />
         <meta name="twitter:image" content={pageProps.thumbnail} />
-      </Head>
+      </Head> */}
       <HomeSection
         top={`Published at ${formatDate(pageProps.publish_date)}`}
         title={pageProps.title}
