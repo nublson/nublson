@@ -38,6 +38,7 @@ function Home({
             spy={true}
             smooth={true}
             duration={1000}
+            name="scroll-down-icon"
           >
             <RiArrowDownSLine size={30} color="#FCFCFC" />
           </ScrollLink>
