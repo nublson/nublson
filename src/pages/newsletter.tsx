@@ -28,7 +28,7 @@ const Newsletter: NextPage = () => {
         />
         <meta property="og:type" content="website" />
 
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@nublson" />
         <meta name="twitter:creator" content="@nublson" />
         <meta name="twitter:url" content={`${process.env.BASE_URL}${asPath}`} />

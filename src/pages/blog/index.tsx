@@ -32,7 +32,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
         <meta property="og:site_name" content="Blog | Nubelson Fernandes" />
         <meta property="og:type" content="blog" />
 
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@nublson" />
         <meta name="twitter:creator" content="@nublson" />
         <meta name="twitter:url" content={`${process.env.BASE_URL}${asPath}`} />

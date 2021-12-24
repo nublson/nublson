@@ -1,6 +1,5 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import BlogSection from "../section/Blog";
 import ContactSection from "../section/Contact";
 import HomeSection from "../section/Home";
@@ -16,29 +15,27 @@ type HomeProps = {
 };
 
 const Home: NextPage<HomeProps> = ({ posts }) => {
-  const { asPath } = useRouter();
-
   return (
     <>
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="canonical" href={`${process.env.BASE_URL}/`} />
 
-        <title>Nublson</title>
+        <title>Nubelson Fernandes</title>
         <meta name="description" content={pageData.home.description} />
 
-        <meta property="og:title" content={"Nublson"} />
+        <meta property="og:title" content={"Nubelson Fernandes"} />
         <meta property="og:description" content={pageData.home.description} />
         <meta property="og:image" content={pageData.home.image} />
         <meta property="og:url" content={`${process.env.BASE_URL}/`} />
-        <meta property="og:site_name" content="Nublson" />
+        <meta property="og:site_name" content="Nubelson Fernandes" />
         <meta property="og:type" content="website" />
 
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@nublson" />
         <meta name="twitter:creator" content="@nublson" />
         <meta name="twitter:url" content={`${process.env.BASE_URL}/`} />
-        <meta name="twitter:title" content={"Nublson"} />
+        <meta name="twitter:title" content={"Nubelson Fernandes"} />
         <meta name="twitter:description" content={pageData.home.description} />
         <meta name="twitter:image" content={pageData.home.image} />
       </Head>

@@ -36,7 +36,7 @@ const About: NextPage<AboutProps> = ({ pageProps, blocks }) => {
         <meta property="og:site_name" content={"About | Nubelson Fernandes"} />
         <meta property="og:type" content="article" />
 
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@nublson" />
         <meta name="twitter:creator" content="@nublson" />
         <meta name="twitter:url" content={`${process.env.BASE_URL}${asPath}`} />
