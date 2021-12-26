@@ -1,5 +1,5 @@
 import type { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import ArticlesSection from "../../section/Articles";
 import ContactSection from "../../section/Contact";
@@ -19,29 +19,26 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
 
   return (
     <>
-      <Head>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link rel="canonical" href={`${process.env.BASE_URL}/blog/`} />
-        <title>Blog | Nubelson Fernandes</title>
-        <meta name="description" content={pageData.blog.description} />
-
-        <meta property="og:title" content={"Blog | Nubelson Fernandes"} />
-        <meta property="og:description" content={pageData.blog.description} />
-        <meta property="og:image" content={pageData.blog.image} />
-        <meta property="og:image:width" content="1920" />
-        <meta property="og:image:height" content="1080" />
-        <meta property="og:url" content={`${process.env.BASE_URL}${asPath}`} />
-        <meta property="og:site_name" content="Blog | Nubelson Fernandes" />
-        <meta property="og:type" content="blog" />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@nublson" />
-        <meta name="twitter:creator" content="@nublson" />
-        <meta name="twitter:url" content={`${process.env.BASE_URL}${asPath}`} />
-        <meta name="twitter:title" content={"Blog | Nubelson Fernandes"} />
-        <meta name="twitter:description" content={pageData.blog.description} />
-        <meta name="twitter:image" content={pageData.blog.image} />
-      </Head>
+      <NextSeo
+        title="Blog | Nubelson Fernandes"
+        description={pageData.blog.description}
+        canonical={`${process.env.BASE_URL}${asPath}`}
+        openGraph={{
+          title: "Blog | Nubelson Fernandes",
+          description: pageData.blog.description,
+          url: `${process.env.BASE_URL}${asPath}`,
+          type: "blog",
+          images: [
+            {
+              url: pageData.blog.image,
+              width: 1920,
+              height: 1080,
+              alt: pageData.blog.title,
+            },
+          ],
+          site_name: "Blog | Nubelson Fernandes",
+        }}
+      />
       <HomeSection
         id="home"
         top={pageData.blog.top}

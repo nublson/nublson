@@ -60,52 +60,12 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
           ],
           site_name: `${pageProps.title} | Nubelson Fernandes`,
         }}
-        twitter={{
-          handle: "@nublson",
-          site: "@nublson",
-          cardType: "summary_large_image",
-        }}
       />
-      {/* <Head>
-        <link
-          rel="canonical"
-          href={`${process.env.BASE_URL}/blog/${formatSlug(pageProps.title)}/`}
-        />
-        <title>{pageProps.title} | Nubelson Fernandes</title>
-        <meta name="description" content={pageProps.description} />
-
-        <meta
-          property="og:title"
-          content={`${pageProps.title} | Nubelson Fernandes`}
-        />
-        <meta property="og:description" content={pageProps.description} />
-        <meta property="og:image" content={pageProps.thumbnail} />
-        <meta property="og:image:width" content="1920" />
-        <meta property="og:image:height" content="1080" />
-        <meta property="og:url" content={`${process.env.BASE_URL}${asPath}`} />
-        <meta
-          property="og:site_name"
-          content={`${pageProps.title} | Nubelson Fernandes`}
-        />
-        <meta property="og:type" content="article" />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@nublson" />
-        <meta name="twitter:creator" content="@nublson" />
-        <meta name="twitter:url" content={`${process.env.BASE_URL}${asPath}`} />
-        <meta
-          name="twitter:title"
-          content={`${pageProps.title} | Nubelson Fernandes`}
-        />
-        <meta name="twitter:description" content={pageProps.description} />
-        <meta name="twitter:image" content={pageProps.thumbnail} />
-      </Head> */}
       <HomeSection
         top={`Published at ${formatDate(pageProps.publish_date)}`}
         title={pageProps.title}
         subtitle={pageProps.description}
         image={pageProps.thumbnail}
-        scrollTo=""
         article
       />
       <ContentSection blocks={blocks} />

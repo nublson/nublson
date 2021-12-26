@@ -1,5 +1,5 @@
 import type { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import ContactSection from "../section/Contact";
 import ContentSection from "../section/Content";
@@ -23,35 +23,37 @@ const About: NextPage<AboutProps> = ({ pageProps, blocks }) => {
 
   return (
     <>
-      <Head>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link rel="canonical" href={`${process.env.BASE_URL}/about/`} />
-        <title>About | Nubelson Fernandes</title>
-        <meta name="description" content={pageProps.description} />
-
-        <meta property="og:title" content={"About | Nubelson Fernandes"} />
-        <meta property="og:description" content={pageProps.description} />
-        <meta property="og:image" content={pageProps.thumbnail} />
-        <meta property="og:image:width" content="1920" />
-        <meta property="og:image:height" content="1080" />
-        <meta property="og:url" content={`${process.env.BASE_URL}${asPath}`} />
-        <meta property="og:site_name" content={"About | Nubelson Fernandes"} />
-        <meta property="og:type" content="article" />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@nublson" />
-        <meta name="twitter:creator" content="@nublson" />
-        <meta name="twitter:url" content={`${process.env.BASE_URL}${asPath}`} />
-        <meta name="twitter:title" content={"About | Nubelson Fernandes"} />
-        <meta name="twitter:description" content={pageProps.description} />
-        <meta name="twitter:image" content={pageProps.thumbnail} />
-      </Head>
+      <NextSeo
+        title="About | Nubelson Fernandes"
+        description={pageProps.description}
+        canonical={`${process.env.BASE_URL}${asPath}`}
+        openGraph={{
+          title: "About | Nubelson Fernandes",
+          description: pageProps.description,
+          url: `${process.env.BASE_URL}${asPath}`,
+          type: "article",
+          article: {
+            publishedTime: pageProps.publish_date,
+            modifiedTime: pageProps.modified_date,
+            authors: [`${process.env.BASE_URL}${asPath}`],
+            tags: pageProps.categories.map((category) => category.name),
+          },
+          images: [
+            {
+              url: pageProps.thumbnail,
+              width: 1920,
+              height: 1080,
+              alt: pageProps.title,
+            },
+          ],
+          site_name: "About | Nubelson Fernandes",
+        }}
+      />
       <HomeSection
         top={`Published at ${formatDate(pageProps.publish_date)}`}
         title={pageProps.title}
         subtitle={pageProps.description}
         image={pageProps.thumbnail}
-        scrollTo=""
         article
       />
       <ContentSection blocks={blocks} />
