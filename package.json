@@ -26,6 +26,7 @@
     "react-icons": "^4.3.1",
     "react-loader-spinner": "^4.0.0",
     "react-scroll": "^1.8.4",
+    "sharp": "^0.29.3",
     "slugify": "^1.6.3",
     "styled-components": "^5.3.1",
     "swr": "^1.1.1",

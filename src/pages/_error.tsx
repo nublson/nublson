@@ -3,7 +3,7 @@ import { NextSeo } from "next-seo";
 import HomeSection from "../section/Home";
 import pageData from "../utils/pageData.json";
 
-const NotFound: NextPage = () => {
+const Error: NextPage = () => {
   return (
     <>
       <NextSeo
@@ -36,4 +36,10 @@ const NotFound: NextPage = () => {
   );
 };
 
-export default NotFound;
+Error.getInitialProps = ({ res, err }) => {
+  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+
+  return { statusCode };
+};
+
+export default Error;
