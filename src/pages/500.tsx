@@ -26,7 +26,7 @@ const Error: NextPage = () => {
       />
 
       <HomeSection
-        id="404"
+        id="500"
         top={pageData.notFound.top}
         title={pageData.notFound.title}
         subtitle={pageData.notFound.description}
@@ -34,12 +34,6 @@ const Error: NextPage = () => {
       />
     </>
   );
-};
-
-Error.getInitialProps = ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
-
-  return { statusCode };
 };
 
 export default Error;
