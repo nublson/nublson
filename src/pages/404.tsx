@@ -1,15 +1,29 @@
 import { NextPage } from "next";
-import Head from "next/head";
+import { NextSeo } from "next-seo";
 import HomeSection from "../section/Home";
 import pageData from "../utils/pageData.json";
 
 const Home: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Page not found | Nubelson Fernandes</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <NextSeo
+        title="Page not found | Nubelson Fernandes"
+        description={pageData.notFound.description}
+        openGraph={{
+          title: "Page not found | Nubelson Fernandes",
+          description: pageData.notFound.description,
+          images: [
+            {
+              url: pageData.notFound.image,
+              width: 1920,
+              height: 1080,
+              alt: pageData.notFound.title,
+            },
+          ],
+          site_name: "Page not found | Nubelson Fernandes",
+          type: "website",
+        }}
+      />
 
       <HomeSection
         id="404"
