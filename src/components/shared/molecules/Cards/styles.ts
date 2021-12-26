@@ -119,6 +119,7 @@ export const BlogContainer = styled.div`
       justify-content: flex-start;
       gap: 1rem;
       text-decoration: none;
+      margin: 0;
 
       & > * {
         color: ${(props) => props.theme.colors.body};
