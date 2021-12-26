@@ -31,13 +31,7 @@ const About: NextPage<AboutProps> = ({ pageProps, blocks }) => {
           title: "About | Nubelson Fernandes",
           description: pageProps.description,
           url: `${process.env.BASE_URL}${asPath}`,
-          type: "article",
-          article: {
-            publishedTime: pageProps.publish_date,
-            modifiedTime: pageProps.modified_date,
-            authors: [`${process.env.BASE_URL}${asPath}`],
-            tags: pageProps.categories.map((category) => category.name),
-          },
+          type: "website",
           images: [
             {
               url: pageProps.thumbnail,
