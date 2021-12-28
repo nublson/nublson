@@ -146,4 +146,20 @@ export const Thumbnail = styled.div`
   position: relative;
   width: 100%;
   height: 35rem;
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    height: 30rem;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    height: 35rem;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    height: 25rem;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.smaller} {
+    height: 20rem;
+  }
 `;
