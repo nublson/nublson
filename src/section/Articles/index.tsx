@@ -9,7 +9,6 @@ import Buttons from "../../components/shared/molecules/Buttons";
 import Cards from "../../components/shared/molecules/Cards";
 import Input from "../../components/shared/molecules/Input";
 import { filterPostsByCategory } from "../../utils/filterPosts";
-import { formatSlug } from "../../utils/formatter";
 import { getCategories } from "../../utils/getCategories";
 import { BlogCategory, BlogItem } from "../../utils/types";
 import {
@@ -86,10 +85,7 @@ function Articles({ posts }: ArticlesProps) {
             <Texts.Medium content="No articles published" />
           ) : (
             filteredPosts.map((article) => (
-              <RouteLink
-                key={article.id}
-                href={`/blog/${formatSlug(article.title)}`}
-              >
+              <RouteLink key={article.id} href={`/blog/${article.slug}`}>
                 <Cards.Blog
                   thumbnail={article.thumbnail}
                   title={article.title}

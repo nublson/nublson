@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps<AboutProps> = async (context) => {
 
   const childBlocks = await Promise.all(
     blocks
-      .filter((block) => block.has_children)
+      .filter((block: any) => block.has_children)
       .map(async (block) => {
         return {
           id: block.id,

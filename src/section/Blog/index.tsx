@@ -3,7 +3,6 @@ import RouteLink from "../../components/shared/atoms/RouteLink";
 import Texts from "../../components/shared/atoms/Texts";
 import Buttons from "../../components/shared/molecules/Buttons";
 import Cards from "../../components/shared/molecules/Cards";
-import { formatSlug } from "../../utils/formatter";
 import { BlogItem } from "../../utils/types";
 import { BlogList, Container } from "./styles";
 
@@ -20,10 +19,7 @@ function Blog({ posts }: BlogProps) {
             <Texts.Medium content="No articles published" />
           ) : (
             posts.map((article) => (
-              <RouteLink
-                key={article.id}
-                href={`/blog/${formatSlug(article.title)}`}
-              >
+              <RouteLink key={article.id} href={`/blog/${article.slug}`}>
                 <Cards.Blog
                   thumbnail={article.thumbnail}
                   title={article.title}

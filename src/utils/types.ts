@@ -12,6 +12,7 @@ export type BlogItem = {
   modified_date?: string;
   read_time: number;
   categories: BlogCategory[];
+  slug: string;
 };
 
 export type DatabaseResult = {

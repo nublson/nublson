@@ -2,7 +2,6 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import { useEffect } from "react";
 import ContactSection from "../../section/Contact";
 import ContentSection from "../../section/Content";
 import HomeSection from "../../section/Home";
@@ -11,8 +10,7 @@ import { getArticles, getBlocks } from "../../services/notion";
 import {
   formatBlockWithChildren,
   formatDate,
-  formatPageProps,
-  formatSlug,
+  formatPosts,
 } from "../../utils/formatter";
 import { BlogItem } from "../../utils/types";
 
@@ -27,11 +25,6 @@ interface Params extends ParsedUrlQuery {
 
 const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
   const { asPath } = useRouter();
-
-  useEffect(() => {
-    const categories = pageProps.categories.map((category) => category.name);
-    console.log(categories);
-  }, [pageProps.categories]);
 
   return (
     <>
@@ -76,11 +69,13 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const database = await getArticles(process.env.NOTION_DATABASE_ID);
+  const results = await getArticles(process.env.NOTION_DATABASE_ID);
 
-  const paths = database.map((post) => ({
+  const posts = formatPosts(results);
+
+  const paths = posts.map((post) => ({
     params: {
-      slug: formatSlug(post),
+      slug: post.slug,
     },
   }));
 
@@ -97,36 +92,45 @@ export const getStaticProps: GetStaticProps<SlugProps, Params> = async (
 
   const { slug } = params;
 
-  const database = await getArticles(process.env.NOTION_DATABASE_ID);
+  const results = await getArticles(process.env.NOTION_DATABASE_ID);
 
-  const pageExists = database.find((result) => {
-    return formatSlug(result) === slug;
+  const pages = formatPosts(results);
+
+  const pageExists = pages.find((page) => {
+    return page.slug === slug;
   });
 
-  const pageProps = formatPageProps(pageExists);
+  if (!pageExists) {
+    return {
+      props: {
+        pageProps: {} as BlogItem,
+        blocks: [],
+      },
+    };
+  } else {
+    const blocks = await getBlocks(pageExists.id);
 
-  const blocks = await getBlocks(pageProps.id);
+    const childBlocks = await Promise.all(
+      blocks
+        .filter((block: any) => block.has_children)
+        .map(async (block) => {
+          return {
+            id: block.id,
+            children: await getBlocks(block.id),
+          };
+        })
+    );
 
-  const childBlocks = await Promise.all(
-    blocks
-      .filter((block) => block.has_children)
-      .map(async (block) => {
-        return {
-          id: block.id,
-          children: await getBlocks(block.id),
-        };
-      })
-  );
+    const blocksWithChildren = formatBlockWithChildren(blocks, childBlocks);
 
-  const blocksWithChildren = formatBlockWithChildren(blocks, childBlocks);
-
-  return {
-    props: {
-      pageProps,
-      blocks: blocksWithChildren,
-    },
-    revalidate: 5,
-  };
+    return {
+      props: {
+        pageProps: pageExists,
+        blocks: blocksWithChildren,
+      },
+      revalidate: 5,
+    };
+  }
 };
 
 export default Slug;

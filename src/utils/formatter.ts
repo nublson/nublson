@@ -6,7 +6,7 @@ export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
     return slugify(data).toLowerCase();
   } else {
-    return slugify(data.properties.Name.title[0].text.content).toLowerCase();
+    return slugify(data.properties.Name.title[0].text.content).toUpperCase();
   }
 };
 
@@ -28,6 +28,7 @@ export const formatPageProps = (page: any) => {
         name: item.name,
       })
     ),
+    slug: formatSlug(page.properties.Name.title[0].text.content),
   };
 
   return formatedPage;
@@ -51,6 +52,7 @@ export const formatPosts = (database: any[]) => {
         name: item.name,
       })
     ),
+    slug: formatSlug(post.properties.Name.title[0].text.content),
   }));
 
   return posts;
