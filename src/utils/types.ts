@@ -7,7 +7,7 @@ export type BlogItem = {
   id: string;
   thumbnail: string;
   title: string;
-  description: string;
+  description?: string;
   publish_date: string;
   modified_date?: string;
   read_time: number;

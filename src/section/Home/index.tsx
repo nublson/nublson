@@ -6,7 +6,7 @@ import { Container, ScrollLink } from "./styles";
 interface HomeProps extends HTMLAttributes<HTMLDivElement> {
   top: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   image: string | StaticImageData;
   scrollTo?: string;
   article?: boolean;

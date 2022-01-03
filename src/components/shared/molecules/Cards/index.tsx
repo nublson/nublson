@@ -14,7 +14,7 @@ import { BlogContainer, Thumbnail, WorkContainer } from "./styles";
 
 interface CardsProps {
   title: string;
-  description: string;
+  description?: string;
 }
 
 interface WorkCard extends CardsProps {
@@ -48,7 +48,7 @@ function Work({ id, title, description, link, stats }: WorkCard) {
       <div className="body">
         <div className="content">
           <Titles.Small content={title} />
-          <Texts.Medium content={description} />
+          {description && <Texts.Medium content={description} />}
         </div>
 
         <div className="footer">
@@ -81,7 +81,7 @@ function Blog({
       <div className="data">
         <div className="heading">
           <Titles.Small content={title} />
-          <Texts.Medium content={description} />
+          {description && <Texts.Medium content={description} />}
         </div>
 
         <div className="footer">

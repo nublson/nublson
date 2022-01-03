@@ -1,12 +1,18 @@
 import moment from "moment";
 import slugify from "slugify";
-import { BlogItem, BlogCategory } from "./types";
+import { BlogCategory, BlogItem } from "./types";
 
 export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
-    return slugify(data).toLowerCase();
+    return slugify(data, {
+      remove: /[*+~.()'"?!:@]/g,
+      lower: true,
+    });
   } else {
-    return slugify(data.properties.Name.title[0].text.content).toUpperCase();
+    return slugify(data.properties.Name.title[0].text.content, {
+      remove: /[*+~.()'"?!:@]/g,
+      lower: true,
+    });
   }
 };
 
@@ -18,7 +24,9 @@ export const formatPageProps = (page: any) => {
         ? page.cover.file.url
         : page.cover.external.url,
     title: page.properties.Name.title[0].text.content,
-    description: page.properties.description.rich_text[0].text.content,
+    description: page.properties.description.rich_text.length
+      ? page.properties.description.rich_text[0].text.content
+      : null,
     publish_date: page.properties.publish_date.date.start,
     modified_date: page.properties.modified_date.last_edited_time,
     read_time: 3,
@@ -42,7 +50,9 @@ export const formatPosts = (database: any[]) => {
         ? post.cover.file.url
         : post.cover.external.url,
     title: post.properties.Name.title[0].text.content,
-    description: post.properties.description.rich_text[0].text.content,
+    description: post.properties.description.rich_text.length
+      ? post.properties.description.rich_text[0].text.content
+      : null,
     publish_date: post.properties.publish_date.date.start,
     modified_date: post.properties.modified_date.last_edited_time,
     read_time: 3,
