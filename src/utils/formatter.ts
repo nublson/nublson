@@ -29,7 +29,7 @@ export const formatPageProps = (page: any) => {
       : null,
     publish_date: page.properties.publish_date.date.start,
     modified_date: page.properties.modified_date.last_edited_time,
-    read_time: 3,
+    read_time: page.properties.read_time.number,
     categories: page.properties.category.multi_select.map(
       (item: BlogCategory) => ({
         id: item.id,
@@ -55,7 +55,7 @@ export const formatPosts = (database: any[]) => {
       : null,
     publish_date: post.properties.publish_date.date.start,
     modified_date: post.properties.modified_date.last_edited_time,
-    read_time: 3,
+    read_time: post.properties.read_time.number,
     categories: post.properties.category.multi_select.map(
       (item: BlogCategory) => ({
         id: item.id,

@@ -51,7 +51,6 @@ function Newsletter() {
           reset();
         })
         .catch((err) => {
-          console.log(err);
           setFormFeedback({
             type: "error",
             message: err.message,
