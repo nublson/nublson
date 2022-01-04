@@ -1,5 +1,13 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const withPWA = require("next-pwa");
+
+module.exports = withPWA({
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+    disable: process.env.NODE_ENV === "development",
+  },
   reactStrictMode: true,
   env: {
     BASE_URL: process.env.BASE_URL,
@@ -18,4 +26,4 @@ module.exports = {
   images: {
     domains: ["s3.us-west-2.amazonaws.com", "images.unsplash.com"],
   },
-};
+});
