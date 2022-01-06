@@ -90,6 +90,7 @@ function Articles({ posts }: ArticlesProps) {
                   description={article.description}
                   publish_date={article.publish_date}
                   read_time={article.read_time}
+                  slug={article.slug}
                 />
               </RouteLink>
             ))

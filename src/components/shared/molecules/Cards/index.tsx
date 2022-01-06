@@ -10,7 +10,12 @@ import {
 import { formatDate } from "../../../../utils/formatter";
 import Texts from "../../atoms/Texts";
 import Titles from "../../atoms/Titles";
-import { BlogContainer, Thumbnail, WorkContainer } from "./styles";
+import {
+  BlogContainer,
+  Thumbnail,
+  WorkContainer,
+  ViewsContainer,
+} from "./styles";
 
 interface CardsProps {
   title: string;
@@ -27,6 +32,7 @@ interface BlogCard extends CardsProps {
   thumbnail: string | StaticImageData;
   publish_date: string;
   read_time: number;
+  slug: string;
 }
 
 function Work({ id, title, description, link, stats }: WorkCard) {
@@ -66,10 +72,14 @@ function Blog({
   description,
   publish_date,
   read_time,
+  slug,
 }: BlogCard) {
   return (
     <BlogContainer>
       <Thumbnail>
+        <ViewsContainer>
+          <Texts.XSmall content={`${0} views`} />
+        </ViewsContainer>
         <Image
           src={thumbnail}
           alt="Thumbnail"

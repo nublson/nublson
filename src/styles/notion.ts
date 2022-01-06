@@ -83,7 +83,7 @@ export const StyledBlocks = styled.div`
       text-align: left;
 
       @media ${(props) => props.theme.mediaQueries.small} {
-        font-size: 2.2rem;
+        font-size: 2.1rem;
         line-height: 32px;
       }
     }

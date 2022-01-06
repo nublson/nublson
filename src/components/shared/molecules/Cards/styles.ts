@@ -163,3 +163,20 @@ export const Thumbnail = styled.div`
     height: 20rem;
   }
 `;
+
+export const ViewsContainer = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+
+  padding: 0.5rem;
+  background-color: ${(props) => props.theme.colors.off_black};
+  border-radius: 3px;
+
+  & > * {
+    color: ${(props) => props.theme.colors.off_white};
+    line-height: 1.3;
+    text-align: right;
+  }
+`;
