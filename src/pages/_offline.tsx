@@ -8,16 +8,16 @@ const Offline: NextPage = () => {
     <>
       <NextSeo
         title="Offline | Nubelson Fernandes"
-        description={pageData.notFound.description}
+        description={pageData.offline.description}
         openGraph={{
           title: "Offline | Nubelson Fernandes",
-          description: pageData.notFound.description,
+          description: pageData.offline.description,
           images: [
             {
-              url: pageData.notFound.image,
+              url: pageData.offline.image,
               width: 1920,
               height: 1080,
-              alt: pageData.notFound.title,
+              alt: pageData.offline.title,
             },
           ],
           site_name: "Offline | Nubelson Fernandes",
@@ -27,10 +27,10 @@ const Offline: NextPage = () => {
 
       <HomeSection
         id="500"
-        top={pageData.notFound.top}
-        title={pageData.notFound.title}
-        subtitle={pageData.notFound.description}
-        image={pageData.notFound.image}
+        top={pageData.offline.top}
+        title={pageData.offline.title}
+        subtitle={pageData.offline.description}
+        image={pageData.offline.image}
       />
     </>
   );

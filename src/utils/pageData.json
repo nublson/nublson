@@ -21,5 +21,11 @@
     "title": "Oops, you're lost",
     "description": "You fell in the middle of an infinite space. Come home!",
     "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80"
+  },
+  "offline": {
+    "top": "No internet",
+    "title": "Oops, you're offline",
+    "description": "Looks like you're not connected to a network. Check your settings and try again!",
+    "image": "https://images.unsplash.com/photo-1615309662472-4ca77a77a189?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
   }
 }
