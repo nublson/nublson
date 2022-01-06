@@ -16,6 +16,8 @@ import {
   WorkContainer,
   ViewsContainer,
 } from "./styles";
+import useSWR from "swr";
+import { useEffect } from "react";
 
 interface CardsProps {
   title: string;
@@ -34,6 +36,16 @@ interface BlogCard extends CardsProps {
   read_time: number;
   slug: string;
 }
+
+interface Views {
+  views: number;
+}
+
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+
+  return res.json();
+};
 
 function Work({ id, title, description, link, stats }: WorkCard) {
   return (
@@ -74,11 +86,15 @@ function Blog({
   read_time,
   slug,
 }: BlogCard) {
+  const { data } = useSWR<Views>(`/api/views/${slug}`, fetcher, {
+    refreshInterval: 1000,
+  });
+
   return (
     <BlogContainer>
       <Thumbnail>
         <ViewsContainer>
-          <Texts.XSmall content={`${0} views`} />
+          <Texts.XSmall content={`${data?.views ? data.views : 0} views`} />
         </ViewsContainer>
         <Image
           src={thumbnail}

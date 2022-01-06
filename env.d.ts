@@ -13,6 +13,9 @@ namespace NodeJS {
     GITHUB_ACCESS_TOKEN: string;
     SENDGRID_MAIL_FROM: string;
     SENDGRID_API_KEY: string;
-    SENDGRID_LIST_KEY: string;
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID: string;
+    FIREBASE_PRIVATE_KEY: string;
+    FIREBASE_CLIENT_EMAIL: string;
+    FIREBASE_DATABASE_URL: string;
   }
 }

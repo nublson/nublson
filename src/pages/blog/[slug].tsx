@@ -2,6 +2,7 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
+import { useEffect } from "react";
 import ContactSection from "../../section/Contact";
 import ContentSection from "../../section/Content";
 import HomeSection from "../../section/Home";
@@ -25,6 +26,16 @@ interface Params extends ParsedUrlQuery {
 
 const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
   const { asPath } = useRouter();
+
+  useEffect(() => {
+    const registerView = () => {
+      fetch(`/api/views/${pageProps.slug}`, {
+        method: "POST",
+      });
+    };
+
+    registerView();
+  }, [pageProps.slug]);
 
   return (
     <>
