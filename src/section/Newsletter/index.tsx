@@ -8,6 +8,7 @@ import Buttons from "../../components/shared/molecules/Buttons";
 import Input from "../../components/shared/molecules/Input";
 import { api } from "../../services/api";
 import { Container, Content, StyledForm } from "./styles";
+import useSWR from "swr";
 
 interface FormData {
   email: string;
@@ -18,10 +19,23 @@ interface FormProps {
   message: string;
 }
 
+interface Contact {
+  contact_count: string;
+}
+
+const contactFetcher = async (url: string) => {
+  const res = await api.get(url);
+
+  return res.data;
+};
+
 function Newsletter() {
   const formRef = useRef<FormHandles>(null);
   const [formFeedback, setFormFeedback] = useState<FormProps>({} as FormProps);
   const [loading, setLoading] = useState(false);
+  const { data } = useSWR<Contact>("/newsletter", contactFetcher, {
+    refreshInterval: 10000,
+  });
 
   const handleSubmit: SubmitHandler<FormData> = async (data, { reset }) => {
     setLoading(true);
@@ -96,11 +110,19 @@ function Newsletter() {
             />
             <Buttons.Main title="Subscribe" />
           </StyledForm>
-          {loading ? (
-            <Loader type="Puff" color="#fff" height={10} width={10} />
-          ) : (
-            formFeedback && <Texts.XSmall content={formFeedback.message} />
-          )}
+          <div className="footer">
+            {loading ? (
+              <Loader type="Puff" color="#fff" height={10} width={10} />
+            ) : (
+              formFeedback && <Texts.XSmall content={formFeedback.message} />
+            )}
+
+            <Texts.XSmall
+              content={`${
+                data?.contact_count ? data.contact_count : "0"
+              } subscribers`}
+            />
+          </div>
         </Content>
       </Container>
     </Section>

@@ -1,23 +1,22 @@
 import Image from "next/image";
 import {
+  RiGithubLine,
+  RiGlobalLine,
   RiInstagramLine,
   RiStoreLine,
   RiUnsplashLine,
   RiYoutubeLine,
-  RiGithubLine,
-  RiGlobalLine,
 } from "react-icons/ri";
+import useSWR from "swr";
 import { formatDate } from "../../../../utils/formatter";
 import Texts from "../../atoms/Texts";
 import Titles from "../../atoms/Titles";
 import {
   BlogContainer,
   Thumbnail,
-  WorkContainer,
   ViewsContainer,
+  WorkContainer,
 } from "./styles";
-import useSWR from "swr";
-import { useEffect } from "react";
 
 interface CardsProps {
   title: string;

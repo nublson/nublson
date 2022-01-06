@@ -32,6 +32,18 @@ export const Content = styled.div<FormProps>`
         ? props.theme.colors.success
         : props.feedback === "error" && props.theme.colors.error};
   }
+
+  .footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > :last-child {
+      font-weight: 600;
+      color: ${(props) => props.theme.colors.off_white};
+    }
+  }
 `;
 
 export const StyledForm = styled(Form)`
