@@ -17,7 +17,7 @@ function Content({ blocks }: ContentProps) {
     <ArticleSection>
       <Container>
         <StyledBlocks>
-          <Render blocks={blocks} classNames emptyBlocks />
+          <Render blocks={blocks} simpleTitles classNames emptyBlocks />
         </StyledBlocks>
 
         {pathname !== "/about" && (
