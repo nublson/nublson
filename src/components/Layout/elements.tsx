@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
-import Titles from "../shared/atoms/Titles";
 import Texts from "../shared/atoms/Texts";
+import Titles from "../shared/atoms/Titles";
 
 interface SectionProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -24,7 +24,7 @@ const StyledSection = styled.section`
   }
 
   @media ${(props) => props.theme.mediaQueries.small} {
-    padding: 5rem 2rem 1rem;
+    padding: 5rem 2rem 3rem;
   }
 
   .heading {

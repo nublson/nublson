@@ -180,3 +180,60 @@ export const ViewsContainer = styled.div`
     text-align: right;
   }
 `;
+
+export const IssueContainer = styled.div`
+  max-width: 65%;
+  margin: 0 auto;
+  padding: 3rem 3rem 2rem;
+  border: 4px solid ${(props) => props.theme.colors.line};
+  text-decoration: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    max-width: 80%;
+    padding: 2rem;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    max-width: 90%;
+    padding: 1rem;
+  }
+
+  .content {
+    width: 100%;
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+
+    @media ${(props) => props.theme.mediaQueries.small} {
+      gap: 1rem;
+    }
+  }
+
+  .footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    color: ${(props) => props.theme.colors.off_white};
+
+    & > :first-child {
+      text-decoration: underline;
+    }
+
+    & > :last-child {
+      color: ${(props) => props.theme.colors.label};
+      text-align: right;
+    }
+  }
+`;

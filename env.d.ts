@@ -11,6 +11,7 @@ namespace NodeJS {
     YOUTUBE_API_KEY: string;
     YOUTUBE_CHANNEL_ID: string;
     GITHUB_ACCESS_TOKEN: string;
+    REVUE_API_KEY: string;
     SENDGRID_MAIL_FROM: string;
     SENDGRID_API_KEY: string;
     NEXT_PUBLIC_FIREBASE_PROJECT_ID: string;

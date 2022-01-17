@@ -32,12 +32,10 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   @media ${(props) => props.theme.mediaQueries.small} {
     padding: 0;
-
-    justify-content: flex-start;
   }
 `;
 

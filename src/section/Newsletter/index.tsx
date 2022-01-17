@@ -1,14 +1,15 @@
 import { FormHandles, SubmitHandler } from "@unform/core";
 import { useEffect, useRef, useState } from "react";
 import Loader from "react-loader-spinner";
+import useSWR from "swr";
 import * as Yup from "yup";
 import { Section } from "../../components/Layout/elements";
+import RouteLink from "../../components/shared/atoms/RouteLink";
 import Texts from "../../components/shared/atoms/Texts";
 import Buttons from "../../components/shared/molecules/Buttons";
 import Input from "../../components/shared/molecules/Input";
 import { api } from "../../services/api";
-import { Container, Content, StyledForm } from "./styles";
-import useSWR from "swr";
+import { Container, Content, Footer, StyledForm } from "./styles";
 
 interface FormData {
   email: string;
@@ -45,8 +46,8 @@ function Newsletter() {
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
         email: Yup.string()
-          .email("Please, enter a valid email")
-          .required("You need to enter your email"),
+          .email("Enter a valid email")
+          .required("Email is required"),
       });
       await schema.validate(data, {
         abortEarly: false,
@@ -110,19 +111,21 @@ function Newsletter() {
             />
             <Buttons.Main title="Subscribe" />
           </StyledForm>
-          <div className="footer">
+          <Footer>
             {loading ? (
               <Loader type="Puff" color="#fff" height={10} width={10} />
             ) : (
               formFeedback && <Texts.XSmall content={formFeedback.message} />
             )}
 
-            <Texts.XSmall
-              content={`${
-                data?.contact_count ? data.contact_count : "0"
-              } subscribers`}
-            />
-          </div>
+            <RouteLink href="/newsletter">
+              <Texts.XSmall
+                content={`${
+                  data?.contact_count ? data.contact_count : "0"
+                } subscribers - ${0} issues`}
+              />
+            </RouteLink>
+          </Footer>
         </Content>
       </Container>
     </Section>

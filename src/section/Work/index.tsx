@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { Section } from "../../components/Layout/elements";
-import Cards from "../../components/shared/molecules/Cards";
+import { Work as WorkCard } from "../../components/shared/molecules/Cards";
 import { githubFetcher } from "../../services/github";
 import { unsplashFetcher } from "../../services/unsplash";
 import { youtubeFetcher } from "../../services/youtube";
@@ -23,7 +23,7 @@ function Work() {
 
   const getStats = (id: string) => {
     if (id === "instagram") {
-      return formatNumbers(3333);
+      return formatNumbers(3358);
     } else if (id === "youtube") {
       return youtubeSubs ? youtubeSubs : 0;
     } else if (id === "unsplash") {
@@ -42,7 +42,7 @@ function Work() {
     >
       <Container>
         {work.items.map((item) => (
-          <Cards.Work
+          <WorkCard
             key={item.id}
             id={item.id}
             title={item.title}

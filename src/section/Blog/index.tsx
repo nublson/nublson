@@ -2,7 +2,7 @@ import { Section } from "../../components/Layout/elements";
 import RouteLink from "../../components/shared/atoms/RouteLink";
 import Texts from "../../components/shared/atoms/Texts";
 import Buttons from "../../components/shared/molecules/Buttons";
-import Cards from "../../components/shared/molecules/Cards";
+import { Blog as BlogCard } from "../../components/shared/molecules/Cards";
 import { BlogItem } from "../../utils/types";
 import { BlogList, Container } from "./styles";
 
@@ -20,7 +20,7 @@ function Blog({ posts }: BlogProps) {
           ) : (
             posts.map((article) => (
               <RouteLink key={article.id} href={`/blog/${article.slug}`}>
-                <Cards.Blog
+                <BlogCard
                   thumbnail={article.thumbnail}
                   title={article.title}
                   description={article.description}

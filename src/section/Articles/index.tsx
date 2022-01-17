@@ -6,7 +6,7 @@ import CategoryItem from "../../components/shared/atoms/CategoryItem";
 import RouteLink from "../../components/shared/atoms/RouteLink";
 import Texts from "../../components/shared/atoms/Texts";
 import Buttons from "../../components/shared/molecules/Buttons";
-import Cards from "../../components/shared/molecules/Cards";
+import { Blog } from "../../components/shared/molecules/Cards";
 import Input from "../../components/shared/molecules/Input";
 import { filterPostsByCategory } from "../../utils/filterPosts";
 import { getCategories } from "../../utils/getCategories";
@@ -84,7 +84,7 @@ function Articles({ posts }: ArticlesProps) {
           ) : (
             filteredPosts.map((article) => (
               <RouteLink key={article.id} href={`/blog/${article.slug}`}>
-                <Cards.Blog
+                <Blog
                   thumbnail={article.thumbnail}
                   title={article.title}
                   description={article.description}

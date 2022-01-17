@@ -41,6 +41,7 @@ export const Content = styled.div<FormProps>`
 
     & > :last-child {
       font-weight: 600;
+      text-align: right;
       color: ${(props) => props.theme.colors.off_white};
     }
   }
@@ -87,5 +88,18 @@ export const StyledForm = styled(Form)`
       height: 5rem;
       width: 100%;
     }
+  }
+`;
+
+export const Footer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > :last-child {
+    font-weight: 600;
+    text-align: right;
+    color: ${(props) => props.theme.colors.off_white};
   }
 `;

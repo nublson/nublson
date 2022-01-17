@@ -13,6 +13,7 @@ import Texts from "../../atoms/Texts";
 import Titles from "../../atoms/Titles";
 import {
   BlogContainer,
+  IssueContainer,
   Thumbnail,
   ViewsContainer,
   WorkContainer,
@@ -36,6 +37,10 @@ interface BlogCard extends CardsProps {
   slug: string;
 }
 
+interface IssueCard extends CardsProps {
+  publish_date: string;
+}
+
 interface Views {
   views: number;
 }
@@ -46,7 +51,7 @@ const fetcher = async (url: string) => {
   return res.json();
 };
 
-function Work({ id, title, description, link, stats }: WorkCard) {
+export function Work({ id, title, description, link, stats }: WorkCard) {
   return (
     <WorkContainer href={link} target="_blank" rel="noreferrer">
       {id === "instagram" ? (
@@ -77,7 +82,7 @@ function Work({ id, title, description, link, stats }: WorkCard) {
   );
 }
 
-function Blog({
+export function Blog({
   thumbnail,
   title,
   description,
@@ -118,9 +123,18 @@ function Blog({
   );
 }
 
-const Cards = {
-  Work,
-  Blog,
-};
+export function Issue({ title, description, publish_date }: IssueCard) {
+  return (
+    <IssueContainer>
+      <div className="content">
+        <Titles.Small content={title} />
+        {description && <Texts.Medium content={description} />}
+      </div>
 
-export default Cards;
+      <div className="footer">
+        <Texts.Small content="Read" />
+        <Texts.Small content={publish_date} />
+      </div>
+    </IssueContainer>
+  );
+}

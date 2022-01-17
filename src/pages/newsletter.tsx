@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
+import IssuesSection from "../section/Issues";
 import NewsletterSection from "../section/Newsletter";
 import pageData from "../utils/pageData.json";
 
@@ -31,6 +32,7 @@ const Newsletter: NextPage = () => {
       />
 
       <NewsletterSection />
+      <IssuesSection />
     </>
   );
 };
