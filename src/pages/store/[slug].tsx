@@ -80,7 +80,7 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const results = await getData(process.env.NOTION_DATABASE_ID, "article");
+  const results = await getData(process.env.NOTION_DATABASE_ID, "product");
 
   const posts = formatPosts(results);
 
@@ -103,7 +103,7 @@ export const getStaticProps: GetStaticProps<SlugProps, Params> = async (
 
   const { slug } = params;
 
-  const results = await getData(process.env.NOTION_DATABASE_ID, "article");
+  const results = await getData(process.env.NOTION_DATABASE_ID, "product");
 
   const pages = formatPosts(results);
 

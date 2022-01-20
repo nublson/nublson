@@ -10,41 +10,41 @@ import { formatPosts } from "../../utils/formatter";
 import pageData from "../../utils/pageData.json";
 import { BlogItem } from "../../utils/types";
 
-type BlogProps = {
+type StoreProps = {
   posts: BlogItem[];
 };
 
-const Blog: NextPage<BlogProps> = ({ posts }) => {
+const Store: NextPage<StoreProps> = ({ posts }) => {
   const { asPath } = useRouter();
 
   return (
     <>
       <NextSeo
-        title="Blog | Nubelson Fernandes"
-        description={pageData.blog.description}
+        title="Store | Nubelson Fernandes"
+        description={pageData.store.description}
         canonical={`${process.env.BASE_URL}${asPath}`}
         openGraph={{
-          title: "Blog | Nubelson Fernandes",
-          description: pageData.blog.description,
+          title: "Store | Nubelson Fernandes",
+          description: pageData.store.description,
           url: `${process.env.BASE_URL}${asPath}`,
-          type: "blog",
+          type: "store",
           images: [
             {
-              url: pageData.blog.image,
+              url: pageData.store.image,
               width: 1920,
               height: 1080,
-              alt: pageData.blog.title,
+              alt: pageData.store.title,
             },
           ],
-          site_name: "Blog | Nubelson Fernandes",
+          site_name: "Store | Nubelson Fernandes",
         }}
       />
       <HomeSection
         id="home"
-        top={pageData.blog.top}
-        title={pageData.blog.title}
-        subtitle={pageData.blog.description}
-        image={pageData.blog.image}
+        top={pageData.store.top}
+        title={pageData.store.title}
+        subtitle={pageData.store.description}
+        image={pageData.store.image}
         scrollTo="articles"
       />
       <ArticlesSection posts={posts} />
@@ -55,7 +55,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const results = await getData(process.env.NOTION_DATABASE_ID, "article");
+  const results = await getData(process.env.NOTION_DATABASE_ID, "product");
 
   const posts = formatPosts(results);
 
@@ -68,4 +68,4 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default Blog;
+export default Store;

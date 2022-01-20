@@ -18,6 +18,7 @@ import {
   Header,
   StyledForm,
 } from "./styles";
+import { useRouter } from "next/router";
 
 interface FormData {
   search: string;
@@ -32,6 +33,7 @@ function Articles({ posts }: ArticlesProps) {
   const [currentCategory, setCurrentCategory] = useState("");
   const [filteredPosts, setFilteredPosts] = useState<BlogItem[]>([]);
   const formRef = useRef<FormHandles>(null);
+  const { pathname } = useRouter();
 
   const handleSubmit: SubmitHandler<FormData> = (data, { reset }) => {
     reset();
@@ -50,6 +52,10 @@ function Articles({ posts }: ArticlesProps) {
       setFilteredPosts(postsArray);
     }
   }, [currentCategory, posts]);
+
+  useEffect(() => {
+    console.log({ pathname });
+  }, [pathname]);
 
   return (
     <Section id="articles">
@@ -83,7 +89,7 @@ function Articles({ posts }: ArticlesProps) {
             <Texts.Medium content="No articles published" />
           ) : (
             filteredPosts.map((article) => (
-              <RouteLink key={article.id} href={`/blog/${article.slug}`}>
+              <RouteLink key={article.id} href={`${pathname}/${article.slug}`}>
                 <Blog
                   thumbnail={article.thumbnail}
                   title={article.title}

@@ -7,9 +7,15 @@
   },
   "blog": {
     "top": "Welcome to my",
-    "title": "Blog",
+    "title": "Personal Blog",
     "description": "I also share ideas, thoughts and experience",
     "image": "https://images.unsplash.com/photo-1634768374063-42305fc55c99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80"
+  },
+  "store": {
+    "top": "Welcome to my",
+    "title": "Online Store",
+    "description": "Icons, LUT's, Lightroom Presets and more.",
+    "image": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
   },
   "newsletter": {
     "title": "Subscribe to my newsletter",

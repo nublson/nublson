@@ -1,17 +1,26 @@
 import { GetServerSideProps } from "next";
 import { getServerSideSitemap, ISitemapField } from "next-sitemap";
-import { getArticles } from "../../services/notion";
+import { getData } from "../../services/notion";
 import { formatPosts } from "../../utils/formatter";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const results = await getArticles(process.env.NOTION_DATABASE_ID);
+  const articles = await getData(process.env.NOTION_DATABASE_ID, "article");
+  const products = await getData(process.env.NOTION_DATABASE_ID, "product");
 
-  const posts = formatPosts(results);
+  const formatedArticles = formatPosts(articles);
+  const formatedProducts = formatPosts(products);
 
-  const fields: ISitemapField[] = posts.map((post) => ({
-    loc: `${process.env.BASE_URL}/blog/${post.slug}`,
+  const articleFields: ISitemapField[] = formatedArticles.map((article) => ({
+    loc: `${process.env.BASE_URL}/blog/${article.slug}`,
     lastmod: new Date().toISOString(),
   }));
+
+  const productFields: ISitemapField[] = formatedProducts.map((product) => ({
+    loc: `${process.env.BASE_URL}/store/${product.slug}`,
+    lastmod: new Date().toISOString(),
+  }));
+
+  const fields = articleFields.concat(productFields);
 
   return getServerSideSitemap(context, fields);
 };

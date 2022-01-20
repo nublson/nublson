@@ -4,7 +4,10 @@ const api = new Client({
   auth: process.env.NOTION_ACCESS_TOKEN,
 });
 
-export const getArticles = async (databaseId: string) => {
+export const getData = async (
+  databaseId: string,
+  type: "article" | "product"
+) => {
   const { results } = await api.databases.query({
     database_id: databaseId,
     filter: {
@@ -12,7 +15,7 @@ export const getArticles = async (databaseId: string) => {
         {
           property: "type",
           select: {
-            equals: "article",
+            equals: type,
           },
         },
         {

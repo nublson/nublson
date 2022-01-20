@@ -23,7 +23,7 @@ function Work() {
 
   const getStats = (id: string) => {
     if (id === "instagram") {
-      return formatNumbers(3358);
+      return formatNumbers(3452);
     } else if (id === "youtube") {
       return youtubeSubs ? youtubeSubs : 0;
     } else if (id === "unsplash") {

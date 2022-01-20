@@ -5,7 +5,7 @@ import ContactSection from "../section/Contact";
 import HomeSection from "../section/Home";
 import NewsletterSection from "../section/Newsletter";
 import WorkSection from "../section/Work";
-import { getArticles } from "../services/notion";
+import { getData } from "../services/notion";
 import { formatPosts } from "../utils/formatter";
 import pageData from "../utils/pageData.json";
 import { BlogItem } from "../utils/types";
@@ -55,7 +55,7 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const results = await getArticles(process.env.NOTION_DATABASE_ID);
+  const results = await getData(process.env.NOTION_DATABASE_ID, "article");
 
   const posts = formatPosts(results).slice(0, 2);
 
