@@ -8,7 +8,7 @@ module.exports = withPWA({
     skipWaiting: true,
     disable: process.env.NODE_ENV === "development",
     fallbacks: {
-      image: "/static/images/fallback.png",
+      image: "/static/images/fallback.jpg",
     },
   },
   reactStrictMode: true,
