@@ -54,6 +54,10 @@ export const Content = styled.div`
     flex: 1;
 
     gap: 0.5rem;
+
+    & > :last-child {
+      width: 100%;
+    }
   }
 
   @media ${(props) => props.theme.mediaQueries.smallest} {
