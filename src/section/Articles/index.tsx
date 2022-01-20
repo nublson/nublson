@@ -86,7 +86,7 @@ function Articles({ posts }: ArticlesProps) {
 
         <ArticleList center={filteredPosts.length <= 1}>
           {!posts.length ? (
-            <Texts.Medium content="No articles published" />
+            <Texts.Medium content="No items found!" />
           ) : (
             filteredPosts.map((article) => (
               <RouteLink key={article.id} href={`${pathname}/${article.slug}`}>
