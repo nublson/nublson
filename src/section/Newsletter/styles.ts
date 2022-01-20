@@ -17,7 +17,7 @@ export const Content = styled.div<FormProps>`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: 1rem;
 
   @media ${(props) => props.theme.mediaQueries.small} {
     width: 90%;

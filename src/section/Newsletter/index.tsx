@@ -20,22 +20,32 @@ interface FormProps {
   message: string;
 }
 
-interface Contact {
-  contact_count: string;
-}
-
-const contactFetcher = async (url: string) => {
+const fetchSubscribers = async (url: string) => {
   const res = await api.get(url);
 
-  return res.data;
+  const subscribersCount = await res.data.subscribers.length;
+
+  return subscribersCount;
+};
+
+const fetchIssues = async (url: string) => {
+  const res = await api.get(url);
+
+  const issuesCount = await res.data.issues.length;
+
+  return issuesCount;
 };
 
 function Newsletter() {
   const formRef = useRef<FormHandles>(null);
   const [formFeedback, setFormFeedback] = useState<FormProps>({} as FormProps);
   const [loading, setLoading] = useState(false);
-  const { data } = useSWR<Contact>("/newsletter", contactFetcher, {
-    refreshInterval: 10000,
+  const { data: subscribersData } = useSWR("/subscribers", fetchSubscribers, {
+    refreshInterval: 1000,
+  });
+
+  const { data: issuesData } = useSWR("/issues", fetchIssues, {
+    refreshInterval: 1000,
   });
 
   const handleSubmit: SubmitHandler<FormData> = async (data, { reset }) => {
@@ -54,7 +64,7 @@ function Newsletter() {
       });
       // Validation passed
       await api
-        .put("/newsletter", {
+        .post("/subscribe", {
           email: data.email,
         })
         .then((response) => {
@@ -120,9 +130,11 @@ function Newsletter() {
 
             <RouteLink href="/newsletter">
               <Texts.XSmall
-                content={`${
-                  data?.contact_count ? data.contact_count : "0"
-                } subscribers - ${0} issues`}
+                content={`${subscribersData ? subscribersData : 0} ${
+                  subscribersData === 1 ? "subscriber" : "subscribers"
+                } - ${issuesData ? issuesData : 0} ${
+                  issuesData === 1 ? "issue" : "issues"
+                }`}
               />
             </RouteLink>
           </Footer>
