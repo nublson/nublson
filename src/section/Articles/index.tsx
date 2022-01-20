@@ -53,10 +53,6 @@ function Articles({ posts }: ArticlesProps) {
     }
   }, [currentCategory, posts]);
 
-  useEffect(() => {
-    console.log({ pathname });
-  }, [pathname]);
-
   return (
     <Section id="articles">
       <Container>

@@ -1,11 +1,18 @@
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import IssuesSection from "../section/Issues";
 import NewsletterSection from "../section/Newsletter";
+import { getIssues } from "../services/getRevue";
+import { formatIssues } from "../utils/formatter";
 import pageData from "../utils/pageData.json";
+import { IssueItem } from "../utils/types";
 
-const Newsletter: NextPage = () => {
+type NewsletterProps = {
+  issues: IssueItem[];
+};
+
+const Newsletter: NextPage<NewsletterProps> = ({ issues }) => {
   const { asPath } = useRouter();
 
   return (
@@ -32,9 +39,23 @@ const Newsletter: NextPage = () => {
       />
 
       <NewsletterSection />
-      <IssuesSection />
+      <IssuesSection issues={issues} />
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { data } = await getIssues();
+
+  const issues = formatIssues(data);
+
+  return {
+    props: {
+      issues,
+    },
+
+    revalidate: 5,
+  };
 };
 
 export default Newsletter;

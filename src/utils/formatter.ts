@@ -1,6 +1,7 @@
+import { htmlToText } from "html-to-text";
 import moment from "moment";
 import slugify from "slugify";
-import { BlogCategory, BlogItem } from "./types";
+import { BlogCategory, BlogItem, IssueItem } from "./types";
 
 export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
@@ -70,6 +71,18 @@ export const formatPosts = (database: any[]) => {
   }));
 
   return posts;
+};
+
+export const formatIssues = (database: any[]) => {
+  const issues: IssueItem[] = database.map((issue) => ({
+    id: issue.id,
+    title: issue.title,
+    description: htmlToText(issue.description),
+    publish_date: formatDate(issue.sent_at),
+    url: issue.url,
+  }));
+
+  return issues;
 };
 
 export const formatBlockWithChildren = (blocks: any[], childBlocks: any[]) => {

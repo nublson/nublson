@@ -1,16 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { revue } from "../../services/getRevue";
+import { addSubscriber } from "../../services/getRevue";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await revue
-    .post("/subscribers", {
-      email: req.body.email,
-    })
-    .then((response) => console.log(response.data))
-    .catch((error) => console.log({ error }));
+  const response = await addSubscriber(req.body.email);
+
+  if (!response.data) {
+    return res.status(500).json({ error: "Error adding subscriber!" });
+  }
 
   return res.status(201).send({
     message: "You're in!",

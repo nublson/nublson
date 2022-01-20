@@ -15,6 +15,14 @@ export type BlogItem = {
   slug: string;
 };
 
+export type IssueItem = {
+  id: number;
+  title: string;
+  description: string;
+  publish_date: string;
+  url: string;
+};
+
 export type DatabaseResult = {
   object: string;
   id: string;

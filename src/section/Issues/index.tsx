@@ -2,21 +2,25 @@ import { useState } from "react";
 import { Section } from "../../components/Layout/elements";
 import Text from "../../components/shared/atoms/Texts";
 import { Issue } from "../../components/shared/molecules/Cards";
+import { IssueItem } from "../../utils/types";
 import { Container } from "./styles";
 
-function Issues() {
-  const [issues, setIssues] = useState([]);
+interface IssuesProps {
+  issues: IssueItem[];
+}
 
+function Issues({ issues }: IssuesProps) {
   return (
     <Section id="issues">
       <Container>
         {issues.length ? (
-          issues.map((issue, index) => (
+          issues.map((issue) => (
             <Issue
-              key={index}
-              title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Netus tempor amet tellus non odio adipiscing mattis. Molestie tincidunt nibh tempus sit nunc neque, aliquet tempor, blandit."
-              publish_date="January 16, 2022"
+              key={issue.id}
+              title={issue.title}
+              description={issue.description}
+              publish_date={issue.publish_date}
+              url={issue.url}
             />
           ))
         ) : (

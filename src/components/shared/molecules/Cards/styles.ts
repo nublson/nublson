@@ -181,7 +181,7 @@ export const ViewsContainer = styled.div`
   }
 `;
 
-export const IssueContainer = styled.div`
+export const IssueContainer = styled.a`
   max-width: 65%;
   margin: 0 auto;
   padding: 3rem 3rem 2rem;
@@ -193,6 +193,11 @@ export const IssueContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 2rem;
+
+  &:hover {
+    border-color: ${(props) => props.theme.colors.off_white};
+    transition: all 0.2s;
+  }
 
   @media ${(props) => props.theme.mediaQueries.medium} {
     max-width: 80%;
@@ -213,6 +218,10 @@ export const IssueContainer = styled.div`
     align-items: flex-start;
     justify-content: center;
     gap: 2rem;
+
+    p {
+      color: ${(props) => props.theme.colors.body};
+    }
 
     @media ${(props) => props.theme.mediaQueries.small} {
       gap: 1rem;
