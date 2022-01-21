@@ -32,7 +32,10 @@ function Icon({ icon, ...rest }: ButtonIconProps) {
 
 function Gumroad({ productUrl }: GumroadButtonProps) {
   return (
-    <a className="gumroad-button" href={`${productUrl}?wanted=true`}>
+    <a
+      className="gumroad-button"
+      href={`${productUrl}?wanted=${process.env.GUMROAD_OVERLAY_CHECKOUT}`}
+    >
       Purchase here
     </a>
   );

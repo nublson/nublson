@@ -23,13 +23,12 @@ module.exports = withPWA({
     YOUTUBE_CHANNEL_ID: process.env.YOUTUBE_CHANNEL_ID,
     GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
     REVUE_API_KEY: process.env.REVUE_API_KEY,
-    SENDGRID_MAIL_FROM: process.env.SENDGRID_MAIL_FROM,
-    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
     NEXT_PUBLIC_FIREBASE_PROJECT_ID:
       process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
     FIREBASE_PRIVATE_KEY: process.env.FIREBASE_PRIVATE_KEY,
     FIREBASE_CLIENT_EMAIL: process.env.FIREBASE_CLIENT_EMAIL,
     FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
+    GUMROAD_OVERLAY_CHECKOUT: process.env.GUMROAD_OVERLAY_CHECKOUT,
   },
   images: {
     domains: ["s3.us-west-2.amazonaws.com", "images.unsplash.com"],
