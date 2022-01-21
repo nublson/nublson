@@ -18,11 +18,11 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
   return (
     <>
       <NextSeo
-        title="Nubelson Fernandes"
+        title="Nubelson Fernandes - Developer &#38; Content Creator"
         description={pageData.home.description}
         canonical={`${process.env.BASE_URL}`}
         openGraph={{
-          title: "Nubelson Fernandes",
+          title: "Nubelson Fernandes - Developer & Content Creator",
           description: pageData.home.description,
           url: `${process.env.BASE_URL}`,
           type: "website",
@@ -34,7 +34,7 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
               alt: pageData.home.title,
             },
           ],
-          site_name: "Nubelson Fernandes",
+          site_name: "Nubelson Fernandes - Developer & Content Creator",
         }}
       />
 
