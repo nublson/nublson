@@ -10,6 +10,10 @@ interface ButtonIconProps extends HTMLAttributes<HTMLButtonElement> {
   icon: ReactNode;
 }
 
+interface GumroadButtonProps {
+  productUrl: string;
+}
+
 function Main({ title, ...rest }: ButtonsProps) {
   return (
     <Container {...rest}>
@@ -26,10 +30,19 @@ function Icon({ icon, ...rest }: ButtonIconProps) {
   return <StyledIcon {...rest}>{icon}</StyledIcon>;
 }
 
+function Gumroad({ productUrl }: GumroadButtonProps) {
+  return (
+    <a className="gumroad-button" href={`${productUrl}?wanted=true`}>
+      Purchase here
+    </a>
+  );
+}
+
 const Buttons = {
   Main,
   Text,
   Icon,
+  Gumroad,
 };
 
 export default Buttons;

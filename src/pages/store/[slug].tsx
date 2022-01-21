@@ -7,7 +7,7 @@ import ContactSection from "../../section/Contact";
 import ContentSection from "../../section/Content";
 import HomeSection from "../../section/Home";
 import NewsletterSection from "../../section/Newsletter";
-import { getData, getBlocks } from "../../services/notion";
+import { getBlocks, getData } from "../../services/notion";
 import {
   formatBlockWithChildren,
   formatDate,
@@ -72,7 +72,7 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
         image={pageProps.thumbnail}
         article
       />
-      <ContentSection blocks={blocks} />
+      <ContentSection blocks={blocks} product_url={pageProps.link} />
       <NewsletterSection />
       <ContactSection />
     </>

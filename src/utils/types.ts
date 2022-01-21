@@ -13,6 +13,7 @@ export type BlogItem = {
   read_time: number;
   categories: BlogCategory[];
   slug: string;
+  link?: string;
 };
 
 export type IssueItem = {

@@ -5,6 +5,10 @@ export const StyledBlocks = styled.div`
   margin: 4rem auto 0;
   padding: 0 15rem;
 
+  .gumroad-button {
+    margin: 1rem 0;
+  }
+
   @media ${(props) => props.theme.mediaQueries.medium} {
     padding: 0 5rem;
     margin-top: 2rem;

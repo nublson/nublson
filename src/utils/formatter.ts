@@ -40,6 +40,7 @@ export const formatPageProps = (page: any) => {
       })
     ),
     slug: formatSlug(page.properties.Name.title[0].text.content),
+    link: page.properties.link.url ? page.properties.link.url : null,
   };
 
   return formatedPage;
@@ -68,6 +69,7 @@ export const formatPosts = (database: any[]) => {
       })
     ),
     slug: formatSlug(post.properties.Name.title[0].text.content),
+    link: post.properties.link.url ? post.properties.link.url : null,
   }));
 
   return posts;
