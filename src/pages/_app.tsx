@@ -6,7 +6,11 @@ import Layout from "../components/Layout";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Script type="text/javascript" src="https://gumroad.com/js/gumroad.js" />
+      <Script
+        type="text/javascript"
+        src="https://gumroad.com/js/gumroad.js"
+        strategy="beforeInteractive"
+      />
       <DefaultSeo
         twitter={{
           handle: "@nublson",
