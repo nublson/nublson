@@ -102,4 +102,15 @@ export const Footer = styled.div`
     text-align: right;
     color: ${(props) => props.theme.colors.off_white};
   }
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    & > :last-child {
+      text-align: center;
+    }
+  }
 `;

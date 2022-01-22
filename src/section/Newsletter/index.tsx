@@ -78,8 +78,10 @@ function Newsletter() {
         .catch((err) => {
           setFormFeedback({
             type: "error",
-            message: err.message,
+            message: err.response.data.message,
           });
+
+          reset();
         })
         .finally(() => {
           setLoading(false);

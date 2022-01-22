@@ -1,17 +1,33 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { addSubscriber } from "../../services/getRevue";
+import { addSubscriber, getSubscribers } from "../../services/getRevue";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const response = await addSubscriber(req.body.email);
+  const currentSubscribers = await getSubscribers();
 
-  if (!response.data) {
-    return res.status(500).json({ error: "Error adding subscriber!" });
+  const subscriberExists = currentSubscribers.data.find(
+    (subscriber: any) => subscriber.email === req.body.email
+  );
+
+  if (subscriberExists) {
+    return res
+      .status(409)
+      .send({ message: "Email already added! Try another address." });
   }
 
-  return res.status(201).send({
-    message: "You're in!",
-  });
+  const result = await addSubscriber(req.body.email)
+    .then((response) => {
+      return res.status(201).send({
+        message: "You're in! Check your inbox to confirm.",
+      });
+    })
+    .catch((err) => {
+      return res
+        .status(500)
+        .send({ message: "Error adding subscriber! Try again." });
+    });
+
+  return result;
 }
