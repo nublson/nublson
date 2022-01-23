@@ -38,18 +38,18 @@ const StyledSection = styled.section`
     justify-content: center;
     gap: 2rem;
 
-    &:first-child {
+    h2 {
       width: 70%;
     }
 
-    &:last-child {
+    p {
       width: 100%;
     }
 
     @media ${(props) => props.theme.mediaQueries.medium} {
       margin-bottom: 8rem;
 
-      &:first-child {
+      h2 {
         width: 90%;
       }
     }

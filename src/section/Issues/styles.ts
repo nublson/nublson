@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 60%;
   margin: 0 auto;
+  padding-bottom: 5rem;
 
   display: flex;
   flex-direction: column;
@@ -21,5 +22,6 @@ export const Container = styled.div`
 
   @media ${(props) => props.theme.mediaQueries.small} {
     width: 90%;
+    padding-bottom: 0rem;
   }
 `;

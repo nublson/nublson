@@ -135,7 +135,7 @@ function Newsletter() {
                 content={`${subscribersData ? subscribersData : 0} ${
                   subscribersData === 1 ? "subscriber" : "subscribers"
                 } - ${issuesData ? issuesData : 0} ${
-                  issuesData === 1 ? "issue" : "issues"
+                  issuesData === 1 ? "road" : "roads"
                 }`}
               />
             </RouteLink>
