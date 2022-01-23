@@ -182,8 +182,7 @@ export const ViewsContainer = styled.div`
 `;
 
 export const IssueContainer = styled.a`
-  max-width: 65%;
-  margin: 0 auto;
+  width: 100%;
   padding: 3rem 3rem 2rem;
   border: 4px solid ${(props) => props.theme.colors.line};
   text-decoration: none;
@@ -200,12 +199,10 @@ export const IssueContainer = styled.a`
   }
 
   @media ${(props) => props.theme.mediaQueries.medium} {
-    max-width: 80%;
     padding: 2rem;
   }
 
   @media ${(props) => props.theme.mediaQueries.small} {
-    max-width: 90%;
     padding: 1rem;
   }
 
