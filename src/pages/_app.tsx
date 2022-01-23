@@ -1,6 +1,7 @@
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
 import Script from "next/script";
+import "prismjs";
 import Layout from "../components/Layout";
 
 function MyApp({ Component, pageProps }: AppProps) {

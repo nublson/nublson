@@ -1,13 +1,14 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
+import prism from "prismjs";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import ContactSection from "../../section/Contact";
 import ContentSection from "../../section/Content";
 import HomeSection from "../../section/Home";
 import NewsletterSection from "../../section/Newsletter";
-import { getData, getBlocks } from "../../services/notion";
+import { getBlocks, getData } from "../../services/notion";
 import {
   formatBlockWithChildren,
   formatDate,
@@ -36,6 +37,10 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
 
     registerView();
   }, [pageProps.slug]);
+
+  useEffect(() => {
+    prism.highlightAll();
+  }, []);
 
   return (
     <>
