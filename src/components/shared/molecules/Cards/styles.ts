@@ -181,11 +181,12 @@ export const ViewsContainer = styled.div`
   }
 `;
 
-export const IssueContainer = styled.a`
+export const IssueContainer = styled.div`
   width: 100%;
   padding: 3rem 3rem 2rem;
   border: 4px solid ${(props) => props.theme.colors.line};
   text-decoration: none;
+  cursor: pointer;
 
   display: flex;
   flex-direction: column;

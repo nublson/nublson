@@ -39,7 +39,6 @@ interface BlogCard extends CardsProps {
 
 interface IssueCard extends CardsProps {
   publish_date: string;
-  url: string;
 }
 
 interface Views {
@@ -124,16 +123,16 @@ export function Blog({
   );
 }
 
-export function Issue({ title, description, publish_date, url }: IssueCard) {
+export function Issue({ title, description, publish_date }: IssueCard) {
   return (
-    <IssueContainer href={url} target="_blank" rel="noreferrer">
+    <IssueContainer>
       <div className="content">
         <Titles.Small content={title} />
         {description && <Texts.Medium content={description} />}
       </div>
 
       <div className="footer">
-        <Texts.Small content="Read" />
+        <Texts.Small content="Subscribe to read" />
         <Texts.Small content={publish_date} />
       </div>
     </IssueContainer>

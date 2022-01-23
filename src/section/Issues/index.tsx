@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Section } from "../../components/Layout/elements";
 import Text from "../../components/shared/atoms/Texts";
 import { Issue } from "../../components/shared/molecules/Cards";
@@ -20,7 +19,6 @@ function Issues({ issues }: IssuesProps) {
               title={issue.title}
               description={issue.description}
               publish_date={issue.publish_date}
-              url={issue.url}
             />
           ))
         ) : (
