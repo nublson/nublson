@@ -75,10 +75,8 @@ export const Container = styled.div`
     @media ${(props) => props.theme.mediaQueries.small} {
       flex-direction: column-reverse;
       align-items: flex-start;
-      gap: 3rem;
-
-      .copy {
-      }
+      justify-content: center;
+      gap: 5rem;
 
       .menu {
         align-items: flex-start;
