@@ -29,6 +29,7 @@ module.exports = withPWA({
     FIREBASE_CLIENT_EMAIL: process.env.FIREBASE_CLIENT_EMAIL,
     FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
     GUMROAD_OVERLAY_CHECKOUT: process.env.GUMROAD_OVERLAY_CHECKOUT,
+    NEXT_PUBLIC_GA_TRACKING_ID: process.env.NEXT_PUBLIC_GA_TRACKING_ID,
   },
   images: {
     domains: [

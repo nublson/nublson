@@ -1,17 +1,30 @@
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
-import Script from "next/script";
+import { useRouter } from "next/router";
 import "prismjs";
+import { useEffect } from "react";
 import Layout from "../components/Layout";
+import Analytics from "../components/utils/Analytics";
+import Gumroad from "../components/utils/Gumroad";
+import { pageView } from "../services/gtag";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      pageView(url);
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
     <>
-      <Script
-        type="text/javascript"
-        src="https://gumroad.com/js/gumroad.js"
-        strategy="beforeInteractive"
-      />
       <DefaultSeo
         twitter={{
           handle: "@nublson",
@@ -22,6 +35,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
+
+      <Analytics />
+      <Gumroad />
     </>
   );
 }

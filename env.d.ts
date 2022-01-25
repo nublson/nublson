@@ -17,5 +17,6 @@ namespace NodeJS {
     FIREBASE_CLIENT_EMAIL: string;
     FIREBASE_DATABASE_URL: string;
     GUMROAD_OVERLAY_CHECKOUT: boolean;
+    NEXT_PUBLIC_GA_TRACKING_ID: string;
   }
 }
