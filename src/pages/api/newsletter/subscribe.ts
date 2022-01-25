@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { addSubscriber, getSubscribers } from "../../services/getRevue";
+import { addSubscriber, getSubscribers } from "../../../services/getRevue";
 
 export default async function handler(
   req: NextApiRequest,

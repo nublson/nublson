@@ -40,11 +40,15 @@ function Newsletter() {
   const formRef = useRef<FormHandles>(null);
   const [formFeedback, setFormFeedback] = useState<FormProps>({} as FormProps);
   const [loading, setLoading] = useState(false);
-  const { data: subscribersData } = useSWR("/subscribers", fetchSubscribers, {
-    refreshInterval: 1000,
-  });
+  const { data: subscribersData } = useSWR(
+    "/newsletter/subscribers",
+    fetchSubscribers,
+    {
+      refreshInterval: 1000,
+    }
+  );
 
-  const { data: issuesData } = useSWR("/issues", fetchIssues, {
+  const { data: issuesData } = useSWR("/newsletter/issues", fetchIssues, {
     refreshInterval: 1000,
   });
 
@@ -52,7 +56,7 @@ function Newsletter() {
     setLoading(true);
 
     try {
-      // Remove all previous errors
+      //TODO Remove all previous errors
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
         email: Yup.string()
@@ -62,9 +66,9 @@ function Newsletter() {
       await schema.validate(data, {
         abortEarly: false,
       });
-      // Validation passed
+      //* Validation passed
       await api
-        .post("/subscribe", {
+        .post("/newsletter/subscribe", {
           email: data.email,
         })
         .then((response) => {
@@ -87,6 +91,7 @@ function Newsletter() {
           setLoading(false);
         });
     } catch (err) {
+      //! Validation failed
       if (err instanceof Yup.ValidationError) {
         err.inner.forEach((error) => {
           setFormFeedback({

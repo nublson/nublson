@@ -23,13 +23,13 @@ function Work() {
 
   const getStats = (id: string) => {
     if (id === "instagram") {
-      return formatNumbers(3452);
+      return formatNumbers(3627);
     } else if (id === "youtube") {
       return youtubeSubs ? youtubeSubs : 0;
     } else if (id === "unsplash") {
       return unsplashViews ? unsplashViews : 0;
     } else if (id === "store") {
-      return formatNumbers(1023);
+      return formatNumbers(1323);
     } else if (id === "github") {
       return githubRepos ? githubRepos : 0;
     }

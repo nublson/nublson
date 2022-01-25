@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getIssues } from "../../services/getRevue";
+import { getIssues } from "../../../services/getRevue";
 
 export default async function handler(
   req: NextApiRequest,
