@@ -19,5 +19,9 @@ namespace NodeJS {
     FIREBASE_DATABASE_URL: string;
     GUMROAD_OVERLAY_CHECKOUT: boolean;
     NEXT_PUBLIC_GA_TRACKING_ID: string;
+    SPOTIFY_CLIENT_ID: string;
+    SPOTIFY_CLIENT_SECRET: string;
+    SPOTIFY_AUTH_CODE: string;
+    SPOTIFY_REFRESH_TOKEN: string;
   }
 }

@@ -37,6 +37,11 @@ export const Container = styled.div`
         align-items: center;
         gap: 0.5rem;
 
+        a {
+          color: ${(props) => props.theme.colors.off_black};
+          text-decoration: underline;
+        }
+
         .icon {
           color: ${(props) => props.theme.colors.off_black};
           font-size: 2.4rem;
@@ -64,6 +69,20 @@ export const Container = styled.div`
           text-decoration: underline;
           transition: all 0.2s;
         }
+      }
+    }
+
+    @media ${(props) => props.theme.mediaQueries.small} {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+      gap: 3rem;
+
+      .copy {
+      }
+
+      .menu {
+        align-items: flex-start;
+        text-align: left;
       }
     }
   }
