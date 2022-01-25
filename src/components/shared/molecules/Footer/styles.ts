@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
+  height: 100%;
   background-color: ${(props) => props.theme.colors.off_white};
   color: ${(props) => props.theme.colors.off_black};
 
@@ -76,11 +77,12 @@ export const Container = styled.div`
       flex-direction: column-reverse;
       align-items: flex-start;
       justify-content: center;
-      gap: 5rem;
 
       .menu {
         align-items: flex-start;
         text-align: left;
+        gap: 1.5rem;
+        margin-bottom: 5rem;
       }
     }
   }
