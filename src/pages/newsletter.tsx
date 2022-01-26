@@ -3,6 +3,8 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import IssuesSection from "../section/Issues";
 import NewsletterSection from "../section/Newsletter";
+import ShareSection from "../section/Share";
+import ContactSection from "../section/Contact";
 import { getIssues } from "../services/getRevue";
 import { formatIssues } from "../utils/formatter";
 import pageData from "../utils/pageData.json";
@@ -40,6 +42,8 @@ const Newsletter: NextPage<NewsletterProps> = ({ issues }) => {
 
       <NewsletterSection />
       <IssuesSection issues={issues} />
+      <ShareSection title="Share my newsletter on" />
+      <ContactSection />
     </>
   );
 };

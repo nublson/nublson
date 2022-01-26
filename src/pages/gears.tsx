@@ -5,6 +5,7 @@ import ContactSection from "../section/Contact";
 import ContentSection from "../section/Content";
 import HomeSection from "../section/Home";
 import NewsletterSection from "../section/Newsletter";
+import ShareSection from "../section/Share";
 import { getBlocks, getPage } from "../services/notion";
 import {
   formatBlockWithChildren,
@@ -55,6 +56,7 @@ const Gears: NextPage<GearsProps> = ({ pageProps, blocks }) => {
         article
       />
       <ContentSection blocks={blocks} />
+      <ShareSection title="Share this kit on" />
       <NewsletterSection />
       <ContactSection />
     </>

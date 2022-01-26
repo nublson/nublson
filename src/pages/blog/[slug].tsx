@@ -8,6 +8,7 @@ import ContactSection from "../../section/Contact";
 import ContentSection from "../../section/Content";
 import HomeSection from "../../section/Home";
 import NewsletterSection from "../../section/Newsletter";
+import ShareSection from "../../section/Share";
 import { getBlocks, getData } from "../../services/notion";
 import {
   formatBlockWithChildren,
@@ -78,6 +79,7 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
         article
       />
       <ContentSection blocks={blocks} />
+      <ShareSection title="Share this article on" />
       <NewsletterSection />
       <ContactSection />
     </>
