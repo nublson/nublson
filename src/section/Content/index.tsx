@@ -1,6 +1,8 @@
 import { Render } from "@9gustin/react-notion-render";
+import { useRouter } from "next/router";
 import { ArticleSection } from "../../components/Layout/elements";
 import Button from "../../components/shared/molecules/Buttons";
+import KitFrame from "../../components/shared/molecules/KitIframe";
 import { StyledBlocks } from "../../styles/notion";
 import { Container } from "./styles";
 
@@ -10,12 +12,20 @@ interface ContentProps {
 }
 
 function Content({ blocks, product_url }: ContentProps) {
+  const { pathname } = useRouter();
+
   return (
     <ArticleSection>
       <Container>
         <StyledBlocks>
-          {product_url && <Button.Gumroad productUrl={product_url} />}
+          {product_url && pathname !== "/gears" && (
+            <Button.Gumroad productUrl={product_url} />
+          )}
           <Render blocks={blocks} simpleTitles classNames emptyBlocks />
+
+          {pathname === "/gears" && product_url && (
+            <KitFrame kitUrl={product_url} />
+          )}
         </StyledBlocks>
       </Container>
     </ArticleSection>
