@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.iframe`
   display: block;
   border: 0;
-  margin: 0;
+  margin: 2rem 0 0;
   width: 100%;
   height: 100vh;
   max-width: 70rem;
