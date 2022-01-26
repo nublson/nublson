@@ -9,27 +9,18 @@ interface TextsProps {
   content: string;
 }
 
-function Large({ content }: TextsProps) {
+export function LargeText({ content }: TextsProps) {
   return <StyledTextLarge>{content}</StyledTextLarge>;
 }
 
-function Medium({ content }: TextsProps) {
+export function MediumText({ content }: TextsProps) {
   return <StyledTextMedium>{content}</StyledTextMedium>;
 }
 
-function Small({ content }: TextsProps) {
+export function SmallText({ content }: TextsProps) {
   return <StyledTextSmall>{content}</StyledTextSmall>;
 }
 
-function XSmall({ content }: TextsProps) {
+export function XSmallText({ content }: TextsProps) {
   return <StyledTextXSmall>{content}</StyledTextXSmall>;
 }
-
-const texts = {
-  Large,
-  Medium,
-  Small,
-  XSmall,
-};
-
-export default texts;

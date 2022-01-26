@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
-import Texts from "../shared/atoms/Texts";
-import Titles from "../shared/atoms/Titles";
+import { MediumText } from "../shared/atoms/Texts";
+import { MediumTitle } from "../shared/atoms/Titles";
 
 interface SectionProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -87,8 +87,8 @@ export const Section = ({
     <StyledSection {...rest}>
       {title && (
         <div className="heading">
-          <Titles.Medium content={title} />
-          {description && <Texts.Medium content={description} />}
+          <MediumTitle content={title} />
+          {description && <MediumText content={description} />}
         </div>
       )}
 

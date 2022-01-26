@@ -1,6 +1,6 @@
+import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { Container } from "./styles";
-import Loader from "react-loader-spinner";
 
 function Loading() {
   return (

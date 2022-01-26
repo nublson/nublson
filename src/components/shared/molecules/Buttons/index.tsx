@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode } from "react";
-import Texts from "../../atoms/Texts";
+import { MediumText, SmallText } from "../../atoms/Texts";
 import { Container, StyledIcon } from "./styles";
 
 interface ButtonsProps extends HTMLAttributes<HTMLButtonElement> {
@@ -14,23 +14,23 @@ interface GumroadButtonProps {
   productUrl: string;
 }
 
-function Main({ title, ...rest }: ButtonsProps) {
+export function MainButton({ title, ...rest }: ButtonsProps) {
   return (
     <Container {...rest}>
-      <Texts.Medium content={title} />
+      <MediumText content={title} />
     </Container>
   );
 }
 
-function Text({ title }: ButtonsProps) {
-  return <Texts.Small content={title} />;
+export function TextButton({ title }: ButtonsProps) {
+  return <SmallText content={title} />;
 }
 
-function Icon({ icon, ...rest }: ButtonIconProps) {
+export function IconButton({ icon, ...rest }: ButtonIconProps) {
   return <StyledIcon {...rest}>{icon}</StyledIcon>;
 }
 
-function Gumroad({ productUrl }: GumroadButtonProps) {
+export function GumroadButton({ productUrl }: GumroadButtonProps) {
   return (
     <a
       className="gumroad-button"
@@ -40,12 +40,3 @@ function Gumroad({ productUrl }: GumroadButtonProps) {
     </a>
   );
 }
-
-const Buttons = {
-  Main,
-  Text,
-  Icon,
-  Gumroad,
-};
-
-export default Buttons;

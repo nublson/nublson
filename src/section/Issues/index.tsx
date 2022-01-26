@@ -1,5 +1,5 @@
 import { Section } from "../../components/Layout/elements";
-import Text from "../../components/shared/atoms/Texts";
+import { SmallText } from "../../components/shared/atoms/Texts";
 import { Issue } from "../../components/shared/molecules/Cards";
 import { IssueItem } from "../../utils/types";
 import { Container } from "./styles";
@@ -23,7 +23,7 @@ function Issues({ issues }: IssuesProps) {
           ))
         ) : (
           <div className="feedback">
-            <Text.Small content="No current issues. Subscribe to the newsletter to receive in advance." />
+            <SmallText content="No current issues. Subscribe to the newsletter to receive in advance." />
           </div>
         )}
       </Container>

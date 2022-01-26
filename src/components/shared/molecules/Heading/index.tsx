@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Texts from "../../atoms/Texts";
-import Titles from "../../atoms/Titles";
+import { LargeText, MediumText } from "../../atoms/Texts";
+import { LargeTitle } from "../../atoms/Titles";
 import { Container, Content, Thumbnail } from "./styles";
 
 interface HeadingProps {
@@ -15,9 +15,9 @@ function Heading({ top, title, subtitle, image, article }: HeadingProps) {
   return (
     <Container>
       <Content>
-        <Texts.Medium content={top} />
-        <Titles.Large content={title} />
-        {subtitle && <Texts.Large content={subtitle} />}
+        <MediumText content={top} />
+        <LargeTitle content={title} />
+        {subtitle && <LargeText content={subtitle} />}
       </Content>
       <Thumbnail article={article}>
         <Image

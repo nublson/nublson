@@ -1,7 +1,7 @@
 import { Render } from "@9gustin/react-notion-render";
 import { useRouter } from "next/router";
 import { ArticleSection } from "../../components/Layout/elements";
-import Button from "../../components/shared/molecules/Buttons";
+import { GumroadButton } from "../../components/shared/molecules/Buttons";
 import KitFrame from "../../components/shared/molecules/KitIframe";
 import { StyledBlocks } from "../../styles/notion";
 import { Container } from "./styles";
@@ -19,7 +19,7 @@ function Content({ blocks, product_url }: ContentProps) {
       <Container>
         <StyledBlocks>
           {product_url && pathname !== "/gears" && (
-            <Button.Gumroad productUrl={product_url} />
+            <GumroadButton productUrl={product_url} />
           )}
           <Render blocks={blocks} simpleTitles classNames emptyBlocks />
 

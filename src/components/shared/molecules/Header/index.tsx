@@ -20,7 +20,7 @@ function Header() {
             className="logo"
           />
         ) : (
-          <RouteLink href={"/"}>
+          <RouteLink href={"/"} prefetch={false}>
             <Image
               src={logo}
               alt="NUBL logo"

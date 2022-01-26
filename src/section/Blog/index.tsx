@@ -1,7 +1,7 @@
 import { Section } from "../../components/Layout/elements";
 import RouteLink from "../../components/shared/atoms/RouteLink";
-import Texts from "../../components/shared/atoms/Texts";
-import Buttons from "../../components/shared/molecules/Buttons";
+import { MediumText } from "../../components/shared/atoms/Texts";
+import { TextButton } from "../../components/shared/molecules/Buttons";
 import { Blog as BlogCard } from "../../components/shared/molecules/Cards";
 import { BlogItem } from "../../utils/types";
 import { BlogList, Container } from "./styles";
@@ -16,7 +16,7 @@ function Blog({ posts }: BlogProps) {
       <Container>
         <BlogList center={posts.length <= 1}>
           {!posts.length ? (
-            <Texts.Medium content="No articles published" />
+            <MediumText content="No articles published" />
           ) : (
             posts.map((article) => (
               <RouteLink key={article.id} href={`/blog/${article.slug}`}>
@@ -34,7 +34,7 @@ function Blog({ posts }: BlogProps) {
         </BlogList>
 
         <RouteLink href="/blog">
-          <Buttons.Text title="See all blog posts" />
+          <TextButton title="See all blog posts" />
         </RouteLink>
       </Container>
     </Section>

@@ -27,10 +27,6 @@ export const Container = styled.div`
       align-items: flex-start;
       gap: 1rem;
 
-      & > :last-child {
-        color: ${(props) => props.theme.colors.label};
-      }
-
       .spotify {
         font-weight: 700;
 

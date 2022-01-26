@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "analyze": "ANALYZE=true next build",
     "lint": "next lint",
     "postbuild": "next-sitemap"
   },
@@ -38,6 +39,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^12.0.8",
     "@types/axios": "^0.14.0",
     "@types/gtag.js": "^0.0.8",
     "@types/html-to-text": "^8.0.1",

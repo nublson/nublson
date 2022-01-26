@@ -9,8 +9,13 @@ import {
 } from "react-icons/ri";
 import useSWR from "swr";
 import { formatDate } from "../../../../utils/formatter";
-import Texts from "../../atoms/Texts";
-import Titles from "../../atoms/Titles";
+import {
+  LargeText,
+  MediumText,
+  SmallText,
+  XSmallText,
+} from "../../atoms/Texts";
+import { LargeTitle, MediumTitle, SmallTitle } from "../../atoms/Titles";
 import {
   BlogContainer,
   IssueContainer,
@@ -69,13 +74,13 @@ export function Work({ id, title, description, link, stats }: WorkCard) {
       )}
       <div className="body">
         <div className="content">
-          <Titles.Small content={title} />
-          {description && <Texts.Medium content={description} />}
+          <SmallTitle content={title} />
+          {description && <MediumText content={description} />}
         </div>
 
         <div className="footer">
-          <Texts.Small content="Visit" />
-          <Texts.Small content={stats} />
+          <SmallText content="Visit" />
+          <SmallText content={stats} />
         </div>
       </div>
     </WorkContainer>
@@ -98,7 +103,7 @@ export function Blog({
     <BlogContainer>
       <Thumbnail>
         <ViewsContainer>
-          <Texts.XSmall content={`${data?.views ? data.views : 0} views`} />
+          <XSmallText content={`${data?.views ? data.views : 0} views`} />
         </ViewsContainer>
         <Image
           src={thumbnail}
@@ -110,13 +115,13 @@ export function Blog({
       </Thumbnail>
       <div className="data">
         <div className="heading">
-          <Titles.Small content={title} />
-          {description && <Texts.Medium content={description} />}
+          <SmallTitle content={title} />
+          {description && <MediumText content={description} />}
         </div>
 
         <div className="footer">
-          <Texts.XSmall content={formatDate(publish_date)} />
-          <Texts.XSmall content={`${read_time} min read`} />
+          <XSmallText content={formatDate(publish_date)} />
+          <XSmallText content={`${read_time} min read`} />
         </div>
       </div>
     </BlogContainer>
@@ -127,13 +132,13 @@ export function Issue({ title, description, publish_date }: IssueCard) {
   return (
     <IssueContainer>
       <div className="content">
-        <Titles.Small content={title} />
-        {description && <Texts.Medium content={description} />}
+        <SmallTitle content={title} />
+        {description && <MediumText content={description} />}
       </div>
 
       <div className="footer">
-        <Texts.Small content="Subscribe to read" />
-        <Texts.Small content={publish_date} />
+        <SmallText content="Subscribe to read" />
+        <SmallText content={publish_date} />
       </div>
     </IssueContainer>
   );

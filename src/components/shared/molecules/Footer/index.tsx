@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { RiSpotifyLine } from "react-icons/ri";
-import Texts from "../../atoms/Texts";
-import { Container } from "./styles";
-import RouteLink from "../../atoms/RouteLink";
 import useSWR from "swr";
 import { api } from "../../../../services/api";
+import RouteLink from "../../atoms/RouteLink";
+import { SmallText } from "../../atoms/Texts";
+import { Container } from "./styles";
 
 interface MusicProps {
   isPlaying: boolean;
@@ -36,27 +36,27 @@ function Footer() {
             <RiSpotifyLine className="icon" />
             {data?.isPlaying ? (
               <a href={data.songUrl} target="_blank" rel="noreferrer">
-                <Texts.Small content={`${data.title}`} />
+                <SmallText content={`${data.title}`} />
               </a>
             ) : (
-              <Texts.Small content="Not Playing" />
+              <SmallText content="Not Playing" />
             )}
-            <Texts.Small content="- Spotify" />
+            <SmallText content="- Spotify" />
           </div>
-          <Texts.Small
+          <SmallText
             content={`© ${currentYear}, Nubelson Fernandes. With ❤️ and ☕`}
           />
         </div>
 
         <div className="menu">
           <RouteLink href="/about">
-            <Texts.Small content="About" />
+            <SmallText content="About" />
           </RouteLink>
           <RouteLink href="/newsletter">
-            <Texts.Small content="Newsletter" />
+            <SmallText content="Newsletter" />
           </RouteLink>
           <RouteLink href="/gears">
-            <Texts.Small content="Video &#38; Photo Setup" />
+            <SmallText content="Video &#38; Photo Setup" />
           </RouteLink>
         </div>
       </div>

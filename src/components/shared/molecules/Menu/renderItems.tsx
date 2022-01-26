@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { Link } from "react-scroll";
 import RouteLink from "../../atoms/RouteLink";
-import Texts from "../../atoms/Texts";
+import { MediumText } from "../../atoms/Texts";
 import { StyledItem } from "./styles";
 
 interface ItemsProps {
@@ -32,11 +32,11 @@ export const NavItems = ({ items, scrollAction }: ItemsProps) => {
                 duration={1000}
                 onClick={scrollAction}
               >
-                <Texts.Medium content={item.name} />
+                <MediumText content={item.name} />
               </Link>
             ) : (
               <RouteLink href={`/${item.path}`}>
-                <Texts.Medium content={item.name} />
+                <MediumText content={item.name} />
               </RouteLink>
             )}
           </StyledItem>

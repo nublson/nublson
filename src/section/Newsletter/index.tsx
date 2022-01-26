@@ -5,8 +5,8 @@ import useSWR from "swr";
 import * as Yup from "yup";
 import { Section } from "../../components/Layout/elements";
 import RouteLink from "../../components/shared/atoms/RouteLink";
-import Texts from "../../components/shared/atoms/Texts";
-import Buttons from "../../components/shared/molecules/Buttons";
+import { XSmallText } from "../../components/shared/atoms/Texts";
+import { MainButton } from "../../components/shared/molecules/Buttons";
 import Input from "../../components/shared/molecules/Input";
 import { api } from "../../services/api";
 import { Container, Content, Footer, StyledForm } from "./styles";
@@ -126,17 +126,17 @@ function Newsletter() {
                 setFormFeedback({} as FormProps);
               }}
             />
-            <Buttons.Main title="Subscribe" />
+            <MainButton title="Subscribe" />
           </StyledForm>
           <Footer>
             {loading ? (
               <Loader type="Puff" color="#fff" height={10} width={10} />
             ) : (
-              formFeedback && <Texts.XSmall content={formFeedback.message} />
+              formFeedback && <XSmallText content={formFeedback.message} />
             )}
 
             <RouteLink href="/newsletter">
-              <Texts.XSmall
+              <XSmallText
                 content={`${subscribersData ? subscribersData : 0} ${
                   subscribersData === 1 ? "subscriber" : "subscribers"
                 } - ${issuesData ? issuesData : 0} ${

@@ -8,22 +8,14 @@ interface TextsProps {
   content: string;
 }
 
-function Large({ content }: TextsProps) {
+export function LargeTitle({ content }: TextsProps) {
   return <StyledTitleLarge>{content}</StyledTitleLarge>;
 }
 
-function Medium({ content }: TextsProps) {
+export function MediumTitle({ content }: TextsProps) {
   return <StyledTitleMedium>{content}</StyledTitleMedium>;
 }
 
-function Small({ content }: TextsProps) {
+export function SmallTitle({ content }: TextsProps) {
   return <StyledTitleSmall>{content}</StyledTitleSmall>;
 }
-
-const titles = {
-  Large,
-  Medium,
-  Small,
-};
-
-export default titles;
