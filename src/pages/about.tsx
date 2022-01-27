@@ -1,10 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import ContactSection from "../section/Contact";
-import ContentSection from "../section/Content";
-import HomeSection from "../section/Home";
-import NewsletterSection from "../section/Newsletter";
 import { getBlocks, getPage } from "../services/notion";
 import {
   formatBlockWithChildren,
@@ -12,6 +9,11 @@ import {
   formatPageProps,
 } from "../utils/formatter";
 import { BlogItem } from "../utils/types";
+
+const HomeSection = dynamic(() => import("../section/Home"));
+const ContentSection = dynamic(() => import("../section/Content"));
+const NewsletterSection = dynamic(() => import("../section/Newsletter"));
+const ContactSection = dynamic(() => import("../section/Contact"));
 
 type AboutProps = {
   pageProps: BlogItem;

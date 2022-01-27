@@ -1,14 +1,16 @@
 import type { GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import ArticlesSection from "../../section/Articles";
-import ContactSection from "../../section/Contact";
-import HomeSection from "../../section/Home";
-import NewsletterSection from "../../section/Newsletter";
 import { getData } from "../../services/notion";
 import { formatPosts } from "../../utils/formatter";
 import pageData from "../../utils/pageData.json";
 import { BlogItem } from "../../utils/types";
+
+const HomeSection = dynamic(() => import("../../section/Home"));
+const ArticlesSection = dynamic(() => import("../../section/Articles"));
+const NewsletterSection = dynamic(() => import("../../section/Newsletter"));
+const ContactSection = dynamic(() => import("../../section/Contact"));
 
 type StoreProps = {
   posts: BlogItem[];

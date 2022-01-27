@@ -1,14 +1,16 @@
 import { GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import IssuesSection from "../section/Issues";
-import NewsletterSection from "../section/Newsletter";
-import ShareSection from "../section/Share";
-import ContactSection from "../section/Contact";
 import { getIssues } from "../services/getRevue";
 import { formatIssues } from "../utils/formatter";
 import pageData from "../utils/pageData.json";
 import { IssueItem } from "../utils/types";
+
+const NewsletterSection = dynamic(() => import("../section/Newsletter"));
+const IssuesSection = dynamic(() => import("../section/Issues"));
+const ShareSection = dynamic(() => import("../section/Share"));
+const ContactSection = dynamic(() => import("../section/Contact"));
 
 type NewsletterProps = {
   issues: IssueItem[];

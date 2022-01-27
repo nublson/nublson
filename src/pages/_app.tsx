@@ -5,7 +5,6 @@ import "prismjs";
 import { useEffect } from "react";
 import Layout from "../components/Layout";
 import Analytics from "../components/utils/Analytics";
-import Gumroad from "../components/utils/Gumroad";
 import { pageView } from "../services/gtag";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -37,7 +36,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Layout>
 
       <Analytics />
-      <Gumroad />
     </>
   );
 }

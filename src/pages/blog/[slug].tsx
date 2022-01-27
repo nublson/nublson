@@ -1,14 +1,10 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import prism from "prismjs";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
-import ContactSection from "../../section/Contact";
-import ContentSection from "../../section/Content";
-import HomeSection from "../../section/Home";
-import NewsletterSection from "../../section/Newsletter";
-import ShareSection from "../../section/Share";
 import { getBlocks, getData } from "../../services/notion";
 import {
   formatBlockWithChildren,
@@ -16,6 +12,12 @@ import {
   formatPosts,
 } from "../../utils/formatter";
 import { BlogItem } from "../../utils/types";
+
+const HomeSection = dynamic(() => import("../../section/Home"));
+const ContentSection = dynamic(() => import("../../section/Content"));
+const ShareSection = dynamic(() => import("../../section/Share"));
+const NewsletterSection = dynamic(() => import("../../section/Newsletter"));
+const ContactSection = dynamic(() => import("../../section/Contact"));
 
 type SlugProps = {
   pageProps: BlogItem;

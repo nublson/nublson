@@ -1,7 +1,9 @@
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
-import HomeSection from "../section/Home";
+import dynamic from "next/dynamic";
 import pageData from "../utils/pageData.json";
+
+const HomeSection = dynamic(() => import("../section/Home"));
 
 const Offline: NextPage = () => {
   return (

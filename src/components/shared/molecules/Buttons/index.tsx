@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode } from "react";
 import { MediumText, SmallText } from "../../atoms/Texts";
-import { Container, StyledIcon } from "./styles";
+import { Container, StyledIcon, PurchaseContainer } from "./styles";
 
 interface ButtonsProps extends HTMLAttributes<HTMLButtonElement> {
   title: string;
@@ -32,11 +32,12 @@ export function IconButton({ icon, ...rest }: ButtonIconProps) {
 
 export function GumroadButton({ productUrl }: GumroadButtonProps) {
   return (
-    <a
-      className="gumroad-button"
+    <PurchaseContainer
       href={`${productUrl}?wanted=${process.env.GUMROAD_OVERLAY_CHECKOUT}`}
+      target="_blank"
+      rel="noreferrer"
     >
       Purchase here
-    </a>
+    </PurchaseContainer>
   );
 }
