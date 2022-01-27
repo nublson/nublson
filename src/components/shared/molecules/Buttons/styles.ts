@@ -38,4 +38,9 @@ export const PurchaseContainer = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:hover {
+    transform: translateY(-4px);
+    transition: all 0.5s;
+  }
 `;
