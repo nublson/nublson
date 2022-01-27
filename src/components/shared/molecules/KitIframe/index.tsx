@@ -6,7 +6,11 @@ interface KitProps {
 
 function KitIframe({ kitUrl }: KitProps) {
   return (
-    <Container src={`https://kit.co/embed?url=${kitUrl}`} scrolling="no" />
+    <Container
+      src={`https://kit.co/embed?url=${kitUrl}`}
+      scrolling="no"
+      title="kit"
+    />
   );
 }
 
