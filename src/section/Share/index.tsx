@@ -1,8 +1,24 @@
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { Section } from "../../components/Layout/elements";
-import ShareLink from "../../components/shared/atoms/ShareLink";
-import { MediumText, SmallText } from "../../components/shared/atoms/Texts";
+import { ISectionProps, ITextsProps } from "../../utils/types";
 import { Container } from "./styles";
+
+const Section = dynamic<ISectionProps>(() =>
+  import("../../components/Layout/elements").then((module) => module.Section)
+);
+const ShareLink = dynamic(
+  () => import("../../components/shared/atoms/ShareLink")
+);
+const MediumText = dynamic<ITextsProps>(() =>
+  import("../../components/shared/atoms/Texts").then(
+    (module) => module.MediumText
+  )
+);
+const SmallText = dynamic<ITextsProps>(() =>
+  import("../../components/shared/atoms/Texts").then(
+    (module) => module.SmallText
+  )
+);
 
 interface ShareProps {
   title: string;

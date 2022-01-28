@@ -1,11 +1,7 @@
-import { HTMLAttributes } from "react";
+import { ICategoryItemProps } from "../../../../utils/types";
 import { StyledCategory } from "./styles";
 
-interface CategoryItemProps extends HTMLAttributes<HTMLParagraphElement> {
-  name: string;
-}
-
-function CategoryItem({ name, ...rest }: CategoryItemProps) {
+function CategoryItem({ name, ...rest }: ICategoryItemProps) {
   return <StyledCategory {...rest}>{name}</StyledCategory>;
 }
 

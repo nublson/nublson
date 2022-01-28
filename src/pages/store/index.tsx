@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { getData } from "../../services/notion";
 import { formatPosts } from "../../utils/formatter";
 import pageData from "../../utils/pageData.json";
-import { BlogItem } from "../../utils/types";
+import { IBlogItem } from "../../utils/types";
 
 const HomeSection = dynamic(() => import("../../section/Home"));
 const ArticlesSection = dynamic(() => import("../../section/Articles"));
@@ -13,7 +13,7 @@ const NewsletterSection = dynamic(() => import("../../section/Newsletter"));
 const ContactSection = dynamic(() => import("../../section/Contact"));
 
 type StoreProps = {
-  posts: BlogItem[];
+  posts: IBlogItem[];
 };
 
 const Store: NextPage<StoreProps> = ({ posts }) => {

@@ -1,18 +1,11 @@
 import { useRouter } from "next/router";
 import { Link } from "react-scroll";
+import { IItemsProps } from "../../../../utils/types";
 import RouteLink from "../../atoms/RouteLink";
 import { MediumText } from "../../atoms/Texts";
 import { StyledItem } from "./styles";
 
-interface ItemsProps {
-  items: {
-    name: string;
-    path: string;
-  }[];
-  scrollAction?(): any;
-}
-
-export const NavItems = ({ items, scrollAction }: ItemsProps) => {
+export const NavItems = ({ items, scrollAction }: IItemsProps) => {
   const { pathname } = useRouter();
 
   return (

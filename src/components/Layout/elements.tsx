@@ -1,13 +1,7 @@
-import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
+import { ISectionProps } from "../../utils/types";
 import { MediumText } from "../shared/atoms/Texts";
 import { MediumTitle } from "../shared/atoms/Titles";
-
-interface SectionProps extends HTMLAttributes<HTMLDivElement> {
-  title?: string;
-  description?: string;
-  children: ReactNode;
-}
 
 const StyledSection = styled.section`
   width: 100%;
@@ -82,7 +76,7 @@ export const Section = ({
   description,
   children,
   ...rest
-}: SectionProps) => {
+}: ISectionProps) => {
   return (
     <StyledSection {...rest}>
       {title && (
@@ -97,7 +91,7 @@ export const Section = ({
   );
 };
 
-export const ArticleSection = ({ children, ...rest }: SectionProps) => {
+export const ArticleSection = ({ children, ...rest }: ISectionProps) => {
   return (
     <StyledArticle {...rest}>
       <SectionContent>{children}</SectionContent>

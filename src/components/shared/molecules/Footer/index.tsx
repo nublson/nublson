@@ -3,15 +3,10 @@ import { RiSpotifyLine } from "react-icons/ri";
 import useSWR from "swr";
 import { api } from "../../../../services/api";
 import nav from "../../../../utils/navMenu.json";
+import { IMusicProps } from "../../../../utils/types";
 import RouteLink from "../../atoms/RouteLink";
 import { SmallText } from "../../atoms/Texts";
 import { Container } from "./styles";
-
-interface MusicProps {
-  isPlaying: boolean;
-  title: string;
-  songUrl: string;
-}
 
 const fetchMusic = async (url: string) => {
   const response = await api.get(url);
@@ -21,7 +16,7 @@ const fetchMusic = async (url: string) => {
 
 function Footer() {
   const [currentYear, setCurrentYear] = useState(2022);
-  const { data } = useSWR<MusicProps>("/spotify/playing", fetchMusic, {
+  const { data } = useSWR<IMusicProps>("/spotify/playing", fetchMusic, {
     refreshInterval: 1000,
   });
 

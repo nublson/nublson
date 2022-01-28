@@ -11,7 +11,7 @@ import {
   formatDate,
   formatPosts,
 } from "../../utils/formatter";
-import { BlogItem } from "../../utils/types";
+import { IBlogItem } from "../../utils/types";
 
 const HomeSection = dynamic(() => import("../../section/Home"));
 const ContentSection = dynamic(() => import("../../section/Content"));
@@ -20,7 +20,7 @@ const NewsletterSection = dynamic(() => import("../../section/Newsletter"));
 const ContactSection = dynamic(() => import("../../section/Contact"));
 
 type SlugProps = {
-  pageProps: BlogItem;
+  pageProps: IBlogItem;
   blocks: any[];
 };
 
@@ -123,7 +123,7 @@ export const getStaticProps: GetStaticProps<SlugProps, Params> = async (
   if (!pageExists) {
     return {
       props: {
-        pageProps: {} as BlogItem,
+        pageProps: {} as IBlogItem,
         blocks: [],
       },
     };

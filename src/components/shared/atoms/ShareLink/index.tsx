@@ -1,13 +1,7 @@
-import { ReactNode } from "react";
+import { IShareLinkProps } from "../../../../utils/types";
 import { Container } from "./styles";
 
-interface ShareLinkProps {
-  on: "facebook" | "twitter" | "whatsapp";
-  content: string;
-  children: ReactNode;
-}
-
-function ShareLink({ on, content, children }: ShareLinkProps) {
+function ShareLink({ on, content, children }: IShareLinkProps) {
   return (
     <Container
       href={

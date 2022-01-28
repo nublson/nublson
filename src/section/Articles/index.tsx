@@ -1,17 +1,18 @@
 import { FormHandles, SubmitHandler } from "@unform/core";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
-import { Section } from "../../components/Layout/elements";
-import CategoryItem from "../../components/shared/atoms/CategoryItem";
-import RouteLink from "../../components/shared/atoms/RouteLink";
-import { MediumText } from "../../components/shared/atoms/Texts";
-import { IconButton } from "../../components/shared/molecules/Buttons";
-import { Blog } from "../../components/shared/molecules/Cards";
-import Input from "../../components/shared/molecules/Input";
 import { filterPostsByCategory } from "../../utils/filterPosts";
 import { getCategories } from "../../utils/getCategories";
-import { BlogCategory, BlogItem } from "../../utils/types";
+import {
+  IBlogCard,
+  IBlogCategory,
+  IBlogItem,
+  IButtonIconProps,
+  ISectionProps,
+  ITextsProps,
+} from "../../utils/types";
 import {
   ArticleList,
   CategorySection,
@@ -20,18 +21,44 @@ import {
   StyledForm,
 } from "./styles";
 
+const Section = dynamic<ISectionProps>(() =>
+  import("../../components/Layout/elements").then((module) => module.Section)
+);
+const CategoryItem = dynamic(
+  () => import("../../components/shared/atoms/CategoryItem")
+);
+const RouteLink = dynamic(
+  () => import("../../components/shared/atoms/RouteLink")
+);
+const MediumText = dynamic<ITextsProps>(() =>
+  import("../../components/shared/atoms/Texts").then(
+    (module) => module.MediumText
+  )
+);
+const IconButton = dynamic<IButtonIconProps>(() =>
+  import("../../components/shared/molecules/Buttons").then(
+    (module) => module.IconButton
+  )
+);
+const Blog = dynamic<IBlogCard>(() =>
+  import("../../components/shared/molecules/Cards").then(
+    (module) => module.Blog
+  )
+);
+const Input = dynamic(() => import("../../components/shared/molecules/Input"));
+
 interface FormData {
   search: string;
 }
 
 interface ArticlesProps {
-  posts: BlogItem[];
+  posts: IBlogItem[];
 }
 
 function Articles({ posts }: ArticlesProps) {
-  const [categories, setCategories] = useState<BlogCategory[]>([]);
+  const [categories, setCategories] = useState<IBlogCategory[]>([]);
   const [currentCategory, setCurrentCategory] = useState("");
-  const [filteredPosts, setFilteredPosts] = useState<BlogItem[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<IBlogItem[]>([]);
   const formRef = useRef<FormHandles>(null);
   const { pathname } = useRouter();
 

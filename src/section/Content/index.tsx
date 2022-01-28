@@ -1,10 +1,23 @@
 import { Render } from "@9gustin/react-notion-render";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { ArticleSection } from "../../components/Layout/elements";
-import { GumroadButton } from "../../components/shared/molecules/Buttons";
-import KitFrame from "../../components/shared/molecules/KitIframe";
 import { StyledBlocks } from "../../styles/notion";
+import { IGumroadButtonProps, ISectionProps } from "../../utils/types";
 import { Container } from "./styles";
+
+const ArticleSection = dynamic<ISectionProps>(() =>
+  import("../../components/Layout/elements").then(
+    (module) => module.ArticleSection
+  )
+);
+const GumroadButton = dynamic<IGumroadButtonProps>(() =>
+  import("../../components/shared/molecules/Buttons").then(
+    (module) => module.GumroadButton
+  )
+);
+const KitFrame = dynamic(
+  () => import("../../components/shared/molecules/KitIframe")
+);
 
 interface ContentProps {
   blocks: any[];

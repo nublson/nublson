@@ -1,7 +1,11 @@
+import dynamic from "next/dynamic";
 import { HTMLAttributes } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
-import Heading from "../../components/shared/molecules/Heading";
 import { Container, ScrollLink } from "./styles";
+
+const Heading = dynamic(
+  () => import("../../components/shared/molecules/Heading")
+);
 
 interface HomeProps extends HTMLAttributes<HTMLDivElement> {
   top: string;

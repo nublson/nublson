@@ -1,15 +1,30 @@
 import { FormHandles, SubmitHandler } from "@unform/core";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import Loader from "react-loader-spinner";
 import useSWR from "swr";
 import * as Yup from "yup";
-import { Section } from "../../components/Layout/elements";
-import RouteLink from "../../components/shared/atoms/RouteLink";
-import { XSmallText } from "../../components/shared/atoms/Texts";
-import { MainButton } from "../../components/shared/molecules/Buttons";
-import Input from "../../components/shared/molecules/Input";
 import { api } from "../../services/api";
+import { IButtonsProps, ISectionProps, ITextsProps } from "../../utils/types";
 import { Container, Content, Footer, StyledForm } from "./styles";
+
+const Section = dynamic<ISectionProps>(() =>
+  import("../../components/Layout/elements").then((module) => module.Section)
+);
+const RouteLink = dynamic(
+  () => import("../../components/shared/atoms/RouteLink")
+);
+const XSmallText = dynamic<ITextsProps>(() =>
+  import("../../components/shared/atoms/Texts").then(
+    (module) => module.XSmallText
+  )
+);
+const MainButton = dynamic<IButtonsProps>(() =>
+  import("../../components/shared/molecules/Buttons").then(
+    (module) => module.MainButton
+  )
+);
+const Input = dynamic(() => import("../../components/shared/molecules/Input"));
 
 interface FormData {
   email: string;
@@ -118,7 +133,12 @@ function Newsletter() {
     >
       <Container>
         <Content feedback={formFeedback.type}>
-          <StyledForm ref={formRef} onSubmit={handleSubmit}>
+          <StyledForm
+            ref={formRef}
+            onSubmit={handleSubmit}
+            target="_top"
+            action="/api/newsletter/subscribe"
+          >
             <Input
               name="email"
               placeholder="Enter your email"

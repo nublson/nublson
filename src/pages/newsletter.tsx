@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { getIssues } from "../services/getRevue";
 import { formatIssues } from "../utils/formatter";
 import pageData from "../utils/pageData.json";
-import { IssueItem } from "../utils/types";
+import { IIssueItem } from "../utils/types";
 
 const NewsletterSection = dynamic(() => import("../section/Newsletter"));
 const IssuesSection = dynamic(() => import("../section/Issues"));
@@ -13,7 +13,7 @@ const ShareSection = dynamic(() => import("../section/Share"));
 const ContactSection = dynamic(() => import("../section/Contact"));
 
 type NewsletterProps = {
-  issues: IssueItem[];
+  issues: IIssueItem[];
 };
 
 const Newsletter: NextPage<NewsletterProps> = ({ issues }) => {

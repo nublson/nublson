@@ -1,6 +1,15 @@
-import { Section } from "../../components/Layout/elements";
-import { MainButton } from "../../components/shared/molecules/Buttons";
+import dynamic from "next/dynamic";
+import { IButtonsProps, ISectionProps } from "../../utils/types";
 import { Container, StyledLink } from "./styles";
+
+const Section = dynamic<ISectionProps>(() =>
+  import("../../components/Layout/elements").then((module) => module.Section)
+);
+const MainButton = dynamic<IButtonsProps>(() =>
+  import("../../components/shared/molecules/Buttons").then(
+    (module) => module.MainButton
+  )
+);
 
 function Contact() {
   return (

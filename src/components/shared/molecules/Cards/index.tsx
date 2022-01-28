@@ -10,12 +10,13 @@ import {
 import useSWR from "swr";
 import { formatDate } from "../../../../utils/formatter";
 import {
-  LargeText,
-  MediumText,
-  SmallText,
-  XSmallText,
-} from "../../atoms/Texts";
-import { LargeTitle, MediumTitle, SmallTitle } from "../../atoms/Titles";
+  IBlogCard,
+  IIssueCard,
+  IViews,
+  IWorkCard,
+} from "../../../../utils/types";
+import { MediumText, SmallText, XSmallText } from "../../atoms/Texts";
+import { SmallTitle } from "../../atoms/Titles";
 import {
   BlogContainer,
   IssueContainer,
@@ -24,39 +25,13 @@ import {
   WorkContainer,
 } from "./styles";
 
-interface CardsProps {
-  title: string;
-  description?: string;
-}
-
-interface WorkCard extends CardsProps {
-  id: string;
-  link: string;
-  stats: string;
-}
-
-interface BlogCard extends CardsProps {
-  thumbnail: string | StaticImageData;
-  publish_date: string;
-  read_time: number;
-  slug: string;
-}
-
-interface IssueCard extends CardsProps {
-  publish_date: string;
-}
-
-interface Views {
-  views: number;
-}
-
 const fetcher = async (url: string) => {
   const res = await fetch(url);
 
   return res.json();
 };
 
-export function Work({ id, title, description, link, stats }: WorkCard) {
+export function Work({ id, title, description, link, stats }: IWorkCard) {
   return (
     <WorkContainer href={link} target="_blank" rel="noreferrer">
       {id === "instagram" ? (
@@ -94,8 +69,8 @@ export function Blog({
   publish_date,
   read_time,
   slug,
-}: BlogCard) {
-  const { data } = useSWR<Views>(`/api/views/${slug}`, fetcher, {
+}: IBlogCard) {
+  const { data } = useSWR<IViews>(`/api/views/${slug}`, fetcher, {
     refreshInterval: 1000,
   });
 
@@ -128,7 +103,7 @@ export function Blog({
   );
 }
 
-export function Issue({ title, description, publish_date }: IssueCard) {
+export function Issue({ title, description, publish_date }: IIssueCard) {
   return (
     <IssueContainer>
       <div className="content">

@@ -1,9 +1,16 @@
-export type BlogCategory = {
+import { LinkProps } from "next/link";
+import { HTMLAttributes, ReactNode } from "react";
+
+export interface ILayoutProps {
+  children: ReactNode;
+}
+
+export type IBlogCategory = {
   id: string;
   name: string;
 };
 
-export type BlogItem = {
+export type IBlogItem = {
   id: string;
   thumbnail: string;
   title: string;
@@ -11,12 +18,12 @@ export type BlogItem = {
   publish_date: string;
   modified_date?: string;
   read_time: number;
-  categories: BlogCategory[];
+  categories: IBlogCategory[];
   slug: string;
   link?: string;
 };
 
-export type IssueItem = {
+export type IIssueItem = {
   id: number;
   title: string;
   description: string;
@@ -24,99 +31,102 @@ export type IssueItem = {
   url: string;
 };
 
-export type DatabaseResult = {
-  object: string;
+export interface ISectionProps extends HTMLAttributes<HTMLDivElement> {
+  title?: string;
+  description?: string;
+  children: ReactNode;
+}
+
+export interface ICategoryItemProps
+  extends HTMLAttributes<HTMLParagraphElement> {
+  name: string;
+}
+
+export interface IRouteLinkProps extends LinkProps {
+  children: ReactNode;
+}
+
+export interface IShareLinkProps {
+  on: "facebook" | "twitter" | "whatsapp";
+  content: string;
+  children: ReactNode;
+}
+
+export interface ITextsProps {
+  content: string;
+}
+
+export interface IButtonsProps extends HTMLAttributes<HTMLButtonElement> {
+  title: string;
+}
+
+export interface IButtonIconProps extends HTMLAttributes<HTMLButtonElement> {
+  icon: ReactNode;
+}
+
+export interface IGumroadButtonProps {
+  productUrl: string;
+}
+
+export interface ICardsProps {
+  title: string;
+  description?: string;
+}
+
+export interface IWorkCard extends ICardsProps {
   id: string;
-  created_time: string;
-  last_edited_time: string;
-  cover: {
-    type: "external" | "file";
-    file: {
-      url: string;
-      expiry_time: string;
-    };
-    external: {
-      url: string;
-    };
-  };
-  icon: {
-    type: string;
-    emoji: string;
-  };
-  parent: {
-    type: string;
-    database_id: string;
-  };
-  archived: boolean;
-  properties: {
-    state: {
-      id: string;
-      type: string;
-      select: {
-        id: string;
-        name: string;
-        color: string;
-      };
-    };
-    publish_date: {
-      id: string;
-      type: string;
-      date: {
-        start: string;
-        end: string | null;
-      };
-    };
-    description: {
-      id: string;
-      type: string;
-      rich_text: [
-        {
-          type: string;
-          text: {
-            content: string;
-            link: string | null;
-          };
-          annotations: {
-            bold: boolean;
-            italic: false;
-            strikethrough: boolean;
-            underline: boolean;
-            code: boolean;
-            color: string;
-          };
-          plain_text: string;
-          href: string | null;
-        }
-      ];
-    };
-    Created: {
-      id: string;
-      type: string;
-      created_time: string;
-    };
-    Name: {
-      id: string;
-      type: string;
-      title: [
-        {
-          type: string;
-          text: {
-            content: string;
-            link: string | null;
-          };
-          annotations: {
-            bold: boolean;
-            italic: boolean;
-            strikethrough: boolean;
-            underline: boolean;
-            code: boolean;
-            color: string;
-          };
-          plain_text: string;
-          href: string | null;
-        }
-      ];
-    };
-  };
-  url: string;
-};
+  link: string;
+  stats: string;
+}
+
+export interface IBlogCard extends ICardsProps {
+  thumbnail: string | StaticImageData;
+  publish_date: string;
+  read_time: number;
+  slug: string;
+}
+
+export interface IIssueCard extends ICardsProps {
+  publish_date: string;
+}
+
+export interface IViews {
+  views: number;
+}
+
+export interface IMusicProps {
+  isPlaying: boolean;
+  title: string;
+  songUrl: string;
+}
+
+export interface IHeadingProps {
+  top: string;
+  title: string;
+  subtitle?: string;
+  image: string | StaticImageData;
+  article?: boolean;
+}
+
+export interface IInputProps extends HTMLAttributes<HTMLInputElement> {
+  name: string;
+}
+
+export interface IKitProps {
+  kitUrl: string;
+}
+
+export interface IItemsProps {
+  items: {
+    name: string;
+    path: string;
+  }[];
+  scrollAction?(): any;
+}
+
+export interface IGtagProps {
+  action: string;
+  category: string;
+  label: string;
+  value: number;
+}

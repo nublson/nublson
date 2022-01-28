@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { getData } from "../services/notion";
 import { formatPosts } from "../utils/formatter";
 import pageData from "../utils/pageData.json";
-import { BlogItem } from "../utils/types";
+import { IBlogItem } from "../utils/types";
 
 const HomeSection = dynamic(() => import("../section/Home"));
 const WorkSection = dynamic(() => import("../section/Work"));
@@ -13,7 +13,7 @@ const NewsletterSection = dynamic(() => import("../section/Newsletter"));
 const ContactSection = dynamic(() => import("../section/Contact"));
 
 type HomeProps = {
-  posts: BlogItem[];
+  posts: IBlogItem[];
 };
 
 const Home: NextPage<HomeProps> = ({ posts }) => {

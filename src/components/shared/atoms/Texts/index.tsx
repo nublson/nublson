@@ -1,3 +1,4 @@
+import { ITextsProps } from "../../../../utils/types";
 import {
   StyledTextLarge,
   StyledTextMedium,
@@ -5,22 +6,18 @@ import {
   StyledTextXSmall,
 } from "./styles";
 
-interface TextsProps {
-  content: string;
-}
-
-export function LargeText({ content }: TextsProps) {
+export function LargeText({ content }: ITextsProps) {
   return <StyledTextLarge>{content}</StyledTextLarge>;
 }
 
-export function MediumText({ content }: TextsProps) {
+export function MediumText({ content }: ITextsProps) {
   return <StyledTextMedium>{content}</StyledTextMedium>;
 }
 
-export function SmallText({ content }: TextsProps) {
+export function SmallText({ content }: ITextsProps) {
   return <StyledTextSmall>{content}</StyledTextSmall>;
 }
 
-export function XSmallText({ content }: TextsProps) {
+export function XSmallText({ content }: ITextsProps) {
   return <StyledTextXSmall>{content}</StyledTextXSmall>;
 }

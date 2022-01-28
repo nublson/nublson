@@ -1,11 +1,7 @@
-import Link, { LinkProps } from "next/link";
-import { ReactNode } from "react";
+import Link from "next/link";
+import { IRouteLinkProps } from "../../../../utils/types";
 
-interface RouteLinkProps extends LinkProps {
-  children: ReactNode;
-}
-
-function RouteLink({ children, ...rest }: RouteLinkProps) {
+function RouteLink({ children, ...rest }: IRouteLinkProps) {
   return (
     <Link passHref {...rest}>
       <a>{children}</a>

@@ -1,10 +1,7 @@
+import { IKitProps } from "../../../../utils/types";
 import { Container } from "./styles";
 
-interface KitProps {
-  kitUrl: string;
-}
-
-function KitIframe({ kitUrl }: KitProps) {
+function KitIframe({ kitUrl }: IKitProps) {
   return (
     <Container
       src={`https://kit.co/embed?url=${kitUrl}`}

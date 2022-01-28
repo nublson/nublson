@@ -1,11 +1,28 @@
-import { Section } from "../../components/Layout/elements";
-import { SmallText } from "../../components/shared/atoms/Texts";
-import { Issue } from "../../components/shared/molecules/Cards";
-import { IssueItem } from "../../utils/types";
+import dynamic from "next/dynamic";
+import {
+  IIssueCard,
+  IIssueItem,
+  ISectionProps,
+  ITextsProps,
+} from "../../utils/types";
 import { Container } from "./styles";
 
+const Section = dynamic<ISectionProps>(() =>
+  import("../../components/Layout/elements").then((module) => module.Section)
+);
+const Issue = dynamic<IIssueCard>(() =>
+  import("../../components/shared/molecules/Cards").then(
+    (module) => module.Issue
+  )
+);
+const SmallText = dynamic<ITextsProps>(() =>
+  import("../../components/shared/atoms/Texts").then(
+    (module) => module.SmallText
+  )
+);
+
 interface IssuesProps {
-  issues: IssueItem[];
+  issues: IIssueItem[];
 }
 
 function Issues({ issues }: IssuesProps) {

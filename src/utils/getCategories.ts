@@ -1,7 +1,7 @@
-import { BlogCategory, BlogItem } from "./types";
+import { IBlogCategory, IBlogItem } from "./types";
 
-export const getCategories = (posts: BlogItem[]) => {
-  let categories: BlogCategory[] = [];
+export const getCategories = (posts: IBlogItem[]) => {
+  let categories: IBlogCategory[] = [];
 
   posts.forEach((post) =>
     post.categories.forEach((category) => {

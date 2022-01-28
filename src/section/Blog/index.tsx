@@ -1,13 +1,37 @@
-import { Section } from "../../components/Layout/elements";
-import RouteLink from "../../components/shared/atoms/RouteLink";
-import { MediumText } from "../../components/shared/atoms/Texts";
-import { TextButton } from "../../components/shared/molecules/Buttons";
-import { Blog as BlogCard } from "../../components/shared/molecules/Cards";
-import { BlogItem } from "../../utils/types";
+import dynamic from "next/dynamic";
+import {
+  IBlogCard,
+  IBlogItem,
+  IButtonsProps,
+  ISectionProps,
+  ITextsProps,
+} from "../../utils/types";
 import { BlogList, Container } from "./styles";
 
+const Section = dynamic<ISectionProps>(() =>
+  import("../../components/Layout/elements").then((module) => module.Section)
+);
+const RouteLink = dynamic(
+  () => import("../../components/shared/atoms/RouteLink")
+);
+const MediumText = dynamic<ITextsProps>(() =>
+  import("../../components/shared/atoms/Texts").then(
+    (module) => module.MediumText
+  )
+);
+const TextButton = dynamic<IButtonsProps>(() =>
+  import("../../components/shared/molecules/Buttons").then(
+    (module) => module.TextButton
+  )
+);
+const BlogCard = dynamic<IBlogCard>(() =>
+  import("../../components/shared/molecules/Cards").then(
+    (module) => module.Blog
+  )
+);
+
 interface BlogProps {
-  posts: BlogItem[];
+  posts: IBlogItem[];
 }
 
 function Blog({ posts }: BlogProps) {

@@ -8,7 +8,7 @@ import {
   formatDate,
   formatPageProps,
 } from "../utils/formatter";
-import { BlogItem } from "../utils/types";
+import { IBlogItem } from "../utils/types";
 
 const HomeSection = dynamic(() => import("../section/Home"));
 const ContentSection = dynamic(() => import("../section/Content"));
@@ -16,7 +16,7 @@ const NewsletterSection = dynamic(() => import("../section/Newsletter"));
 const ContactSection = dynamic(() => import("../section/Contact"));
 
 type AboutProps = {
-  pageProps: BlogItem;
+  pageProps: IBlogItem;
   blocks: any[];
 };
 

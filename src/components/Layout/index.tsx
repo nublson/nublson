@@ -1,13 +1,9 @@
-import { ReactNode } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalStyles from "../../styles/global";
 import theme from "../../styles/theme";
+import { ILayoutProps } from "../../utils/types";
 import Footer from "../shared/molecules/Footer";
 import Header from "../shared/molecules/Header";
-
-interface LayoutProps {
-  children: ReactNode;
-}
 
 const Container = styled.main`
   position: relative;
@@ -39,7 +35,7 @@ const Content = styled.div`
   }
 `;
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children }: ILayoutProps) => {
   return (
     <ThemeProvider theme={theme}>
       <Container>

@@ -1,9 +1,4 @@
-interface GtagProps {
-  action: string;
-  category: string;
-  label: string;
-  value: number;
-}
+import { IGtagProps } from "../utils/types";
 
 export const pageView = (url: string) => {
   window.gtag("config", process.env.NEXT_PUBLIC_GA_TRACKING_ID, {
@@ -11,7 +6,7 @@ export const pageView = (url: string) => {
   });
 };
 
-export const event = ({ action, category, label, value }: GtagProps) => {
+export const event = ({ action, category, label, value }: IGtagProps) => {
   window.gtag("event", action, {
     event_category: category,
     event_label: label,

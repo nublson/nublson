@@ -24,11 +24,6 @@ export const StyledBlocks = styled.div`
     margin: 0;
   }
 
-  a {
-    display: inline-block;
-    color: ${(props) => props.theme.colors.block.yellow} !important;
-  }
-
   hr {
     width: 100%;
     height: 0;
@@ -96,13 +91,8 @@ export const StyledBlocks = styled.div`
     &callout,
     &quote {
       a {
+        color: ${(props) => props.theme.colors.block.yellow};
         text-decoration: underline;
-        color: ${(props) => props.theme.colors.label};
-
-        &:hover {
-          color: ${(props) => props.theme.colors.off_white};
-          transition: all 0.2s;
-        }
       }
     }
 
@@ -330,56 +320,38 @@ export const StyledBlocks = styled.div`
 
     &gray {
       color: ${(props) => props.theme.colors.block.gray};
-      text-decoration-color: ${(props) =>
-        props.theme.colors.block.gray} !important;
     }
 
     &brown {
       color: ${(props) => props.theme.colors.block.brown};
-      text-decoration-color: ${(props) =>
-        props.theme.colors.block.brown} !important;
     }
 
     &orange {
       color: ${(props) => props.theme.colors.block.orange};
-      text-decoration-color: ${(props) =>
-        props.theme.colors.block.orange} !important;
     }
 
     &yellow {
       color: ${(props) => props.theme.colors.block.yellow};
-      text-decoration-color: ${(props) =>
-        props.theme.colors.block.yellow} !important;
     }
 
     &green {
       color: ${(props) => props.theme.colors.block.green};
-      text-decoration-color: ${(props) =>
-        props.theme.colors.block.green} !important;
     }
 
     &blue {
       color: ${(props) => props.theme.colors.block.blue};
-      text-decoration-color: ${(props) =>
-        props.theme.colors.block.blue} !important;
     }
 
     &purple {
       color: ${(props) => props.theme.colors.block.purple};
-      text-decoration-color: ${(props) =>
-        props.theme.colors.block.purple} !important;
     }
 
     &pink {
       color: ${(props) => props.theme.colors.block.pink};
-      text-decoration-color: ${(props) =>
-        props.theme.colors.block.pink} !important;
     }
 
     &red {
       color: ${(props) => props.theme.colors.block.red};
-      text-decoration-color: ${(props) =>
-        props.theme.colors.block.red} !important;
     }
   }
 `;

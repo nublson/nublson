@@ -1,21 +1,18 @@
+import { ITextsProps } from "../../../../utils/types";
 import {
   StyledTitleLarge,
   StyledTitleMedium,
   StyledTitleSmall,
 } from "./styles";
 
-interface TextsProps {
-  content: string;
-}
-
-export function LargeTitle({ content }: TextsProps) {
+export function LargeTitle({ content }: ITextsProps) {
   return <StyledTitleLarge>{content}</StyledTitleLarge>;
 }
 
-export function MediumTitle({ content }: TextsProps) {
+export function MediumTitle({ content }: ITextsProps) {
   return <StyledTitleMedium>{content}</StyledTitleMedium>;
 }
 
-export function SmallTitle({ content }: TextsProps) {
+export function SmallTitle({ content }: ITextsProps) {
   return <StyledTitleSmall>{content}</StyledTitleSmall>;
 }

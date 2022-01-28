@@ -1,20 +1,12 @@
-import { HTMLAttributes, ReactNode } from "react";
+import {
+  IButtonIconProps,
+  IButtonsProps,
+  IGumroadButtonProps,
+} from "../../../../utils/types";
 import { MediumText, SmallText } from "../../atoms/Texts";
-import { Container, StyledIcon, PurchaseContainer } from "./styles";
+import { Container, PurchaseContainer, StyledIcon } from "./styles";
 
-interface ButtonsProps extends HTMLAttributes<HTMLButtonElement> {
-  title: string;
-}
-
-interface ButtonIconProps extends HTMLAttributes<HTMLButtonElement> {
-  icon: ReactNode;
-}
-
-interface GumroadButtonProps {
-  productUrl: string;
-}
-
-export function MainButton({ title, ...rest }: ButtonsProps) {
+export function MainButton({ title, ...rest }: IButtonsProps) {
   return (
     <Container {...rest}>
       <MediumText content={title} />
@@ -22,15 +14,15 @@ export function MainButton({ title, ...rest }: ButtonsProps) {
   );
 }
 
-export function TextButton({ title }: ButtonsProps) {
+export function TextButton({ title }: IButtonsProps) {
   return <SmallText content={title} />;
 }
 
-export function IconButton({ icon, ...rest }: ButtonIconProps) {
+export function IconButton({ icon, ...rest }: IButtonIconProps) {
   return <StyledIcon {...rest}>{icon}</StyledIcon>;
 }
 
-export function GumroadButton({ productUrl }: GumroadButtonProps) {
+export function GumroadButton({ productUrl }: IGumroadButtonProps) {
   return (
     <PurchaseContainer
       href={`${productUrl}?wanted=${process.env.GUMROAD_OVERLAY_CHECKOUT}`}

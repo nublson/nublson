@@ -1,17 +1,10 @@
 import Image from "next/image";
+import { IHeadingProps } from "../../../../utils/types";
 import { LargeText, MediumText } from "../../atoms/Texts";
 import { LargeTitle } from "../../atoms/Titles";
 import { Container, Content, Thumbnail } from "./styles";
 
-interface HeadingProps {
-  top: string;
-  title: string;
-  subtitle?: string;
-  image: string | StaticImageData;
-  article?: boolean;
-}
-
-function Heading({ top, title, subtitle, image, article }: HeadingProps) {
+function Heading({ top, title, subtitle, image, article }: IHeadingProps) {
   return (
     <Container>
       <Content>
