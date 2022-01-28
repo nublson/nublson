@@ -24,10 +24,12 @@ const TextButton = dynamic<IButtonsProps>(() =>
     (module) => module.TextButton
   )
 );
-const BlogCard = dynamic<IBlogCard>(() =>
-  import("../../components/shared/molecules/Cards").then(
-    (module) => module.Blog
-  )
+const BlogCard = dynamic<IBlogCard>(
+  () =>
+    import("../../components/shared/molecules/Cards").then(
+      (module) => module.Blog
+    ),
+  { ssr: true }
 );
 
 interface BlogProps {

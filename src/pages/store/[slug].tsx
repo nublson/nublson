@@ -12,8 +12,12 @@ import {
 } from "../../utils/formatter";
 import { IBlogItem } from "../../utils/types";
 
-const HomeSection = dynamic(() => import("../../section/Home"));
-const ContentSection = dynamic(() => import("../../section/Content"));
+const HomeSection = dynamic(() => import("../../section/Home"), {
+  ssr: true,
+});
+const ContentSection = dynamic(() => import("../../section/Content"), {
+  ssr: true,
+});
 const ShareSection = dynamic(() => import("../../section/Share"));
 const NewsletterSection = dynamic(() => import("../../section/Newsletter"));
 const ContactSection = dynamic(() => import("../../section/Contact"));

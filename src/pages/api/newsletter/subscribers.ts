@@ -11,6 +11,11 @@ export default async function handler(
     return res.status(500).json({ error: "Error retrieving subscribers" });
   }
 
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=1200, stale-while-revalidate=600"
+  );
+
   return res.status(200).json({
     subscribers: response.data,
   });

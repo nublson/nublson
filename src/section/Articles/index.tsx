@@ -40,10 +40,12 @@ const IconButton = dynamic<IButtonIconProps>(() =>
     (module) => module.IconButton
   )
 );
-const Blog = dynamic<IBlogCard>(() =>
-  import("../../components/shared/molecules/Cards").then(
-    (module) => module.Blog
-  )
+const Blog = dynamic<IBlogCard>(
+  () =>
+    import("../../components/shared/molecules/Cards").then(
+      (module) => module.Blog
+    ),
+  { ssr: true }
 );
 const Input = dynamic(() => import("../../components/shared/molecules/Input"));
 

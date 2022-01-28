@@ -16,6 +16,11 @@ export default async function handler(
   const title = song.item.name;
   const songUrl = song.item.external_urls.spotify;
 
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=1200, stale-while-revalidate=600"
+  );
+
   return res.status(200).json({
     isPlaying,
     title,
