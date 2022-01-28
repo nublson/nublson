@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import useSWR from "swr";
-import { githubFetcher } from "../../services/github";
 import { unsplashFetcher } from "../../services/unsplash";
 import { youtubeFetcher } from "../../services/youtube";
 import { formatNumbers } from "../../utils/formatter";
@@ -26,10 +25,6 @@ function Work() {
     refreshInterval: 1000,
   });
 
-  const { data: githubRepos } = useSWR("repos", githubFetcher, {
-    refreshInterval: 1000,
-  });
-
   const getStats = (id: string) => {
     if (id === "instagram") {
       return formatNumbers(3627);
@@ -39,8 +34,6 @@ function Work() {
       return unsplashViews ? unsplashViews : 0;
     } else if (id === "store") {
       return formatNumbers(1323);
-    } else if (id === "github") {
-      return githubRepos ? githubRepos : 0;
     }
   };
 

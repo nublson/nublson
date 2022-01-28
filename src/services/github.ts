@@ -8,12 +8,8 @@ export const github = axios.create({
   },
 });
 
-export const githubFetcher = (data: string) => {
-  const repos = github.get(`/user/${data}`).then(({ data }) => {
-    const publicRepos = data.length;
+export const githubFetcher = async (data: string) => {
+  const response = await github.get(`/user/${data}`);
 
-    return formatNumbers(publicRepos);
-  });
-
-  return repos;
+  return response.data.length;
 };

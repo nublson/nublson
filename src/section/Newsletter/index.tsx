@@ -38,17 +38,13 @@ interface FormProps {
 const fetchSubscribers = async (url: string) => {
   const res = await api.get(url);
 
-  const subscribersCount = await res.data.subscribers.length;
-
-  return subscribersCount;
+  return res.data.subscribers;
 };
 
 const fetchIssues = async (url: string) => {
   const res = await api.get(url);
 
-  const issuesCount = await res.data.issues.length;
-
-  return issuesCount;
+  return res.data.issues;
 };
 
 function Newsletter() {
@@ -59,12 +55,12 @@ function Newsletter() {
     "/newsletter/subscribers",
     fetchSubscribers,
     {
-      refreshInterval: 1000,
+      refreshInterval: 3000,
     }
   );
 
   const { data: issuesData } = useSWR("/newsletter/issues", fetchIssues, {
-    refreshInterval: 1000,
+    refreshInterval: 60000,
   });
 
   const handleSubmit: SubmitHandler<FormData> = async (data, { reset }) => {
