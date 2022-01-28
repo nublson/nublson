@@ -26,7 +26,9 @@
 ![Git](https://img.shields.io/badge/-Git-05122A?style=flat&logo=git)&nbsp;
 ![Node.js](https://img.shields.io/badge/-Node.js-05122A?style=flat&logo=node.js)&nbsp;
 ![React](https://img.shields.io/badge/-React-05122A?style=flat&logo=react)&nbsp;
+![NextJS](https://img.shields.io/badge/-NextJS-05122A?style=flat&logo=next.js)&nbsp;
 ![React Native](https://img.shields.io/badge/-React%20Native-05122A?style=flat&logo=react)&nbsp;
+![Expo](https://img.shields.io/badge/-Expo-05122A?style=flat&logo=expo)&nbsp;
 ![Redux](https://img.shields.io/badge/-Redux-05122A?style=flat&logo=redux&logoColor=ba8fff)&nbsp;
 ![Styled-Components](https://img.shields.io/badge/-Styled%20Components-05122A?style=flat&logo=styled-components)&nbsp;
 ![MongoDB](https://img.shields.io/badge/-MongoDB-05122A?style=flat&logo=mongodb)&nbsp;
@@ -55,7 +57,7 @@
 <a href="https://linkedin.com/in/nublson" target="_blank">
   <img align="center" src="https://img.shields.io/badge/-nublson-05122A?style=flat&logo=linkedin" alt="linkedin"/>
 </a>
-<a href="https://youtube.com/channel/UC0kP3MzeS1re1XqQ7ebKIrA" target="_blank">
+<a href="https://youtube.com/c/NubelsonFernandes" target="_blank">
  <img align="center" src="https://img.shields.io/badge/-nublson-05122A?style=flat&logo=youtube" alt="youtube"/>
 </a>
   <a href="https://unsplash.com/@nublson" target="_blank">

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { RiSpotifyLine } from "react-icons/ri";
 import useSWR from "swr";
 import { api } from "../../../../services/api";
+import nav from "../../../../utils/navMenu.json";
 import RouteLink from "../../atoms/RouteLink";
 import { SmallText } from "../../atoms/Texts";
 import { Container } from "./styles";
@@ -49,15 +50,11 @@ function Footer() {
         </div>
 
         <div className="menu">
-          <RouteLink href="/about">
-            <SmallText content="About" />
-          </RouteLink>
-          <RouteLink href="/newsletter">
-            <SmallText content="Newsletter" />
-          </RouteLink>
-          <RouteLink href="/gears">
-            <SmallText content="Video &#38; Photo Setup" />
-          </RouteLink>
+          {nav.footer.items.map((item) => (
+            <RouteLink key={item.path} href={`/${item.path}`}>
+              <SmallText content={item.name} />
+            </RouteLink>
+          ))}
         </div>
       </div>
     </Container>
