@@ -3,35 +3,35 @@
     "top": "Hi, my name is",
     "title": "Nubelson Fernandes",
     "description": "I'm a Developer and Content Creator with also xp in UI Design",
-    "image": "https://images.unsplash.com/photo-1635830625698-3b9bd74671ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80"
+    "image": "https://res.cloudinary.com/nubelsondev/image/upload/v1643423705/Portfolio/Pages/AnyConv.com__home_raajqv.webp"
   },
   "blog": {
     "top": "Welcome to my",
     "title": "Personal Blog",
     "description": "I also share ideas, thoughts and experience",
-    "image": "https://images.unsplash.com/photo-1634768374063-42305fc55c99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80"
+    "image": "https://res.cloudinary.com/nubelsondev/image/upload/v1643423706/Portfolio/Pages/AnyConv.com__blog_jbyton.webp"
   },
   "store": {
     "top": "Welcome to my",
     "title": "Online Store",
     "description": "Icons, LUT's, Lightroom Presets and more.",
-    "image": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+    "image": "https://res.cloudinary.com/nubelsondev/image/upload/v1643423706/Portfolio/Pages/AnyConv.com__store_wpnvdq.webp"
   },
   "newsletter": {
     "title": "Subscribe to my newsletter",
     "description": "No spam, just insightful content on tech, photography, filmmaking, code, and much more.",
-    "image": "https://images.unsplash.com/photo-1639275218818-9637b42e6cdf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80"
+    "image": "https://res.cloudinary.com/nubelsondev/image/upload/v1643423706/Portfolio/Pages/AnyConv.com__newsletter_pbx87a.webp"
   },
   "notFound": {
     "top": "Page not found",
     "title": "Oops, you're lost",
     "description": "You fell in the middle of an infinite space. Come home!",
-    "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80"
+    "image": "https://res.cloudinary.com/nubelsondev/image/upload/v1643423799/Portfolio/Pages/AnyConv.com__404_wt54dg.webp"
   },
   "offline": {
     "top": "No internet",
     "title": "Oops, you're offline",
     "description": "Looks like you're not connected to a network. Check your settings and try again!",
-    "image": "https://images.unsplash.com/photo-1615309662472-4ca77a77a189?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+    "image": "https://res.cloudinary.com/nubelsondev/image/upload/v1643423707/Portfolio/Pages/AnyConv.com__offline_d695by.webp"
   }
 }
