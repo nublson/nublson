@@ -3,7 +3,7 @@ import { IRouteLinkProps } from "../../../../utils/types";
 
 function RouteLink({ children, ...rest }: IRouteLinkProps) {
   return (
-    <Link passHref {...rest}>
+    <Link passHref {...rest} prefetch={false}>
       <a>{children}</a>
     </Link>
   );
