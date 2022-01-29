@@ -12,7 +12,7 @@ module.exports = withBundleAnalyzer(
       skipWaiting: true,
       disable: process.env.NODE_ENV === "development",
       fallbacks: {
-        image: "/static/images/fallback.jpg",
+        image: "/static/images/fallback.webp",
       },
     },
     reactStrictMode: true,
@@ -41,6 +41,7 @@ module.exports = withBundleAnalyzer(
       SPOTIFY_REFRESH_TOKEN: process.env.SPOTIFY_REFRESH_TOKEN,
     },
     images: {
+      minimumCacheTTL: 60,
       domains: [
         "s3.us-west-2.amazonaws.com",
         "images.unsplash.com",
