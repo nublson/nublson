@@ -15,7 +15,11 @@ function Contact() {
   return (
     <Section id="contact" title="Have a project in mind? Let's work together.">
       <Container>
-        <StyledLink href="mailto: me@nublson.com">
+        <StyledLink
+          target="_blank"
+          rel="noopener"
+          href="https://calendly.com/nublson/project"
+        >
           <MainButton title="Let's talk" />
         </StyledLink>
       </Container>
