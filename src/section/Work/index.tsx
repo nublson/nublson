@@ -1,7 +1,5 @@
 import dynamic from "next/dynamic";
-import useSWR from "swr";
-import { unsplashFetcher } from "../../services/unsplash";
-import { youtubeFetcher } from "../../services/youtube";
+import { useUnsplash, useYoutube } from "../../hooks/useWork";
 import { formatNumbers } from "../../utils/formatter";
 import { ISectionProps, IWorkCard } from "../../utils/types";
 import work from "../../utils/workItems.json";
@@ -17,17 +15,13 @@ const WorkCard = dynamic<IWorkCard>(() =>
 );
 
 function Work() {
-  const { data: unsplashViews } = useSWR("nublson", unsplashFetcher, {
-    refreshInterval: 3600000,
-  });
+  const unsplashViews = useUnsplash();
 
-  const { data: youtubeSubs } = useSWR("/channels", youtubeFetcher, {
-    refreshInterval: 1000,
-  });
+  const youtubeSubs = useYoutube();
 
   const getStats = (id: string) => {
     if (id === "instagram") {
-      return formatNumbers(3627);
+      return formatNumbers(3718);
     } else if (id === "youtube") {
       return youtubeSubs ? youtubeSubs : 0;
     } else if (id === "unsplash") {

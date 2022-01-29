@@ -65,6 +65,7 @@ function Articles({ posts }: ArticlesProps) {
   const { pathname } = useRouter();
 
   const handleSubmit: SubmitHandler<FormData> = (data, { reset }) => {
+    console.log(data);
     reset();
   };
 

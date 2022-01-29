@@ -7,14 +7,9 @@ import {
   RiUnsplashLine,
   RiYoutubeLine,
 } from "react-icons/ri";
-import useSWR from "swr";
+import { useViews } from "../../../../hooks/useViews";
 import { formatDate } from "../../../../utils/formatter";
-import {
-  IBlogCard,
-  IIssueCard,
-  IViews,
-  IWorkCard,
-} from "../../../../utils/types";
+import { IBlogCard, IIssueCard, IWorkCard } from "../../../../utils/types";
 import { MediumText, SmallText, XSmallText } from "../../atoms/Texts";
 import { SmallTitle } from "../../atoms/Titles";
 import {
@@ -24,12 +19,6 @@ import {
   ViewsContainer,
   WorkContainer,
 } from "./styles";
-
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
-
-  return res.json();
-};
 
 export function Work({ id, title, description, link, stats }: IWorkCard) {
   return (
@@ -70,15 +59,13 @@ export function Blog({
   read_time,
   slug,
 }: IBlogCard) {
-  const { data } = useSWR<IViews>(`/api/views/${slug}`, fetcher, {
-    refreshInterval: 1000,
-  });
+  const views = useViews(slug);
 
   return (
     <BlogContainer>
       <Thumbnail>
         <ViewsContainer>
-          <XSmallText content={`${data?.views ? data.views : 0} views`} />
+          <XSmallText content={`${views ? views : 0} views`} />
         </ViewsContainer>
         <Image
           src={thumbnail}

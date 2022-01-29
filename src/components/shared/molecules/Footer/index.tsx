@@ -1,24 +1,14 @@
 import { useEffect, useState } from "react";
 import { RiSpotifyLine } from "react-icons/ri";
-import useSWR from "swr";
-import { api } from "../../../../services/api";
+import { useMusic } from "../../../../hooks/useSpotify";
 import nav from "../../../../utils/navMenu.json";
-import { IMusicProps } from "../../../../utils/types";
 import RouteLink from "../../atoms/RouteLink";
 import { SmallText } from "../../atoms/Texts";
 import { Container } from "./styles";
 
-const fetchMusic = async (url: string) => {
-  const response = await api.get(url);
-
-  return response.data;
-};
-
 function Footer() {
   const [currentYear, setCurrentYear] = useState(2022);
-  const { data } = useSWR<IMusicProps>("/spotify/playing", fetchMusic, {
-    refreshInterval: 1000,
-  });
+  const player = useMusic();
 
   useEffect(() => {
     setCurrentYear(new Date().getFullYear());
@@ -30,9 +20,9 @@ function Footer() {
         <div className="copy">
           <div className="spotify">
             <RiSpotifyLine className="icon" />
-            {data?.isPlaying ? (
-              <a href={data.songUrl} target="_blank" rel="noreferrer">
-                <SmallText content={`${data.title}`} />
+            {player?.isPlaying ? (
+              <a href={player.songUrl} target="_blank" rel="noreferrer">
+                <SmallText content={`${player.title}`} />
               </a>
             ) : (
               <SmallText content="Not Playing" />
