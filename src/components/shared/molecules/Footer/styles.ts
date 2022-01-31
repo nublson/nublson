@@ -28,11 +28,11 @@ export const Container = styled.div`
       gap: 1rem;
 
       .spotify {
-        font-weight: 700;
-
+        width: 100%;
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        font-weight: 600;
 
         a {
           color: ${(props) => props.theme.colors.off_black};
@@ -45,7 +45,11 @@ export const Container = styled.div`
         }
 
         & > :last-child {
-          font-weight: normal;
+          font-weight: 400;
+        }
+
+        @media ${(props) => props.theme.mediaQueries.small} {
+          flex-wrap: wrap;
         }
       }
     }

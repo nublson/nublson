@@ -27,7 +27,7 @@ function Footer() {
             ) : (
               <SmallText content="Not Playing" />
             )}
-            <SmallText content="- Spotify" />
+            <SmallText content="on Spotify" />
           </div>
           <SmallText
             content={`© ${currentYear}, Nubelson Fernandes. With ❤️ and ☕`}
