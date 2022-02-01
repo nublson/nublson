@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 import "prismjs";
 import { useEffect } from "react";
 import Layout from "../components/Layout";
-import Analytics from "../components/utils/Analytics";
-import { pageView } from "../services/gtag";
+import { pageView } from "../services/analytics";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -34,8 +33,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
-
-      <Analytics />
     </>
   );
 }
