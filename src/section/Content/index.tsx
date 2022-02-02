@@ -21,23 +21,21 @@ const KitFrame = dynamic(
 
 interface ContentProps {
   blocks: any[];
-  product_url?: string;
+  url?: string;
 }
 
-function Content({ blocks, product_url }: ContentProps) {
+function Content({ blocks, url }: ContentProps) {
   const { pathname } = useRouter();
 
   return (
     <ArticleSection>
       <Container>
         <StyledBlocks>
-          {product_url && pathname.includes("store") && (
-            <GumroadButton productUrl={product_url} />
+          {url && pathname.includes("store") && (
+            <GumroadButton productUrl={url} />
           )}
           <Render blocks={blocks} simpleTitles classNames emptyBlocks />
-          {pathname === "/gears" && product_url && (
-            <KitFrame kitUrl={product_url} />
-          )}
+          {url && pathname === "/gears" && <KitFrame kitUrl={url} />}
         </StyledBlocks>
       </Container>
     </ArticleSection>
