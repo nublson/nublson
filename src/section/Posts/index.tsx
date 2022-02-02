@@ -6,10 +6,10 @@ import { RiSearchLine } from "react-icons/ri";
 import { filterPostsByCategory } from "../../utils/filterPosts";
 import { getCategories } from "../../utils/getCategories";
 import {
-  IBlogCard,
-  IBlogCategory,
-  IBlogItem,
   IButtonIconProps,
+  IPostCard,
+  IPostCategory,
+  IPostItem,
   ISectionProps,
   ITextsProps,
 } from "../../utils/types";
@@ -40,10 +40,10 @@ const IconButton = dynamic<IButtonIconProps>(() =>
     (module) => module.IconButton
   )
 );
-const Blog = dynamic<IBlogCard>(
+const Post = dynamic<IPostCard>(
   () =>
     import("../../components/shared/molecules/Cards").then(
-      (module) => module.Blog
+      (module) => module.Post
     ),
   { ssr: true }
 );
@@ -54,13 +54,13 @@ interface FormData {
 }
 
 interface ArticlesProps {
-  posts: IBlogItem[];
+  posts: IPostItem[];
 }
 
 function Articles({ posts }: ArticlesProps) {
-  const [categories, setCategories] = useState<IBlogCategory[]>([]);
+  const [categories, setCategories] = useState<IPostCategory[]>([]);
   const [currentCategory, setCurrentCategory] = useState("");
-  const [filteredPosts, setFilteredPosts] = useState<IBlogItem[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<IPostItem[]>([]);
   const formRef = useRef<FormHandles>(null);
   const { pathname } = useRouter();
 
@@ -84,7 +84,7 @@ function Articles({ posts }: ArticlesProps) {
   }, [currentCategory, posts]);
 
   return (
-    <Section id="articles">
+    <Section id="posts">
       <Container>
         <Header>
           <StyledForm ref={formRef} onSubmit={handleSubmit}>
@@ -116,7 +116,7 @@ function Articles({ posts }: ArticlesProps) {
           ) : (
             filteredPosts.map((article) => (
               <RouteLink key={article.id} href={`${pathname}/${article.slug}`}>
-                <Blog
+                <Post
                   thumbnail={article.thumbnail}
                   title={article.title}
                   description={article.description}

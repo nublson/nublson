@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-interface BlogListProps {
+interface PostListProps {
   center?: boolean;
 }
 
@@ -29,7 +29,7 @@ export const Container = styled.div`
   }
 `;
 
-export const BlogList = styled.div<BlogListProps>`
+export const PostList = styled.div<PostListProps>`
   width: 100%;
   height: 100%;
   text-align: center;

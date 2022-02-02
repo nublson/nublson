@@ -5,15 +5,15 @@ import { useRouter } from "next/router";
 import { getData } from "../../services/notion";
 import { formatPosts } from "../../utils/formatter";
 import pageData from "../../utils/pageData.json";
-import { IBlogItem } from "../../utils/types";
+import { IPostItem } from "../../utils/types";
 
 const HomeSection = dynamic(() => import("../../section/Home"));
-const ArticlesSection = dynamic(() => import("../../section/Articles"));
+const PostsSection = dynamic(() => import("../../section/Posts"));
 const NewsletterSection = dynamic(() => import("../../section/Newsletter"));
 const ContactSection = dynamic(() => import("../../section/Contact"));
 
 type StoreProps = {
-  posts: IBlogItem[];
+  posts: IPostItem[];
 };
 
 const Store: NextPage<StoreProps> = ({ posts }) => {
@@ -47,9 +47,9 @@ const Store: NextPage<StoreProps> = ({ posts }) => {
         title={pageData.store.title}
         subtitle={pageData.store.description}
         image={pageData.store.image}
-        scrollTo="articles"
+        scrollTo="posts"
       />
-      <ArticlesSection posts={posts} />
+      <PostsSection posts={posts} />
       <NewsletterSection />
       <ContactSection />
     </>

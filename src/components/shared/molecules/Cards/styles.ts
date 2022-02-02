@@ -80,7 +80,7 @@ export const WorkContainer = styled.a`
   }
 `;
 
-export const BlogContainer = styled.div`
+export const PostContainer = styled.div`
   height: 100%;
   position: relative;
   width: 100%;

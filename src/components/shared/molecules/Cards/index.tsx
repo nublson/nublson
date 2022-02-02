@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import {
   RiGithubLine,
   RiGlobalLine,
@@ -9,12 +11,12 @@ import {
 } from "react-icons/ri";
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate } from "../../../../utils/formatter";
-import { IBlogCard, IIssueCard, IWorkCard } from "../../../../utils/types";
+import { IIssueCard, IPostCard, IWorkCard } from "../../../../utils/types";
 import { MediumText, SmallText, XSmallText } from "../../atoms/Texts";
 import { SmallTitle } from "../../atoms/Titles";
 import {
-  BlogContainer,
   IssueContainer,
+  PostContainer,
   Thumbnail,
   ViewsContainer,
   WorkContainer,
@@ -51,18 +53,18 @@ export function Work({ id, title, description, link, stats }: IWorkCard) {
   );
 }
 
-export function Blog({
+export function Post({
   thumbnail,
   title,
   description,
   publish_date,
   read_time,
   slug,
-}: IBlogCard) {
+}: IPostCard) {
   const views = useViews(slug);
 
   return (
-    <BlogContainer>
+    <PostContainer>
       <Thumbnail>
         <ViewsContainer>
           <XSmallText content={`${views ? views : 0} views`} />
@@ -86,7 +88,7 @@ export function Blog({
           <XSmallText content={`${read_time} min read`} />
         </div>
       </div>
-    </BlogContainer>
+    </PostContainer>
   );
 }
 

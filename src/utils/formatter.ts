@@ -1,7 +1,7 @@
 import { htmlToText } from "html-to-text";
 import moment from "moment";
 import slugify from "slugify";
-import { IBlogCategory, IBlogItem, IIssueItem } from "./types";
+import { IPostCategory, IPostItem, IIssueItem } from "./types";
 
 export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
@@ -18,7 +18,7 @@ export const formatSlug = (data: string | any) => {
 };
 
 export const formatPageProps = (page: any) => {
-  const formatedPage: IBlogItem = {
+  const formatedPage: IPostItem = {
     id: page.id,
     thumbnail:
       page.cover.type === "file"
@@ -34,7 +34,7 @@ export const formatPageProps = (page: any) => {
       ? page.properties.read_time.number
       : 2,
     categories: page.properties.category.multi_select.map(
-      (item: IBlogCategory) => ({
+      (item: IPostCategory) => ({
         id: item.id,
         name: item.name,
       })
@@ -47,7 +47,7 @@ export const formatPageProps = (page: any) => {
 };
 
 export const formatPosts = (database: any[]) => {
-  const posts: IBlogItem[] = database.map((post) => ({
+  const posts: IPostItem[] = database.map((post) => ({
     id: post.id,
     thumbnail:
       post.cover.type === "file"
@@ -63,7 +63,7 @@ export const formatPosts = (database: any[]) => {
       ? post.properties.read_time.number
       : 2,
     categories: post.properties.category.multi_select.map(
-      (item: IBlogCategory) => ({
+      (item: IPostCategory) => ({
         id: item.id,
         name: item.name,
       })

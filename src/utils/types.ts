@@ -5,12 +5,12 @@ export interface ILayoutProps {
   children: ReactNode;
 }
 
-export type IBlogCategory = {
+export type IPostCategory = {
   id: string;
   name: string;
 };
 
-export type IBlogItem = {
+export type IPostItem = {
   id: string;
   thumbnail: string;
   title: string;
@@ -18,7 +18,7 @@ export type IBlogItem = {
   publish_date: string;
   modified_date?: string;
   read_time: number;
-  categories: IBlogCategory[];
+  categories: IPostCategory[];
   slug: string;
   link?: string;
 };
@@ -79,11 +79,11 @@ export interface IWorkCard extends ICardsProps {
   stats: string;
 }
 
-export interface IBlogCard extends ICardsProps {
+export interface IPostCard extends ICardsProps {
+  slug: string;
   thumbnail: string | StaticImageData;
   publish_date: string;
   read_time: number;
-  slug: string;
 }
 
 export interface IIssueCard extends ICardsProps {

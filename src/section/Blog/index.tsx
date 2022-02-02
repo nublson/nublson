@@ -1,12 +1,12 @@
 import dynamic from "next/dynamic";
 import {
-  IBlogCard,
-  IBlogItem,
   IButtonsProps,
+  IPostCard,
+  IPostItem,
   ISectionProps,
   ITextsProps,
 } from "../../utils/types";
-import { BlogList, Container } from "./styles";
+import { Container, PostList } from "./styles";
 
 const Section = dynamic<ISectionProps>(() =>
   import("../../components/Layout/elements").then((module) => module.Section)
@@ -24,29 +24,29 @@ const TextButton = dynamic<IButtonsProps>(() =>
     (module) => module.TextButton
   )
 );
-const BlogCard = dynamic<IBlogCard>(
+const PostCard = dynamic<IPostCard>(
   () =>
     import("../../components/shared/molecules/Cards").then(
-      (module) => module.Blog
+      (module) => module.Post
     ),
   { ssr: true }
 );
 
-interface BlogProps {
-  posts: IBlogItem[];
+interface PostProps {
+  posts: IPostItem[];
 }
 
-function Blog({ posts }: BlogProps) {
+function Posts({ posts }: PostProps) {
   return (
-    <Section id="blog" title="Sometimes I also write down words.">
+    <Section id="posts" title="Sometimes I also write down words.">
       <Container>
-        <BlogList center={posts.length <= 1}>
+        <PostList center={posts.length <= 1}>
           {!posts.length ? (
             <MediumText content="No articles published" />
           ) : (
             posts.map((article) => (
               <RouteLink key={article.id} href={`/blog/${article.slug}`}>
-                <BlogCard
+                <PostCard
                   thumbnail={article.thumbnail}
                   title={article.title}
                   description={article.description}
@@ -57,7 +57,7 @@ function Blog({ posts }: BlogProps) {
               </RouteLink>
             ))
           )}
-        </BlogList>
+        </PostList>
 
         <RouteLink href="/blog">
           <TextButton title="See all blog posts" />
@@ -67,4 +67,4 @@ function Blog({ posts }: BlogProps) {
   );
 }
 
-export default Blog;
+export default Posts;
