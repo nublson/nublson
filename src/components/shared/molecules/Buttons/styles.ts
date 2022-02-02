@@ -25,22 +25,3 @@ export const StyledIcon = styled.button`
   align-items: center;
   justify-content: center;
 `;
-
-export const PurchaseContainer = styled.a`
-  height: 5rem;
-  padding: 0 2rem;
-  margin: 2rem 0;
-  border-radius: 4px;
-  background-color: ${(props) => props.theme.colors.block.yellow};
-  color: ${(props) => props.theme.colors.off_black};
-  font-weight: 700;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    transform: translateY(-4px);
-    transition: all 0.5s;
-  }
-`;

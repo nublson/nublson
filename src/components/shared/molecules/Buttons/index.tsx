@@ -4,7 +4,7 @@ import {
   IGumroadButtonProps,
 } from "../../../../utils/types";
 import { MediumText, SmallText } from "../../atoms/Texts";
-import { Container, PurchaseContainer, StyledIcon } from "./styles";
+import { Container, StyledIcon } from "./styles";
 
 export function MainButton({ title, ...rest }: IButtonsProps) {
   return (
@@ -24,12 +24,11 @@ export function IconButton({ icon, ...rest }: IButtonIconProps) {
 
 export function GumroadButton({ productUrl }: IGumroadButtonProps) {
   return (
-    <PurchaseContainer
+    <a
+      className="gumroad-button"
       href={`${productUrl}?wanted=${process.env.GUMROAD_OVERLAY_CHECKOUT}`}
-      target="_blank"
-      rel="noreferrer"
     >
       Purchase here
-    </PurchaseContainer>
+    </a>
   );
 }

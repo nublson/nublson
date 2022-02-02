@@ -30,16 +30,15 @@ function Content({ blocks, product_url }: ContentProps) {
   return (
     <ArticleSection>
       <Container>
-        {product_url && pathname !== "/gears" && (
-          <GumroadButton productUrl={product_url} />
-        )}
         <StyledBlocks>
+          {product_url && pathname.includes("store") && (
+            <GumroadButton productUrl={product_url} />
+          )}
           <Render blocks={blocks} simpleTitles classNames emptyBlocks />
+          {pathname === "/gears" && product_url && (
+            <KitFrame kitUrl={product_url} />
+          )}
         </StyledBlocks>
-
-        {pathname === "/gears" && product_url && (
-          <KitFrame kitUrl={product_url} />
-        )}
       </Container>
     </ArticleSection>
   );
