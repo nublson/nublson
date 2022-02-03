@@ -36,13 +36,13 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
 
   useEffect(() => {
     const registerView = () => {
-      fetch(`/api/views/${pageProps.slug}`, {
+      fetch(`/api/views/${pageProps.page_slug}`, {
         method: "POST",
       });
     };
 
     registerView();
-  }, [pageProps.slug]);
+  }, [pageProps.page_slug]);
 
   return (
     <>
@@ -94,7 +94,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const paths = posts.map((post) => ({
     params: {
-      slug: post.slug,
+      slug: post.page_slug,
     },
   }));
 
@@ -116,7 +116,7 @@ export const getStaticProps: GetStaticProps<SlugProps, Params> = async (
   const pages = formatPosts(results);
 
   const pageExists = pages.find((page) => {
-    return page.slug === slug;
+    return page.page_slug === slug;
   });
 
   if (!pageExists) {

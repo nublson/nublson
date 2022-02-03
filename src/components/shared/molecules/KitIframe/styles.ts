@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const Container = styled.iframe`
+export const KitContainer = styled.iframe`
   display: block;
   border: 0;
   margin: 2rem 0 0;
   width: 100%;
-  height: 100vh;
+  height: 70rem;
   max-width: 70rem;
   max-height: 70rem;
 

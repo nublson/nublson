@@ -19,7 +19,8 @@ export type IPostItem = {
   modified_date?: string;
   read_time: number;
   categories: IPostCategory[];
-  slug: string;
+  page_slug: string;
+  podcast_slug?: string;
   link?: string;
 };
 
@@ -113,7 +114,11 @@ export interface IInputProps extends HTMLAttributes<HTMLInputElement> {
 }
 
 export interface IKitProps {
-  kitUrl: string;
+  url: string;
+}
+
+export interface IPodcastProps {
+  slug: string;
 }
 
 export interface IItemsProps {

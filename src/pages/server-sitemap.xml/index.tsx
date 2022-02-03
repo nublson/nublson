@@ -11,12 +11,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const formatedProducts = formatPosts(products);
 
   const articleFields: ISitemapField[] = formatedArticles.map((article) => ({
-    loc: `${process.env.BASE_URL}/blog/${article.slug}`,
+    loc: `${process.env.BASE_URL}/blog/${article.page_slug}`,
     lastmod: new Date().toISOString(),
   }));
 
   const productFields: ISitemapField[] = formatedProducts.map((product) => ({
-    loc: `${process.env.BASE_URL}/store/${product.slug}`,
+    loc: `${process.env.BASE_URL}/store/${product.page_slug}`,
     lastmod: new Date().toISOString(),
   }));
 

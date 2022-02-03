@@ -115,14 +115,17 @@ function Articles({ posts }: ArticlesProps) {
             <MediumText content="No items found!" />
           ) : (
             filteredPosts.map((article) => (
-              <RouteLink key={article.id} href={`${pathname}/${article.slug}`}>
+              <RouteLink
+                key={article.id}
+                href={`${pathname}/${article.page_slug}`}
+              >
                 <Post
                   thumbnail={article.thumbnail}
                   title={article.title}
                   description={article.description}
                   publish_date={article.publish_date}
                   read_time={article.read_time}
-                  slug={article.slug}
+                  slug={article.page_slug}
                 />
               </RouteLink>
             ))

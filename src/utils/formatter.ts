@@ -1,7 +1,7 @@
 import { htmlToText } from "html-to-text";
 import moment from "moment";
 import slugify from "slugify";
-import { IPostCategory, IPostItem, IIssueItem } from "./types";
+import { IIssueItem, IPostCategory, IPostItem } from "./types";
 
 export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
@@ -39,7 +39,10 @@ export const formatPageProps = (page: any) => {
         name: item.name,
       })
     ),
-    slug: formatSlug(page.properties.Name.title[0].text.content),
+    page_slug: formatSlug(page.properties.Name.title[0].text.content),
+    podcast_slug: page.properties.podcast_slug.rich_text.length
+      ? page.properties.podcast_slug.rich_text[0].text.content
+      : null,
     link: page.properties.link.url ? page.properties.link.url : null,
   };
 
@@ -68,7 +71,10 @@ export const formatPosts = (database: any[]) => {
         name: item.name,
       })
     ),
-    slug: formatSlug(post.properties.Name.title[0].text.content),
+    page_slug: formatSlug(post.properties.Name.title[0].text.content),
+    podcast_slug: post.properties.podcast_slug.rich_text.length
+      ? post.properties.podcast_slug.rich_text[0].text.content
+      : null,
     link: post.properties.link.url ? post.properties.link.url : null,
   }));
 

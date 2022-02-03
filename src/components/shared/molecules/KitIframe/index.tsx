@@ -1,10 +1,10 @@
 import { IKitProps } from "../../../../utils/types";
-import { Container } from "./styles";
+import { KitContainer } from "./styles";
 
-function KitIframe({ kitUrl }: IKitProps) {
+function KitIframe({ url }: IKitProps) {
   return (
-    <Container
-      src={`https://kit.co/embed?url=${kitUrl}`}
+    <KitContainer
+      src={`https://kit.co/embed?url=${url}`}
       scrolling="no"
       title="kit"
     />

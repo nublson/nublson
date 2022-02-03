@@ -18,13 +18,17 @@ const GumroadButton = dynamic<IGumroadButtonProps>(() =>
 const KitFrame = dynamic(
   () => import("../../components/shared/molecules/KitIframe")
 );
+const PodcastFrame = dynamic(
+  () => import("../../components/shared/molecules/PodcastIframe")
+);
 
 interface ContentProps {
   blocks: any[];
   url?: string;
+  podcast_slug?: string;
 }
 
-function Content({ blocks, url }: ContentProps) {
+function Content({ blocks, url, podcast_slug }: ContentProps) {
   const { pathname } = useRouter();
 
   return (
@@ -35,7 +39,10 @@ function Content({ blocks, url }: ContentProps) {
             <GumroadButton productUrl={url} />
           )}
           <Render blocks={blocks} simpleTitles classNames emptyBlocks />
-          {url && pathname === "/gears" && <KitFrame kitUrl={url} />}
+          {url && pathname.includes("gears") && <KitFrame url={url} />}
+          {podcast_slug && pathname.includes("podcast") && (
+            <PodcastFrame slug={podcast_slug} />
+          )}
         </StyledBlocks>
       </Container>
     </ArticleSection>
