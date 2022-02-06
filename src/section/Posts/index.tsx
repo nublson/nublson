@@ -14,7 +14,7 @@ import {
   ITextsProps,
 } from "../../utils/types";
 import {
-  ArticleList,
+  PostList,
   CategorySection,
   Container,
   Header,
@@ -110,7 +110,7 @@ function Articles({ posts }: ArticlesProps) {
           ) : null}
         </Header>
 
-        <ArticleList center={filteredPosts.length <= 1}>
+        <PostList center={filteredPosts.length <= 1}>
           {!posts.length ? (
             <MediumText content="No items found!" />
           ) : (
@@ -130,7 +130,7 @@ function Articles({ posts }: ArticlesProps) {
               </RouteLink>
             ))
           )}
-        </ArticleList>
+        </PostList>
       </Container>
     </Section>
   );

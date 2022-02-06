@@ -84,10 +84,11 @@ export const PostContainer = styled.div`
   height: 100%;
   position: relative;
   width: 100%;
-  max-width: 60rem;
+  max-width: 55rem;
   margin: 0 auto;
   cursor: pointer;
   border: 4px solid transparent;
+  flex: 1;
 
   & :hover {
     border-color: ${(props) => props.theme.colors.off_white};

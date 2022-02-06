@@ -1,7 +1,7 @@
 import { Form } from "@unform/web";
 import styled from "styled-components";
 
-interface ArticleListProps {
+interface PostListProps {
   center?: boolean;
 }
 
@@ -59,36 +59,15 @@ export const CategorySection = styled.div`
   gap: 2rem;
 `;
 
-export const ArticleList = styled.div<ArticleListProps>`
+export const PostList = styled.div<PostListProps>`
   width: 100%;
-
+  height: 100%;
   text-align: center;
 
-  display: grid;
-  grid-template-columns: ${(props) =>
-    props.center ? `0.5fr 1fr 0.5fr` : `repeat(2, 1fr)`};
-  grid-template-rows: 1fr;
-  grid-column-gap: ${(props) => (props.center ? `0` : `1.5rem`)};
-  grid-row-gap: 5rem;
-
-  ${(props) =>
-    props.center &&
-    `
-      & > :first-child {
-        grid-column-start: 2;
-        grid-column-end: 3;
-      }
-  `}
-
-  @media ${(props) => props.theme.mediaQueries.medium} {
-    width: 75%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  @media ${(props) => props.theme.mediaQueries.small} {
-    width: 100%;
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
 `;

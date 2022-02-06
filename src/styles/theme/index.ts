@@ -13,6 +13,9 @@ const theme = {
     off_white: "#FCFCFC",
     error: "#f2545b",
     success: "#6eeb83",
+    primary: "#FADE71",
+    primary_light: "#FCEEB8",
+    primary_dark: "#E1C765",
 
     block: {
       gray: "#9fa4a9",

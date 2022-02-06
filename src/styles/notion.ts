@@ -95,8 +95,27 @@ export const StyledBlocks = styled.div`
     &callout,
     &quote {
       a {
-        color: ${(props) => props.theme.colors.block.yellow};
-        text-decoration: underline;
+        color: inherit;
+        font-weight: 600;
+        position: relative;
+        z-index: 0;
+
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 3px;
+          width: 100%;
+          height: 5px;
+          background-color: ${(props) => props.theme.colors.primary};
+          z-index: -10;
+        }
+
+        &:hover {
+          &::before {
+            background-color: transparent;
+            transition: background-color 0.5s;
+          }
+        }
       }
     }
 
