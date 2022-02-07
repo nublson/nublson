@@ -95,26 +95,14 @@ export const StyledBlocks = styled.div`
     &callout,
     &quote {
       a {
-        color: inherit;
+        color: ${(props) => props.theme.colors.off_white};
         font-weight: 600;
-        position: relative;
-        z-index: 0;
-
-        &::before {
-          content: "";
-          position: absolute;
-          bottom: 3px;
-          width: 100%;
-          height: 5px;
-          background-color: ${(props) => props.theme.colors.primary};
-          z-index: -10;
-        }
+        display: inline;
+        box-shadow: inset 0 -10px 0 ${(props) => props.theme.colors.primary};
+        transition: all 0.2s;
 
         &:hover {
-          &::before {
-            background-color: transparent;
-            transition: background-color 0.5s;
-          }
+          box-shadow: inset 0 0 0 ${(props) => props.theme.colors.primary};
         }
       }
     }
