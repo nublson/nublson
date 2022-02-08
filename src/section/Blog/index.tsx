@@ -51,7 +51,7 @@ function Posts({ posts }: PostProps) {
                   title={article.title}
                   description={article.description}
                   publish_date={article.publish_date}
-                  read_time={article.read_time}
+                  amount={article.amount}
                   slug={article.page_slug}
                 />
               </RouteLink>

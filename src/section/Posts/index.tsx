@@ -14,10 +14,10 @@ import {
   ITextsProps,
 } from "../../utils/types";
 import {
-  PostList,
   CategorySection,
   Container,
   Header,
+  PostList,
   StyledForm,
 } from "./styles";
 
@@ -124,7 +124,7 @@ function Articles({ posts }: ArticlesProps) {
                   title={article.title}
                   description={article.description}
                   publish_date={article.publish_date}
-                  read_time={article.read_time}
+                  amount={article.amount}
                   slug={article.page_slug}
                 />
               </RouteLink>

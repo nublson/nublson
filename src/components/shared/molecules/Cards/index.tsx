@@ -11,7 +11,12 @@ import {
 } from "react-icons/ri";
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate } from "../../../../utils/formatter";
-import { IIssueCard, IPostCard, IWorkCard } from "../../../../utils/types";
+import {
+  IIssueCard,
+  IPostCard,
+  IPostType,
+  IWorkCard,
+} from "../../../../utils/types";
 import { MediumText, SmallText, XSmallText } from "../../atoms/Texts";
 import { SmallTitle } from "../../atoms/Titles";
 import {
@@ -58,10 +63,26 @@ export function Post({
   title,
   description,
   publish_date,
-  read_time,
+  amount,
   slug,
 }: IPostCard) {
   const views = useViews(slug);
+  const { pathname } = useRouter();
+  const [postType, setPostType] = useState<IPostType>("article");
+
+  useEffect(() => {
+    if (pathname === "/") {
+      setPostType("article");
+    }
+
+    if (pathname === "/store") {
+      setPostType("product");
+    }
+
+    if (pathname === "/podcast") {
+      setPostType("podcast");
+    }
+  }, [pathname, postType]);
 
   return (
     <PostContainer>
@@ -85,7 +106,15 @@ export function Post({
 
         <div className="footer">
           <XSmallText content={formatDate(publish_date)} />
-          <XSmallText content={`${read_time} min read`} />
+          <XSmallText
+            content={`${amount} ${
+              postType === "article"
+                ? "min read"
+                : postType === "product"
+                ? "€"
+                : "min audio"
+            }`}
+          />
         </div>
       </div>
     </PostContainer>

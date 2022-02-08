@@ -17,7 +17,7 @@ export type IPostItem = {
   description?: string;
   publish_date: string;
   modified_date?: string;
-  read_time: number;
+  amount: string;
   categories: IPostCategory[];
   page_slug: string;
   podcast_slug?: string;
@@ -84,7 +84,7 @@ export interface IPostCard extends ICardsProps {
   slug: string;
   thumbnail: string | StaticImageData;
   publish_date: string;
-  read_time: number;
+  amount: string;
 }
 
 export interface IIssueCard extends ICardsProps {
@@ -135,3 +135,5 @@ export interface IGtagProps {
   label: string;
   value: number;
 }
+
+export type IPostType = "article" | "product" | "podcast";
