@@ -43,8 +43,9 @@ function Work() {
             id={item.id}
             title={item.title}
             description={item.description}
-            link={item.link}
+            path={item.path}
             stats={`${getStats(item.id)} ${item.stats}`}
+            external={item.external}
           />
         ))}
       </Container>

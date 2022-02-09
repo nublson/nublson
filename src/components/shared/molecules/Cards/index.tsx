@@ -8,6 +8,7 @@ import {
   RiStoreLine,
   RiUnsplashLine,
   RiYoutubeLine,
+  RiArticleLine,
 } from "react-icons/ri";
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate } from "../../../../utils/formatter";
@@ -19,6 +20,7 @@ import {
 } from "../../../../utils/types";
 import { MediumText, SmallText, XSmallText } from "../../atoms/Texts";
 import { SmallTitle } from "../../atoms/Titles";
+import RouteLink from "../../atoms/RouteLink";
 import {
   IssueContainer,
   PostContainer,
@@ -27,34 +29,72 @@ import {
   WorkContainer,
 } from "./styles";
 
-export function Work({ id, title, description, link, stats }: IWorkCard) {
-  return (
-    <WorkContainer href={link} target="_blank" rel="noreferrer">
-      {id === "instagram" ? (
-        <RiInstagramLine className="icon" />
-      ) : id === "youtube" ? (
-        <RiYoutubeLine className="icon" />
-      ) : id === "unsplash" ? (
-        <RiUnsplashLine className="icon" />
-      ) : id === "store" ? (
-        <RiStoreLine className="icon" />
-      ) : id === "github" ? (
-        <RiGithubLine className="icon" />
-      ) : (
-        <RiGlobalLine className="icon" />
-      )}
-      <div className="body">
-        <div className="content">
-          <SmallTitle content={title} />
-          {description && <MediumText content={description} />}
-        </div>
+export function Work({
+  id,
+  title,
+  description,
+  path,
+  stats,
+  external,
+}: IWorkCard) {
+  return !external ? (
+    <RouteLink href={path}>
+      <WorkContainer>
+        {id === "instagram" ? (
+          <RiInstagramLine className="icon" />
+        ) : id === "youtube" ? (
+          <RiYoutubeLine className="icon" />
+        ) : id === "unsplash" ? (
+          <RiUnsplashLine className="icon" />
+        ) : id === "store" ? (
+          <RiStoreLine className="icon" />
+        ) : id === "github" ? (
+          <RiGithubLine className="icon" />
+        ) : (
+          <RiGlobalLine className="icon" />
+        )}
+        <div className="body">
+          <div className="content">
+            <SmallTitle content={title} />
+            {description && <MediumText content={description} />}
+          </div>
 
-        <div className="footer">
-          <SmallText content="Visit" />
-          <SmallText content={stats} />
+          <div className="footer">
+            <SmallText content="Visit" />
+            <SmallText content={stats} />
+          </div>
         </div>
-      </div>
-    </WorkContainer>
+      </WorkContainer>
+    </RouteLink>
+  ) : (
+    <a href={path} target="_blank" rel="noreferrer">
+      <WorkContainer>
+        {id === "instagram" ? (
+          <RiInstagramLine className="icon" />
+        ) : id === "youtube" ? (
+          <RiYoutubeLine className="icon" />
+        ) : id === "unsplash" ? (
+          <RiUnsplashLine className="icon" />
+        ) : id === "store" ? (
+          <RiStoreLine className="icon" />
+        ) : id === "github" ? (
+          <RiGithubLine className="icon" />
+        ) : (
+          <RiGlobalLine className="icon" />
+        )}
+        <div className="body">
+          <div className="content">
+            <SmallTitle content={title} />
+            {description && <MediumText content={description} />}
+          </div>
+
+          <div className="footer">
+            <SmallText content="Visit" />
+            <SmallText content={stats} />
+          </div>
+        </div>
+      </WorkContainer>
+    </a>
   );
 }
 

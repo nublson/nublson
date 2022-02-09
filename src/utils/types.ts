@@ -76,8 +76,9 @@ export interface ICardsProps {
 
 export interface IWorkCard extends ICardsProps {
   id: string;
-  link: string;
+  path: string;
   stats: string;
+  external: boolean;
 }
 
 export interface IPostCard extends ICardsProps {

@@ -1,17 +1,18 @@
 import styled from "styled-components";
 
-export const WorkContainer = styled.a`
+export const WorkContainer = styled.div`
   width: 100%;
   max-width: 55rem;
   margin: 0 auto;
   padding: 3rem 3rem 1rem;
   border: 4px solid ${(props) => props.theme.colors.line};
   text-decoration: none;
+  cursor: pointer;
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 4.5rem;
 
   .icon {
@@ -43,8 +44,9 @@ export const WorkContainer = styled.a`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 1.5rem;
+    flex: 1;
   }
 
   .content {
@@ -52,8 +54,9 @@ export const WorkContainer = styled.a`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 2rem;
+    flex: 1;
 
     p {
       color: ${(props) => props.theme.colors.body};
