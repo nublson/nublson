@@ -2,8 +2,11 @@ import { FormHandles, SubmitHandler } from "@unform/core";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { RiSearchLine } from "react-icons/ri";
-import { filterPostsByCategory } from "../../utils/filterPosts";
+import { MediumTitle } from "../../components/shared/atoms/Titles";
+import {
+  filterPostsByCategory,
+  filterPostsByTitle,
+} from "../../utils/filterPosts";
 import { getCategories } from "../../utils/getCategories";
 import {
   IButtonIconProps,
@@ -13,13 +16,7 @@ import {
   ISectionProps,
   ITextsProps,
 } from "../../utils/types";
-import {
-  CategorySection,
-  Container,
-  Header,
-  PostList,
-  StyledForm,
-} from "./styles";
+import { CategorySection, Container, Header, PostList } from "./styles";
 
 const Section = dynamic<ISectionProps>(() =>
   import("../../components/Layout/elements").then((module) => module.Section)
@@ -65,7 +62,10 @@ function Articles({ posts }: ArticlesProps) {
   const { pathname } = useRouter();
 
   const handleSubmit: SubmitHandler<FormData> = (data, { reset }) => {
-    console.log(data);
+    const searchPosts = filterPostsByTitle(data.search, filteredPosts);
+
+    setFilteredPosts(searchPosts);
+
     reset();
   };
 
@@ -87,26 +87,26 @@ function Articles({ posts }: ArticlesProps) {
     <Section id="posts">
       <Container>
         <Header>
-          <StyledForm ref={formRef} onSubmit={handleSubmit}>
-            <Input name="search" placeholder="Search" />
-            <IconButton icon={<RiSearchLine size="24" color="#020202" />} />
-          </StyledForm>
-
-          {posts.length ? (
-            <CategorySection>
-              {categories.map((category) => (
-                <CategoryItem
-                  key={category.id}
-                  name={category.name}
-                  className={category.name === currentCategory ? "active" : ""}
-                  onClick={() =>
-                    setCurrentCategory(
-                      category.name === currentCategory ? "" : category.name
-                    )
-                  }
-                />
-              ))}
-            </CategorySection>
+          {posts.length && categories.length ? (
+            <>
+              <MediumTitle content="Categories" />
+              <CategorySection>
+                {categories.map((category) => (
+                  <CategoryItem
+                    key={category.id}
+                    name={category.name}
+                    className={
+                      category.name === currentCategory ? "active" : ""
+                    }
+                    onClick={() =>
+                      setCurrentCategory(
+                        category.name === currentCategory ? "" : category.name
+                      )
+                    }
+                  />
+                ))}
+              </CategorySection>
+            </>
           ) : null}
         </Header>
 
