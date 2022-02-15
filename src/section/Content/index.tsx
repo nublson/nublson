@@ -38,7 +38,7 @@ function Content({ blocks, url, podcast_slug }: ContentProps) {
           {url && pathname.includes("store") && (
             <GumroadButton productUrl={url} />
           )}
-          <Render blocks={blocks} simpleTitles classNames emptyBlocks />
+          <Render blocks={blocks} simpleTitles classNames />
           {url && pathname.includes("gears") && <KitFrame url={url} />}
           {podcast_slug && pathname.includes("podcast") && (
             <PodcastFrame slug={podcast_slug} />

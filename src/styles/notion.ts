@@ -25,7 +25,7 @@ export const StyledBlocks = styled.div`
   img {
     width: 100%;
     height: auto;
-    margin: 0;
+    margin: 1.5rem 0 0;
   }
 
   hr {
@@ -48,7 +48,7 @@ export const StyledBlocks = styled.div`
   .rnr- {
     &heading_1 {
       width: 100%;
-      margin: 3rem 0 1rem;
+      margin: 4rem 0 1rem;
       color: ${(props) => props.theme.colors.title};
       font-size: 6.4rem;
       line-height: 66px;
@@ -63,7 +63,7 @@ export const StyledBlocks = styled.div`
 
     &heading_2 {
       width: 100%;
-      margin: 2rem 0 1rem;
+      margin: 3rem 0 1rem;
       color: ${(props) => props.theme.colors.title};
       font-size: 4.8rem;
       line-height: 50px;
@@ -78,7 +78,7 @@ export const StyledBlocks = styled.div`
 
     &heading_3 {
       width: 100%;
-      margin: 1rem 0;
+      margin: 2rem 0;
       color: ${(props) => props.theme.colors.title};
       font-size: 3.2rem;
       line-height: 34px;
@@ -110,26 +110,11 @@ export const StyledBlocks = styled.div`
     &paragraph {
       font-size: 1.8rem;
       line-height: 30px;
-      margin: 0;
+      margin: 1.5rem 0;
 
       @media ${(props) => props.theme.mediaQueries.small} {
         font-size: 1.6rem;
         line-height: 25px;
-      }
-    }
-
-    &empty-block {
-      width: 100%;
-      height: 0;
-      margin: 1rem 0;
-      padding: 0.5rem 0;
-
-      @media ${(props) => props.theme.mediaQueries.medium} {
-        margin: 0.5rem 0;
-      }
-
-      @media ${(props) => props.theme.mediaQueries.medium} {
-        margin: 0.5rem 0;
       }
     }
 
@@ -138,7 +123,7 @@ export const StyledBlocks = styled.div`
       background-color: ${(props) => props.theme.colors.input_background};
       padding: 2rem;
       border-radius: 3px;
-      margin: 0;
+      margin: 1.5rem 0;
 
       display: flex;
       flex-direction: row;
@@ -162,11 +147,12 @@ export const StyledBlocks = styled.div`
     &quote {
       width: 100%;
       padding: 0 2rem;
-      margin: 0;
+      margin: 1.5rem 0;
       border-left: 3px solid ${(props) => props.theme.colors.off_white};
       font-size: 1.8rem;
       line-height: 25px;
       font-style: italic;
+      color: ${(props) => props.theme.colors.off_white};
 
       @media ${(props) => props.theme.mediaQueries.small} {
         font-size: 1.6rem;
@@ -177,6 +163,7 @@ export const StyledBlocks = styled.div`
     &bulleted_list_item {
       width: 100%;
       list-style-position: inside;
+      margin: 1.5rem 0;
 
       li {
         width: 100%;
@@ -193,6 +180,7 @@ export const StyledBlocks = styled.div`
     &numbered_list_item {
       width: 100%;
       list-style-position: inside;
+      margin: 1.5rem 0;
 
       li {
         width: 100%;
@@ -209,6 +197,7 @@ export const StyledBlocks = styled.div`
     &to_do {
       width: 100%;
       list-style: none;
+      margin: 1.5rem 0;
 
       li {
         width: 100%;
@@ -234,6 +223,7 @@ export const StyledBlocks = styled.div`
     &toggle {
       width: 100%;
       list-style: none;
+      margin: 1.5rem 0;
 
       summary {
         font-size: 1.8rem;
