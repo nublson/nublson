@@ -48,5 +48,10 @@ module.exports = withBundleAnalyzer(
         "res.cloudinary.com",
       ],
     },
+    compiler: {
+      styledComponents: true,
+      removeConsole: true,
+    },
+    swcMinify: true,
   })
 );
