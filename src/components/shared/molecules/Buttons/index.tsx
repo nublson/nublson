@@ -28,7 +28,7 @@ export function GumroadButton({ productUrl }: IGumroadButtonProps) {
       className="gumroad-button"
       href={`${productUrl}?wanted=${process.env.GUMROAD_OVERLAY_CHECKOUT}`}
     >
-      Purchase here
+      Purchase
     </a>
   );
 }
