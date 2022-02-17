@@ -93,7 +93,7 @@ export const PostContainer = styled.div`
   border: 4px solid transparent;
   flex: 1;
 
-  & :hover {
+  &:hover {
     border-color: ${(props) => props.theme.colors.off_white};
     transition: all 0.2s;
   }
