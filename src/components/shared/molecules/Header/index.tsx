@@ -18,6 +18,7 @@ function Header() {
             width="50"
             height="50"
             className="logo"
+            quality={100}
           />
         ) : (
           <RouteLink href={"/"} prefetch={false}>
@@ -27,6 +28,7 @@ function Header() {
               width="50"
               height="50"
               className="logo"
+              quality={100}
             />
           </RouteLink>
         )}

@@ -136,6 +136,7 @@ export function Post({
           objectFit="cover"
           layout="fill"
           priority={true}
+          quality={100}
         />
       </Thumbnail>
       <div className="data">

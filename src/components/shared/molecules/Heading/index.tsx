@@ -19,6 +19,7 @@ function Heading({ top, title, subtitle, image, article }: IHeadingProps) {
           objectFit="cover"
           layout="fill"
           priority={true}
+          quality={100}
         />
       </Thumbnail>
     </Container>
