@@ -24,10 +24,7 @@ export function IconButton({ icon, ...rest }: IButtonIconProps) {
 
 export function GumroadButton({ productUrl }: IGumroadButtonProps) {
   return (
-    <a
-      className="gumroad-button"
-      href={`${productUrl}?wanted=${process.env.GUMROAD_OVERLAY_CHECKOUT}`}
-    >
+    <a className="gumroad-button" href={`${productUrl}?wanted=true`}>
       Purchase
     </a>
   );

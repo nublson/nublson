@@ -8,7 +8,7 @@ const unsplash = axios.create({
   },
 });
 
-export const unsplashFetcher = (username: string) => {
+export const fetchViews = (username: string) => {
   const views = unsplash
     .get(`/users/${username}/statistics`)
     .then(({ data }) => {

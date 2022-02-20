@@ -17,12 +17,11 @@ namespace NodeJS {
     FIREBASE_PRIVATE_KEY: string;
     FIREBASE_CLIENT_EMAIL: string;
     FIREBASE_DATABASE_URL: string;
-    GUMROAD_OVERLAY_CHECKOUT: boolean;
     NEXT_PUBLIC_GA_TRACKING_ID: string;
     SPOTIFY_CLIENT_ID: string;
     SPOTIFY_CLIENT_SECRET: string;
     SPOTIFY_AUTH_CODE: string;
     SPOTIFY_REFRESH_TOKEN: string;
-    INSTAGRAM_FOLLOWERS: number;
+    BUY_ME_A_COFFEE_ACCESS_TOKEN: string;
   }
 }

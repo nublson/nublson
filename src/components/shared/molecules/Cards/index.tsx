@@ -11,6 +11,7 @@ import {
   RiStoreLine,
   RiUnsplashLine,
   RiYoutubeLine,
+  RiCupLine,
 } from "react-icons/ri";
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate } from "../../../../utils/formatter";
@@ -73,8 +74,8 @@ export function Work({
           <RiYoutubeLine className="icon" />
         ) : id === "unsplash" ? (
           <RiUnsplashLine className="icon" />
-        ) : id === "patreon" ? (
-          <RiPatreonLine className="icon" />
+        ) : id === "support" ? (
+          <RiCupLine className="icon" />
         ) : id === "github" ? (
           <RiGithubLine className="icon" />
         ) : (

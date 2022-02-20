@@ -8,7 +8,7 @@ const youtube = axios.create({
   },
 });
 
-export const youtubeFetcher = (url: string) => {
+export const fetchSubscribers = (url: string) => {
   const subscribers = youtube
     .get(url, {
       params: {

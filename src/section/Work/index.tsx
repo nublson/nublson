@@ -1,9 +1,12 @@
 import dynamic from "next/dynamic";
-import { useUnsplash, useYoutube } from "../../hooks/useWork";
+import { useEffect } from "react";
+import { useUnsplash, useYoutube, useCommunity } from "../../hooks/useWork";
 import { formatNumbers } from "../../utils/formatter";
 import { ISectionProps, IWorkCard } from "../../utils/types";
 import work from "../../utils/workItems.json";
 import { Container } from "./styles";
+
+import { fetchCommunity } from "../../services/buyMeACoffee";
 
 const Section = dynamic<ISectionProps>(() =>
   import("../../components/Layout/elements").then((module) => module.Section)
@@ -19,17 +22,19 @@ function Work() {
 
   const youtubeSubs = useYoutube();
 
+  const communityMembers = useCommunity();
+
   const getStats = (id: string) => {
     if (id === "instagram") {
-      return formatNumbers(process.env.INSTAGRAM_FOLLOWERS);
+      return formatNumbers(4039);
     } else if (id === "youtube") {
       return youtubeSubs ? youtubeSubs : 0;
     } else if (id === "unsplash") {
       return unsplashViews ? unsplashViews : 0;
     } else if (id === "store") {
       return formatNumbers(1323);
-    } else if (id === "patreon") {
-      return 36;
+    } else if (id === "support") {
+      return communityMembers ? communityMembers : 0;
     }
   };
 

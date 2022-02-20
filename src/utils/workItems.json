@@ -25,11 +25,11 @@
       "external": true
     },
     {
-      "id": "patreon",
-      "title": "Patreon",
+      "id": "support",
+      "title": "Buy Me a Coffee",
       "description": "Free and early access to all my digital products, exclusive and behind-the-scenes content.",
-      "path": "https://www.patreon.com/nublson",
-      "stats": "active patrons",
+      "path": "https://www.buymeacoffee.com/nublson",
+      "stats": "members",
       "external": true
     }
   ]
