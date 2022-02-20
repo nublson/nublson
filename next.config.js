@@ -39,6 +39,7 @@ module.exports = withBundleAnalyzer(
       SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
       SPOTIFY_AUTH_CODE: process.env.SPOTIFY_AUTH_CODE,
       SPOTIFY_REFRESH_TOKEN: process.env.SPOTIFY_REFRESH_TOKEN,
+      INSTAGRAM_FOLLOWERS: process.env.INSTAGRAM_FOLLOWERS,
     },
     images: {
       minimumCacheTTL: 60,

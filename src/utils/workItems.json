@@ -25,12 +25,12 @@
       "external": true
     },
     {
-      "id": "store",
-      "title": "Store",
-      "description": "I sell digital products that I make myself like icons, wallpapers, LUTS and presets.",
-      "path": "/store",
-      "stats": "sells",
-      "external": false
+      "id": "patreon",
+      "title": "Patreon",
+      "description": "Free and early access to all my digital products, exclusive and behind-the-scenes content.",
+      "path": "https://www.patreon.com/nublson",
+      "stats": "active patrons",
+      "external": true
     }
   ]
 }

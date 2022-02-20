@@ -23,5 +23,6 @@ namespace NodeJS {
     SPOTIFY_CLIENT_SECRET: string;
     SPOTIFY_AUTH_CODE: string;
     SPOTIFY_REFRESH_TOKEN: string;
+    INSTAGRAM_FOLLOWERS: number;
   }
 }

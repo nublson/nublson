@@ -21,13 +21,15 @@ function Work() {
 
   const getStats = (id: string) => {
     if (id === "instagram") {
-      return formatNumbers(3735);
+      return formatNumbers(process.env.INSTAGRAM_FOLLOWERS);
     } else if (id === "youtube") {
       return youtubeSubs ? youtubeSubs : 0;
     } else if (id === "unsplash") {
       return unsplashViews ? unsplashViews : 0;
     } else if (id === "store") {
       return formatNumbers(1323);
+    } else if (id === "patreon") {
+      return 36;
     }
   };
 

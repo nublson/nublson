@@ -2,13 +2,15 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
+  RiArticleLine,
   RiGithubLine,
   RiGlobalLine,
   RiInstagramLine,
+  RiMicLine,
+  RiPatreonLine,
   RiStoreLine,
   RiUnsplashLine,
   RiYoutubeLine,
-  RiArticleLine,
 } from "react-icons/ri";
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate } from "../../../../utils/formatter";
@@ -18,9 +20,9 @@ import {
   IPostType,
   IWorkCard,
 } from "../../../../utils/types";
+import RouteLink from "../../atoms/RouteLink";
 import { MediumText, SmallText, XSmallText } from "../../atoms/Texts";
 import { SmallTitle } from "../../atoms/Titles";
-import RouteLink from "../../atoms/RouteLink";
 import {
   IssueContainer,
   PostContainer,
@@ -40,16 +42,12 @@ export function Work({
   return !external ? (
     <RouteLink href={path}>
       <WorkContainer>
-        {id === "instagram" ? (
-          <RiInstagramLine className="icon" />
-        ) : id === "youtube" ? (
-          <RiYoutubeLine className="icon" />
-        ) : id === "unsplash" ? (
-          <RiUnsplashLine className="icon" />
-        ) : id === "store" ? (
+        {id === "store" ? (
           <RiStoreLine className="icon" />
-        ) : id === "github" ? (
-          <RiGithubLine className="icon" />
+        ) : id === "blog" ? (
+          <RiArticleLine className="icon" />
+        ) : id === "podcast" ? (
+          <RiMicLine className="icon" />
         ) : (
           <RiGlobalLine className="icon" />
         )}
@@ -75,8 +73,8 @@ export function Work({
           <RiYoutubeLine className="icon" />
         ) : id === "unsplash" ? (
           <RiUnsplashLine className="icon" />
-        ) : id === "store" ? (
-          <RiStoreLine className="icon" />
+        ) : id === "patreon" ? (
+          <RiPatreonLine className="icon" />
         ) : id === "github" ? (
           <RiGithubLine className="icon" />
         ) : (
