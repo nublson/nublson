@@ -10,6 +10,7 @@
   "footer": {
     "items": [
       { "name": "About", "path": "about" },
+      { "name": "Affiliates", "path": "affiliates" },
       { "name": "Newsletter", "path": "newsletter" },
       { "name": "Video & Photo Setup", "path": "gears" }
     ]

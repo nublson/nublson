@@ -7,6 +7,7 @@ namespace NodeJS {
     NOTION_DATABASE_ID: string;
     NOTION_ABOUT_ID: string;
     NOTION_GEARS_ID: string;
+    NOTION_AFFILIATES_ID: string;
     UNSPLASH_ACCESS_TOKEN: string;
     UNSPLASH_SECRET_KEY: string;
     YOUTUBE_API_KEY: string;

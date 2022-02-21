@@ -46,7 +46,7 @@ const About: NextPage<AboutProps> = ({ pageProps, blocks }) => {
         }}
       />
       <HomeSection
-        top={`Published at ${formatDate(pageProps.publish_date)}`}
+        top={`Updated at ${formatDate(pageProps.modified_date)}`}
         title={pageProps.title}
         subtitle={pageProps.description}
         image={pageProps.thumbnail}

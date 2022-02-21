@@ -16,7 +16,7 @@ export type IPostItem = {
   title: string;
   description?: string;
   publish_date: string;
-  modified_date?: string;
+  modified_date: string;
   amount: string;
   categories: IPostCategory[];
   page_slug: string;

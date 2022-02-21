@@ -16,22 +16,22 @@ const ShareSection = dynamic(() => import("../section/Share"));
 const NewsletterSection = dynamic(() => import("../section/Newsletter"));
 const ContactSection = dynamic(() => import("../section/Contact"));
 
-type GearsProps = {
+type AffiliatesProps = {
   pageProps: IPostItem;
   blocks: any[];
 };
 
-const Gears: NextPage<GearsProps> = ({ pageProps, blocks }) => {
+const Affiliates: NextPage<AffiliatesProps> = ({ pageProps, blocks }) => {
   const { asPath } = useRouter();
 
   return (
     <>
       <NextSeo
-        title="Gears | Nubelson Fernandes"
+        title="Affiliates | Nubelson Fernandes"
         description={pageProps.description}
         canonical={`${process.env.BASE_URL}${asPath}`}
         openGraph={{
-          title: "Gears | Nubelson Fernandes",
+          title: "Affiliates | Nubelson Fernandes",
           description: pageProps.description,
           url: `${process.env.BASE_URL}${asPath}`,
           type: "website",
@@ -43,7 +43,7 @@ const Gears: NextPage<GearsProps> = ({ pageProps, blocks }) => {
               alt: pageProps.title,
             },
           ],
-          site_name: "Gears | Nubelson Fernandes",
+          site_name: "Affiliates | Nubelson Fernandes",
         }}
       />
       <HomeSection
@@ -54,15 +54,17 @@ const Gears: NextPage<GearsProps> = ({ pageProps, blocks }) => {
         article
       />
       <ContentSection blocks={blocks} url={pageProps.link} />
-      <ShareSection title="Share this kit on" />
+      <ShareSection title="Share this program on" />
       <NewsletterSection />
       <ContactSection />
     </>
   );
 };
 
-export const getStaticProps: GetStaticProps<GearsProps> = async (context) => {
-  const page = await getPage(process.env.NOTION_GEARS_ID);
+export const getStaticProps: GetStaticProps<AffiliatesProps> = async (
+  context
+) => {
+  const page = await getPage(process.env.NOTION_AFFILIATES_ID);
 
   const pageProps = formatPageProps(page);
 
@@ -90,4 +92,4 @@ export const getStaticProps: GetStaticProps<GearsProps> = async (context) => {
   };
 };
 
-export default Gears;
+export default Affiliates;

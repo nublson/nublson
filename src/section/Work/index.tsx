@@ -1,12 +1,9 @@
 import dynamic from "next/dynamic";
-import { useEffect } from "react";
-import { useUnsplash, useYoutube, useCommunity } from "../../hooks/useWork";
+import { useCommunity, useUnsplash, useYoutube } from "../../hooks/useWork";
 import { formatNumbers } from "../../utils/formatter";
 import { ISectionProps, IWorkCard } from "../../utils/types";
 import work from "../../utils/workItems.json";
 import { Container } from "./styles";
-
-import { fetchCommunity } from "../../services/buyMeACoffee";
 
 const Section = dynamic<ISectionProps>(() =>
   import("../../components/Layout/elements").then((module) => module.Section)

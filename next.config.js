@@ -22,6 +22,7 @@ module.exports = withBundleAnalyzer(
       NOTION_DATABASE_ID: process.env.NOTION_DATABASE_ID,
       NOTION_ABOUT_ID: process.env.NOTION_ABOUT_ID,
       NOTION_GEARS_ID: process.env.NOTION_GEARS_ID,
+      NOTION_AFFILIATES_ID: process.env.NOTION_AFFILIATES_ID,
       UNSPLASH_ACCESS_TOKEN: process.env.UNSPLASH_ACCESS_TOKEN,
       UNSPLASH_SECRET_KEY: process.env.UNSPLASH_SECRET_KEY,
       YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY,
