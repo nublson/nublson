@@ -16,6 +16,7 @@ const theme = {
     primary: "#FADE71",
     primary_light: "#FCEEB8",
     primary_dark: "#E1C765",
+    buy_me_a_coffee: "#ffdd00",
 
     block: {
       gray: "#9fa4a9",

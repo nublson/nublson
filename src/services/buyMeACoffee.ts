@@ -1,5 +1,4 @@
 import axios from "axios";
-import { formatNumbers } from "../utils/formatter";
 
 const buyMeACoffee = axios.create({
   baseURL: "https://developers.buymeacoffee.com/api/v1",
@@ -8,16 +7,10 @@ const buyMeACoffee = axios.create({
   },
 });
 
-export const fetchCommunity = async (
-  communityType: "subscriptions" | "supporters"
-) => {
+export const getMembers = async (status?: string) => {
   const response = await buyMeACoffee.get(
-    `/${communityType}${communityType === "subscriptions" && "?status=active"}`
+    `/subscriptions?status=${!status ? "active" : status}`
   );
 
-  if (response.data.error) {
-    return 0;
-  }
-
-  return formatNumbers(response.data.total);
+  return response;
 };

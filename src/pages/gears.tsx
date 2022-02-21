@@ -53,7 +53,7 @@ const Gears: NextPage<GearsProps> = ({ pageProps, blocks }) => {
         image={pageProps.thumbnail}
         article
       />
-      <ContentSection blocks={blocks} url={pageProps.link} />
+      <ContentSection blocks={blocks} url={pageProps.refer_link} />
       <ShareSection title="Share this kit on" />
       <NewsletterSection />
       <ContactSection />

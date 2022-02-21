@@ -41,7 +41,12 @@ export const formatPageProps = (page: any) => {
     podcast_slug: page.properties.podcast_slug.rich_text.length
       ? page.properties.podcast_slug.rich_text[0].text.content
       : null,
-    link: page.properties.link.url ? page.properties.link.url : null,
+    refer_link: page.properties.refer_link.url
+      ? page.properties.refer_link.url
+      : null,
+    member_link: page.properties.member_link.url
+      ? page.properties.member_link.url
+      : null,
   };
 
   return formatedPage;
@@ -71,7 +76,12 @@ export const formatPosts = (database: any[]) => {
     podcast_slug: post.properties.podcast_slug.rich_text.length
       ? post.properties.podcast_slug.rich_text[0].text.content
       : null,
-    link: post.properties.link.url ? post.properties.link.url : null,
+    refer_link: post.properties.refer_link.url
+      ? post.properties.refer_link.url
+      : null,
+    member_link: post.properties.member_link.url
+      ? post.properties.member_link.url
+      : null,
   }));
 
   return posts;

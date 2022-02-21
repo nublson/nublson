@@ -21,7 +21,8 @@ export type IPostItem = {
   categories: IPostCategory[];
   page_slug: string;
   podcast_slug?: string;
-  link?: string;
+  refer_link?: string;
+  member_link?: string;
 };
 
 export type IIssueItem = {
@@ -86,6 +87,7 @@ export interface IPostCard extends ICardsProps {
   thumbnail: string | StaticImageData;
   publish_date: string;
   amount: string;
+  member_only?: boolean;
 }
 
 export interface IIssueCard extends ICardsProps {
@@ -138,3 +140,7 @@ export interface IGtagProps {
 }
 
 export type IPostType = "article" | "product" | "podcast";
+
+export interface IMembersOnlyCardProps {
+  member_link: string;
+}

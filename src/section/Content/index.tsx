@@ -2,8 +2,12 @@ import { Render } from "@9gustin/react-notion-render";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { StyledBlocks } from "../../styles/notion";
-import { IGumroadButtonProps, ISectionProps } from "../../utils/types";
-import { Container } from "./styles";
+import {
+  IGumroadButtonProps,
+  ISectionProps,
+  IMembersOnlyCardProps,
+} from "../../utils/types";
+import { Container, CTA } from "./styles";
 
 const ArticleSection = dynamic<ISectionProps>(() =>
   import("../../components/Layout/elements").then(
@@ -22,13 +26,18 @@ const PodcastFrame = dynamic(
   () => import("../../components/shared/molecules/PodcastIframe")
 );
 
+const MembersOnly = dynamic(
+  () => import("../../components/shared/molecules/MembersOnly")
+);
+
 interface ContentProps {
   blocks: any[];
   url?: string;
+  member_link?: string;
   podcast_slug?: string;
 }
 
-function Content({ blocks, url, podcast_slug }: ContentProps) {
+function Content({ blocks, url, member_link, podcast_slug }: ContentProps) {
   const { pathname } = useRouter();
 
   return (
@@ -36,7 +45,10 @@ function Content({ blocks, url, podcast_slug }: ContentProps) {
       <Container>
         <StyledBlocks>
           {url && pathname.includes("store") && (
-            <GumroadButton productUrl={url} />
+            <CTA>
+              <GumroadButton productUrl={url} />
+              {member_link && <MembersOnly member_link={member_link} />}
+            </CTA>
           )}
           <Render blocks={blocks} simpleTitles classNames />
           {url && pathname.includes("gears") && <KitFrame url={url} />}

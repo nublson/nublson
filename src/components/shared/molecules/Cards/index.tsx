@@ -104,6 +104,7 @@ export function Post({
   publish_date,
   amount,
   slug,
+  member_only,
 }: IPostCard) {
   const views = useViews(slug);
   const { pathname } = useRouter();
@@ -124,7 +125,7 @@ export function Post({
   }, [pathname, postType]);
 
   return (
-    <PostContainer>
+    <PostContainer member_only={member_only}>
       <Thumbnail>
         <ViewsContainer>
           <XSmallText content={`${views ? views : 0} views`} />

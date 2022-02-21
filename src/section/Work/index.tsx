@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { useCommunity, useUnsplash, useYoutube } from "../../hooks/useWork";
+import { useUnsplash, useYoutube } from "../../hooks/useWork";
 import { formatNumbers } from "../../utils/formatter";
 import { ISectionProps, IWorkCard } from "../../utils/types";
 import work from "../../utils/workItems.json";
@@ -19,8 +19,6 @@ function Work() {
 
   const youtubeSubs = useYoutube();
 
-  const communityMembers = useCommunity();
-
   const getStats = (id: string) => {
     if (id === "instagram") {
       return formatNumbers(4039);
@@ -31,7 +29,7 @@ function Work() {
     } else if (id === "store") {
       return formatNumbers(1323);
     } else if (id === "support") {
-      return communityMembers ? communityMembers : 0;
+      return formatNumbers(3);
     }
   };
 

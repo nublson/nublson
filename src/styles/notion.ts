@@ -18,10 +18,6 @@ export const StyledBlocks = styled.div`
   align-items: flex-start;
   justify-content: center;
 
-  .gumroad-button {
-    margin-bottom: 2rem;
-  }
-
   img {
     width: 100%;
     height: auto;

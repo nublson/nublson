@@ -8,6 +8,9 @@ import { pageView } from "../services/analytics";
 
 const Layout = dynamic(() => import("../components/Layout"));
 const GumroadScript = dynamic(() => import("../components/scripts/Gumroad"));
+const SupportScript = dynamic(
+  () => import("../components/scripts/BuyMeACoffee")
+);
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -37,6 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </Layout>
       <GumroadScript />
+      <SupportScript />
     </>
   );
 }

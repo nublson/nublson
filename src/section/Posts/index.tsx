@@ -126,6 +126,7 @@ function Articles({ posts }: ArticlesProps) {
                   publish_date={article.publish_date}
                   amount={article.amount}
                   slug={article.page_slug}
+                  member_only={!!article.member_link}
                 />
               </RouteLink>
             ))
