@@ -40,4 +40,10 @@ export const PostList = styled.div<PostListProps>`
   justify-content: center;
   flex-wrap: wrap;
   gap: 2rem;
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+  }
 `;

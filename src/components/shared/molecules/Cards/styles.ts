@@ -86,12 +86,15 @@ export const WorkContainer = styled.div`
 export const PostContainer = styled.div`
   height: 100%;
   position: relative;
-  width: 100%;
-  max-width: 55rem;
+  width: 55rem;
   margin: 0 auto;
   cursor: pointer;
   border: 4px solid transparent;
   flex: 1;
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    width: 100%;
+  }
 
   &:hover {
     border-color: ${(props) => props.theme.colors.off_white};
