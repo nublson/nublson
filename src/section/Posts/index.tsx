@@ -1,15 +1,10 @@
-import { FormHandles, SubmitHandler } from "@unform/core";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { MediumTitle } from "../../components/shared/atoms/Titles";
-import {
-  filterPostsByCategory,
-  filterPostsByTitle,
-} from "../../utils/filterPosts";
+import { filterPostsByCategory } from "../../utils/filterPosts";
 import { getCategories } from "../../utils/getCategories";
 import {
-  IButtonIconProps,
   IPostCard,
   IPostCategory,
   IPostItem,
@@ -32,11 +27,6 @@ const MediumText = dynamic<ITextsProps>(() =>
     (module) => module.MediumText
   )
 );
-const IconButton = dynamic<IButtonIconProps>(() =>
-  import("../../components/shared/molecules/Buttons").then(
-    (module) => module.IconButton
-  )
-);
 const Post = dynamic<IPostCard>(
   () =>
     import("../../components/shared/molecules/Cards").then(
@@ -44,11 +34,6 @@ const Post = dynamic<IPostCard>(
     ),
   { ssr: true }
 );
-const Input = dynamic(() => import("../../components/shared/molecules/Input"));
-
-interface FormData {
-  search: string;
-}
 
 interface ArticlesProps {
   posts: IPostItem[];
@@ -58,16 +43,7 @@ function Articles({ posts }: ArticlesProps) {
   const [categories, setCategories] = useState<IPostCategory[]>([]);
   const [currentCategory, setCurrentCategory] = useState("");
   const [filteredPosts, setFilteredPosts] = useState<IPostItem[]>([]);
-  const formRef = useRef<FormHandles>(null);
   const { pathname } = useRouter();
-
-  const handleSubmit: SubmitHandler<FormData> = (data, { reset }) => {
-    const searchPosts = filterPostsByTitle(data.search, filteredPosts);
-
-    setFilteredPosts(searchPosts);
-
-    reset();
-  };
 
   useEffect(() => {
     const category = getCategories(posts);
