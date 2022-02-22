@@ -52,7 +52,7 @@ const About: NextPage<AboutProps> = ({ pageProps, blocks }) => {
         image={pageProps.thumbnail}
         article
       />
-      <ContentSection blocks={blocks} />
+      <ContentSection blocks={blocks} access={pageProps.access} />
       <NewsletterSection />
       <ContactSection />
     </>
