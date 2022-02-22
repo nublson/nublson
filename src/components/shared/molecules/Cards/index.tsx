@@ -1,3 +1,4 @@
+import { htmlToText } from "html-to-text";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -13,7 +14,7 @@ import {
   RiYoutubeLine,
 } from "react-icons/ri";
 import { useViews } from "../../../../hooks/useViews";
-import { formatDate } from "../../../../utils/formatter";
+import { formatDate, formatString } from "../../../../utils/formatter";
 import {
   IIssueCard,
   IPostCard,
@@ -30,7 +31,6 @@ import {
   ViewsContainer,
   WorkContainer,
 } from "./styles";
-import { htmlToText } from "html-to-text";
 
 export function Work({
   id,
@@ -55,7 +55,15 @@ export function Work({
         <div className="body">
           <div className="content">
             <SmallTitle content={title} />
-            {description && <MediumText content={description} />}
+            {description && (
+              <MediumText
+                content={
+                  description.length > 108
+                    ? formatString(description, 99)
+                    : description
+                }
+              />
+            )}
           </div>
 
           <div className="footer">
@@ -84,7 +92,15 @@ export function Work({
         <div className="body">
           <div className="content">
             <SmallTitle content={title} />
-            {description && <MediumText content={description} />}
+            {description && (
+              <MediumText
+                content={
+                  description.length > 108
+                    ? formatString(description, 99)
+                    : description
+                }
+              />
+            )}
           </div>
 
           <div className="footer">
@@ -142,7 +158,15 @@ export function Post({
       <div className="data">
         <div className="heading">
           <SmallTitle content={title} />
-          {description && <MediumText content={description} />}
+          {description && (
+            <MediumText
+              content={
+                description.length > 108
+                  ? formatString(description, 105)
+                  : description
+              }
+            />
+          )}
         </div>
 
         <div className="footer">
@@ -167,7 +191,15 @@ export function Issue({ title, description, publish_date }: IIssueCard) {
     <IssueContainer>
       <div className="content">
         <SmallTitle content={title} />
-        {description && <MediumText content={htmlToText(description)} />}
+        {description && (
+          <MediumText
+            content={
+              htmlToText(description).length > 108
+                ? formatString(htmlToText(description), 105)
+                : htmlToText(description)
+            }
+          />
+        )}
       </div>
 
       <div className="footer">

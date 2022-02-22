@@ -133,3 +133,7 @@ export const formatNumbers = (value: number) => {
     ? (Math.abs(Number(value)) / 1.0e3).toFixed(2) + "K"
     : Math.abs(Number(value));
 };
+
+export const formatString = (textValue: string, textLength: number) => {
+  return `${textValue.substring(0, textLength)}...`;
+};
