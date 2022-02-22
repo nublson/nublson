@@ -31,9 +31,16 @@ interface ContentProps {
   url?: string;
   member_link?: string;
   podcast_slug?: string;
+  access?: "public" | "member_free" | "member_exclusive";
 }
 
-function Content({ blocks, url, member_link, podcast_slug }: ContentProps) {
+function Content({
+  blocks,
+  url,
+  member_link,
+  podcast_slug,
+  access,
+}: ContentProps) {
   const { pathname } = useRouter();
 
   return (
@@ -43,7 +50,12 @@ function Content({ blocks, url, member_link, podcast_slug }: ContentProps) {
           {url && pathname.includes("store") && (
             <GumroadButton productUrl={url} />
           )}
-          {member_link && <MembersOnly member_link={member_link} />}
+          {member_link && (
+            <MembersOnly
+              member_link={member_link}
+              access={access ? access : "public"}
+            />
+          )}
           <Render blocks={blocks} simpleTitles classNames />
           {url && pathname.includes("gears") && <KitFrame url={url} />}
           {podcast_slug && pathname.includes("podcast") && (

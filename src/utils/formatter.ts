@@ -47,6 +47,9 @@ export const formatPageProps = (page: any) => {
     member_link: page.properties.member_link.url
       ? page.properties.member_link.url
       : null,
+    access: page.properties.access.select
+      ? page.properties.access.select.name
+      : null,
   };
 
   return formatedPage;
@@ -81,6 +84,9 @@ export const formatPosts = (database: any[]) => {
       : null,
     member_link: post.properties.member_link.url
       ? post.properties.member_link.url
+      : null,
+    access: post.properties.access.select
+      ? post.properties.access.select.name
       : null,
   }));
 

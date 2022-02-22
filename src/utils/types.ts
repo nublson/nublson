@@ -23,6 +23,7 @@ export type IPostItem = {
   podcast_slug?: string;
   refer_link?: string;
   member_link?: string;
+  access: "public" | "member_free" | "member_exclusive";
 };
 
 export type IIssueItem = {
@@ -143,4 +144,5 @@ export type IPostType = "article" | "product" | "podcast";
 
 export interface IMembersOnlyCardProps {
   member_link: string;
+  access: "public" | "member_free" | "member_exclusive";
 }
