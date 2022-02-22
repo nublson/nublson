@@ -134,8 +134,8 @@ function Newsletter() {
               <XSmallText
                 content={`${subscribersData ? subscribersData : 0} ${
                   subscribersData === 1 ? "subscriber" : "subscribers"
-                } - ${issuesCount ? issuesCount : 0} ${
-                  issuesCount === 1 ? "road" : "roads"
+                } - ${issuesCount ? issuesCount.length : 0} ${
+                  issuesCount?.length === 1 ? "road" : "roads"
                 }`}
               />
             </RouteLink>

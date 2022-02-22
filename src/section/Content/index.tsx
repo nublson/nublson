@@ -60,7 +60,10 @@ function Content({
               access={access ? access : "public"}
             />
           )}
-          <Render blocks={blocks} simpleTitles classNames />
+          {pathname.includes("blog") && access === "member_exclusive" ? null : (
+            <Render blocks={blocks} simpleTitles classNames />
+          )}
+
           {url && pathname.includes("gears") && <KitFrame url={url} />}
           {podcast_slug && pathname.includes("podcast") && (
             <PodcastFrame slug={podcast_slug} />

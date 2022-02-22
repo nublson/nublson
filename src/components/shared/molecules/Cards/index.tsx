@@ -3,15 +3,14 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
   RiArticleLine,
+  RiCupLine,
   RiGithubLine,
   RiGlobalLine,
   RiInstagramLine,
   RiMicLine,
-  RiPatreonLine,
   RiStoreLine,
   RiUnsplashLine,
   RiYoutubeLine,
-  RiCupLine,
 } from "react-icons/ri";
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate } from "../../../../utils/formatter";
@@ -31,6 +30,7 @@ import {
   ViewsContainer,
   WorkContainer,
 } from "./styles";
+import { htmlToText } from "html-to-text";
 
 export function Work({
   id,
@@ -167,12 +167,12 @@ export function Issue({ title, description, publish_date }: IIssueCard) {
     <IssueContainer>
       <div className="content">
         <SmallTitle content={title} />
-        {description && <MediumText content={description} />}
+        {description && <MediumText content={htmlToText(description)} />}
       </div>
 
       <div className="footer">
         <SmallText content="Subscribe to read" />
-        <SmallText content={publish_date} />
+        <SmallText content={formatDate(publish_date)} />
       </div>
     </IssueContainer>
   );

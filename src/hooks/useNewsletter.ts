@@ -1,7 +1,8 @@
 import useSWR from "swr";
 import { api } from "../services/api";
+import { IIssueItem } from "../utils/types";
 
-const fetchIssues = async (url: string) => {
+const fetchIssues = async (url: string): Promise<IIssueItem[]> => {
   const res = await api.get(url);
 
   return res.data.issues;

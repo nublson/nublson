@@ -1,22 +1,15 @@
-import { GetStaticProps, NextPage } from "next";
+import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { getIssues } from "../services/getRevue";
-import { formatIssues } from "../utils/formatter";
 import pageData from "../utils/pageData.json";
-import { IIssueItem } from "../utils/types";
 
 const NewsletterSection = dynamic(() => import("../section/Newsletter"));
 const IssuesSection = dynamic(() => import("../section/Issues"));
 const ShareSection = dynamic(() => import("../section/Share"));
 const ContactSection = dynamic(() => import("../section/Contact"));
 
-type NewsletterProps = {
-  issues: IIssueItem[];
-};
-
-const Newsletter: NextPage<NewsletterProps> = ({ issues }) => {
+const Newsletter: NextPage = () => {
   const { asPath } = useRouter();
 
   return (
@@ -43,25 +36,11 @@ const Newsletter: NextPage<NewsletterProps> = ({ issues }) => {
       />
 
       <NewsletterSection />
-      <IssuesSection issues={issues} />
+      <IssuesSection />
       <ShareSection title="Share my newsletter on" />
       <ContactSection />
     </>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await getIssues();
-
-  const issues = formatIssues(data);
-
-  return {
-    props: {
-      issues,
-    },
-
-    revalidate: 5,
-  };
 };
 
 export default Newsletter;

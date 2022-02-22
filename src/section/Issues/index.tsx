@@ -1,16 +1,12 @@
 import dynamic from "next/dynamic";
-import {
-  IIssueCard,
-  IIssueItem,
-  ISectionProps,
-  ITextsProps,
-} from "../../utils/types";
+import { useIssue } from "../../hooks/useNewsletter";
+import { IIssueCard, ISectionProps, ITextsProps } from "../../utils/types";
 import { Container } from "./styles";
 
 const Section = dynamic<ISectionProps>(() =>
   import("../../components/Layout/elements").then((module) => module.Section)
 );
-const Issue = dynamic<IIssueCard>(() =>
+const IssueCard = dynamic<IIssueCard>(() =>
   import("../../components/shared/molecules/Cards").then(
     (module) => module.Issue
   )
@@ -21,17 +17,15 @@ const SmallText = dynamic<ITextsProps>(() =>
   )
 );
 
-interface IssuesProps {
-  issues: IIssueItem[];
-}
+function Issues() {
+  const issues = useIssue();
 
-function Issues({ issues }: IssuesProps) {
   return (
     <Section id="issues">
       <Container>
-        {issues.length ? (
+        {issues && issues.length ? (
           issues.map((issue) => (
-            <Issue
+            <IssueCard
               key={issue.id}
               title={issue.title}
               description={issue.description}
