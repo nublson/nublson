@@ -22,7 +22,7 @@ function MembersOnly({ member_link, access }: IMembersOnlyCardProps) {
         <SmallTitle
           content={`This ${
             pathname.includes("blog")
-              ? "post"
+              ? "article"
               : pathname.includes("store")
               ? "product"
               : pathname.includes("podcast")

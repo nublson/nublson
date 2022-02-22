@@ -50,9 +50,13 @@ function Content({
           {url && pathname.includes("store") && (
             <GumroadButton productUrl={url} />
           )}
-          {member_link && (
+          {access !== "public" && (
             <MembersOnly
-              member_link={member_link}
+              member_link={
+                member_link
+                  ? member_link
+                  : "https://www.buymeacoffee.com/nublson"
+              }
               access={access ? access : "public"}
             />
           )}

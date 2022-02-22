@@ -49,7 +49,7 @@ export const formatPageProps = (page: any) => {
       : null,
     access: page.properties.access.select
       ? page.properties.access.select.name
-      : null,
+      : "public",
   };
 
   return formatedPage;
@@ -87,7 +87,7 @@ export const formatPosts = (database: any[]) => {
       : null,
     access: post.properties.access.select
       ? post.properties.access.select.name
-      : null,
+      : "public",
   }));
 
   return posts;
