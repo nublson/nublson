@@ -16,7 +16,7 @@ function MembersOnly({ member_link }: IMembersOnlyCardProps) {
     <Container href={member_link} target="_blank" rel="noreferrer">
       <RiEmpathizeLine className="icon" />
       <div className="content">
-        <SmallTitle content="This product is FREE for members only !" />
+        <SmallTitle content="This content is FREE for members only!" />
         <MediumText content="Join to become an Official Patron and get access." />
       </div>
     </Container>

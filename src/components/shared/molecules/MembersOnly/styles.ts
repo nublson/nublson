@@ -9,6 +9,7 @@ export const Container = styled.a`
   -webkit-box-shadow: 5px 5px 25px 1px rgba(0, 0, 0, 0.27);
   box-shadow: 5px 5px 25px 1px rgba(0, 0, 0, 0.27);
   transition: all 0.2s;
+  margin: 3rem 0 5rem;
 
   display: flex;
   flex-direction: column;

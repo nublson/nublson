@@ -84,7 +84,7 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
         image={pageProps.thumbnail}
         article
       />
-      <ContentSection blocks={blocks} />
+      <ContentSection blocks={blocks} member_link={pageProps.member_link} />
       <ShareSection title="Share this article on" />
       <NewsletterSection />
       <ContactSection />

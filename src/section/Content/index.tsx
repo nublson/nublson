@@ -2,12 +2,8 @@ import { Render } from "@9gustin/react-notion-render";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { StyledBlocks } from "../../styles/notion";
-import {
-  IGumroadButtonProps,
-  ISectionProps,
-  IMembersOnlyCardProps,
-} from "../../utils/types";
-import { Container, CTA } from "./styles";
+import { IGumroadButtonProps, ISectionProps } from "../../utils/types";
+import { Container } from "./styles";
 
 const ArticleSection = dynamic<ISectionProps>(() =>
   import("../../components/Layout/elements").then(
@@ -45,11 +41,9 @@ function Content({ blocks, url, member_link, podcast_slug }: ContentProps) {
       <Container>
         <StyledBlocks>
           {url && pathname.includes("store") && (
-            <CTA>
-              <GumroadButton productUrl={url} />
-              {member_link && <MembersOnly member_link={member_link} />}
-            </CTA>
+            <GumroadButton productUrl={url} />
           )}
+          {member_link && <MembersOnly member_link={member_link} />}
           <Render blocks={blocks} simpleTitles classNames />
           {url && pathname.includes("gears") && <KitFrame url={url} />}
           {podcast_slug && pathname.includes("podcast") && (
