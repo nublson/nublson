@@ -36,7 +36,7 @@ function MembersOnly({ member_link, access }: IMembersOnlyCardProps) {
               : "PUBLIC"
           } for members only!`}
         />
-        <MediumText content="Join to become an Official Patron and get access." />
+        <MediumText content="Click to join and get access." />
       </div>
     </Container>
   );
