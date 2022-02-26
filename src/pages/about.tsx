@@ -6,7 +6,7 @@ import { getBlocks, getPage } from "../services/notion";
 import {
   formatBlockWithChildren,
   formatDate,
-  formatPageProps,
+  formatPostProps,
 } from "../utils/formatter";
 import { IPostItem } from "../utils/types";
 
@@ -60,9 +60,9 @@ const About: NextPage<AboutProps> = ({ pageProps, blocks }) => {
 };
 
 export const getStaticProps: GetStaticProps<AboutProps> = async (context) => {
-  const page = await getPage(process.env.NOTION_ABOUT_ID);
+  const page = await getPage(process.env.NOTION_PAGE_ABOUT_ID);
 
-  const pageProps = formatPageProps(page);
+  const pageProps = formatPostProps(page);
 
   const blocks = await getBlocks(pageProps.id);
 

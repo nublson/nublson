@@ -45,14 +45,14 @@ function Posts({ posts }: PostProps) {
             <MediumText content="No articles published" />
           ) : (
             posts.map((article) => (
-              <RouteLink key={article.id} href={`/blog/${article.page_slug}`}>
+              <RouteLink key={article.id} href={`/blog/${article.post_slug}`}>
                 <PostCard
                   thumbnail={article.thumbnail}
                   title={article.title}
                   description={article.description}
                   publish_date={article.publish_date}
                   amount={article.amount}
-                  slug={article.page_slug}
+                  slug={article.post_slug}
                   member_only={article.access !== "public"}
                 />
               </RouteLink>

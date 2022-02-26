@@ -17,39 +17,34 @@ export const formatSlug = (data: string | any) => {
   }
 };
 
-export const formatPageProps = (page: any) => {
+export const formatPostProps = (page: any) => {
   const formatedPage: IPostItem = {
     id: page.id,
+    post_slug: formatSlug(page.properties.Name.title[0].text.content),
     thumbnail:
       page.cover.type === "file"
         ? page.cover.file.url
         : page.cover.external.url,
     title: page.properties.Name.title[0].text.content,
-    description: page.properties.description.rich_text.length
-      ? page.properties.description.rich_text[0].text.content
-      : null,
+    description: page.properties.description.rich_text[0].text.content,
+    access: page.properties.access.select
+      ? page.properties.access.select.name
+      : "public",
     publish_date: page.properties.publish_date.date.start,
-    modified_date: page.properties.modified_date.last_edited_time,
-    amount: page.properties.amount.rich_text[0].text.content,
-    categories: page.properties.category.multi_select.map(
+    categories: page.properties.categories.multi_select.map(
       (item: IPostCategory) => ({
         id: item.id,
         name: item.name,
       })
     ),
-    page_slug: formatSlug(page.properties.Name.title[0].text.content),
-    podcast_slug: page.properties.podcast_slug.rich_text.length
-      ? page.properties.podcast_slug.rich_text[0].text.content
-      : null,
-    refer_link: page.properties.refer_link.url
-      ? page.properties.refer_link.url
-      : null,
+    modified_date: page.properties.modified_date.last_edited_time,
     member_link: page.properties.member_link.url
       ? page.properties.member_link.url
       : null,
-    access: page.properties.access.select
-      ? page.properties.access.select.name
-      : "public",
+    amount: page.properties.amount.rich_text[0].text.content,
+    refer_link: page.properties.refer_link.url
+      ? page.properties.refer_link.url
+      : null,
   };
 
   return formatedPage;
@@ -58,6 +53,7 @@ export const formatPageProps = (page: any) => {
 export const formatPosts = (database: any[]) => {
   const posts: IPostItem[] = database.map((post) => ({
     id: post.id,
+    post_slug: formatSlug(post.properties.Name.title[0].text.content),
     thumbnail:
       post.cover.type === "file"
         ? post.cover.file.url
@@ -66,28 +62,24 @@ export const formatPosts = (database: any[]) => {
     description: post.properties.description.rich_text.length
       ? post.properties.description.rich_text[0].text.content
       : null,
+    access: post.properties.access.select
+      ? post.properties.access.select.name
+      : "public",
     publish_date: post.properties.publish_date.date.start,
-    modified_date: post.properties.modified_date.last_edited_time,
-    amount: post.properties.amount.rich_text[0].text.content,
-    categories: post.properties.category.multi_select.map(
+    categories: post.properties.categories.multi_select.map(
       (item: IPostCategory) => ({
         id: item.id,
         name: item.name,
       })
     ),
-    page_slug: formatSlug(post.properties.Name.title[0].text.content),
-    podcast_slug: post.properties.podcast_slug.rich_text.length
-      ? post.properties.podcast_slug.rich_text[0].text.content
-      : null,
-    refer_link: post.properties.refer_link.url
-      ? post.properties.refer_link.url
-      : null,
+    modified_date: post.properties.modified_date.last_edited_time,
     member_link: post.properties.member_link.url
       ? post.properties.member_link.url
       : null,
-    access: post.properties.access.select
-      ? post.properties.access.select.name
-      : "public",
+    amount: post.properties.amount.rich_text[0].text.content,
+    refer_link: post.properties.refer_link.url
+      ? post.properties.refer_link.url
+      : null,
   }));
 
   return posts;

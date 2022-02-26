@@ -57,7 +57,7 @@ const Store: NextPage<StoreProps> = ({ posts }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const results = await getData(process.env.NOTION_DATABASE_ID, "product");
+  const results = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
 
   const posts = formatPosts(results);
 

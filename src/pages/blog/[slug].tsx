@@ -37,13 +37,13 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
 
   useEffect(() => {
     const registerView = () => {
-      fetch(`/api/views/${pageProps.page_slug}`, {
+      fetch(`/api/views/${pageProps.post_slug}`, {
         method: "POST",
       });
     };
 
     registerView();
-  }, [pageProps.page_slug]);
+  }, [pageProps.post_slug]);
 
   useEffect(() => {
     prism.highlightAll();
@@ -97,13 +97,13 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const results = await getData(process.env.NOTION_DATABASE_ID, "article");
+  const results = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
 
   const posts = formatPosts(results);
 
   const paths = posts.map((post) => ({
     params: {
-      slug: post.page_slug,
+      slug: post.post_slug,
     },
   }));
 
@@ -120,12 +120,12 @@ export const getStaticProps: GetStaticProps<SlugProps, Params> = async (
 
   const { slug } = params;
 
-  const results = await getData(process.env.NOTION_DATABASE_ID, "article");
+  const results = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
 
   const pages = formatPosts(results);
 
   const pageExists = pages.find((page) => {
-    return page.page_slug === slug;
+    return page.post_slug === slug;
   });
 
   if (!pageExists) {

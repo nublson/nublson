@@ -12,18 +12,17 @@ export type IPostCategory = {
 
 export type IPostItem = {
   id: string;
+  post_slug: string;
   thumbnail: string;
   title: string;
-  description?: string;
-  publish_date: string;
-  modified_date: string;
+  description: string;
   amount: string;
-  categories: IPostCategory[];
-  page_slug: string;
-  podcast_slug?: string;
-  refer_link?: string;
-  member_link?: string;
   access: "public" | "member_free" | "member_exclusive";
+  publish_date: string;
+  categories: IPostCategory[];
+  modified_date: string;
+  member_link?: string;
+  refer_link?: string;
 };
 
 export type IIssueItem = {

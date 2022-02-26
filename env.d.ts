@@ -4,10 +4,11 @@ namespace NodeJS {
     PORT: string;
     BASE_URL: string;
     NOTION_ACCESS_TOKEN: string;
-    NOTION_DATABASE_ID: string;
-    NOTION_ABOUT_ID: string;
-    NOTION_GEARS_ID: string;
-    NOTION_AFFILIATES_ID: string;
+    NOTION_DATABASE_ARTICLES_ID: string;
+    NOTION_DATABASE_PRODUCTS_ID: string;
+    NOTION_PAGE_ABOUT_ID: string;
+    NOTION_PAGE_GEARS_ID: string;
+    NOTION_PAGE_AFFILIATES_ID: string;
     UNSPLASH_ACCESS_TOKEN: string;
     UNSPLASH_SECRET_KEY: string;
     YOUTUBE_API_KEY: string;

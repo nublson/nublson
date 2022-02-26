@@ -93,7 +93,7 @@ function Articles({ posts }: ArticlesProps) {
             filteredPosts.map((article) => (
               <RouteLink
                 key={article.id}
-                href={`${pathname}/${article.page_slug}`}
+                href={`${pathname}/${article.post_slug}`}
               >
                 <Post
                   thumbnail={article.thumbnail}
@@ -101,7 +101,7 @@ function Articles({ posts }: ArticlesProps) {
                   description={article.description}
                   publish_date={article.publish_date}
                   amount={article.amount}
-                  slug={article.page_slug}
+                  slug={article.post_slug}
                   member_only={article.access !== "public"}
                 />
               </RouteLink>

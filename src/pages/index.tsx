@@ -57,7 +57,7 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const results = await getData(process.env.NOTION_DATABASE_ID, "article");
+  const results = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
 
   const posts = formatPosts(results).slice(0, 2);
 
