@@ -21,7 +21,7 @@ function Work() {
 
   const getStats = (id: string) => {
     if (id === "instagram") {
-      return formatNumbers(4039);
+      return formatNumbers(4240);
     } else if (id === "youtube") {
       return youtubeSubs ? youtubeSubs : 0;
     } else if (id === "unsplash") {
@@ -29,7 +29,7 @@ function Work() {
     } else if (id === "store") {
       return formatNumbers(1323);
     } else if (id === "support") {
-      return formatNumbers(3);
+      return formatNumbers(32);
     }
   };
 
