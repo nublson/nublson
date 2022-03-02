@@ -22,6 +22,11 @@
     "description": "No spam, just insightful content on tech, photography, filmmaking, code, and much more.",
     "image": "https://res.cloudinary.com/nubelsondev/image/upload/v1643423706/Portfolio/Pages/AnyConv.com__newsletter_pbx87a.webp"
   },
+  "books": {
+    "title": "Books",
+    "description": "The collection of books I've read",
+    "image": "https://res.cloudinary.com/nubelsondev/image/upload/v1645816832/Portfolio/Pages/AnyConv.com__books_boqall.webp"
+  },
   "notFound": {
     "top": "Page not found",
     "title": "Oops, you're lost",

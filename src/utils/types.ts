@@ -10,6 +10,19 @@ export type IPostCategory = {
   name: string;
 };
 
+export type IBookItem = {
+  id: string;
+  post_slug: string;
+  thumbnail: string;
+  title: string;
+  description: string;
+  author: string;
+  publish_date: string;
+  categories: IPostCategory[];
+  modified_date: string;
+  refer_link?: string;
+};
+
 export type IPostItem = {
   id: string;
   post_slug: string;
@@ -92,6 +105,11 @@ export interface IPostCard extends ICardsProps {
 
 export interface IIssueCard extends ICardsProps {
   publish_date: string;
+}
+
+export interface IBookCard extends ICardsProps {
+  author: string;
+  categories: IPostCategory[];
 }
 
 export interface IViews {

@@ -1,7 +1,7 @@
 import { htmlToText } from "html-to-text";
 import moment from "moment";
 import slugify from "slugify";
-import { IIssueItem, IPostCategory, IPostItem } from "./types";
+import { IBookItem, IIssueItem, IPostCategory, IPostItem } from "./types";
 
 export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
@@ -50,6 +50,33 @@ export const formatPostProps = (page: any) => {
   return formatedPage;
 };
 
+export const formatBookProps = (page: any) => {
+  const formatedBook: IBookItem = {
+    id: page.id,
+    post_slug: formatSlug(page.properties.Name.title[0].text.content),
+    thumbnail:
+      page.cover.type === "file"
+        ? page.cover.file.url
+        : page.cover.external.url,
+    title: page.properties.Name.title[0].text.content,
+    description: page.properties.description.rich_text[0].text.content,
+    author: page.properties.author.rich_text[0].text.content,
+    publish_date: page.properties.publish_date.date.start,
+    categories: page.properties.categories.multi_select
+      .map((item: IPostCategory) => ({
+        id: item.id,
+        name: item.name,
+      }))
+      .slice(0, 1),
+    modified_date: page.properties.modified_date.last_edited_time,
+    refer_link: page.properties.refer_link.url
+      ? page.properties.refer_link.url
+      : null,
+  };
+
+  return formatedBook;
+};
+
 export const formatPosts = (database: any[]) => {
   const posts: IPostItem[] = database.map((post) => ({
     id: post.id,
@@ -83,6 +110,35 @@ export const formatPosts = (database: any[]) => {
   }));
 
   return posts;
+};
+
+export const formatBooks = (database: any[]) => {
+  const books: IBookItem[] = database.map((post) => ({
+    id: post.id,
+    post_slug: formatSlug(post.properties.Name.title[0].text.content),
+    thumbnail:
+      post.cover.type === "file"
+        ? post.cover.file.url
+        : post.cover.external.url,
+    title: post.properties.Name.title[0].text.content,
+    description: post.properties.description.rich_text.length
+      ? post.properties.description.rich_text[0].text.content
+      : null,
+    author: post.properties.author.rich_text[0].text.content,
+    publish_date: post.properties.publish_date.date.start,
+    categories: post.properties.categories.multi_select
+      .map((item: IPostCategory) => ({
+        id: item.id,
+        name: item.name,
+      }))
+      .slice(0, 1),
+    modified_date: post.properties.modified_date.last_edited_time,
+    refer_link: post.properties.refer_link.url
+      ? post.properties.refer_link.url
+      : null,
+  }));
+
+  return books;
 };
 
 export const formatIssues = (database: any[]) => {

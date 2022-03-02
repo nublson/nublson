@@ -50,7 +50,7 @@ function Content({
           {url && pathname.includes("store") && (
             <GumroadButton productUrl={url} />
           )}
-          {access !== "public" && (
+          {access !== "public" && !pathname.includes("books") && (
             <MembersOnly
               member_link={
                 member_link

@@ -21,6 +21,7 @@ module.exports = withBundleAnalyzer(
       NOTION_ACCESS_TOKEN: process.env.NOTION_ACCESS_TOKEN,
       NOTION_DATABASE_ARTICLES_ID: process.env.NOTION_DATABASE_ARTICLES_ID,
       NOTION_DATABASE_PRODUCTS_ID: process.env.NOTION_DATABASE_PRODUCTS_ID,
+      NOTION_DATABASE_BOOKS_ID: process.env.NOTION_DATABASE_BOOKS_ID,
       NOTION_PAGE_ABOUT_ID: process.env.NOTION_PAGE_ABOUT_ID,
       NOTION_PAGE_GEARS_ID: process.env.NOTION_PAGE_GEARS_ID,
       NOTION_PAGE_AFFILIATES_ID: process.env.NOTION_PAGE_AFFILIATES_ID,
@@ -52,7 +53,7 @@ module.exports = withBundleAnalyzer(
     },
     compiler: {
       styledComponents: true,
-      removeConsole: true,
+      // removeConsole: true,
     },
     swcMinify: true,
   })

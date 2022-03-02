@@ -16,6 +16,7 @@ import {
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate, formatString } from "../../../../utils/formatter";
 import {
+  IBookCard,
   IIssueCard,
   IPostCard,
   IPostType,
@@ -205,6 +206,30 @@ export function Issue({ title, description, publish_date }: IIssueCard) {
       <div className="footer">
         <SmallText content="Subscribe to read" />
         <SmallText content={formatDate(publish_date)} />
+      </div>
+    </IssueContainer>
+  );
+}
+
+export function Book({ title, description, categories, author }: IBookCard) {
+  return (
+    <IssueContainer>
+      <div className="content">
+        <SmallTitle content={title} />
+        {description && (
+          <MediumText
+            content={
+              htmlToText(description).length > 108
+                ? formatString(htmlToText(description), 105)
+                : htmlToText(description)
+            }
+          />
+        )}
+      </div>
+
+      <div className="footer">
+        <SmallText content={`${categories.map((item) => item.name)}`} />
+        <SmallText content={`By ${author}`} />
       </div>
     </IssueContainer>
   );

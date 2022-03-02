@@ -6,6 +6,7 @@ namespace NodeJS {
     NOTION_ACCESS_TOKEN: string;
     NOTION_DATABASE_ARTICLES_ID: string;
     NOTION_DATABASE_PRODUCTS_ID: string;
+    NOTION_DATABASE_BOOKS_ID: string;
     NOTION_PAGE_ABOUT_ID: string;
     NOTION_PAGE_GEARS_ID: string;
     NOTION_PAGE_AFFILIATES_ID: string;
