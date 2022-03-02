@@ -4,10 +4,13 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import pageData from "../utils/pageData.json";
 
-const NewsletterSection = dynamic(() => import("../section/Newsletter"));
+const HomeSection = dynamic(() => import("../section/Home"));
 const IssuesSection = dynamic(() => import("../section/Issues"));
 const ShareSection = dynamic(() => import("../section/Share"));
 const ContactSection = dynamic(() => import("../section/Contact"));
+const SubscribeForm = dynamic(
+  () => import("../components/shared/molecules/NewsletterForm")
+);
 
 const Newsletter: NextPage = () => {
   const { asPath } = useRouter();
@@ -35,7 +38,11 @@ const Newsletter: NextPage = () => {
         }}
       />
 
-      <NewsletterSection />
+      <HomeSection
+        title={pageData.newsletter.title}
+        subtitle={pageData.newsletter.description}
+      />
+      <SubscribeForm />
       <IssuesSection />
       <ShareSection title="Share my newsletter on" />
       <ContactSection />

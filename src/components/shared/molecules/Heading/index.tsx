@@ -8,20 +8,22 @@ function Heading({ top, title, subtitle, image, article }: IHeadingProps) {
   return (
     <Container>
       <Content>
-        <MediumText content={top} />
+        {top && <MediumText content={top} />}
         <LargeTitle content={title} />
         {subtitle && <LargeText content={subtitle} />}
       </Content>
-      <Thumbnail article={article}>
-        <Image
-          src={image}
-          alt="Thumbnail"
-          objectFit="cover"
-          layout="fill"
-          priority={true}
-          quality={100}
-        />
-      </Thumbnail>
+      {image && (
+        <Thumbnail article={article}>
+          <Image
+            src={image}
+            alt="Thumbnail"
+            objectFit="cover"
+            layout="fill"
+            priority={true}
+            quality={100}
+          />
+        </Thumbnail>
+      )}
     </Container>
   );
 }

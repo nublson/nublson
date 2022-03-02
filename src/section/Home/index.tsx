@@ -8,10 +8,10 @@ const Heading = dynamic(
 );
 
 interface HomeProps extends HTMLAttributes<HTMLDivElement> {
-  top: string;
+  top?: string;
   title: string;
   subtitle?: string;
-  image: string | StaticImageData;
+  image?: string | StaticImageData;
   scrollTo?: string;
   article?: boolean;
 }

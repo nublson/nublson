@@ -105,10 +105,10 @@ export interface IMusicProps {
 }
 
 export interface IHeadingProps {
-  top: string;
+  top?: string;
   title: string;
   subtitle?: string;
-  image: string | StaticImageData;
+  image?: string | StaticImageData;
   article?: boolean;
 }
 
