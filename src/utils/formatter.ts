@@ -72,6 +72,9 @@ export const formatBookProps = (page: any) => {
     refer_link: page.properties.refer_link.url
       ? page.properties.refer_link.url
       : null,
+    status: page.properties.status.select
+      ? page.properties.status.select.name
+      : "read",
   };
 
   return formatedBook;
@@ -136,6 +139,9 @@ export const formatBooks = (database: any[]) => {
     refer_link: post.properties.refer_link.url
       ? post.properties.refer_link.url
       : null,
+    status: post.properties.status.select
+      ? post.properties.status.select.name
+      : "read",
   }));
 
   return books;

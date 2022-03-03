@@ -211,9 +211,15 @@ export function Issue({ title, description, publish_date }: IIssueCard) {
   );
 }
 
-export function Book({ title, description, categories, author }: IBookCard) {
+export function Book({
+  title,
+  description,
+  categories,
+  author,
+  status,
+}: IBookCard) {
   return (
-    <IssueContainer>
+    <IssueContainer status={status}>
       <div className="content">
         <SmallTitle content={title} />
         {description && (

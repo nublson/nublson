@@ -4,6 +4,10 @@ interface PostContainerProps {
   member_only?: boolean;
 }
 
+interface IssueContainerProps {
+  status?: "read" | "reading" | "listed";
+}
+
 export const WorkContainer = styled.div`
   width: 100%;
   max-width: 55rem;
@@ -195,7 +199,7 @@ export const ViewsContainer = styled.div`
   }
 `;
 
-export const IssueContainer = styled.div`
+export const IssueContainer = styled.div<IssueContainerProps>`
   width: 100%;
   padding: 3rem 3rem 2rem;
   border: 4px solid ${(props) => props.theme.colors.line};

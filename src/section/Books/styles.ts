@@ -29,3 +29,22 @@ export const Container = styled.div`
     padding-bottom: 0rem;
   }
 `;
+
+export const Header = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 5rem;
+`;
+
+export const CategorySection = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+`;

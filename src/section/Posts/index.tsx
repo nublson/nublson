@@ -1,7 +1,6 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { MediumTitle } from "../../components/shared/atoms/Titles";
 import { filterPostsByCategory } from "../../utils/filterPosts";
 import { getCategories } from "../../utils/getCategories";
 import {
@@ -27,6 +26,13 @@ const MediumText = dynamic<ITextsProps>(() =>
     (module) => module.MediumText
   )
 );
+
+const MediumTitle = dynamic<ITextsProps>(() =>
+  import("../../components/shared/atoms/Titles").then(
+    (module) => module.MediumTitle
+  )
+);
+
 const Post = dynamic<IPostCard>(
   () =>
     import("../../components/shared/molecules/Cards").then(

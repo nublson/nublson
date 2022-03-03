@@ -1,10 +1,10 @@
-import { IPostCategory, IPostItem } from "./types";
+import { IPostCategory } from "./types";
 
-export const getCategories = (posts: IPostItem[]) => {
+export const getCategories = (posts: any[]) => {
   let categories: IPostCategory[] = [];
 
   posts.forEach((post) =>
-    post.categories.forEach((category) => {
+    post.categories.forEach((category: IPostCategory) => {
       const alreadyExists = categories.find((item) => item.id === category.id);
 
       if (!alreadyExists) {

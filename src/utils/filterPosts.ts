@@ -1,13 +1,9 @@
-import { IPostItem } from "./types";
+import { IPostCategory } from "./types";
 
-export const filterPostsByCategory = (filter: string, posts: IPostItem[]) => {
+export const filterPostsByCategory = (filter: string, posts: any[]) => {
   return posts.filter((post) => {
-    return post.categories.find((category) => category.name === filter);
-  });
-};
-
-export const filterPostsByTitle = (title: string, posts: IPostItem[]) => {
-  return posts.filter((post) => {
-    return post.title.toLowerCase().includes(title.toLowerCase());
+    return post.categories.find(
+      (category: IPostCategory) => category.name === filter
+    );
   });
 };

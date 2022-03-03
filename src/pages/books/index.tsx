@@ -61,7 +61,7 @@ const Newsletter: NextPage<BooksProps> = ({ books }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const results = await getData(process.env.NOTION_DATABASE_BOOKS_ID);
 
-  const books = formatBooks(results).slice(0, 2);
+  const books = formatBooks(results);
 
   return {
     props: {
