@@ -66,7 +66,7 @@ export const Container = styled.div`
       li {
         &.active {
           font-weight: 600;
-          border-bottom: 2px solid ${(props) => props.theme.colors.off_black};
+          text-decoration: underline;
 
           & > :hover {
             text-decoration: none;
@@ -76,7 +76,7 @@ export const Container = styled.div`
 
       a {
         color: ${(props) => props.theme.colors.off_black};
-        text-decoration: underline transparent;
+        text-decoration: none;
 
         &:hover {
           text-decoration: underline;
