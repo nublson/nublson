@@ -10,10 +10,10 @@ export const NavItems = ({ items, scrollAction }: IItemsProps) => {
 
   return (
     <ul>
-      {items.map((item, index) => {
+      {items.map((item) => {
         return (
           <StyledItem
-            key={index}
+            key={item.path}
             className={pathname === `/${item.path}` ? "active" : ""}
           >
             {item.name === "Contact" ? (

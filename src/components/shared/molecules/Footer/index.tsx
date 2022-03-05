@@ -5,10 +5,12 @@ import nav from "../../../../utils/navMenu.json";
 import RouteLink from "../../atoms/RouteLink";
 import { SmallText } from "../../atoms/Texts";
 import { Container } from "./styles";
+import { useRouter } from "next/router";
 
 function Footer() {
   const [currentYear, setCurrentYear] = useState(2022);
   const player = useMusic();
+  const { pathname } = useRouter();
 
   useEffect(() => {
     setCurrentYear(new Date().getFullYear());
@@ -17,30 +19,31 @@ function Footer() {
   return (
     <Container>
       <div className="content">
-        <div className="copy">
-          <div className="spotify">
-            <RiSpotifyLine className="icon" />
-            {player?.isPlaying ? (
-              <a href={player.songUrl} target="_blank" rel="noreferrer">
-                <SmallText content={`${player.title}`} />
-              </a>
-            ) : (
-              <SmallText content="Not Playing" />
-            )}
-            <SmallText content="on Spotify" />
-          </div>
-          <SmallText
-            content={`© ${currentYear}, Nubelson Fernandes. With ❤️ and ☕`}
-          />
+        <div className="spotify">
+          <RiSpotifyLine className="icon" />
+          {player?.isPlaying ? (
+            <a href={player.songUrl} target="_blank" rel="noreferrer">
+              <SmallText content={`${player.title}`} />
+            </a>
+          ) : (
+            <SmallText content="Not Playing" />
+          )}
+          <SmallText content="on Spotify" />
         </div>
 
-        <div className="menu">
+        <ul className="menu">
           {nav.footer.items.map((item) => (
-            <RouteLink key={item.path} href={`/${item.path}`}>
-              <SmallText content={item.name} />
-            </RouteLink>
+            <li
+              key={item.path}
+              className={pathname === `/${item.path}` ? "active" : ""}
+            >
+              <RouteLink href={`/${item.path}`}>
+                <SmallText content={item.name} />
+              </RouteLink>
+            </li>
           ))}
-        </div>
+        </ul>
+        <SmallText content={`© ${currentYear}, Nubelson Fernandes`} />
       </div>
     </Container>
   );

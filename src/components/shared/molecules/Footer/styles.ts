@@ -12,57 +12,69 @@ export const Container = styled.div`
 
   padding: 5rem 2rem;
 
+  @media ${(props) => props.theme.mediaQueries.small} {
+    padding: 3rem 1rem;
+  }
+
   .content {
     max-width: 121.8rem;
     width: 100%;
     margin: 0 auto;
 
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
 
-    .copy {
+    .spotify {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 600;
 
-      .spotify {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-weight: 600;
+      a {
+        color: ${(props) => props.theme.colors.off_black};
+        text-decoration: underline;
+      }
 
-        a {
-          color: ${(props) => props.theme.colors.off_black};
-          text-decoration: underline;
-        }
+      .icon {
+        color: ${(props) => props.theme.colors.off_black};
+        font-size: 2.4rem;
+      }
 
-        .icon {
-          color: ${(props) => props.theme.colors.off_black};
-          font-size: 2.4rem;
-        }
+      & > :last-child {
+        font-weight: 400;
+      }
 
-        & > :last-child {
-          font-weight: 400;
-        }
-
-        @media ${(props) => props.theme.mediaQueries.small} {
-          flex-wrap: wrap;
-        }
+      @media ${(props) => props.theme.mediaQueries.small} {
+        flex-wrap: wrap;
       }
     }
 
     .menu {
-      text-align: right;
+      text-align: center;
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      flex-wrap: wrap;
+      column-gap: 2.5rem;
+      margin-bottom: 4rem;
+      list-style: none;
 
-      & > * {
+      li {
+        &.active {
+          font-weight: 600;
+          border-bottom: 2px solid ${(props) => props.theme.colors.off_black};
+
+          & > :hover {
+            text-decoration: none;
+          }
+        }
+      }
+
+      a {
         color: ${(props) => props.theme.colors.off_black};
         text-decoration: underline transparent;
 
@@ -74,15 +86,8 @@ export const Container = styled.div`
     }
 
     @media ${(props) => props.theme.mediaQueries.small} {
-      flex-direction: column-reverse;
-      align-items: flex-start;
-      justify-content: center;
-
       .menu {
-        align-items: flex-start;
-        text-align: left;
-        gap: 1.5rem;
-        margin-bottom: 5rem;
+        row-gap: 1.5rem;
       }
     }
   }
