@@ -46,7 +46,6 @@ function Work() {
             title={item.title}
             description={item.description}
             path={item.path}
-            stats={`${getStats(item.id)} ${item.stats}`}
             external={item.external}
           />
         ))}

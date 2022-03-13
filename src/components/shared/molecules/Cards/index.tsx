@@ -12,6 +12,8 @@ import {
   RiStoreLine,
   RiUnsplashLine,
   RiYoutubeLine,
+  RiCameraLine,
+  RiNewspaperLine,
 } from "react-icons/ri";
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate, formatString } from "../../../../utils/formatter";
@@ -33,14 +35,7 @@ import {
   WorkContainer,
 } from "./styles";
 
-export function Work({
-  id,
-  title,
-  description,
-  path,
-  stats,
-  external,
-}: IWorkCard) {
+export function Work({ id, title, description, path, external }: IWorkCard) {
   return !external ? (
     <RouteLink href={path}>
       <WorkContainer>
@@ -50,6 +45,10 @@ export function Work({
           <RiArticleLine className="icon" />
         ) : id === "podcast" ? (
           <RiMicLine className="icon" />
+        ) : id === "photography" ? (
+          <RiCameraLine className="icon" />
+        ) : id === "newsletter" ? (
+          <RiNewspaperLine className="icon" />
         ) : (
           <RiGlobalLine className="icon" />
         )}
@@ -65,11 +64,6 @@ export function Work({
                 }
               />
             )}
-          </div>
-
-          <div className="footer">
-            <SmallText content="Visit" />
-            <SmallText content={stats} />
           </div>
         </div>
       </WorkContainer>
@@ -102,11 +96,6 @@ export function Work({
                 }
               />
             )}
-          </div>
-
-          <div className="footer">
-            <SmallText content="Visit" />
-            <SmallText content={stats} />
           </div>
         </div>
       </WorkContainer>

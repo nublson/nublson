@@ -10,9 +10,10 @@ interface IssueContainerProps {
 
 export const WorkContainer = styled.div`
   width: 100%;
+  height: 100%;
   max-width: 55rem;
   margin: 0 auto;
-  padding: 3rem 3rem 1rem;
+  padding: 3rem;
   border: 4px solid ${(props) => props.theme.colors.line};
   text-decoration: none;
   cursor: pointer;
@@ -34,7 +35,7 @@ export const WorkContainer = styled.div`
   }
 
   @media ${(props) => props.theme.mediaQueries.medium} {
-    padding: 2rem 2rem 1rem;
+    padding: 2rem;
 
     gap: 3rem;
   }
@@ -68,25 +69,6 @@ export const WorkContainer = styled.div`
 
     p {
       color: ${(props) => props.theme.colors.body};
-    }
-  }
-
-  .footer {
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    & > :first-child {
-      color: ${(props) => props.theme.colors.off_white};
-      font-weight: 600;
-      text-decoration: underline;
-    }
-
-    & > :last-child {
-      font-weight: 600;
-      color: ${(props) => props.theme.colors.label};
     }
   }
 `;

@@ -1,36 +1,32 @@
 {
   "items": [
     {
-      "id": "instagram",
-      "title": "Instagram",
-      "description": "My daily life as a content creator and partnerships with different brands.",
-      "path": "https://instagram.com/nublson",
-      "stats": "followers",
-      "external": true
+      "id": "photography",
+      "title": "Photography",
+      "description": "Some of my photographic works in partnership with different brands.",
+      "path": "photography",
+      "external": false
     },
     {
       "id": "youtube",
       "title": "Youtube",
       "description": "I'm also diving into the world of video creation. Videos about technology, photography and lifestyle.",
       "path": "https://www.youtube.com/c/NubelsonFernandes",
-      "stats": "subscribers",
       "external": true
     },
     {
-      "id": "unsplash",
-      "title": "Unsplash",
-      "description": "You can see a selected collection of my photography work.",
-      "path": "https://unsplash.com/@nublson",
-      "stats": "views/last 30 days",
-      "external": true
+      "id": "newsletter",
+      "title": "The Road",
+      "description": "My newsletter where I share my journey and experience as a content creator.",
+      "path": "newsletter",
+      "external": false
     },
     {
-      "id": "support",
-      "title": "Buy Me a Coffee",
-      "description": "Free and early access to all my digital products, exclusive and behind-the-scenes content.",
-      "path": "https://www.buymeacoffee.com/nublson",
-      "stats": "active members",
-      "external": true
+      "id": "store",
+      "title": "Digital Products",
+      "description": "A collection of products like LUTs, icon packs, lightroom presets and others.",
+      "path": "store",
+      "external": false
     }
   ]
 }
