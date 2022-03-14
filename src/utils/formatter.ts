@@ -1,7 +1,13 @@
 import { htmlToText } from "html-to-text";
 import moment from "moment";
 import slugify from "slugify";
-import { IBookItem, IIssueItem, IPostCategory, IPostItem } from "./types";
+import {
+  IBookItem,
+  IGalleryItem,
+  IIssueItem,
+  IPostCategory,
+  IPostItem,
+} from "./types";
 
 export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
@@ -190,4 +196,16 @@ export const formatNumbers = (value: number) => {
 
 export const formatString = (textValue: string, textLength: number) => {
   return `${textValue.substring(0, textLength)}...`;
+};
+
+export const formatCloudinaryImages = (gallery: any[]) => {
+  const formatedGallery: IGalleryItem[] = gallery.map((item) => ({
+    id: item.asset_id,
+    url: item.url,
+    alt: item.public_id,
+    height: item.height,
+    width: item.width,
+  }));
+
+  return formatedGallery;
 };

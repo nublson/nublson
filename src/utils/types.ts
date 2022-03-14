@@ -39,6 +39,14 @@ export type IPostItem = {
   refer_link?: string;
 };
 
+export type IGalleryItem = {
+  id: string;
+  url: string;
+  alt: string;
+  height: number;
+  width: number;
+};
+
 export type IIssueItem = {
   id: number;
   title: string;
@@ -163,4 +171,8 @@ export type IPostType = "article" | "product" | "podcast";
 export interface IMembersOnlyCardProps {
   member_link: string;
   access: "public" | "member_free" | "member_exclusive";
+}
+
+export interface IImageGridProps {
+  gallery: IGalleryItem[];
 }

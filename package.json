@@ -19,6 +19,7 @@
     "@unform/web": "^2.1.6",
     "axios": "^0.24.0",
     "babel-plugin-prismjs": "^2.1.0",
+    "cloudinary": "^1.28.1",
     "firebase-admin": "^10.0.1",
     "html-to-text": "^8.1.0",
     "moment": "^2.29.1",

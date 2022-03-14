@@ -4,16 +4,16 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
   RiArticleLine,
+  RiCameraLine,
   RiCupLine,
   RiGithubLine,
   RiGlobalLine,
   RiInstagramLine,
   RiMicLine,
+  RiRoadMapLine,
   RiStoreLine,
   RiUnsplashLine,
   RiYoutubeLine,
-  RiCameraLine,
-  RiNewspaperLine,
 } from "react-icons/ri";
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate, formatString } from "../../../../utils/formatter";
@@ -48,7 +48,7 @@ export function Work({ id, title, description, path, external }: IWorkCard) {
         ) : id === "photography" ? (
           <RiCameraLine className="icon" />
         ) : id === "newsletter" ? (
-          <RiNewspaperLine className="icon" />
+          <RiRoadMapLine className="icon" />
         ) : (
           <RiGlobalLine className="icon" />
         )}

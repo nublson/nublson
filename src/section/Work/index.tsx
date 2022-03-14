@@ -1,6 +1,4 @@
 import dynamic from "next/dynamic";
-import { useUnsplash, useYoutube } from "../../hooks/useWork";
-import { formatNumbers } from "../../utils/formatter";
 import { ISectionProps, IWorkCard } from "../../utils/types";
 import work from "../../utils/workItems.json";
 import { Container } from "./styles";
@@ -15,24 +13,6 @@ const WorkCard = dynamic<IWorkCard>(() =>
 );
 
 function Work() {
-  const unsplashViews = useUnsplash();
-
-  const youtubeSubs = useYoutube();
-
-  const getStats = (id: string) => {
-    if (id === "instagram") {
-      return formatNumbers(4240);
-    } else if (id === "youtube") {
-      return youtubeSubs ? youtubeSubs : 0;
-    } else if (id === "unsplash") {
-      return unsplashViews ? unsplashViews : 0;
-    } else if (id === "store") {
-      return formatNumbers(1323);
-    } else if (id === "support") {
-      return formatNumbers(32);
-    }
-  };
-
   return (
     <Section
       id="work"

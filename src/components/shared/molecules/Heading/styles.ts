@@ -67,7 +67,7 @@ export const Content = styled.div`
   }
 `;
 
-export const Thumbnail = styled.div<ThumbnailProps>`
+export const Thumbnail = styled.figure<ThumbnailProps>`
   position: relative;
   width: 100%;
   height: ${(props) => (props.article ? "68rem" : "46rem")};

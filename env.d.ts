@@ -10,11 +10,6 @@ namespace NodeJS {
     NOTION_PAGE_ABOUT_ID: string;
     NOTION_PAGE_GEARS_ID: string;
     NOTION_PAGE_AFFILIATES_ID: string;
-    UNSPLASH_ACCESS_TOKEN: string;
-    UNSPLASH_SECRET_KEY: string;
-    YOUTUBE_API_KEY: string;
-    YOUTUBE_CHANNEL_ID: string;
-    GITHUB_ACCESS_TOKEN: string;
     REVUE_API_KEY: string;
     NEXT_PUBLIC_FIREBASE_PROJECT_ID: string;
     FIREBASE_PRIVATE_KEY: string;
@@ -26,5 +21,8 @@ namespace NodeJS {
     SPOTIFY_AUTH_CODE: string;
     SPOTIFY_REFRESH_TOKEN: string;
     BUY_ME_A_COFFEE_ACCESS_TOKEN: string;
+    CLOUDINARY_CLOUD_NAME: string;
+    CLOUDINARY_API_KEY: string;
+    CLOUDINARY_API_SECRET: string;
   }
 }
