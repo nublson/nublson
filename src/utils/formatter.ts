@@ -159,7 +159,6 @@ export const formatIssues = (database: any[]) => {
     title: issue.title,
     description: htmlToText(issue.description),
     publish_date: formatDate(issue.sent_at),
-    url: issue.url,
   }));
 
   return issues;

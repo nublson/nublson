@@ -194,7 +194,7 @@ export function Issue({ title, description, publish_date }: IIssueCard) {
 
       <div className="footer">
         <SmallText content="Subscribe to read" />
-        <SmallText content={formatDate(publish_date)} />
+        <SmallText content={publish_date} />
       </div>
     </IssueContainer>
   );

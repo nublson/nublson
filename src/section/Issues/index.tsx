@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { useEffect } from "react";
 import { useIssue } from "../../hooks/useNewsletter";
 import { IIssueCard, ISectionProps, ITextsProps } from "../../utils/types";
 import { Container } from "./styles";

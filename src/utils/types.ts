@@ -52,7 +52,6 @@ export type IIssueItem = {
   title: string;
   description: string;
   publish_date: string;
-  url: string;
 };
 
 export interface ISectionProps extends HTMLAttributes<HTMLDivElement> {
