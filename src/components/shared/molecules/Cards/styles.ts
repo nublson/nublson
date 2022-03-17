@@ -187,7 +187,6 @@ export const ScrollLink = styled(Link)`
 
 export const IssueContainer = styled.div`
   width: 100%;
-  min-height: 21rem;
   height: 100%;
   padding: 3rem 3rem 2rem;
   border: 4px solid ${(props) => props.theme.colors.line};
@@ -249,10 +248,5 @@ export const IssueContainer = styled.div`
 
   @media ${(props) => props.theme.mediaQueries.medium_s} {
     padding: 1rem;
-    min-height: 18rem;
-  }
-
-  @media ${(props) => props.theme.mediaQueries.smallest} {
-    min-height: 21rem;
   }
 `;
