@@ -8,7 +8,7 @@
   "blog": {
     "top": "Welcome to my",
     "title": "Personal Blog",
-    "description": "I also share ideas, thoughts and experience",
+    "description": "Posts about personal development, technology, photography and others",
     "image": "https://res.cloudinary.com/nubelsondev/image/upload/v1643423706/Portfolio/Pages/AnyConv.com__blog_jbyton.webp"
   },
   "store": {
@@ -19,7 +19,7 @@
   },
   "newsletter": {
     "title": "Nubelson's newsletter",
-    "description": "No spam, just insightful content on tech, photography, filmmaking, code, and much more.",
+    "description": "No spam, just regular news about what I'm doing and creating, spoilers for upcoming projects, and much more.",
     "image": "https://res.cloudinary.com/nubelsondev/image/upload/v1643423706/Portfolio/Pages/AnyConv.com__newsletter_pbx87a.webp"
   },
   "photography": {
