@@ -21,7 +21,7 @@ export const Container = styled.div`
   }
 
   @media ${(props) => props.theme.mediaQueries.medium_s} {
-    width: 90%;
+    width: 100%;
     padding-bottom: 0rem;
   }
 `;
