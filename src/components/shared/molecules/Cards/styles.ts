@@ -9,7 +9,7 @@ export const WorkContainer = styled.div`
   width: 100%;
   height: 100%;
   max-width: 55rem;
-  margin: 0 auto;
+  margin: 0;
   padding: 3rem;
   border: 4px solid ${(props) => props.theme.colors.line};
   text-decoration: none;
@@ -31,13 +31,16 @@ export const WorkContainer = styled.div`
     transition: all 0.2s;
   }
 
-  @media ${(props) => props.theme.mediaQueries.medium} {
+  @media ${(props) => props.theme.mediaQueries.larger} {
+    max-width: 53rem;
     padding: 2rem;
+  }
 
+  @media ${(props) => props.theme.mediaQueries.medium} {
     gap: 3rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     gap: 2rem;
 
     .icon {
@@ -79,7 +82,7 @@ export const PostContainer = styled.div<PostContainerProps>`
   border: 4px solid transparent;
   flex: 1;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     width: 100%;
   }
 
@@ -169,7 +172,7 @@ export const Thumbnail = styled.div`
     height: 35rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     height: 25rem;
   }
 
@@ -217,7 +220,7 @@ export const IssueContainer = styled.div`
       color: ${(props) => props.theme.colors.body};
     }
 
-    @media ${(props) => props.theme.mediaQueries.small} {
+    @media ${(props) => props.theme.mediaQueries.medium_s} {
       gap: 1rem;
     }
   }
@@ -244,7 +247,7 @@ export const IssueContainer = styled.div`
     padding: 2rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     padding: 1rem;
     min-height: 18rem;
   }

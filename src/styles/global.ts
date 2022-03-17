@@ -12,6 +12,7 @@ export default createGlobalStyle`
     height: 100%;
     font-size: 62.5%;
 
+
     @media ${(props) => props.theme.mediaQueries.large} {
       font-size: 60%;
     }
@@ -20,7 +21,7 @@ export default createGlobalStyle`
       font-size: 57.5%;
     }
 
-    @media ${(props) => props.theme.mediaQueries.small} {
+    @media ${(props) => props.theme.mediaQueries.medium_s} {
       font-size: 55%;
     }
   }

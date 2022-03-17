@@ -12,7 +12,7 @@ export const Container = styled.div`
 
   padding: 5rem 2rem;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     padding: 3rem 1rem;
   }
 
@@ -48,7 +48,7 @@ export const Container = styled.div`
         font-weight: 400;
       }
 
-      @media ${(props) => props.theme.mediaQueries.small} {
+      @media ${(props) => props.theme.mediaQueries.medium_s} {
         flex-wrap: wrap;
       }
     }
@@ -85,7 +85,7 @@ export const Container = styled.div`
       }
     }
 
-    @media ${(props) => props.theme.mediaQueries.small} {
+    @media ${(props) => props.theme.mediaQueries.medium_s} {
       .menu {
         row-gap: 1.5rem;
       }

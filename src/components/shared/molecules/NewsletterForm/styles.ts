@@ -15,7 +15,7 @@ export const Content = styled.div<FormProps>`
   align-items: flex-start;
   gap: 1rem;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     width: 90%;
 
     align-items: center;
@@ -60,7 +60,7 @@ export const StyledForm = styled(Form)`
     flex: 1;
     border-radius: 0px;
 
-    @media ${(props) => props.theme.mediaQueries.small} {
+    @media ${(props) => props.theme.mediaQueries.medium_s} {
       width: 100%;
       height: 5rem;
       padding: 0.5rem;
@@ -70,7 +70,7 @@ export const StyledForm = styled(Form)`
     }
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     height: 11rem;
     padding: 0;
 
@@ -99,7 +99,7 @@ export const Footer = styled.div`
     color: ${(props) => props.theme.colors.off_white};
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     flex-direction: column;
     align-items: center;
     justify-content: center;

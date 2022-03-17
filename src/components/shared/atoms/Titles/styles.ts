@@ -6,7 +6,7 @@ export const StyledTitleLarge = styled.h1`
   line-height: 66px;
   font-weight: 700;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     font-size: 3.6rem;
     line-height: 36px;
   }
@@ -18,7 +18,7 @@ export const StyledTitleMedium = styled.h2`
   line-height: 50px;
   font-weight: 700;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     font-size: 2.4rem;
     line-height: 32px;
   }
@@ -30,7 +30,7 @@ export const StyledTitleSmall = styled.h3`
   line-height: 34px;
   font-weight: 700;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     font-size: 2.2rem;
     line-height: 32px;
   }

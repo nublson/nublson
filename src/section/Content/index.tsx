@@ -18,9 +18,6 @@ const GumroadButton = dynamic<IGumroadButtonProps>(() =>
 const KitFrame = dynamic(
   () => import("../../components/shared/molecules/KitIframe")
 );
-const PodcastFrame = dynamic(
-  () => import("../../components/shared/molecules/PodcastIframe")
-);
 
 const MembersOnly = dynamic(
   () => import("../../components/shared/molecules/MembersOnly")
@@ -30,17 +27,10 @@ interface ContentProps {
   blocks: any[];
   url?: string;
   member_link?: string;
-  podcast_slug?: string;
   access?: "public" | "member_free" | "member_exclusive";
 }
 
-function Content({
-  blocks,
-  url,
-  member_link,
-  podcast_slug,
-  access,
-}: ContentProps) {
+function Content({ blocks, url, member_link, access }: ContentProps) {
   const { pathname } = useRouter();
 
   return (
@@ -65,9 +55,6 @@ function Content({
           )}
 
           {url && pathname.includes("gears") && <KitFrame url={url} />}
-          {podcast_slug && pathname.includes("podcast") && (
-            <PodcastFrame slug={podcast_slug} />
-          )}
         </StyledBlocks>
       </Container>
     </ArticleSection>

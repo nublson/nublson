@@ -29,7 +29,7 @@ export const PodcastContainer = styled.iframe`
     height: 11.5rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     height: 12rem;
   }
 `;

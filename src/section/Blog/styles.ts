@@ -39,9 +39,9 @@ export const PostList = styled.div<PostListProps>`
   align-items: stretch;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 1.5rem;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     flex-direction: column;
     align-items: stretch;
     justify-content: center;

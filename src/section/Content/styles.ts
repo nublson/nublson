@@ -14,7 +14,7 @@ export const Container = styled.div`
     padding: 0 5rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     padding: 0;
   }
 `;

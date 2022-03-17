@@ -9,7 +9,7 @@ export const KitContainer = styled.iframe`
   max-width: 70rem;
   max-height: 70rem;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     max-height: 45rem;
   }
 

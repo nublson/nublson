@@ -17,7 +17,7 @@ const StyledSection = styled.section`
     padding: 10rem 0 3rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     padding: 5rem 2rem 3rem;
   }
 
@@ -33,7 +33,7 @@ const StyledSection = styled.section`
     gap: 2rem;
 
     h2 {
-      width: 70%;
+      width: 80%;
     }
 
     p {
@@ -48,10 +48,18 @@ const StyledSection = styled.section`
       }
     }
 
-    @media ${(props) => props.theme.mediaQueries.small} {
+    @media ${(props) => props.theme.mediaQueries.medium_s} {
       margin-bottom: 5rem;
 
       gap: 1rem;
+    }
+
+    @media ${(props) => props.theme.mediaQueries.smaller} {
+      margin-bottom: 3rem;
+
+      h2 {
+        width: 100%;
+      }
     }
   }
 `;

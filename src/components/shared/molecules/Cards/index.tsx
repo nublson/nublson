@@ -15,7 +15,6 @@ import {
   RiUnsplashLine,
   RiYoutubeLine,
 } from "react-icons/ri";
-import { useTheme } from "styled-components";
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate, formatString } from "../../../../utils/formatter";
 import {
@@ -178,12 +177,6 @@ export function Post({
 }
 
 export function Issue({ title, description, publish_date }: IIssueCard) {
-  const { mediaQueries } = useTheme();
-
-  useEffect(() => {
-    console.log({ mediaQueries });
-  }, [mediaQueries]);
-
   return (
     <ScrollLink
       to="newsletter"

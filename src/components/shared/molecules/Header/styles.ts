@@ -12,7 +12,7 @@ export const Container = styled.header`
   background-color: ${(props) => props.theme.colors.background};
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.35);
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     padding: 2rem 2rem 1rem;
   }
 

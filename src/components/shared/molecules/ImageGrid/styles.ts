@@ -12,7 +12,7 @@ export const Container = styled.div`
     column-gap: 1rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     column-gap: 0.5rem;
   }
 `;
@@ -31,7 +31,7 @@ export const Figure = styled.figure`
     margin-bottom: 1rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     margin-bottom: 0.5rem;
   }
 `;

@@ -19,7 +19,7 @@ export const Container = styled.div`
     gap: 3rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     gap: 2rem;
     padding: 0 2rem;
   }
@@ -36,21 +36,14 @@ export const Content = styled.div`
 
   & > :first-child,
   h1 {
-    width: 80%;
+    width: 100%;
   }
 
   & > :last-child {
     width: 90%;
   }
 
-  @media ${(props) => props.theme.mediaQueries.medium} {
-    & > :first-child,
-    h1 {
-      width: 100%;
-    }
-  }
-
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     flex: 1;
 
     gap: 0.5rem;
@@ -84,7 +77,7 @@ export const Thumbnail = styled.figure<ThumbnailProps>`
     `}
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     height: ${(props) => (props.article ? "23.5rem" : "50.5rem")};
   }
 

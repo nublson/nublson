@@ -9,7 +9,7 @@ export const StyledBlocks = styled.div`
     margin-top: 2rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     margin-top: 1rem;
   }
 
@@ -51,7 +51,7 @@ export const StyledBlocks = styled.div`
       font-weight: 700;
       text-align: left;
 
-      @media ${(props) => props.theme.mediaQueries.small} {
+      @media ${(props) => props.theme.mediaQueries.medium_s} {
         font-size: 3.6rem;
         line-height: 36px;
       }
@@ -66,7 +66,7 @@ export const StyledBlocks = styled.div`
       font-weight: 700;
       text-align: left;
 
-      @media ${(props) => props.theme.mediaQueries.small} {
+      @media ${(props) => props.theme.mediaQueries.medium_s} {
         font-size: 2.4rem;
         line-height: 32px;
       }
@@ -81,7 +81,7 @@ export const StyledBlocks = styled.div`
       font-weight: 700;
       text-align: left;
 
-      @media ${(props) => props.theme.mediaQueries.small} {
+      @media ${(props) => props.theme.mediaQueries.medium_s} {
         font-size: 2.1rem;
         line-height: 32px;
       }
@@ -108,7 +108,7 @@ export const StyledBlocks = styled.div`
       line-height: 30px;
       margin: 1.5rem 0;
 
-      @media ${(props) => props.theme.mediaQueries.small} {
+      @media ${(props) => props.theme.mediaQueries.medium_s} {
         font-size: 1.6rem;
         line-height: 25px;
       }
@@ -125,7 +125,7 @@ export const StyledBlocks = styled.div`
       flex-direction: row;
       align-items: flex-start;
 
-      @media ${(props) => props.theme.mediaQueries.small} {
+      @media ${(props) => props.theme.mediaQueries.medium_s} {
         padding: 1rem;
       }
 
@@ -134,7 +134,7 @@ export const StyledBlocks = styled.div`
         line-height: 25px;
         margin: 0 1rem;
 
-        @media ${(props) => props.theme.mediaQueries.small} {
+        @media ${(props) => props.theme.mediaQueries.medium_s} {
           font-size: 1.6rem;
         }
       }
@@ -150,7 +150,7 @@ export const StyledBlocks = styled.div`
       font-style: italic;
       color: ${(props) => props.theme.colors.off_white};
 
-      @media ${(props) => props.theme.mediaQueries.small} {
+      @media ${(props) => props.theme.mediaQueries.medium_s} {
         font-size: 1.6rem;
         padding: 0 1rem;
       }
@@ -167,7 +167,7 @@ export const StyledBlocks = styled.div`
         line-height: 25px;
         margin: 1rem 0;
 
-        @media ${(props) => props.theme.mediaQueries.small} {
+        @media ${(props) => props.theme.mediaQueries.medium_s} {
           font-size: 1.6rem;
         }
       }
@@ -184,7 +184,7 @@ export const StyledBlocks = styled.div`
         line-height: 25px;
         margin: 1rem 0;
 
-        @media ${(props) => props.theme.mediaQueries.small} {
+        @media ${(props) => props.theme.mediaQueries.medium_s} {
           font-size: 1.6rem;
         }
       }
@@ -204,7 +204,7 @@ export const StyledBlocks = styled.div`
         align-items: center;
         justify-content: flex-start;
 
-        @media ${(props) => props.theme.mediaQueries.small} {
+        @media ${(props) => props.theme.mediaQueries.medium_s} {
           font-size: 1.6rem;
         }
 
@@ -226,7 +226,7 @@ export const StyledBlocks = styled.div`
         line-height: 25px;
         margin: 1rem 0;
 
-        @media ${(props) => props.theme.mediaQueries.small} {
+        @media ${(props) => props.theme.mediaQueries.medium_s} {
           font-size: 1.6rem;
         }
       }
@@ -237,7 +237,7 @@ export const StyledBlocks = styled.div`
         line-height: 25px;
         margin: 1rem 0 0 2rem;
 
-        @media ${(props) => props.theme.mediaQueries.small} {
+        @media ${(props) => props.theme.mediaQueries.medium_s} {
           font-size: 1.6rem;
         }
       }
@@ -258,7 +258,7 @@ export const StyledBlocks = styled.div`
         height: 39rem;
       }
 
-      @media ${(props) => props.theme.mediaQueries.small} {
+      @media ${(props) => props.theme.mediaQueries.medium_s} {
         height: 25rem;
       }
 
@@ -294,7 +294,7 @@ export const StyledBlocks = styled.div`
         margin-right: 1rem;
       }
 
-      @media ${(props) => props.theme.mediaQueries.small} {
+      @media ${(props) => props.theme.mediaQueries.medium_s} {
         font-size: 1.6rem;
       }
     }

@@ -45,7 +45,7 @@ export const StyledForm = styled(Form)`
     flex: 1;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     width: 85%;
   }
 `;
@@ -71,7 +71,7 @@ export const PostList = styled.div<PostListProps>`
   flex-wrap: wrap;
   gap: 2rem;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     flex-direction: column;
     align-items: stretch;
     justify-content: center;

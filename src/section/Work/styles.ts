@@ -6,21 +6,26 @@ export const Container = styled.div`
   padding: 0 2.5rem;
 
   display: flex;
-  align-items: stretch;
-  justify-content: stretch;
-  gap: 1.5rem;
   flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 1.5rem;
 
   @media ${(props) => props.theme.mediaQueries.medium} {
     width: 75%;
 
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_m} {
     width: 100%;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     padding: 0;
+    gap: 1rem;
   }
 `;

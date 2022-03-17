@@ -24,7 +24,7 @@ export const Container = styled.div`
     width: 80%;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     width: 90%;
     padding-bottom: 0rem;
   }

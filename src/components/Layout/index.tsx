@@ -30,7 +30,7 @@ const Content = styled.div`
   align-items: center;
   justify-content: flex-start;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     padding: 0;
   }
 `;

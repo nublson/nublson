@@ -21,7 +21,7 @@ export const StyledCategory = styled.p`
     transition: all 0.2s;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     font-size: 1.6rem;
     line-height: 25px;
   }

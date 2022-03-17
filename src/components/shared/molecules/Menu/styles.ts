@@ -5,7 +5,7 @@ export const WebContainer = styled.nav`
   align-items: center;
   justify-content: center;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     display: none;
   }
 
@@ -22,7 +22,7 @@ export const WebContainer = styled.nav`
 export const MobileContainer = styled.div`
   display: none;
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -44,7 +44,7 @@ export const Container = styled.a`
     padding: 3rem 1rem;
   }
 
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.medium_s} {
     padding: 2rem 1rem;
 
     border-color: ${(props) => props.theme.colors.buy_me_a_coffee};
