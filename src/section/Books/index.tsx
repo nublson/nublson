@@ -97,7 +97,6 @@ function Books({ books }: BookProps) {
                 description={book.description}
                 categories={book.categories}
                 author={book.author}
-                status={book.status}
               />
             </RouteLink>
           ))

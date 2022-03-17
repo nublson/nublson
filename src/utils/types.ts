@@ -21,7 +21,6 @@ export type IBookItem = {
   categories: IPostCategory[];
   modified_date: string;
   refer_link?: string;
-  status: "read" | "reading" | "listed";
 };
 
 export type IPostItem = {
@@ -117,7 +116,6 @@ export interface IIssueCard extends ICardsProps {
 export interface IBookCard extends ICardsProps {
   author: string;
   categories: IPostCategory[];
-  status: "read" | "reading" | "listed";
 }
 
 export interface IViews {

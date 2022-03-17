@@ -39,6 +39,7 @@ const Newsletter: NextPage = () => {
       />
 
       <HomeSection
+        id="newsletter"
         title={pageData.newsletter.title}
         subtitle={pageData.newsletter.description}
       />

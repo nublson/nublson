@@ -15,6 +15,7 @@ import {
   RiUnsplashLine,
   RiYoutubeLine,
 } from "react-icons/ri";
+import { useTheme } from "styled-components";
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate, formatString } from "../../../../utils/formatter";
 import {
@@ -30,8 +31,8 @@ import { SmallTitle } from "../../atoms/Titles";
 import {
   IssueContainer,
   PostContainer,
+  ScrollLink,
   Thumbnail,
-  ViewsContainer,
   WorkContainer,
 } from "./styles";
 
@@ -133,9 +134,9 @@ export function Post({
   return (
     <PostContainer member_only={member_only}>
       <Thumbnail>
-        <ViewsContainer>
+        <div className="views">
           <XSmallText content={`${views ? views : 0} views`} />
-        </ViewsContainer>
+        </div>
         <Image
           src={thumbnail}
           alt="Thumbnail"
@@ -177,38 +178,47 @@ export function Post({
 }
 
 export function Issue({ title, description, publish_date }: IIssueCard) {
-  return (
-    <IssueContainer>
-      <div className="content">
-        <SmallTitle content={title} />
-        {description && (
-          <MediumText
-            content={
-              htmlToText(description).length > 108
-                ? formatString(htmlToText(description), 105)
-                : htmlToText(description)
-            }
-          />
-        )}
-      </div>
+  const { mediaQueries } = useTheme();
 
-      <div className="footer">
-        <SmallText content="Subscribe to read" />
-        <SmallText content={publish_date} />
-      </div>
-    </IssueContainer>
+  useEffect(() => {
+    console.log({ mediaQueries });
+  }, [mediaQueries]);
+
+  return (
+    <ScrollLink
+      to="newsletter"
+      href="#newsletter"
+      spy={true}
+      smooth={true}
+      duration={1000}
+      name="issue"
+    >
+      <IssueContainer>
+        <div className="content">
+          <SmallTitle content={title} />
+          {description && (
+            <MediumText
+              content={
+                htmlToText(description).length > 108
+                  ? formatString(htmlToText(description), 105)
+                  : htmlToText(description)
+              }
+            />
+          )}
+        </div>
+
+        <div className="footer">
+          <SmallText content="Read" />
+          <SmallText content={publish_date} />
+        </div>
+      </IssueContainer>
+    </ScrollLink>
   );
 }
 
-export function Book({
-  title,
-  description,
-  categories,
-  author,
-  status,
-}: IBookCard) {
+export function Book({ title, description, categories, author }: IBookCard) {
   return (
-    <IssueContainer status={status}>
+    <IssueContainer>
       <div className="content">
         <SmallTitle content={title} />
         {description && (

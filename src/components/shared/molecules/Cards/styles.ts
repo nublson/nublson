@@ -1,11 +1,8 @@
+import { Link } from "react-scroll";
 import styled from "styled-components";
 
 interface PostContainerProps {
   member_only?: boolean;
-}
-
-interface IssueContainerProps {
-  status?: "read" | "reading" | "listed";
 }
 
 export const WorkContainer = styled.div`
@@ -147,6 +144,23 @@ export const Thumbnail = styled.div`
   width: 100%;
   height: 35rem;
 
+  .views {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1;
+
+    padding: 0.5rem;
+    background-color: ${(props) => props.theme.colors.off_black};
+    border-radius: 3px;
+
+    & > * {
+      color: ${(props) => props.theme.colors.off_white};
+      line-height: 1.3;
+      text-align: right;
+    }
+  }
+
   @media ${(props) => props.theme.mediaQueries.large} {
     height: 30rem;
   }
@@ -164,25 +178,14 @@ export const Thumbnail = styled.div`
   }
 `;
 
-export const ViewsContainer = styled.div`
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1;
-
-  padding: 0.5rem;
-  background-color: ${(props) => props.theme.colors.off_black};
-  border-radius: 3px;
-
-  & > * {
-    color: ${(props) => props.theme.colors.off_white};
-    line-height: 1.3;
-    text-align: right;
-  }
+export const ScrollLink = styled(Link)`
+  width: 100%;
 `;
 
-export const IssueContainer = styled.div<IssueContainerProps>`
+export const IssueContainer = styled.div`
   width: 100%;
+  min-height: 21rem;
+  height: 100%;
   padding: 3rem 3rem 2rem;
   border: 4px solid ${(props) => props.theme.colors.line};
   text-decoration: none;
@@ -191,7 +194,7 @@ export const IssueContainer = styled.div<IssueContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 2rem;
 
   &:hover {
@@ -199,22 +202,15 @@ export const IssueContainer = styled.div<IssueContainerProps>`
     transition: all 0.2s;
   }
 
-  @media ${(props) => props.theme.mediaQueries.medium} {
-    padding: 2rem;
-  }
-
-  @media ${(props) => props.theme.mediaQueries.small} {
-    padding: 1rem;
-  }
-
   .content {
     width: 100%;
     text-align: left;
+    flex: 1;
 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 2rem;
 
     p {
@@ -242,5 +238,18 @@ export const IssueContainer = styled.div<IssueContainerProps>`
       color: ${(props) => props.theme.colors.label};
       text-align: right;
     }
+  }
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    padding: 2rem;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    padding: 1rem;
+    min-height: 18rem;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.smallest} {
+    min-height: 21rem;
   }
 `;
