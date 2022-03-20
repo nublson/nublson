@@ -27,7 +27,7 @@ export const StyledBlocks = styled.div`
   hr {
     width: 100%;
     height: 0;
-    margin: 0;
+    margin: 2rem 0;
     border-color: ${(props) => props.theme.colors.line};
   }
 
