@@ -2,7 +2,7 @@
   "header": {
     "items": [
       { "name": "Home", "path": "" },
-      { "name": "Blog", "path": "blog" },
+      { "name": "Posts", "path": "blog" },
       { "name": "Store", "path": "store" },
       { "name": "Contact", "path": "contact" }
     ]

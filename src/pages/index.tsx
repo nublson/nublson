@@ -44,7 +44,7 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
         id="home"
         top={pageData.home.top}
         title={pageData.home.title}
-        subtitle={pageData.home.description}
+        subtitle="I'm a Developer, Photographer and Blogger"
         image={pageData.home.image}
         scrollTo="work"
       />
