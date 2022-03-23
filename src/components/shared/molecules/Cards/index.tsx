@@ -188,7 +188,9 @@ export function Issue({ title, description, publish_date }: IIssueCard) {
     >
       <IssueContainer>
         <div className="content">
-          <SmallTitle content={title} />
+          <SmallTitle
+            content={title.length > 36 ? formatString(title, 36) : title}
+          />
           {description && (
             <MediumText
               content={
