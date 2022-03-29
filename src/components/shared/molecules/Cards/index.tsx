@@ -14,6 +14,7 @@ import {
   RiStoreLine,
   RiUnsplashLine,
   RiYoutubeLine,
+  RiVidiconLine,
 } from "react-icons/ri";
 import { useViews } from "../../../../hooks/useViews";
 import { formatDate, formatString } from "../../../../utils/formatter";
@@ -74,7 +75,7 @@ export function Work({ id, title, description, path, external }: IWorkCard) {
         {id === "instagram" ? (
           <RiInstagramLine className="icon" />
         ) : id === "youtube" ? (
-          <RiYoutubeLine className="icon" />
+          <RiVidiconLine className="icon" />
         ) : id === "unsplash" ? (
           <RiUnsplashLine className="icon" />
         ) : id === "support" ? (

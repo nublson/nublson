@@ -8,7 +8,7 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1.5rem;
 
   @media ${(props) => props.theme.mediaQueries.medium} {
