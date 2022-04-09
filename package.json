@@ -22,7 +22,7 @@
     "cloudinary": "^1.28.1",
     "firebase-admin": "^10.0.1",
     "html-to-text": "^8.1.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "next": "^12.1.0",
     "next-pwa": "^5.4.4",
     "next-seo": "^4.28.1",
