@@ -195,8 +195,8 @@ export function Issue({ title, description, publish_date }: IIssueCard) {
           {description && (
             <MediumText
               content={
-                htmlToText(description).length > 108
-                  ? formatString(htmlToText(description), 105)
+                htmlToText(description).length > 65
+                  ? formatString(htmlToText(description), 68)
                   : htmlToText(description)
               }
             />
@@ -220,8 +220,8 @@ export function Book({ title, description, categories, author }: IBookCard) {
         {description && (
           <MediumText
             content={
-              htmlToText(description).length > 108
-                ? formatString(htmlToText(description), 105)
+              htmlToText(description).length > 65
+                ? formatString(htmlToText(description), 68)
                 : htmlToText(description)
             }
           />

@@ -188,8 +188,7 @@ export const ScrollLink = styled(Link)`
 export const IssueContainer = styled.div`
   width: 100%;
   height: 100%;
-  min-height: 21rem;
-  padding: 3rem 3rem 2rem;
+  padding: 2rem;
   border: 4px solid ${(props) => props.theme.colors.line};
   text-decoration: none;
   cursor: pointer;
@@ -214,14 +213,10 @@ export const IssueContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 2rem;
+    gap: 1rem;
 
     p {
       color: ${(props) => props.theme.colors.body};
-    }
-
-    @media ${(props) => props.theme.mediaQueries.medium_s} {
-      gap: 1rem;
     }
   }
 
@@ -241,28 +236,5 @@ export const IssueContainer = styled.div`
       color: ${(props) => props.theme.colors.label};
       text-align: right;
     }
-  }
-
-  @media ${(props) => props.theme.mediaQueries.large} {
-    min-height: 24.5rem;
-  }
-
-  @media ${(props) => props.theme.mediaQueries.medium} {
-    padding: 2rem;
-
-    min-height: 22.8rem;
-  }
-
-  @media ${(props) => props.theme.mediaQueries.medium_s} {
-    padding: 1rem;
-    min-height: 16rem;
-  }
-
-  @media ${(props) => props.theme.mediaQueries.small} {
-    min-height: 19rem;
-  }
-
-  @media ${(props) => props.theme.mediaQueries.smaller} {
-    min-height: 22rem;
   }
 `;

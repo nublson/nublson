@@ -1,7 +1,6 @@
 {
   "header": {
     "items": [
-      { "name": "Home", "path": "" },
       { "name": "Articles", "path": "blog" },
       { "name": "Products", "path": "store" },
       { "name": "Contact", "path": "contact" }
