@@ -56,7 +56,6 @@ const Gears: NextPage<GearsProps> = ({ pageProps, blocks }) => {
       <ContentSection
         blocks={blocks}
         url={pageProps.refer_link}
-        access={pageProps.access}
       />
       <ShareSection title="Share this kit on" />
       <NewsletterSection />

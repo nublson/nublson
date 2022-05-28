@@ -33,9 +33,6 @@ export const formatPostProps = (page: any) => {
         : page.cover.external.url,
     title: page.properties.Name.title[0].text.content,
     description: page.properties.description.rich_text[0].text.content,
-    access: page.properties.access.select
-      ? page.properties.access.select.name
-      : "public",
     publish_date: page.properties.publish_date.date.start,
     categories: page.properties.categories.multi_select.map(
       (item: IPostCategory) => ({
@@ -95,9 +92,6 @@ export const formatPosts = (database: any[]) => {
     description: post.properties.description.rich_text.length
       ? post.properties.description.rich_text[0].text.content
       : null,
-    access: post.properties.access.select
-      ? post.properties.access.select.name
-      : "public",
     publish_date: post.properties.publish_date.date.start,
     categories: post.properties.categories.multi_select.map(
       (item: IPostCategory) => ({

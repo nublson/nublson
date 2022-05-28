@@ -53,7 +53,7 @@ const Affiliates: NextPage<AffiliatesProps> = ({ pageProps, blocks }) => {
         image={pageProps.thumbnail}
         article
       />
-      <ContentSection blocks={blocks} access={pageProps.access} />
+      <ContentSection blocks={blocks} />
       <ShareSection title="Share this program on" />
       <NewsletterSection />
       <ContactSection />

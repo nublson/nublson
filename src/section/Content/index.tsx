@@ -19,10 +19,6 @@ const KitFrame = dynamic(
   () => import("../../components/shared/molecules/KitIframe")
 );
 
-const MembersOnly = dynamic(
-  () => import("../../components/shared/molecules/MembersOnly")
-);
-
 interface ContentProps {
   blocks: any[];
   url?: string;

@@ -150,11 +150,7 @@ export function Post({
           <SmallTitle content={title} />
           {description && (
             <MediumText
-              content={
-                description.length > 108
-                  ? formatString(description, 105)
-                  : description
-              }
+              content={description}
             />
           )}
         </div>
@@ -189,15 +185,11 @@ export function Issue({ title, description, publish_date }: IIssueCard) {
       <IssueContainer>
         <div className="content">
           <SmallTitle
-            content={title.length > 36 ? formatString(title, 36) : title}
+            content={title}
           />
           {description && (
             <MediumText
-              content={
-                htmlToText(description).length > 65
-                  ? formatString(htmlToText(description), 68)
-                  : htmlToText(description)
-              }
+              content={description}
             />
           )}
         </div>
@@ -218,11 +210,7 @@ export function Book({ title, description, categories, author }: IBookCard) {
         <SmallTitle content={title} />
         {description && (
           <MediumText
-            content={
-              htmlToText(description).length > 65
-                ? formatString(htmlToText(description), 68)
-                : htmlToText(description)
-            }
+            content={description}
           />
         )}
       </div>

@@ -30,7 +30,6 @@ export type IPostItem = {
   title: string;
   description: string;
   amount: string;
-  access: "public" | "member_free" | "member_exclusive";
   publish_date: string;
   categories: IPostCategory[];
   modified_date: string;
@@ -166,7 +165,6 @@ export type IPostType = "article" | "product" | "podcast";
 
 export interface IMembersOnlyCardProps {
   member_link: string;
-  access: "public" | "member_free" | "member_exclusive";
 }
 
 export interface IImageGridProps {
