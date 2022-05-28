@@ -27,10 +27,9 @@ interface ContentProps {
   blocks: any[];
   url?: string;
   member_link?: string;
-  access?: "public" | "member_free" | "member_exclusive";
 }
 
-function Content({ blocks, url, member_link, access }: ContentProps) {
+function Content({ blocks, url }: ContentProps) {
   const { pathname } = useRouter();
 
   return (
@@ -40,20 +39,7 @@ function Content({ blocks, url, member_link, access }: ContentProps) {
           {url && pathname.includes("store") && (
             <GumroadButton productUrl={url} />
           )}
-          {access !== "public" && !pathname.includes("books") && (
-            <MembersOnly
-              member_link={
-                member_link
-                  ? member_link
-                  : "https://www.buymeacoffee.com/nublson"
-              }
-              access={access ? access : "public"}
-            />
-          )}
-          {pathname.includes("blog") && access === "member_exclusive" ? null : (
-            <Render blocks={blocks} simpleTitles classNames />
-          )}
-
+          <Render blocks={blocks} simpleTitles classNames />
           {url && pathname.includes("gears") && <KitFrame url={url} />}
         </StyledBlocks>
       </Container>

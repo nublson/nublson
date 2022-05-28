@@ -1,10 +1,6 @@
 import { Link } from "react-scroll";
 import styled from "styled-components";
 
-interface PostContainerProps {
-  member_only?: boolean;
-}
-
 export const WorkContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -73,7 +69,7 @@ export const WorkContainer = styled.div`
   }
 `;
 
-export const PostContainer = styled.div<PostContainerProps>`
+export const PostContainer = styled.div`
   height: 100%;
   position: relative;
   width: 55rem;
@@ -87,13 +83,10 @@ export const PostContainer = styled.div<PostContainerProps>`
   }
 
   &:hover {
-    border-color: ${(props) =>
-      props.member_only
-        ? props.theme.colors.buy_me_a_coffee
-        : props.theme.colors.off_white};
+    border-color: ${(props) => props.theme.colors.off_white};
     transition: all 0.2s;
   }
-
+ 
   display: flex;
   flex-direction: column;
   align-items: center;

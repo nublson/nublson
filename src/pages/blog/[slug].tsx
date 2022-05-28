@@ -87,7 +87,6 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
       <ContentSection
         blocks={blocks}
         member_link={pageProps.member_link}
-        access={pageProps.access}
       />
       <ShareSection title="Share this article on" />
       <NewsletterSection />
