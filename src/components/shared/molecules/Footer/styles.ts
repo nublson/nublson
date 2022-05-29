@@ -25,33 +25,8 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
 
-    .spotify {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      font-weight: 600;
-
-      a {
-        color: ${(props) => props.theme.colors.off_black};
-        text-decoration: underline;
-      }
-
-      .icon {
-        color: ${(props) => props.theme.colors.off_black};
-        font-size: 2.4rem;
-      }
-
-      & > :last-child {
-        font-weight: 400;
-      }
-
-      @media ${(props) => props.theme.mediaQueries.medium_s} {
-        flex-wrap: wrap;
-      }
-    }
 
     .menu {
       text-align: center;
@@ -60,7 +35,6 @@ export const Container = styled.div`
       justify-content: center;
       flex-wrap: wrap;
       column-gap: 2.5rem;
-      margin-bottom: 4rem;
       list-style: none;
 
       li {

@@ -142,10 +142,6 @@ export interface IKitProps {
   url: string;
 }
 
-export interface IPodcastProps {
-  slug: string;
-}
-
 export interface IItemsProps {
   items: {
     name: string;
@@ -161,7 +157,7 @@ export interface IGtagProps {
   value: number;
 }
 
-export type IPostType = "article" | "product" | "podcast";
+export type IPostType = "article" | "product";
 
 export interface IMembersOnlyCardProps {
   member_link: string;

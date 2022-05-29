@@ -1,4 +1,3 @@
-import { htmlToText } from "html-to-text";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -9,11 +8,9 @@ import {
   RiGithubLine,
   RiGlobalLine,
   RiInstagramLine,
-  RiMicLine,
   RiRoadMapLine,
   RiStoreLine,
   RiUnsplashLine,
-  RiYoutubeLine,
   RiVidiconLine,
 } from "react-icons/ri";
 import { useViews } from "../../../../hooks/useViews";
@@ -44,8 +41,6 @@ export function Work({ id, title, description, path, external }: IWorkCard) {
           <RiStoreLine className="icon" />
         ) : id === "blog" ? (
           <RiArticleLine className="icon" />
-        ) : id === "podcast" ? (
-          <RiMicLine className="icon" />
         ) : id === "photography" ? (
           <RiCameraLine className="icon" />
         ) : id === "newsletter" ? (
@@ -125,9 +120,6 @@ export function Post({
       setPostType("product");
     }
 
-    if (pathname === "/podcast") {
-      setPostType("podcast");
-    }
   }, [pathname, postType]);
 
   return (
@@ -161,9 +153,7 @@ export function Post({
             content={`${amount} ${
               postType === "article"
                 ? "min read"
-                : postType === "product"
-                ? "€"
-                : "min audio"
+                : "€"
             }`}
           />
         </div>
