@@ -50,5 +50,8 @@ module.exports = withBundleAnalyzer(
       // removeConsole: true,
     },
     swcMinify: true,
+    experimental: {
+      newNextLinkBehavior: true,
+    },
   })
 );

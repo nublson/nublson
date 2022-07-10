@@ -1,10 +1,13 @@
 import db from "../../../services/firebase";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+interface NextApiProps extends NextApiRequest {
+  query: {
+    slug: string;
+  };
+}
+
+export default async function handler(req: NextApiProps, res: NextApiResponse) {
   if (req.method === "POST") {
     const ref = db.ref("views").child(req.query.slug.toString());
     const { snapshot } = await ref.transaction((currentViews: number) => {

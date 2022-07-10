@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { StaticImageData } from "next/image";
 import { HTMLAttributes } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { Container, ScrollLink } from "./styles";

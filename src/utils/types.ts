@@ -1,3 +1,4 @@
+import { StaticImageData } from "next/image";
 import { LinkProps } from "next/link";
 import { HTMLAttributes, ReactNode } from "react";
 
