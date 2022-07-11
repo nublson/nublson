@@ -11,7 +11,7 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
-    "@9gustin/react-notion-render": "^3.8.2",
+    "@9gustin/react-notion-render": "^3.9.0",
     "@notionhq/client": "^0.4.9",
     "@sendgrid/client": "^7.6.0",
     "@types/moment": "^2.13.0",

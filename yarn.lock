@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@9gustin/react-notion-render@^3.8.2":
+"@9gustin/react-notion-render@^3.9.0":
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/@9gustin/react-notion-render/-/react-notion-render-3.9.0.tgz#22a234a7def3d7d76953e956b63b4ca9248625ce"
   integrity sha512-N0POkrwiLtE0gVEPzhsLcNTBnlLhmu5QUG10eGW1Zy+kA7SXgrw+vLkOdGYaVQywMTJmrlid0Q5rSTMpswx5SQ==
