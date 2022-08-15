@@ -35,12 +35,6 @@ export const StyledBlocks = styled.div`
     cursor: default;
   }
 
-  pre {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-  }
-
   .rnr- {
     &heading_1 {
       width: 100%;

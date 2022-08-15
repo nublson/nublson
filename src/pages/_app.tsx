@@ -2,15 +2,11 @@ import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import "prismjs";
 import { useEffect } from "react";
 import { pageView } from "../services/analytics";
 
 const Layout = dynamic(() => import("../components/Layout"));
 const GumroadScript = dynamic(() => import("../components/scripts/Gumroad"));
-const SupportScript = dynamic(
-  () => import("../components/scripts/BuyMeACoffee")
-);
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -40,7 +36,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </Layout>
       <GumroadScript />
-      <SupportScript />
     </>
   );
 }

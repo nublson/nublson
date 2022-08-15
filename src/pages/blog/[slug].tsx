@@ -2,7 +2,6 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import prism from "prismjs";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { getBlocks, getData } from "../../services/notion";
@@ -45,9 +44,6 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
     registerView();
   }, [pageProps.post_slug]);
 
-  useEffect(() => {
-    prism.highlightAll();
-  }, []);
 
   return (
     <>
