@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@9gustin/react-notion-render@^3.9.0":
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/@9gustin/react-notion-render/-/react-notion-render-3.9.0.tgz#22a234a7def3d7d76953e956b63b4ca9248625ce"
-  integrity sha512-N0POkrwiLtE0gVEPzhsLcNTBnlLhmu5QUG10eGW1Zy+kA7SXgrw+vLkOdGYaVQywMTJmrlid0Q5rSTMpswx5SQ==
+"@9gustin/react-notion-render@^3.11.1":
+  version "3.11.1"
+  resolved "https://registry.yarnpkg.com/@9gustin/react-notion-render/-/react-notion-render-3.11.1.tgz#ea417fa89d568dc6b8f3f5cbfd123204b36ecb88"
+  integrity sha512-UtsQHossaosJMf60PILLRP/GigP1XST8e1PsIH22yiZaaW09mQAh/g0R/X1JhlpyllPSsHBxVWI8boNZZMj/rQ==
 
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
