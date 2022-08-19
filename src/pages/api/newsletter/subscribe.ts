@@ -14,16 +14,16 @@ export default async function handler(
   if (subscriberExists) {
     return res
       .status(409)
-      .send({ message: "Email already added! Try another address." });
+      .send({ message: "Already used! Try another email." });
   }
 
   const result = await addSubscriber(req.body.email)
-    .then((response) => {
+    .then(() => {
       return res.status(201).send({
         message: "You're in! Check your inbox to confirm.",
       });
     })
-    .catch((err) => {
+    .catch(() => {
       return res
         .status(500)
         .send({ message: "Error adding subscriber! Try again." });
