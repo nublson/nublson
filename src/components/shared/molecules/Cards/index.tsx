@@ -32,38 +32,78 @@ import {
   Thumbnail,
   WorkContainer,
 } from "./styles";
+import { Link } from "react-scroll";
 
 export function Work({ id, title, description, path, external }: IWorkCard) {
   return !external ? (
-    <RouteLink href={path}>
-      <WorkContainer>
-        {id === "store" ? (
-          <RiStoreLine className="icon" />
-        ) : id === "blog" ? (
-          <RiArticleLine className="icon" />
-        ) : id === "photography" ? (
-          <RiCameraLine className="icon" />
-        ) : id === "newsletter" ? (
-          <RiRoadMapLine className="icon" />
-        ) : (
-          <RiGlobalLine className="icon" />
-        )}
-        <div className="body">
-          <div className="content">
-            <SmallTitle content={title} />
-            {description && (
-              <MediumText
-                content={
-                  description.length > 108
-                    ? formatString(description, 99)
-                    : description
-                }
-              />
-            )}
+    path.includes("#") ? (
+      <Link
+        to={path.replace("#", "")}
+        href={path}
+        spy={true}
+        smooth={true}
+        duration={1000}
+        name="issue"
+      >
+        <WorkContainer>
+          {id === "store" ? (
+            <RiStoreLine className="icon" />
+          ) : id === "blog" ? (
+            <RiArticleLine className="icon" />
+          ) : id === "photography" ? (
+            <RiCameraLine className="icon" />
+          ) : id === "newsletter" ? (
+            <RiRoadMapLine className="icon" />
+          ) : (
+            <RiGlobalLine className="icon" />
+          )}
+          <div className="body">
+            <div className="content">
+              <SmallTitle content={title} />
+              {description && (
+                <MediumText
+                  content={
+                    description.length > 108
+                      ? formatString(description, 99)
+                      : description
+                  }
+                />
+              )}
+            </div>
           </div>
-        </div>
-      </WorkContainer>
-    </RouteLink>
+        </WorkContainer>
+      </Link>
+    ) : (
+      <RouteLink href={path}>
+        <WorkContainer>
+          {id === "store" ? (
+            <RiStoreLine className="icon" />
+          ) : id === "blog" ? (
+            <RiArticleLine className="icon" />
+          ) : id === "photography" ? (
+            <RiCameraLine className="icon" />
+          ) : id === "newsletter" ? (
+            <RiRoadMapLine className="icon" />
+          ) : (
+            <RiGlobalLine className="icon" />
+          )}
+          <div className="body">
+            <div className="content">
+              <SmallTitle content={title} />
+              {description && (
+                <MediumText
+                  content={
+                    description.length > 108
+                      ? formatString(description, 99)
+                      : description
+                  }
+                />
+              )}
+            </div>
+          </div>
+        </WorkContainer>
+      </RouteLink>
+    )
   ) : (
     <a href={path} target="_blank" rel="noreferrer">
       <WorkContainer>
@@ -119,7 +159,6 @@ export function Post({
     if (pathname === "/store") {
       setPostType("product");
     }
-
   }, [pathname, postType]);
 
   return (
@@ -140,21 +179,13 @@ export function Post({
       <div className="data">
         <div className="heading">
           <SmallTitle content={title} />
-          {description && (
-            <MediumText
-              content={description}
-            />
-          )}
+          {description && <MediumText content={description} />}
         </div>
 
         <div className="footer">
           <XSmallText content={formatDate(publish_date)} />
           <XSmallText
-            content={`${amount} ${
-              postType === "article"
-                ? "min read"
-                : "€"
-            }`}
+            content={`${amount} ${postType === "article" ? "min read" : "€"}`}
           />
         </div>
       </div>
@@ -174,14 +205,8 @@ export function Issue({ title, description, publish_date }: IIssueCard) {
     >
       <IssueContainer>
         <div className="content">
-          <SmallTitle
-            content={title}
-          />
-          {description && (
-            <MediumText
-              content={description}
-            />
-          )}
+          <SmallTitle content={title} />
+          {description && <MediumText content={description} />}
         </div>
 
         <div className="footer">
@@ -198,11 +223,7 @@ export function Book({ title, description, categories, author }: IBookCard) {
     <IssueContainer>
       <div className="content">
         <SmallTitle content={title} />
-        {description && (
-          <MediumText
-            content={description}
-          />
-        )}
+        {description && <MediumText content={description} />}
       </div>
 
       <div className="footer">
