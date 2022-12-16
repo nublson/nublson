@@ -11,15 +11,15 @@
       "id": "youtube",
       "title": "Filmmaking",
       "description": "Making videos about technology, photography and lifestyle.",
-      "path": "https://www.youtube.com/c/NubelsonFernandes",
+      "path": "https://www.youtube.com/@nublson",
       "external": true
     },
     {
       "id": "newsletter",
-      "title": "The Road",
-      "description": "My newsletter where I share my journey and experience as a content creator.",
-      "path": "#newsletter",
-      "external": false
+      "title": "Newsletter",
+      "description": "join The Road, my monthly newsletter where I share my experience and interests.",
+      "path": "https://nublson.substack.com",
+      "external": true
     },
     {
       "id": "store",

@@ -9,7 +9,6 @@ import { IPostItem } from "../../utils/types";
 
 const HomeSection = dynamic(() => import("../../section/Home"));
 const PostsSection = dynamic(() => import("../../section/Posts"));
-const NewsletterSection = dynamic(() => import("../../section/Newsletter"));
 const ContactSection = dynamic(() => import("../../section/Contact"));
 
 type StoreProps = {
@@ -50,7 +49,6 @@ const Store: NextPage<StoreProps> = ({ posts }) => {
         scrollTo="posts"
       />
       <PostsSection posts={posts} />
-      <NewsletterSection />
       <ContactSection />
     </>
   );

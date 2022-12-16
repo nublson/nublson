@@ -8,7 +8,7 @@ import {
   RiGithubLine,
   RiGlobalLine,
   RiInstagramLine,
-  RiRoadMapLine,
+  RiNewspaperLine,
   RiStoreLine,
   RiUnsplashLine,
   RiVidiconLine,
@@ -32,94 +32,57 @@ import {
   Thumbnail,
   WorkContainer,
 } from "./styles";
-import { Link } from "react-scroll";
 
 export function Work({ id, title, description, path, external }: IWorkCard) {
+  const getIcon = (iconId: string) => {
+    switch (iconId) {
+      case "store":
+        return <RiStoreLine className="icon" />;
+      case "blog":
+        return <RiArticleLine className="icon" />;
+      case "photography":
+        return <RiCameraLine className="icon" />;
+      case "newsletter":
+        return <RiNewspaperLine className="icon" />;
+      case "instagram":
+        return <RiInstagramLine className="icon" />;
+      case "youtube":
+        return <RiVidiconLine className="icon" />;
+      case "unsplash":
+        return <RiUnsplashLine className="icon" />;
+      case "community":
+        return <RiCupLine className="icon" />;
+      case "github":
+        return <RiGithubLine className="icon" />;
+      default:
+        return <RiGlobalLine className="icon" />;
+    }
+  };
+
   return !external ? (
-    path.includes("#") ? (
-      <Link
-        to={path.replace("#", "")}
-        href={path}
-        spy={true}
-        smooth={true}
-        duration={1000}
-        name="issue"
-      >
-        <WorkContainer>
-          {id === "store" ? (
-            <RiStoreLine className="icon" />
-          ) : id === "blog" ? (
-            <RiArticleLine className="icon" />
-          ) : id === "photography" ? (
-            <RiCameraLine className="icon" />
-          ) : id === "newsletter" ? (
-            <RiRoadMapLine className="icon" />
-          ) : (
-            <RiGlobalLine className="icon" />
-          )}
-          <div className="body">
-            <div className="content">
-              <SmallTitle content={title} />
-              {description && (
-                <MediumText
-                  content={
-                    description.length > 108
-                      ? formatString(description, 99)
-                      : description
-                  }
-                />
-              )}
-            </div>
+    <RouteLink href={path}>
+      <WorkContainer>
+        {getIcon(id)}
+        <div className="body">
+          <div className="content">
+            <SmallTitle content={title} />
+            {description && (
+              <MediumText
+                content={
+                  description.length > 108
+                    ? formatString(description, 99)
+                    : description
+                }
+              />
+            )}
           </div>
-        </WorkContainer>
-      </Link>
-    ) : (
-      <RouteLink href={path}>
-        <WorkContainer>
-          {id === "store" ? (
-            <RiStoreLine className="icon" />
-          ) : id === "blog" ? (
-            <RiArticleLine className="icon" />
-          ) : id === "photography" ? (
-            <RiCameraLine className="icon" />
-          ) : id === "newsletter" ? (
-            <RiRoadMapLine className="icon" />
-          ) : (
-            <RiGlobalLine className="icon" />
-          )}
-          <div className="body">
-            <div className="content">
-              <SmallTitle content={title} />
-              {description && (
-                <MediumText
-                  content={
-                    description.length > 108
-                      ? formatString(description, 99)
-                      : description
-                  }
-                />
-              )}
-            </div>
-          </div>
-        </WorkContainer>
-      </RouteLink>
-    )
+        </div>
+      </WorkContainer>
+    </RouteLink>
   ) : (
     <a href={path} target="_blank" rel="noreferrer">
       <WorkContainer>
-        {id === "instagram" ? (
-          <RiInstagramLine className="icon" />
-        ) : id === "youtube" ? (
-          <RiVidiconLine className="icon" />
-        ) : id === "unsplash" ? (
-          <RiUnsplashLine className="icon" />
-        ) : id === "support" ? (
-          <RiCupLine className="icon" />
-        ) : id === "github" ? (
-          <RiGithubLine className="icon" />
-        ) : (
-          <RiGlobalLine className="icon" />
-        )}
+        {getIcon(id)}
         <div className="body">
           <div className="content">
             <SmallTitle content={title} />

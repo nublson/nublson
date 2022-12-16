@@ -12,7 +12,6 @@ import { IPostItem } from "../utils/types";
 
 const HomeSection = dynamic(() => import("../section/Home"));
 const ContentSection = dynamic(() => import("../section/Content"));
-const NewsletterSection = dynamic(() => import("../section/Newsletter"));
 const ContactSection = dynamic(() => import("../section/Contact"));
 
 type AboutProps = {
@@ -53,7 +52,6 @@ const About: NextPage<AboutProps> = ({ pageProps, blocks }) => {
         article
       />
       <ContentSection blocks={blocks} />
-      <NewsletterSection />
       <ContactSection />
     </>
   );

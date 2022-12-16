@@ -13,7 +13,6 @@ import { IPostItem } from "../utils/types";
 const HomeSection = dynamic(() => import("../section/Home"));
 const ContentSection = dynamic(() => import("../section/Content"));
 const ShareSection = dynamic(() => import("../section/Share"));
-const NewsletterSection = dynamic(() => import("../section/Newsletter"));
 const ContactSection = dynamic(() => import("../section/Contact"));
 
 type GearsProps = {
@@ -53,12 +52,8 @@ const Gears: NextPage<GearsProps> = ({ pageProps, blocks }) => {
         image={pageProps.thumbnail}
         article
       />
-      <ContentSection
-        blocks={blocks}
-        url={pageProps.refer_link}
-      />
+      <ContentSection blocks={blocks} url={pageProps.refer_link} />
       <ShareSection title="Share this kit on" />
-      <NewsletterSection />
       <ContactSection />
     </>
   );

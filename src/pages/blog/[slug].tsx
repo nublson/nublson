@@ -19,7 +19,6 @@ const ContentSection = dynamic(() => import("../../section/Content"), {
   ssr: true,
 });
 const ShareSection = dynamic(() => import("../../section/Share"));
-const NewsletterSection = dynamic(() => import("../../section/Newsletter"));
 const ContactSection = dynamic(() => import("../../section/Contact"));
 
 type SlugProps = {
@@ -43,7 +42,6 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
 
     registerView();
   }, [pageProps.post_slug]);
-
 
   return (
     <>
@@ -80,12 +78,8 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
         image={pageProps.thumbnail}
         article
       />
-      <ContentSection
-        blocks={blocks}
-        member_link={pageProps.member_link}
-      />
+      <ContentSection blocks={blocks} member_link={pageProps.member_link} />
       <ShareSection title="Share this article on" />
-      <NewsletterSection />
       <ContactSection />
     </>
   );

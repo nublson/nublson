@@ -19,7 +19,6 @@ const ContentSection = dynamic(() => import("../../section/Content"), {
   ssr: true,
 });
 const ShareSection = dynamic(() => import("../../section/Share"));
-const NewsletterSection = dynamic(() => import("../../section/Newsletter"));
 const ContactSection = dynamic(() => import("../../section/Contact"));
 
 type SlugProps = {
@@ -81,7 +80,6 @@ const Slug: NextPage<SlugProps> = ({ pageProps, blocks }) => {
       />
       <ContentSection blocks={blocks} url={pageProps.refer_link} />
       <ShareSection title="Share this book on" />
-      <NewsletterSection />
       <ContactSection />
     </>
   );

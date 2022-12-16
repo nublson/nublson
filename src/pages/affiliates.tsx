@@ -13,7 +13,6 @@ import { IPostItem } from "../utils/types";
 const HomeSection = dynamic(() => import("../section/Home"));
 const ContentSection = dynamic(() => import("../section/Content"));
 const ShareSection = dynamic(() => import("../section/Share"));
-const NewsletterSection = dynamic(() => import("../section/Newsletter"));
 const ContactSection = dynamic(() => import("../section/Contact"));
 
 type AffiliatesProps = {
@@ -55,7 +54,6 @@ const Affiliates: NextPage<AffiliatesProps> = ({ pageProps, blocks }) => {
       />
       <ContentSection blocks={blocks} />
       <ShareSection title="Share this program on" />
-      <NewsletterSection />
       <ContactSection />
     </>
   );
