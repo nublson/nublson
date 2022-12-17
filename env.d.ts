@@ -10,6 +10,7 @@ namespace NodeJS {
     NOTION_PAGE_ABOUT_ID: string;
     NOTION_PAGE_GEARS_ID: string;
     NOTION_PAGE_AFFILIATES_ID: string;
+    NOTION_PAGE_NEWSLETTER_ID: string;
     REVUE_API_KEY: string;
     NEXT_PUBLIC_FIREBASE_PROJECT_ID: string;
     FIREBASE_PRIVATE_KEY: string;
