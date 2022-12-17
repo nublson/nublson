@@ -18,8 +18,8 @@
       "id": "newsletter",
       "title": "Newsletter",
       "description": "Join The Road, my monthly newsletter where I share my experience and interests.",
-      "path": "https://nublson.substack.com",
-      "external": true
+      "path": "newsletter",
+      "external": false
     },
     {
       "id": "store",
