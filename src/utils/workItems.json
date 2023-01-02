@@ -3,9 +3,9 @@
     {
       "id": "photography",
       "title": "Photography",
-      "description": "Some of my photographic works in partnership with different brands.",
-      "path": "photography",
-      "external": false
+      "description": "Some of my photographic work available for personal and commercial use.",
+      "path": "https://unsplash.com/@nublson",
+      "external": true
     },
     {
       "id": "youtube",
