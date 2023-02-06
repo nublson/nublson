@@ -2,7 +2,7 @@
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=nublson&color=blueviolet" alt="Profile views" /> </p>
 <img align="right" width="300em" height="300em" src="./animation_500_kv8i962g.gif?raw=true"/>
 
-- 🔭 I’m currently **looking for a job**
+- 💼 I’m currently working as a **Front-end Engineer** at [Edisoft](https://www.thalesgroup.com/pt-pt)
 
 - 🧑🏽‍💻 I work with **Web and Mobile Development**
 
