@@ -1,0 +1,27 @@
+@use "../../../sass/colors";
+
+.container {
+}
+
+.list {
+  list-style: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5rem;
+}
+
+.item {
+  cursor: pointer;
+
+  a {
+    color: colors.$off_white;
+    text-decoration: underline transparent;
+
+    &:hover {
+      text-decoration: underline;
+      transition: all 0.2s;
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import { Header } from "../shared/Header";
 import styles from "./styles.module.scss";
 
 interface LayoutProps {
@@ -5,5 +6,10 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  return <div className={styles.container}>{children}</div>;
+  return (
+    <div className={styles.container}>
+      <Header />
+      {children}
+    </div>
+  );
 };
