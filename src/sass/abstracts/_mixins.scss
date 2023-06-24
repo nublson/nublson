@@ -1,0 +1,16 @@
+@mixin button-primary {
+  cursor: pointer;
+  height: 4rem;
+
+  background-color: transparent;
+  color: colors.$off_white;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+
+  border: 2px solid colors.$off_white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

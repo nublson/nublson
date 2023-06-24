@@ -1,0 +1,12 @@
+@use "../../../sass/abstracts/colors";
+@import "../../../sass/abstracts/mixins";
+
+.primary {
+  @include button-primary;
+}
+
+.icon {
+  @include button-primary;
+  width: 4rem;
+  padding: 0;
+}
