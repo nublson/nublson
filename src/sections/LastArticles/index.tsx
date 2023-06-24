@@ -4,11 +4,10 @@ import { RiArrowRightLine } from "react-icons/ri";
 import Link from "next/link";
 import styles from "./styles.module.scss";
 
-import articlesMock from "@/mocks/articles.json";
-import Image from "next/image";
 import { Article } from "@/components/shared/Cards";
+import articlesMock from "@/mocks/lastArticles.json";
 
-export const Articles = () => {
+export const LastArticles = () => {
   return (
     <Section title="Morbi massa lectus sem sagittis adipiscing posuere neque id odio.">
       <div className={styles.container}>

@@ -33,3 +33,22 @@ export const Article = (post: PostProps) => {
     </div>
   );
 };
+
+export const Product = (post: PostProps) => {
+  return (
+    <div className={styles.product}>
+      <div className={styles.thumbnail}>
+        <Image src={post.image} alt="post thumbnail" fill />
+      </div>
+      <h2 className={styles.title}>{post.title}</h2>
+
+      <div className={styles.footer}>
+        <a href={post.path} target="_blank">
+          Lorem
+          <RiExternalLinkLine />
+        </a>
+        <p className={styles.category}>{post.category}</p>
+      </div>
+    </div>
+  );
+};
