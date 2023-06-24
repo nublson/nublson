@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "title": "Lorem",
+      "description": "Odio at ut risus nulla gravida. Sed tincidunt donec purus aliquam.",
+      "path": "https://youtube.com/@nublson"
+    },
+    {
+      "title": "Lorem",
+      "description": "Tellus faucibus orci amet enim massa mauris vel ornare. Turpis vel facilisi proin mattis.",
+      "path": "https://youtube.com/@nublson"
+    },
+    {
+      "title": "Lorem",
+      "description": "Ut dui libero ut sollicitudin lectus adipiscing in. Vitae purus tincidunt commodo id ac.",
+      "path": "https://youtube.com/@nublson"
+    },
+    {
+      "title": "Lorem",
+      "description": "Sit et nunc lectus placerat. Id porttitor neque facilisis lectus at adipiscing egestas diam id.",
+      "path": "https://youtube.com/@nublson"
+    }
+  ]
+}

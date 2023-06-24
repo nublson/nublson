@@ -1,3 +1,6 @@
+@use "../../sass/abstracts/colors";
+@import "../../sass/base/typography";
+
 .container {
   max-width: 119.1344rem;
   margin: 0 auto;
@@ -6,4 +9,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+}
+
+.section {
+  width: 100%;
+  padding: 10rem 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 5rem;
+}
+
+.section_title {
+  @include title-h3;
+  color: colors.$label;
 }
