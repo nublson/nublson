@@ -16,7 +16,7 @@ export const LastProducts = () => {
             return <Product key={index} {...item} />;
           })}
         </div>
-        <Link className={styles.link} href={"/blog"}>
+        <Link className={styles.link} href={"/store"}>
           Lorem
           <RiArrowRightLine />
         </Link>
