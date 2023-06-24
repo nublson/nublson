@@ -2,6 +2,9 @@ import { Poppins } from "next/font/google";
 import "./globals.scss";
 
 import { Layout } from "@/components/Layout";
+import { Footer } from "@/components/shared/Footer";
+
+import social from "@/utils/social.json";
 
 const poppins = Poppins({
   weight: ["400", "600", "700"],
@@ -22,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={poppins.className}>
         <Layout>{children}</Layout>
+        <Footer socialList={social.items} />
       </body>
     </html>
   );

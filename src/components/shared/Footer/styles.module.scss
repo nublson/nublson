@@ -1,0 +1,45 @@
+@use "../../../sass/abstracts/colors";
+
+.footer {
+  width: 100%;
+  background-color: colors.$off-white;
+}
+
+.container {
+  max-width: 119.1344rem;
+  margin: 0 auto;
+  padding: 10rem 0;
+
+  color: colors.$off-black;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20rem;
+}
+
+.bottom {
+  width: 100%;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  .copyright {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .social_media {
+    font-size: 2.4rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2.5rem;
+  }
+}
