@@ -15,6 +15,7 @@ html {
 body {
   font-weight: 400;
   font-size: 1.8rem;
+  line-height: 2.5rem;
   font-display: optional;
   background-color: colors.$background;
   color: colors.$body;
@@ -28,4 +29,5 @@ h1,
 h2,
 h3 {
   color: colors.$title;
+  font-weight: 700;
 }

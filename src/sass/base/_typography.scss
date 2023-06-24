@@ -1,0 +1,26 @@
+@mixin title-h1 {
+  font-size: 3.2rem;
+  line-height: 3.4rem;
+  letter-spacing: 0.1rem;
+}
+
+@mixin title-h2 {
+  font-size: 2.4rem;
+  line-height: 3.8rem;
+  letter-spacing: 0.075rem;
+}
+
+@mixin title-h3 {
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.075rem;
+}
+
+@mixin link-normal {
+}
+
+@mixin link-small {
+}
+
+@mixin link-xsmall {
+}

@@ -1,11 +1,11 @@
 import Image from "next/image";
-import styles from "./styles.module.scss";
 import { RiSunLine } from "react-icons/ri";
+import styles from "./styles.module.scss";
 
 import { items } from "@/utils/menu.json";
 
+import { PrimaryIcon, PrimaryText } from "../Buttons";
 import { Menu } from "../Menu";
-import { PrimaryText, PrimaryIcon } from "../Buttons";
 
 import logo from "@/assets/logo_white.svg";
 
