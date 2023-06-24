@@ -1,7 +1,9 @@
+import Image from "next/image";
 import { RiExternalLinkLine } from "react-icons/ri";
 
-import { CardItemProps } from "@/utils/types";
+import { CardItemProps, PostProps } from "@/utils/types";
 import styles from "./styles.module.scss";
+import Link from "next/link";
 
 export const Work = ({ title, description, path }: CardItemProps) => {
   return (
@@ -12,6 +14,22 @@ export const Work = ({ title, description, path }: CardItemProps) => {
         Lorem
         <RiExternalLinkLine />
       </a>
+    </div>
+  );
+};
+
+export const Article = (post: PostProps) => {
+  return (
+    <div className={styles.article}>
+      <div className={styles.thumbnail}>
+        <Image src={post.image} alt="post thumbnail" fill />
+      </div>
+      <h2 className={styles.title}>{post.title}</h2>
+
+      <div className={styles.footer}>
+        <Link href={post.path}>Facilisis enim</Link>
+        <p className={styles.category}>{post.category}</p>
+      </div>
     </div>
   );
 };

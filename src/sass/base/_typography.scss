@@ -19,8 +19,32 @@
 @mixin link-normal {
 }
 
+@mixin link {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 @mixin link-small {
+  @include link;
+  text-decoration: underline transparent;
+
+  &:hover {
+    text-decoration: underline;
+    transition: all 0.2s;
+  }
+}
+
+@mixin link-small-underline {
+  @include link;
+  text-decoration: underline;
 }
 
 @mixin link-xsmall {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.6rem;
+  letter-spacing: 0.025rem;
 }

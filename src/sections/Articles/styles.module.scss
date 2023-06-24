@@ -1,0 +1,21 @@
+@use "../../sass/abstracts/colors";
+@import "../../sass/base/typography";
+
+.container {
+  width: 100%;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.posts {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 5rem;
+}
+
+.link {
+  @include link-small;
+}
