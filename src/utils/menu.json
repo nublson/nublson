@@ -1,10 +1,6 @@
 {
   "items": [
     {
-      "name": "Home",
-      "path": ""
-    },
-    {
       "name": "Blog",
       "path": "blog"
     },

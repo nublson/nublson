@@ -8,12 +8,15 @@ import { PrimaryIcon, PrimaryText } from "../Buttons";
 import { Menu } from "../Menu";
 
 import logo from "@/assets/logo_white.svg";
+import Link from "next/link";
 
 export const Header = () => {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <Image src={logo} alt="nubl. logo" width={50} height={50} />
+        <Link href={"/"}>
+          <Image src={logo} alt="nubl. logo" width={50} height={50} />
+        </Link>
         <Menu items={menu.items} />
       </div>
       <div className={styles.right}>
