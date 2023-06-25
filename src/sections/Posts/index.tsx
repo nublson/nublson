@@ -51,10 +51,6 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
               }
             }
           )}
-
-          <div className={styles.nav}>
-            <PrimaryIcon icon={<RiArrowRightLine size={"24px"} />} />
-          </div>
         </div>
       </div>
       <aside className={styles.categories}>

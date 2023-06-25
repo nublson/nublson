@@ -10,8 +10,11 @@ export interface SectionProps {
 }
 
 export interface PostProps {
-  image: string;
+  id: string;
+  post_slug: string;
+  thumbnail: string;
   title: string;
-  path: string;
+  description: string;
   category: string;
+  path?: string;
 }

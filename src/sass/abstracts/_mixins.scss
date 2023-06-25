@@ -39,6 +39,7 @@
 
   .title {
     @include title-h2;
+    flex: 1;
     margin: 1rem 0 5rem;
   }
 

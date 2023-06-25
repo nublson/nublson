@@ -22,12 +22,17 @@ export const Article = (post: PostProps) => {
   return (
     <div className={styles.article}>
       <div className={styles.thumbnail}>
-        <Image src={post.image} alt="post thumbnail" fill />
+        <Image
+          src={post.thumbnail}
+          alt="post thumbnail"
+          fill
+          style={{ objectFit: "cover" }}
+        />
       </div>
       <h2 className={styles.title}>{post.title}</h2>
 
       <div className={styles.footer}>
-        <Link href={post.path}>Facilisis enim</Link>
+        <Link href={`/blog/${post.post_slug}`}>Facilisis enim</Link>
         <p className={styles.category}>{post.category}</p>
       </div>
     </div>
@@ -38,7 +43,12 @@ export const Product = (post: PostProps) => {
   return (
     <div className={styles.product}>
       <div className={styles.thumbnail}>
-        <Image src={post.image} alt="post thumbnail" fill />
+        <Image
+          src={post.thumbnail}
+          alt="post thumbnail"
+          fill
+          style={{ objectFit: "cover" }}
+        />
       </div>
       <h2 className={styles.title}>{post.title}</h2>
 

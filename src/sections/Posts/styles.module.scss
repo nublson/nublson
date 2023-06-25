@@ -1,4 +1,5 @@
 @use "../../sass/abstracts/colors";
+@use "../../sass/animations/animations";
 @import "../../sass/base/typography";
 
 .container {
@@ -11,22 +12,11 @@
 }
 
 .posts {
-  width: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: 5rem;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .category {
@@ -50,41 +40,23 @@
   }
 }
 
-@keyframes smooth-down {
-  from {
-    transform: translateY(-112px);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes smooth-up {
-  from {
-    transform: translateY(112px);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
 .grid_down {
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, max-content);
   gap: 5rem;
+  justify-items: start;
 
-  animation-name: smooth-down;
+  animation-name: smooth_down;
   animation-duration: 0.5s;
 }
 
 .grid_up {
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, max-content);
   gap: 5rem;
+  justify-items: start;
 
-  animation-name: smooth-up;
+  animation-name: smooth_up;
   animation-duration: 0.5s;
 }
 
