@@ -7,6 +7,7 @@ import styles from "./styles.module.scss";
 
 import { useQueryParams } from "@/hooks";
 import { PostProps } from "@/utils/types";
+import { getCategories } from "@/utils/getCategories";
 
 interface QueryParams {
   category: string;
@@ -61,18 +62,18 @@ export const PostsSection = () => {
       <aside className={styles.categories}>
         <h3 className={styles.title}>Categories</h3>
         <div className={styles.items}>
-          {articles.map((item, index) => {
+          {getCategories(articles).map((item, index) => {
             return (
               <p
                 key={index}
-                onClick={() => setParams(item.category)}
+                onClick={() => setParams(item.title)}
                 className={
-                  queryParams.category === item.category
+                  queryParams.category === item.title
                     ? styles.active
                     : styles.item
                 }
               >
-                {item.category}
+                {item.title}
               </p>
             );
           })}
