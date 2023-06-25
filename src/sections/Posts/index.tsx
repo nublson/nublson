@@ -32,7 +32,9 @@ export const PostsSection = () => {
           </div>
         )}
 
-        <div className={styles.grid}>
+        <div
+          className={queryParams.category ? styles.grid_down : styles.grid_up}
+        >
           {articles.map((item, index) => {
             return <Article key={index} {...item} />;
           })}

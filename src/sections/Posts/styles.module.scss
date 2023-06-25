@@ -20,8 +20,20 @@
   gap: 5rem;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .category {
   width: 100%;
+
+  animation-name: fadeIn;
+  animation-duration: 0.2s;
 
   display: flex;
   flex-direction: column;
@@ -38,11 +50,42 @@
   }
 }
 
-.grid {
+@keyframes smooth-down {
+  from {
+    transform: translateY(-112px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes smooth-up {
+  from {
+    transform: translateY(112px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.grid_down {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, max-content);
   gap: 5rem;
+
+  animation-name: smooth-down;
+  animation-duration: 0.5s;
+}
+
+.grid_up {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 5rem;
+
+  animation-name: smooth-up;
+  animation-duration: 0.5s;
 }
 
 .nav {
