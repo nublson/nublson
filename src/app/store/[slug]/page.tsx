@@ -1,3 +1,3 @@
 export default function Page({ params }: { params: { slug: string } }) {
-  return <div>My Article: {params.slug}</div>;
+  return <div>My Product: {params.slug}</div>;
 }

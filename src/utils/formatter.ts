@@ -30,6 +30,7 @@ export const formatPosts = (database: any[]) => {
         : null,
       publish_date: post.properties.publish_date.date.start,
       category: post.properties.category.select.name,
+      path: post.properties.refer_link.url,
     };
   });
 

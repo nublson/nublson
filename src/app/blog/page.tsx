@@ -1,4 +1,3 @@
-import { articles } from "@/mocks";
 import { PostsSection } from "@/sections";
 import { getData } from "@/services/notion";
 import { formatPosts } from "@/utils/formatter";
