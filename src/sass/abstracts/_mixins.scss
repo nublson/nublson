@@ -13,6 +13,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:hover {
+    background-color: colors.$off_white;
+    color: colors.$off_black;
+    transition: all 0.2s;
+  }
 }
 
 @mixin card-post {
