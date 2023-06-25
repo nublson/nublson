@@ -1,13 +1,37 @@
+"use client";
 import { PrimaryIcon } from "@/components/shared/Buttons";
 import { Article } from "@/components/shared/Cards";
 import { articles } from "@/mocks";
-import styles from "./styles.module.scss";
 import { RiArrowRightLine } from "react-icons/ri";
+import styles from "./styles.module.scss";
+
+import { useQueryParams } from "@/hooks";
+
+interface QueryParams {
+  category: string;
+}
 
 export const PostsSection = () => {
+  const { queryParams, setQueryParams } = useQueryParams<QueryParams>();
+
+  const setParams = (value: string) => {
+    if (queryParams.category === value) {
+      setQueryParams({ category: "" });
+    } else {
+      setQueryParams({ category: value });
+    }
+  };
+
   return (
     <main className={styles.container}>
       <div className={styles.posts}>
+        {queryParams.category && (
+          <div className={styles.category}>
+            <p>Category</p>
+            <h1 className={styles.title}>{queryParams.category}</h1>
+          </div>
+        )}
+
         <div className={styles.grid}>
           {articles.map((item, index) => {
             return <Article key={index} {...item} />;
@@ -21,14 +45,21 @@ export const PostsSection = () => {
       <aside className={styles.categories}>
         <h3 className={styles.title}>Categories</h3>
         <div className={styles.items}>
-          <p>Finances</p>
-          <p>Lifestyle</p>
-          <p>Productivity</p>
-          <p>Presets</p>
-          <p>Products</p>
-          <p>Reviews</p>
-          <p>Self Improvement</p>
-          <p>Tech</p>
+          {articles.map((item, index) => {
+            return (
+              <p
+                key={index}
+                onClick={() => setParams(item.category)}
+                className={
+                  queryParams.category === item.category
+                    ? styles.active
+                    : styles.item
+                }
+              >
+                {item.category}
+              </p>
+            );
+          })}
         </div>
       </aside>
     </main>

@@ -17,7 +17,25 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 10rem;
+  gap: 5rem;
+}
+
+.category {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  p {
+    @include text-small;
+    color: colors.$label;
+  }
+
+  .title {
+    @include title-h1;
+  }
 }
 
 .grid {
@@ -56,9 +74,18 @@
     justify-content: flex-start;
     gap: 1rem;
 
-    p {
+    .item {
       @include text-small;
+      color: colors.$label;
       cursor: pointer;
+    }
+
+    .active {
+      @include text-small;
+      color: colors.$title;
+      cursor: pointer;
+
+      text-decoration: underline;
     }
   }
 }
