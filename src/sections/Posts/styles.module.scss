@@ -1,0 +1,64 @@
+@use "../../sass/abstracts/colors";
+@import "../../sass/base/typography";
+
+.container {
+  width: 100%;
+  padding: 10rem 0;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.posts {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10rem;
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 5rem;
+}
+
+.nav {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin-top: 5rem;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 3rem;
+
+  .title {
+    @include title-h3(colors.$label);
+  }
+
+  .items {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+
+    p {
+      @include text-small;
+      cursor: pointer;
+    }
+  }
+}

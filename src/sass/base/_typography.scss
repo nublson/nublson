@@ -10,9 +10,16 @@
   letter-spacing: 0.075rem;
 }
 
-@mixin title-h3 {
+@mixin title-h3($color) {
+  color: $color;
   font-size: 1.8rem;
   line-height: 2.5rem;
+  letter-spacing: 0.075rem;
+}
+
+@mixin text-small {
+  font-size: 1.4rem;
+  line-height: 2.8rem;
   letter-spacing: 0.075rem;
 }
 

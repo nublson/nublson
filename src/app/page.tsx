@@ -1,6 +1,6 @@
 import { Header, LastPosts, WorkSection } from "../sections";
 
-import { LastArticles, LastProducts } from "@/mocks";
+import { lastArticles, lastProducts } from "@/mocks";
 
 import work from "@/utils/work.json";
 
@@ -16,13 +16,13 @@ export default function Home() {
       <LastPosts
         title="Morbi massa lectus sem sagittis adipiscing posuere neque id odio."
         type="articles"
-        posts={LastArticles}
+        posts={lastArticles}
         linkTo="/blog"
       />
       <LastPosts
         title="Viverra gravida odio amet nulla aliquet convallis."
         type="products"
-        posts={LastProducts}
+        posts={lastProducts}
         linkTo="/store"
       />
     </>

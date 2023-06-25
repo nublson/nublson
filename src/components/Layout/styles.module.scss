@@ -4,6 +4,7 @@
 .container {
   max-width: 119.1344rem;
   margin: 0 auto;
+  padding-bottom: 10rem;
 
   display: flex;
   flex-direction: column;
@@ -23,6 +24,5 @@
 }
 
 .section_title {
-  @include title-h3;
-  color: colors.$label;
+  @include title-h3(colors.$label);
 }
