@@ -1,4 +1,5 @@
 @use "../../../sass/abstracts/colors";
+@import "../../../sass/base/typography";
 
 .container {
 }
@@ -13,15 +14,14 @@
 }
 
 .item {
-  cursor: pointer;
+  @include nav-item;
+}
+
+.active {
+  @include nav-item;
 
   a {
-    color: colors.$off_white;
-    text-decoration: underline transparent;
-
-    &:hover {
-      text-decoration: underline;
-      transition: all 0.2s;
-    }
+    font-weight: 600;
+    text-decoration: underline;
   }
 }

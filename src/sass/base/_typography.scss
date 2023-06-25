@@ -16,11 +16,7 @@
   letter-spacing: 0.075rem;
 }
 
-@mixin link-normal {
-}
-
 @mixin link {
-  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,6 +25,7 @@
 
 @mixin link-small {
   @include link;
+  font-size: 1.4rem;
   text-decoration: underline transparent;
 
   &:hover {
@@ -38,7 +35,7 @@
 }
 
 @mixin link-small-underline {
-  @include link;
+  @include link-small();
   text-decoration: underline;
 }
 
@@ -47,4 +44,18 @@
   font-weight: 600;
   line-height: 1.6rem;
   letter-spacing: 0.025rem;
+}
+
+@mixin nav-item {
+  cursor: pointer;
+
+  a {
+    color: colors.$off_white;
+    text-decoration: underline transparent;
+
+    &:hover {
+      text-decoration: underline;
+      transition: all 0.2s;
+    }
+  }
 }

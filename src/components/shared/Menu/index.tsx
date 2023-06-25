@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import styles from "./styles.module.scss";
 
 interface MenuProps {
@@ -9,12 +13,19 @@ interface MenuProps {
 }
 
 export const Menu = ({ items }: MenuProps) => {
+  const pathname = usePathname();
+
   return (
     <nav className={styles.container}>
       <ul className={styles.list}>
         {items.map((item, index) => {
           return (
-            <li key={index} className={styles.item}>
+            <li
+              key={index}
+              className={
+                pathname === `/${item.path}` ? styles.active : styles.item
+              }
+            >
               <Link href={`/${item.path}`}>{item.name}</Link>
             </li>
           );
