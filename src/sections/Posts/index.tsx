@@ -6,6 +6,7 @@ import { RiArrowRightLine } from "react-icons/ri";
 import styles from "./styles.module.scss";
 
 import { useQueryParams } from "@/hooks";
+import { PostProps } from "@/utils/types";
 
 interface QueryParams {
   category: string;
@@ -22,6 +23,17 @@ export const PostsSection = () => {
     }
   };
 
+  const getPostsByCategory = (
+    category: string | undefined,
+    posts: PostProps[]
+  ) => {
+    if (category) {
+      return posts.filter((post) => post.category === category);
+    } else {
+      return posts;
+    }
+  };
+
   return (
     <main className={styles.container}>
       <div className={styles.posts}>
@@ -35,9 +47,11 @@ export const PostsSection = () => {
         <div
           className={queryParams.category ? styles.grid_down : styles.grid_up}
         >
-          {articles.map((item, index) => {
-            return <Article key={index} {...item} />;
-          })}
+          {getPostsByCategory(queryParams.category, articles).map(
+            (item, index) => {
+              return <Article key={index} {...item} />;
+            }
+          )}
 
           <div className={styles.nav}>
             <PrimaryIcon icon={<RiArrowRightLine size={"24px"} />} />
