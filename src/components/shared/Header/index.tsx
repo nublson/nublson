@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { RiSunLine } from "react-icons/ri";
+import { RiSunFill } from "react-icons/ri";
 import styles from "./styles.module.scss";
 
 import menu from "@/utils/menu.json";
@@ -20,7 +20,7 @@ export const Header = () => {
         <a href="https://nublson.substack.com" target="_blank">
           <PrimaryText title="Newsletter" />
         </a>
-        <PrimaryIcon icon={<RiSunLine size={"24px"} />} />
+        <PrimaryIcon icon={<RiSunFill size={"24px"} />} />
       </div>
     </div>
   );
