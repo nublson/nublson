@@ -20,49 +20,45 @@ export const Work = ({ title, description, path }: CardItemProps) => {
 
 export const Article = (post: PostProps) => {
   return (
-    <Link href={`/blog/${post.post_slug}`}>
-      <div className={styles.article}>
-        <div className={styles.thumbnail}>
-          <Image
-            src={post.thumbnail}
-            alt="post thumbnail"
-            fill
-            style={{ objectFit: "cover" }}
-          />
-        </div>
-        <h2 className={styles.title}>{post.title}</h2>
-
-        <div className={styles.footer}>
-          <Link href={`/blog/${post.post_slug}`}>Read more</Link>
-          <p className={styles.category}>{post.category}</p>
-        </div>
+    <div className={styles.article}>
+      <div className={styles.thumbnail}>
+        <Image
+          src={post.thumbnail}
+          alt="post thumbnail"
+          fill
+          style={{ objectFit: "cover" }}
+        />
       </div>
-    </Link>
+      <h2 className={styles.title}>{post.title}</h2>
+
+      <div className={styles.footer}>
+        <Link href={`/blog/${post.post_slug}`}>Read more</Link>
+        <p className={styles.category}>{post.category}</p>
+      </div>
+    </div>
   );
 };
 
 export const Product = (post: PostProps) => {
   return (
-    <Link href={`/store/${post.post_slug}`}>
-      <div className={styles.product}>
-        <div className={styles.thumbnail}>
-          <Image
-            src={post.thumbnail}
-            alt="post thumbnail"
-            fill
-            style={{ objectFit: "cover" }}
-          />
-        </div>
-        <h2 className={styles.title}>{post.title}</h2>
-
-        <div className={styles.footer}>
-          <a href={post.path} target="_blank">
-            Visit
-            <RiExternalLinkLine />
-          </a>
-          <p className={styles.category}>{post.category}</p>
-        </div>
+    <div className={styles.product}>
+      <div className={styles.thumbnail}>
+        <Image
+          src={post.thumbnail}
+          alt="post thumbnail"
+          fill
+          style={{ objectFit: "cover" }}
+        />
       </div>
-    </Link>
+      <h2 className={styles.title}>{post.title}</h2>
+
+      <div className={styles.footer}>
+        <a href={post.path} target="_blank">
+          Visit
+          <RiExternalLinkLine />
+        </a>
+        <p className={styles.category}>{post.category}</p>
+      </div>
+    </div>
   );
 };

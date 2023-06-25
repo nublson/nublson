@@ -18,3 +18,10 @@ export interface PostProps {
   category: string;
   path?: string;
 }
+
+export interface PageProps {
+  title: string;
+  thumbnail: string;
+  description: string;
+  publish_date: string;
+}

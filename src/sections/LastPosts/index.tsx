@@ -28,7 +28,7 @@ export const LastPosts = ({ title, type, posts, linkTo }: LastPostProps) => {
           })}
         </div>
         <Link className={styles.link} href={linkTo}>
-          Lorem
+          Full list
           <RiArrowRightLine />
         </Link>
       </div>

@@ -4,10 +4,16 @@ import styles from "./styles.module.scss";
 interface HeaderProps {
   label: string;
   title: string;
+  thumbnail: string;
   description: string;
 }
 
-export const Header = ({ label, title, description }: HeaderProps) => {
+export const Header = ({
+  label,
+  title,
+  thumbnail,
+  description,
+}: HeaderProps) => {
   return (
     <main className={styles.container}>
       <div className={styles.heading}>
@@ -16,13 +22,7 @@ export const Header = ({ label, title, description }: HeaderProps) => {
         <p className={styles.description}>{description}</p>
       </div>
       <div className={styles.thumbnail}>
-        <Image
-          src={
-            "https://res.cloudinary.com/nublson/image/upload/v1687615248/Portfolio/Pages/AnyConv.com__Profile_Horizontal_Hight_nudv1c.webp"
-          }
-          alt="Nubelson Fernandes"
-          fill
-        />
+        <Image src={thumbnail} alt="Nubelson Fernandes" fill />
       </div>
     </main>
   );

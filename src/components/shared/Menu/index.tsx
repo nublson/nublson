@@ -22,7 +22,9 @@ export const Menu = ({ items }: MenuProps) => {
             <li
               key={index}
               className={
-                pathname === `/${item.path}` ? styles.active : styles.item
+                pathname.startsWith(`/${item.path}`)
+                  ? styles.active
+                  : styles.item
               }
             >
               <Link href={`/${item.path}`}>{item.name}</Link>

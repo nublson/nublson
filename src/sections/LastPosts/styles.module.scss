@@ -10,10 +10,10 @@
 }
 
 .posts {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
   gap: 5rem;
+  justify-items: start;
 }
 
 .link {
