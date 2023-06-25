@@ -1,4 +1,3 @@
 export * from "./Header";
-export * from "./LastArticles";
-export * from "./LastProducts";
+export * from "./LastPosts";
 export * from "./Work";
