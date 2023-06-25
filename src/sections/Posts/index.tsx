@@ -1,19 +1,24 @@
 "use client";
 import { PrimaryIcon } from "@/components/shared/Buttons";
-import { Article } from "@/components/shared/Cards";
-import { articles } from "@/mocks";
+import { Article, Product } from "@/components/shared/Cards";
 import { RiArrowRightLine } from "react-icons/ri";
 import styles from "./styles.module.scss";
 
 import { useQueryParams } from "@/hooks";
-import { PostProps } from "@/utils/types";
 import { getCategories } from "@/utils/getCategories";
+import { getPostsByCategory } from "@/utils/getPostsByCategory";
+import { PostProps } from "@/utils/types";
 
 interface QueryParams {
   category: string;
 }
 
-export const PostsSection = () => {
+interface PostsSectionProps {
+  type: "articles" | "products";
+  posts: PostProps[];
+}
+
+export const PostsSection = ({ type, posts }: PostsSectionProps) => {
   const { queryParams, setQueryParams } = useQueryParams<QueryParams>();
 
   const setParams = (value: string) => {
@@ -21,17 +26,6 @@ export const PostsSection = () => {
       setQueryParams({ category: "" });
     } else {
       setQueryParams({ category: value });
-    }
-  };
-
-  const getPostsByCategory = (
-    category: string | undefined,
-    posts: PostProps[]
-  ) => {
-    if (category) {
-      return posts.filter((post) => post.category === category);
-    } else {
-      return posts;
     }
   };
 
@@ -48,9 +42,13 @@ export const PostsSection = () => {
         <div
           className={queryParams.category ? styles.grid_down : styles.grid_up}
         >
-          {getPostsByCategory(queryParams.category, articles).map(
+          {getPostsByCategory(queryParams.category, posts).map(
             (item, index) => {
-              return <Article key={index} {...item} />;
+              if (type === "articles") {
+                return <Article key={index} {...item} />;
+              } else {
+                return <Product key={index} {...item} />;
+              }
             }
           )}
 
@@ -62,7 +60,7 @@ export const PostsSection = () => {
       <aside className={styles.categories}>
         <h3 className={styles.title}>Categories</h3>
         <div className={styles.items}>
-          {getCategories(articles).map((item, index) => {
+          {getCategories(posts).map((item, index) => {
             return (
               <p
                 key={index}

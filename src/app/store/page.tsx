@@ -1,3 +1,6 @@
+import { products } from "@/mocks";
+import { PostsSection } from "@/sections";
+
 export default function Store() {
-  return <h1>Store</h1>;
+  return <PostsSection posts={products} type="products" />;
 }
