@@ -1,5 +1,6 @@
 import { Poppins } from "next/font/google";
 import "./globals.scss";
+import Script from "next/script";
 
 import { Layout } from "@/components/Layout";
 import { Footer } from "@/components/shared/Footer";

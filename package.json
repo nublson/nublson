@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@9gustin/react-notion-render": "^3.11.2",
     "@notionhq/client": "^2.2.5",
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",

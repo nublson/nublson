@@ -1,4 +1,4 @@
-import { Header } from "@/sections";
+import { ContentSection, Header } from "@/sections";
 import { getBlocks, getData } from "@/services/notion";
 import { formatBlockWithChildren, formatPosts } from "@/utils/formatter";
 import { DynamicPageProps } from "@/utils/types";
@@ -52,6 +52,7 @@ export default async function Page({ params }: DynamicPageProps) {
           thumbnail={myPost.thumbnail}
           description={myPost.description}
         />
+        <ContentSection type="articles" blocks={blocksWithChildren} />
       </>
     );
   }

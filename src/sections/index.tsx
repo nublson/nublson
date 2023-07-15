@@ -1,3 +1,4 @@
+export * from "./Content";
 export * from "./Header";
 export * from "./LastPosts";
 export * from "./Posts";
