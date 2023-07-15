@@ -1,8 +1,6 @@
 import { Header, LastPosts, WorkSection } from "../sections";
 
-import { lastArticles, lastProducts } from "@/mocks";
 import { getData } from "@/services/notion";
-import { formatPosts } from "@/utils/formatter";
 
 import work from "@/utils/work.json";
 
@@ -22,13 +20,13 @@ export default async function Home() {
       <LastPosts
         title="Morbi massa lectus sem sagittis adipiscing posuere neque id odio."
         type="articles"
-        posts={formatPosts([articles[0], articles[1]])}
+        posts={[articles[0], articles[1]]}
         linkTo="/blog"
       />
       <LastPosts
         title="Viverra gravida odio amet nulla aliquet convallis."
         type="products"
-        posts={formatPosts([products[0], products[1]])}
+        posts={[products[0], products[1]]}
         linkTo="/store"
       />
     </>

@@ -1,3 +1,8 @@
+import {
+  formatBlockWithChildren,
+  formatPageProps,
+  formatPosts,
+} from "@/utils/formatter";
 import { Client } from "@notionhq/client";
 
 const api = new Client({
@@ -25,17 +30,35 @@ export const getData = async (databaseId: string) => {
     ],
   });
 
-  return results;
+  return formatPosts(results);
 };
 
 export const getPage = async (pageId: string) => {
   const response = await api.pages.retrieve({ page_id: pageId });
-  return response;
+
+  return formatPageProps(response);
 };
 
 export const getBlocks = async (pageId: string) => {
   const response = await api.blocks.children.list({
     block_id: pageId,
   });
-  return response.results;
+
+  const childBlocks = await Promise.all(
+    response.results
+      .filter((block: any) => block.has_children)
+      .map(async (block) => {
+        return {
+          id: block.id,
+          children: await getBlocks(block.id),
+        };
+      })
+  );
+
+  const blocksWithChildren = formatBlockWithChildren(
+    response.results,
+    childBlocks
+  );
+
+  return blocksWithChildren;
 };

@@ -1,19 +1,19 @@
 import { Header } from "@/sections";
-import { getPage } from "@/services/notion";
-import { formatPageProps } from "@/utils/formatter";
+import { getBlocks, getPage } from "@/services/notion";
 import moment from "moment";
 
 export default async function Gears() {
   const data = await getPage(process.env.NOTION_PAGE_GEARS_ID);
-  const pageProps = formatPageProps(data);
+
+  const pageBlocks = await getBlocks(data.id);
 
   return (
     <>
       <Header
-        label={moment(pageProps.publish_date).format("MMMM d, YYYY")}
-        title={pageProps.title}
-        thumbnail={pageProps.thumbnail}
-        description={pageProps.description}
+        label={moment(data.publish_date).format("MMMM d, YYYY")}
+        title={data.title}
+        thumbnail={data.thumbnail}
+        description={data.description}
       />
     </>
   );

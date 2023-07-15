@@ -21,6 +21,7 @@ export interface PostProps {
 }
 
 export interface PageProps {
+  id: string;
   title: string;
   thumbnail: string;
   description: string;

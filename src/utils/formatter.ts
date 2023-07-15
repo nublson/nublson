@@ -39,6 +39,7 @@ export const formatPosts = (database: any[]) => {
 
 export const formatPageProps = (page: any) => {
   const formatedPage: PageProps = {
+    id: page.id,
     title: page.properties.Name.title[0].text.content,
     thumbnail:
       page.cover.type === "file"
