@@ -1,4 +1,4 @@
-import { Header } from "@/sections";
+import { ContentSection, Header } from "@/sections";
 import { getBlocks, getPage } from "@/services/notion";
 import moment from "moment";
 
@@ -15,6 +15,7 @@ export default async function Gears() {
         thumbnail={data.thumbnail}
         description={data.description}
       />
+      <ContentSection blocks={pageBlocks} />
     </>
   );
 }

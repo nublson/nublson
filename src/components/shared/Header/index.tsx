@@ -23,7 +23,7 @@ export const Header = () => {
         <a href="https://nublson.substack.com" target="_blank">
           <PrimaryText title="Newsletter" />
         </a>
-        <PrimaryIcon icon={<RiSunFill size={"24px"} />} />
+        {/* <PrimaryIcon icon={<RiSunFill size={"24px"} />} /> */}
       </div>
     </div>
   );
