@@ -4,12 +4,12 @@ import { PageProps, PostProps } from "./types";
 export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
     return slugify(data, {
-      remove: /[*+~.()'"?!:@]/g,
+      remove: /[*+~.,()'"?!:@]/g,
       lower: true,
     });
   } else {
     return slugify(data.properties.Name.title[0].text.content, {
-      remove: /[*+~.()'"?!:@]/g,
+      remove: /[*+~.,()'"?!:@]/g,
       lower: true,
     });
   }
