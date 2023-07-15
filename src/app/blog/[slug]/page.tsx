@@ -1,4 +1,4 @@
-import { ContentSection, Header } from "@/sections";
+import { ContentSection, Header, ShareSection } from "@/sections";
 import { getBlocks, getData } from "@/services/notion";
 import { DynamicPageProps } from "@/utils/types";
 import moment from "moment";
@@ -32,6 +32,9 @@ export default async function Page({ params }: DynamicPageProps) {
           description={myPost.description}
         />
         <ContentSection blocks={postBlocks} />
+        <ShareSection>
+          <p>Posted in Self-Improvement</p>
+        </ShareSection>
       </>
     );
   }

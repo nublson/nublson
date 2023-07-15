@@ -1,4 +1,4 @@
-import { ContentSection, Header } from "@/sections";
+import { ContentSection, Header, ShareSection } from "@/sections";
 import { getBlocks, getPage } from "@/services/notion";
 import moment from "moment";
 
@@ -16,6 +16,9 @@ export default async function Gears() {
         description={data.description}
       />
       <ContentSection blocks={pageBlocks} />
+      <ShareSection>
+        <p>I may earn some commission from sales using these links.</p>
+      </ShareSection>
     </>
   );
 }

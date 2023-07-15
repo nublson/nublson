@@ -1,10 +1,9 @@
 import Image from "next/image";
-import { RiSunFill } from "react-icons/ri";
 import styles from "./styles.module.scss";
 
 import menu from "@/utils/menu.json";
 
-import { PrimaryIcon, PrimaryText } from "../Buttons";
+import { PrimaryText } from "../Buttons";
 import { Menu } from "../Menu";
 
 import logo from "@/assets/logo_white.svg";

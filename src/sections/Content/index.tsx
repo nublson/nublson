@@ -1,5 +1,6 @@
 import { Render } from "@9gustin/react-notion-render";
 import styles from "./styles.module.scss";
+import Link from "next/link";
 
 interface ContentSectionProps {
   blocks: any[];
