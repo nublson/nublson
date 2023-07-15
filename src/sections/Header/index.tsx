@@ -22,7 +22,12 @@ export const Header = ({
         <p className={styles.description}>{description}</p>
       </div>
       <div className={styles.thumbnail}>
-        <Image src={thumbnail} alt="Nubelson Fernandes" fill />
+        <Image
+          src={thumbnail}
+          alt={title}
+          fill
+          style={{ objectFit: "cover" }}
+        />
       </div>
     </main>
   );

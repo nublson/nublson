@@ -33,9 +33,9 @@ export const getPage = async (pageId: string) => {
   return response;
 };
 
-export const getBlocks = async (blockId: string) => {
+export const getBlocks = async (pageId: string) => {
   const response = await api.blocks.children.list({
-    block_id: blockId,
+    block_id: pageId,
   });
   return response.results;
 };

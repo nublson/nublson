@@ -50,3 +50,15 @@ export const formatPageProps = (page: any) => {
 
   return formatedPage;
 };
+
+export const formatBlockWithChildren = (blocks: any[], childBlocks: any[]) => {
+  return blocks.map((block) => {
+    if (block.has_children && !block[block.type].children) {
+      block[block.type]["children"] = childBlocks.find(
+        (x) => x.id === block.id
+      )?.children;
+    }
+
+    return block;
+  });
+};
