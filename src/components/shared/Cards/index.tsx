@@ -1,14 +1,9 @@
 import Image from "next/image";
 import { RiExternalLinkLine } from "react-icons/ri";
 
-import {
-  CardItemProps,
-  GearProps,
-  PostCardProps,
-  PostProps,
-} from "@/utils/types";
-import styles from "./styles.module.scss";
+import { CardItemProps, GearProps, PostCardProps } from "@/utils/types";
 import Link from "next/link";
+import styles from "./styles.module.scss";
 
 export const Work = ({ title, description, path }: CardItemProps) => {
   return (
@@ -34,7 +29,15 @@ export const Post = ({ type, post }: PostCardProps) => {
           style={{ objectFit: "cover" }}
         />
       </div>
-      <h2 className={styles.title}>{post.title}</h2>
+      <div className={styles.body}>
+        {type === "articles" ? (
+          <Link href={`/blog/${post.post_slug}`}>
+            <h2 className={styles.title}>{post.title}</h2>
+          </Link>
+        ) : (
+          <h2 className={styles.title}>{post.title}</h2>
+        )}
+      </div>
 
       <div className={styles.footer}>
         {type === "articles" ? (

@@ -36,10 +36,13 @@
     height: 24.3rem;
   }
 
-  .title {
-    @include title-h2;
+  .body {
     flex: 1;
-    margin: 1rem 0 5rem;
+
+    .title {
+      @include title-h2;
+      margin: 1rem 0 5rem;
+    }
   }
 
   .footer {

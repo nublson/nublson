@@ -27,6 +27,7 @@ export const Header = ({
           alt={title}
           fill
           style={{ objectFit: "cover" }}
+          priority
         />
       </div>
     </main>
