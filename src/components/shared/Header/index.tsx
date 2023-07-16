@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 
 import menu from "@/utils/menu.json";
 
-import { PrimaryText } from "../Buttons";
+import { PrimaryIcon, PrimaryText } from "../Buttons";
 import { Menu } from "../Menu";
 
 import logo from "@/assets/logo_white.svg";
@@ -22,7 +22,7 @@ export const Header = () => {
         <a href="https://nublson.substack.com" target="_blank">
           <PrimaryText title="Newsletter" />
         </a>
-        {/* <PrimaryIcon icon={<RiSunFill size={"24px"} />} /> */}
+        {/* <PrimaryIcon size="regular" icon={<RiSunFill size={"24px"} />} /> */}
       </div>
     </div>
   );

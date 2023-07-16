@@ -2,6 +2,7 @@ import { ContentSection, Header, ShareSection } from "@/sections";
 import { getBlocks, getData } from "@/services/notion";
 import { DynamicPageProps } from "@/utils/types";
 import moment from "moment";
+import Link from "next/link";
 
 export async function generateStaticParams() {
   const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
@@ -33,7 +34,12 @@ export default async function Page({ params }: DynamicPageProps) {
         />
         <ContentSection blocks={postBlocks} />
         <ShareSection>
-          <p>Posted in Self-Improvement</p>
+          <p>
+            Posted in{" "}
+            <Link href={`/blog?category=${myPost.category}`}>
+              {myPost.category}
+            </Link>{" "}
+          </p>
         </ShareSection>
       </>
     );

@@ -1,7 +1,5 @@
 "use client";
-import { PrimaryIcon } from "@/components/shared/Buttons";
 import { Article, Product } from "@/components/shared/Cards";
-import { RiArrowRightLine } from "react-icons/ri";
 import styles from "./styles.module.scss";
 
 import { useQueryParams } from "@/hooks";

@@ -13,6 +13,11 @@
       @include text-small;
       color: colors.$label;
     }
+
+    a {
+      @include link-small-underline;
+      display: initial;
+    }
   }
 
   .share {

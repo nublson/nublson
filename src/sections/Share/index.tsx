@@ -11,9 +11,9 @@ export const ShareSection = (props: ShareSectionProps) => {
     <div className={styles.container}>
       <div className={styles.info}>{props.children}</div>
       <div className={styles.share}>
-        <PrimaryIcon icon={<RiTwitterLine size={"24px"} />} />
-        <PrimaryIcon icon={<RiWhatsappLine size={"24px"} />} />
-        <PrimaryIcon icon={<RiLinkedinLine size={"24px"} />} />
+        <PrimaryIcon size="small" icon={<RiTwitterLine size={"20px"} />} />
+        <PrimaryIcon size="small" icon={<RiWhatsappLine size={"20px"} />} />
+        <PrimaryIcon size="small" icon={<RiLinkedinLine size={"20px"} />} />
       </div>
     </div>
   );

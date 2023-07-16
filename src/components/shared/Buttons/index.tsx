@@ -6,6 +6,7 @@ interface ButtonDefaultProps {
 
 interface ButtonIconProps {
   icon: React.ReactNode;
+  size: "regular" | "small";
 }
 
 export const PrimaryText = ({ title }: ButtonDefaultProps) => {
@@ -16,6 +17,12 @@ export const PrimaryText = ({ title }: ButtonDefaultProps) => {
   );
 };
 
-export const PrimaryIcon = ({ icon }: ButtonIconProps) => {
-  return <button className={styles.icon}>{icon}</button>;
+export const PrimaryIcon = ({ icon, size }: ButtonIconProps) => {
+  return (
+    <button
+      className={size === "regular" ? styles.icon_regular : styles.icon_small}
+    >
+      {icon}
+    </button>
+  );
 };
