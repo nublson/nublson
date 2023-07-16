@@ -24,7 +24,7 @@
   }
 }
 
-.article {
+.post {
   @include card-post;
 
   .footer {
@@ -34,12 +34,23 @@
   }
 }
 
-.product {
-  @include card-post;
+.gear {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
 
-  .footer {
-    a {
-      @include link-small;
+  .thumbnail {
+    width: 100%;
+    height: 25rem;
+    position: relative;
+  }
+
+  .details {
+    h2 {
+      @include title-h2;
     }
   }
 }

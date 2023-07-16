@@ -34,7 +34,7 @@ export interface DynamicPageProps {
   };
 }
 
-interface GearProps {
+export interface GearProps {
   image: string;
   name: string;
   description: string;

@@ -1,7 +1,12 @@
 import Image from "next/image";
 import { RiExternalLinkLine } from "react-icons/ri";
 
-import { CardItemProps, PostCardProps, PostProps } from "@/utils/types";
+import {
+  CardItemProps,
+  GearProps,
+  PostCardProps,
+  PostProps,
+} from "@/utils/types";
 import styles from "./styles.module.scss";
 import Link from "next/link";
 
@@ -20,7 +25,7 @@ export const Work = ({ title, description, path }: CardItemProps) => {
 
 export const Post = ({ type, post }: PostCardProps) => {
   return (
-    <div className={styles.article}>
+    <div className={styles.post}>
       <div className={styles.thumbnail}>
         <Image
           src={post.thumbnail}
@@ -41,6 +46,25 @@ export const Post = ({ type, post }: PostCardProps) => {
           </a>
         )}
         <p className={styles.category}>{post.category}</p>
+      </div>
+    </div>
+  );
+};
+
+export const Gear = ({ image, name, description }: GearProps) => {
+  return (
+    <div className={styles.gear}>
+      <div className={styles.thumbnail}>
+        <Image
+          src={image}
+          alt="gear thumbnail"
+          fill
+          style={{ objectFit: "cover" }}
+        />
+      </div>
+      <div className={styles.details}>
+        <h2>{name}</h2>
+        <p>{description}</p>
       </div>
     </div>
   );
