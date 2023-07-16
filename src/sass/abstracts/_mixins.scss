@@ -56,6 +56,10 @@
       @include link-small-underline;
     }
 
+    .external {
+      @include link-small;
+    }
+
     .category {
       @include link-xsmall;
       color: colors.$label;

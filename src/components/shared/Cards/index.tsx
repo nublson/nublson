@@ -43,7 +43,7 @@ export const Post = ({ type, post }: PostCardProps) => {
         {type === "articles" ? (
           <Link href={`/blog/${post.post_slug}`}>Read more</Link>
         ) : (
-          <a href={post.path} target="_blank">
+          <a className={styles.external} href={post.path} target="_blank">
             Visit
             <RiExternalLinkLine />
           </a>

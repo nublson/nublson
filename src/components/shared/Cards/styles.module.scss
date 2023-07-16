@@ -26,12 +26,6 @@
 
 .post {
   @include card-post;
-
-  .footer {
-    a {
-      @include link-small-underline;
-    }
-  }
 }
 
 .gear {
