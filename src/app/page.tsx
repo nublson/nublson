@@ -4,6 +4,8 @@ import { getData } from "@/services/notion";
 
 import work from "@/utils/work.json";
 
+export const revalidate = 60;
+
 export default async function Home() {
   const articles = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
   const products = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);

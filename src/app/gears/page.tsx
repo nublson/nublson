@@ -1,7 +1,9 @@
 import { ContentSection, GearsSection, Header, ShareSection } from "@/sections";
 import { getBlocks, getPage } from "@/services/notion";
-import moment from "moment";
 import gears from "@/utils/gears.json";
+import moment from "moment";
+
+export const revalidate = 60;
 
 export default async function Gears() {
   const data = await getPage(process.env.NOTION_PAGE_GEARS_ID);
