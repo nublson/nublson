@@ -1,6 +1,7 @@
-import { Render } from "@9gustin/react-notion-render";
+import { Render, withContentValidation } from "@9gustin/react-notion-render";
 import styles from "./styles.module.scss";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ContentSectionProps {
   blocks: any[];
