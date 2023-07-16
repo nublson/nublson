@@ -1,5 +1,6 @@
 "use client";
 import { Post } from "@/components/shared/Cards";
+import { Categories } from "@/components/shared/Categories";
 import styles from "./styles.module.scss";
 
 import { useQueryParams } from "@/hooks";
@@ -47,26 +48,12 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
           )}
         </div>
       </div>
-      <aside className={styles.categories}>
-        <h3 className={styles.title}>Categories</h3>
-        <div className={styles.items}>
-          {getCategories(posts).map((item, index) => {
-            return (
-              <p
-                key={index}
-                onClick={() => setParams(item.title)}
-                className={
-                  queryParams.category === item.title
-                    ? styles.active
-                    : styles.item
-                }
-              >
-                {item.title}
-              </p>
-            );
-          })}
-        </div>
-      </aside>
+      <Categories
+        type="section"
+        categories={getCategories(posts).map((item) => item.title)}
+        onClick={(item) => setParams(item)}
+        comparator={queryParams.category}
+      />
     </main>
   );
 };

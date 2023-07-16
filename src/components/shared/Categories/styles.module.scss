@@ -1,0 +1,48 @@
+@use "../../../sass/abstracts/colors";
+@import "../../../sass/base/typography";
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 3rem;
+
+  .title {
+    @include title-h3(colors.$label);
+  }
+
+  .items {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+
+    .item {
+      @include text-small;
+      color: colors.$label;
+      cursor: pointer;
+    }
+
+    .active {
+      @include text-small;
+      color: colors.$title;
+      cursor: pointer;
+
+      text-decoration: underline;
+    }
+
+    .category {
+      @include text-small;
+      color: colors.$title;
+      cursor: pointer;
+      text-decoration: underline transparent;
+
+      &:hover {
+        text-decoration: underline;
+        transition: all 0.2s;
+      }
+    }
+  }
+}
