@@ -33,3 +33,19 @@ export interface DynamicPageProps {
     slug: string;
   };
 }
+
+interface GearProps {
+  image: string;
+  name: string;
+  description: string;
+}
+
+export interface GearsCategoryProps {
+  title: string;
+  gears: GearProps[];
+}
+
+export interface PostCardProps {
+  type: "articles" | "products";
+  post: PostProps;
+}

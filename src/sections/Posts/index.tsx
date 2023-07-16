@@ -1,5 +1,5 @@
 "use client";
-import { Article, Product } from "@/components/shared/Cards";
+import { Post } from "@/components/shared/Cards";
 import styles from "./styles.module.scss";
 
 import { useQueryParams } from "@/hooks";
@@ -42,11 +42,7 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
         >
           {getPostsByCategory(queryParams.category, posts).map(
             (item, index) => {
-              if (type === "articles") {
-                return <Article key={index} {...item} />;
-              } else {
-                return <Product key={index} {...item} />;
-              }
+              return <Post type={type} key={index} post={item} />;
             }
           )}
         </div>

@@ -4,7 +4,7 @@ import { RiArrowRightLine } from "react-icons/ri";
 import Link from "next/link";
 import styles from "./styles.module.scss";
 
-import { Article, Product } from "@/components/shared/Cards";
+import { Post } from "@/components/shared/Cards";
 import { PostProps } from "@/utils/types";
 
 interface LastPostProps {
@@ -20,11 +20,7 @@ export const LastPosts = ({ title, type, posts, linkTo }: LastPostProps) => {
       <div className={styles.container}>
         <div className={styles.posts}>
           {posts.map((item, index) => {
-            if (type === "articles") {
-              return <Article key={index} {...item} />;
-            } else {
-              return <Product key={index} {...item} />;
-            }
+            return <Post type={type} key={index} post={item} />;
           })}
         </div>
         <Link className={styles.link} href={linkTo}>

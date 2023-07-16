@@ -8,10 +8,10 @@ interface ContentSectionProps {
 
 export const ContentSection = ({ blocks }: ContentSectionProps) => {
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <div className={styles.blocks}>
         <Render blocks={blocks} simpleTitles classNames />
       </div>
-    </div>
+    </section>
   );
 };
