@@ -11,7 +11,7 @@ export const Work = ({ title, description, path }: CardItemProps) => {
       <h2>{title}</h2>
       <p>{description}</p>
       <a href={path} target="_blank">
-        Lorem
+        Visit
         <RiExternalLinkLine />
       </a>
     </div>

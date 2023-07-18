@@ -3,6 +3,7 @@ import { Header, LastPosts, WorkSection } from "../sections";
 import { getData } from "@/services/notion";
 
 import work from "@/utils/work.json";
+import pages from "@/utils/pages.json";
 
 export const revalidate = 60;
 
@@ -13,20 +14,20 @@ export default async function Home() {
   return (
     <>
       <Header
-        label="Scelerisque pellentesque"
-        title="Lorem ipsum dolor sit amet consectetur."
-        thumbnail="https://res.cloudinary.com/nublson/image/upload/v1687615248/Portfolio/Pages/AnyConv.com__Profile_Horizontal_Hight_nudv1c.webp"
-        description="Sed feugiat diam aliquet libero. Urna ut id nisi in dis sed. Quisque leo enim pretium sapien velit arcu fermentum. Fermentum egestas duis elementum diam nullam tortor risus praesent."
+        label={pages.home.label}
+        title={pages.home.title}
+        thumbnail={pages.home.thumbnail}
+        description={pages.home.description}
       />
-      <WorkSection workList={work.items} />
+      <WorkSection title="Creating on" workList={work.items} />
       <LastPosts
-        title="Morbi massa lectus sem sagittis adipiscing posuere neque id odio."
+        title="Articles"
         type="articles"
         posts={[articles[0], articles[1]]}
         linkTo="/blog"
       />
       <LastPosts
-        title="Viverra gravida odio amet nulla aliquet convallis."
+        title="Products"
         type="products"
         posts={[products[0], products[1]]}
         linkTo="/store"

@@ -5,12 +5,13 @@ import { CardItemProps } from "@/utils/types";
 import styles from "./styles.module.scss";
 
 interface WorkProps {
+  title: string;
   workList: CardItemProps[];
 }
 
-export const WorkSection = ({ workList }: WorkProps) => {
+export const WorkSection = ({ title, workList }: WorkProps) => {
   return (
-    <Section title="Amet lorem varius egestas fames facilisi dolor viverra massa lectus.">
+    <Section title={title}>
       <div className={styles.grid}>
         {workList.map((item, index) => (
           <Work key={`${item.title}_${index}`} {...item} />
