@@ -4,19 +4,22 @@
       "title": "Camera Gears",
       "gears": [
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687633913/Portfolio/Gears/Camera%20Gears/AnyConv.com__fx30_txdsb9.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709721/Portfolio/Gears/Camera%20Gears/AnyConv.com__fx30_uexyer.webp",
           "name": "Sony FX30",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687633913/Portfolio/Gears/Camera%20Gears/AnyConv.com__30mm_Sigma_pmvlii.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709721/Portfolio/Gears/Camera%20Gears/AnyConv.com__30mm_Sigma_n2xzvt.webp",
           "name": "Sigma 30mm f1.4 C",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687633913/Portfolio/Gears/Camera%20Gears/AnyConv.com__16mm_Sigma_bk1otr.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709721/Portfolio/Gears/Camera%20Gears/AnyConv.com__16mm_Sigma_suqidr.webp",
           "name": "Sigma 16mm f1.4 C",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         }
       ]
     },
@@ -24,29 +27,34 @@
       "title": "Camera Accessories",
       "gears": [
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687633837/Portfolio/Gears/Camera%20Accessories/AnyConv.com__d3-pro_hfjbmv.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__d3-pro_qjh0m7.webp",
           "name": "Deity V-Mic D3 Pro",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687633838/Portfolio/Gears/Camera%20Accessories/AnyConv.com__deity_pocket_wireless_sfmoyg.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__deity_pocket_wireless_b8hedi.webp",
           "name": "Deity Pocket Wireless",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687633837/Portfolio/Gears/Camera%20Accessories/AnyConv.com__nd_filter_vacand.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__nd_filter_pjhv6r.webp",
           "name": "K&F ND2-400 & Black Mist 1/4",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687633837/Portfolio/Gears/Camera%20Accessories/AnyConv.com__128gbs_Lexar_ycvo0a.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__128gbs_Lexar_quuhqa.webp",
           "name": "Lexar SD Card V90 - 128GB",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687633838/Portfolio/Gears/Camera%20Accessories/AnyConv.com__weebill_s_r9kbdy.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__weebill_s_wpdio6.webp",
           "name": "Zhiyun-Tech Weebill S",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         }
       ]
     },
@@ -54,29 +62,34 @@
       "title": "Everyday Carry",
       "gears": [
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634216/Portfolio/Gears/Everyday%20Carry/AnyConv.com__PRVKE_Lite_touyc2.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__PRVKE_Lite_hbmv2e.webp",
           "name": "WANDRD PRVKE Lite",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634216/Portfolio/Gears/Everyday%20Carry/AnyConv.com__iphone_13_pro_pd3ohf.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__iphone_13_pro_bggcpu.webp",
           "name": "Apple iPhone 13 Pro",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634216/Portfolio/Gears/Everyday%20Carry/AnyConv.com__ipado_pro_m2_gnwmbd.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__ipado_pro_m2_a4higm.webp",
           "name": "Apple iPad Pro M2",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634216/Portfolio/Gears/Everyday%20Carry/AnyConv.com__apple_watch_se_npghgg.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__apple_watch_se_l3rcfa.webp",
           "name": "Apple Watch SE",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634216/Portfolio/Gears/Everyday%20Carry/AnyConv.com__airpods_pro_razi1o.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__airpods_pro_j40liz.webp",
           "name": "Apple AirPods Pro",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         }
       ]
     },
@@ -84,64 +97,76 @@
       "title": "Desk Setup",
       "gears": [
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634061/Portfolio/Gears/Desk%20Setup/AnyConv.com__lg_monitor_zzjsmj.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__lg_monitor_yxjjuw.webp",
           "name": "LG 29' Ultrawide",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634061/Portfolio/Gears/Desk%20Setup/AnyConv.com__mac_mini_n8snij.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__mac_mini_dryrwx.webp",
           "name": "Mac Mini M1 2020",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634061/Portfolio/Gears/Desk%20Setup/AnyConv.com__mx_master_3s_zk6r7f.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__mx_master_3s_hoctlo.webp",
           "name": "Logitech MX Master 3S",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634061/Portfolio/Gears/Desk%20Setup/AnyConv.com__magic_trackpad_ahjjxj.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__magic_trackpad_tjbuqr.webp",
           "name": "Apple Magic Trackpad",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634061/Portfolio/Gears/Desk%20Setup/AnyConv.com__mx_mechanical_mini_fjx19e.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__mx_mechanical_mini_niednu.webp",
           "name": "Logitech Mechanical Mini",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634061/Portfolio/Gears/Desk%20Setup/AnyConv.com__sony_xm3_n0v4zb.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709866/Portfolio/Gears/Desk%20Setup/AnyConv.com__sony_xm3_ri5wtn.webp",
           "name": "Sony WH1000XM3",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634061/Portfolio/Gears/Desk%20Setup/AnyConv.com__shure_mv7_tcoi3o.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709866/Portfolio/Gears/Desk%20Setup/AnyConv.com__shure_mv7_evhd7c.webp",
           "name": "Shure MV7",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634061/Portfolio/Gears/Desk%20Setup/AnyConv.com__ps5_zyo9at.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__ps5_vfrfni.webp",
           "name": "Sony Play Station 5",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634149/Portfolio/Gears/Desk%20Setup/AnyConv.com__ps5_headset_ya16j1.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__ps5_headset_veskcn.webp",
           "name": "Sony Pulse 3D Wireless",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634061/Portfolio/Gears/Desk%20Setup/AnyConv.com__keychron_k2_x8wp5u.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__keychron_k2_jnlunm.webp",
           "name": "Keychron K2 Aluminium RGB",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634061/Portfolio/Gears/Desk%20Setup/AnyConv.com__ssd_t5_zwpug5.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709866/Portfolio/Gears/Desk%20Setup/AnyConv.com__ssd_t5_rchtlx.webp",
           "name": "Samsung SSD T5 - 1TB",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1689688837/Portfolio/Gears/Desk%20Setup/AnyConv.com__airpods_max_sxzzka.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689710847/Portfolio/Gears/Desk%20Setup/AnyConv.com__airpods_max_zhwm7g.webp",
           "name": "Apple AirPods Max",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         }
       ]
     },
@@ -149,64 +174,76 @@
       "title": "Softwares",
       "gears": [
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634324/Portfolio/Gears/Softwares/AnyConv.com__Notion_jwcmbd.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Notion_gbrh7r.png",
           "name": "Notion",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634323/Portfolio/Gears/Softwares/AnyConv.com__Lightroom_nf2kzf.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Lightroom_pm2dy8.png",
           "name": "Adobe Lightroom",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634323/Portfolio/Gears/Softwares/AnyConv.com__Davinci_Resolve_swyjtb.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Davinci_Resolve_mrioma.png",
           "name": "Davinci Resolve",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634323/Portfolio/Gears/Softwares/AnyConv.com__Figma_d0sbs1.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Figma_hj2d8l.png",
           "name": "Figma",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634323/Portfolio/Gears/Softwares/AnyConv.com__Milanote_ympfnc.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Milanote_laroy6.png",
           "name": "Milanote",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634323/Portfolio/Gears/Softwares/AnyConv.com__Cron_Calendar_noti0p.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Cron_Calendar_c1tkma.png",
           "name": "Cron Calendar",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634324/Portfolio/Gears/Softwares/AnyConv.com__Substack_dtrr7t.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Substack_hnisey.png",
           "name": "Substack",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634324/Portfolio/Gears/Softwares/AnyConv.com__Spark_df9ydp.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Spark_brvfqd.png",
           "name": "Spark",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634323/Portfolio/Gears/Softwares/AnyConv.com__Epidemic_Sound_uyfkal.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Epidemic_Sound_wkyane.png",
           "name": "Epidemic Sound",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634324/Portfolio/Gears/Softwares/AnyConv.com__VSCode_qjtphf.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/VSCode_vqfh2j.png",
           "name": "VSCode",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634324/Portfolio/Gears/Softwares/AnyConv.com__OffScreen_App_nsdfqi.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/OffScreen_App_ns1nfw.png",
           "name": "Offscreen",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         },
         {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1687634324/Portfolio/Gears/Softwares/AnyConv.com__Pillow_App_fykbum.webp",
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Pillow_App_kdmshb.png",
           "name": "Pillow",
-          "description": "Mus bibendum lorem at lacinia nulla."
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
         }
       ]
     }
