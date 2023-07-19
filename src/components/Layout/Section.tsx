@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 const Section = ({ title, children }: SectionProps) => {
   return (
     <section className={styles.section}>
-      {title && <h3 className={styles.section_title}>{title}</h3>}
+      {title && <h4 className={styles.section_title}>{title}</h4>}
 
       {children}
     </section>

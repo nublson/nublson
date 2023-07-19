@@ -1,11 +1,11 @@
 @mixin title-h1 {
-  font-size: 3.2rem;
+  font-size: 2.2rem;
   line-height: 3.4rem;
   letter-spacing: 0.1rem;
 }
 
 @mixin title-h2 {
-  font-size: 2.4rem;
+  font-size: 2rem;
   line-height: 3.8rem;
   letter-spacing: 0.075rem;
 }
@@ -13,6 +13,13 @@
 @mixin title-h3($color) {
   color: $color;
   font-size: 1.8rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.075rem;
+}
+
+@mixin title-h4($color) {
+  color: $color;
+  font-size: 1.6rem;
   line-height: 2.5rem;
   letter-spacing: 0.075rem;
 }
@@ -33,7 +40,7 @@
 @mixin link-small {
   @include link;
 
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   text-decoration: underline transparent;
 
   &:hover {
@@ -48,7 +55,7 @@
 }
 
 @mixin link-xsmall {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.6rem;
   letter-spacing: 0.025rem;
