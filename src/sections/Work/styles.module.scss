@@ -3,5 +3,6 @@
 
   display: grid;
   grid-template-columns: repeat(2, 46.5rem);
+  align-items: start;
   gap: 5rem;
 }

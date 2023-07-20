@@ -8,8 +8,10 @@ import styles from "./styles.module.scss";
 export const Work = ({ title, description, path }: CardItemProps) => {
   return (
     <div className={styles.work}>
-      <h2>{title}</h2>
-      <p>{description}</p>
+      <div className={styles.body}>
+        <h2>{title}</h2>
+        <p>{description}</p>
+      </div>
       <a href={path} target="_blank">
         Visit
         <RiExternalLinkLine />
