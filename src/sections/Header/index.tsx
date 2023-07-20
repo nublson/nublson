@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./styles.module.scss";
+import { getImage } from "@/utils/getImage";
 
 interface HeaderProps {
   label: string;
@@ -8,12 +9,14 @@ interface HeaderProps {
   description: string;
 }
 
-export const Header = ({
+export const Header = async ({
   label,
   title,
   thumbnail,
   description,
 }: HeaderProps) => {
+  const { base64, img } = await getImage(thumbnail);
+
   return (
     <main className={styles.container}>
       <div className={styles.heading}>
@@ -23,11 +26,12 @@ export const Header = ({
       </div>
       <div className={styles.thumbnail}>
         <Image
-          src={thumbnail}
+          src={img.src}
           alt={title}
           fill
           style={{ objectFit: "cover" }}
-          priority
+          placeholder="blur"
+          blurDataURL={base64}
         />
       </div>
     </main>
