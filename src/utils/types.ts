@@ -38,6 +38,7 @@ export interface GearProps {
   image: string;
   name: string;
   description: string;
+  blurData?: string;
 }
 
 export interface GearsCategoryProps {

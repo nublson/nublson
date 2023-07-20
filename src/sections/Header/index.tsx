@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./styles.module.scss";
-import { getImage } from "@/utils/getImage";
+import { getSingleImage } from "@/utils/getImage";
 
 interface HeaderProps {
   label: string;
@@ -15,7 +15,7 @@ export const Header = async ({
   thumbnail,
   description,
 }: HeaderProps) => {
-  const { base64, img } = await getImage(thumbnail);
+  const { base64, img } = await getSingleImage(thumbnail);
 
   return (
     <main className={styles.container}>

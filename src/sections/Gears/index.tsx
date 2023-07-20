@@ -1,13 +1,14 @@
 import { Gear } from "@/components/shared/Cards";
+import { Categories } from "@/components/shared/Categories";
 import { GearsCategoryProps } from "@/utils/types";
 import styles from "./styles.module.scss";
-import { Categories } from "@/components/shared/Categories";
+import { getSingleImage } from "@/utils/getImage";
 
 interface GearsSectionProps {
   data: GearsCategoryProps[];
 }
 
-export const GearsSection = ({ data }: GearsSectionProps) => {
+export const GearsSection = async ({ data }: GearsSectionProps) => {
   return (
     <section className={styles.container}>
       <div className={styles.gears}>
@@ -21,8 +22,18 @@ export const GearsSection = ({ data }: GearsSectionProps) => {
               <h3>{category.title}</h3>
 
               <div className={styles.items}>
-                {category.gears.map((gear, index) => {
-                  return <Gear key={index} {...gear} />;
+                {category.gears.map(async (gear, index) => {
+                  const { base64, img } = await getSingleImage(gear.image);
+
+                  return (
+                    <Gear
+                      key={index}
+                      image={img.src}
+                      name={gear.name}
+                      description={gear.description}
+                      blurData={base64}
+                    />
+                  );
                 })}
               </div>
             </div>
