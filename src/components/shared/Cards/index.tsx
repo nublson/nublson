@@ -24,14 +24,23 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
   return (
     <div className={styles.post}>
       <div className={styles.thumbnail}>
-        <Image
-          src={post.thumbnail}
-          alt="post thumbnail"
-          fill
-          style={{ objectFit: "cover" }}
-          placeholder="blur"
-          blurDataURL={blurData}
-        />
+        {blurData ? (
+          <Image
+            src={post.thumbnail}
+            alt="post thumbnail"
+            fill
+            style={{ objectFit: "cover" }}
+            placeholder="blur"
+            blurDataURL={blurData}
+          />
+        ) : (
+          <Image
+            src={post.thumbnail}
+            alt="post thumbnail"
+            fill
+            style={{ objectFit: "cover" }}
+          />
+        )}
       </div>
       <div className={styles.body}>
         {type === "articles" ? (
