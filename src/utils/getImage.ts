@@ -5,10 +5,13 @@ export const getSingleImage = async (src: string) => {
     Buffer.from(await res.arrayBuffer())
   );
 
-  const { base64 } = await getPlaiceholder(buffer);
+  const {
+    base64,
+    metadata: { width, height },
+  } = await getPlaiceholder(buffer);
 
   return {
     base64,
-    img: { src },
+    img: { src, width, height },
   };
 };
