@@ -6,6 +6,7 @@ import styles from "./styles.module.scss";
 
 import { Post } from "@/components/shared/Cards";
 import { PostProps } from "@/utils/types";
+import { getSingleImage } from "@/utils/getImage";
 
 interface LastPostProps {
   title: string;
@@ -19,8 +20,17 @@ export const LastPosts = ({ title, type, posts, linkTo }: LastPostProps) => {
     <Section title={title}>
       <div className={styles.container}>
         <div className={styles.posts}>
-          {posts.map((item, index) => {
-            return <Post type={type} key={index} post={item} />;
+          {posts.map(async (item, index) => {
+            const { base64, img } = await getSingleImage(item.thumbnail);
+
+            return (
+              <Post
+                type={type}
+                key={index}
+                post={{ ...item, thumbnail: img.src }}
+                blurData={base64}
+              />
+            );
           })}
         </div>
         <Link className={styles.link} href={linkTo}>

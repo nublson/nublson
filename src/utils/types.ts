@@ -49,4 +49,5 @@ export interface GearsCategoryProps {
 export interface PostCardProps {
   type: "articles" | "products";
   post: PostProps;
+  blurData?: string;
 }

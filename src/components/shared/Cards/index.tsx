@@ -20,7 +20,7 @@ export const Work = ({ title, description, path }: CardItemProps) => {
   );
 };
 
-export const Post = ({ type, post }: PostCardProps) => {
+export const Post = ({ type, post, blurData }: PostCardProps) => {
   return (
     <div className={styles.post}>
       <div className={styles.thumbnail}>
@@ -29,6 +29,8 @@ export const Post = ({ type, post }: PostCardProps) => {
           alt="post thumbnail"
           fill
           style={{ objectFit: "cover" }}
+          placeholder="blur"
+          blurDataURL={blurData}
         />
       </div>
       <div className={styles.body}>
