@@ -3,6 +3,7 @@ import { Post } from "@/components/shared/Cards";
 import { Categories } from "@/components/shared/Categories";
 import styles from "./styles.module.scss";
 
+import assets from "@/assets/blur.json";
 import { useQueryParams } from "@/hooks";
 import { getCategories } from "@/utils/getCategories";
 import { getPostsByCategory } from "@/utils/getPostsByCategory";
@@ -43,7 +44,14 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
         >
           {getPostsByCategory(queryParams.category, posts).map(
             (item, index) => {
-              return <Post type={type} key={index} post={item} />;
+              return (
+                <Post
+                  type={type}
+                  key={index}
+                  post={item}
+                  blurData={assets.base64}
+                />
+              );
             }
           )}
         </div>
