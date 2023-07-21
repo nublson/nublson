@@ -42,9 +42,27 @@
   }
 
   @include device(tablet) {
+    gap: 3rem;
+
     .items {
       grid-template-columns: repeat(3, 20rem);
       gap: 3rem;
+    }
+  }
+
+  @include device(mobile) {
+    gap: 2rem;
+
+    .items {
+      grid-template-columns: repeat(2, 15rem);
+      gap: 2rem;
+    }
+  }
+
+  @include device(mobileM) {
+    .items {
+      grid-template-columns: repeat(2, 12.5rem);
+      gap: 1rem;
     }
   }
 }

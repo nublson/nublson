@@ -7,9 +7,7 @@
 }
 
 .container {
-  max-width: 119.1344rem;
-  width: 100%;
-  margin: 0 auto;
+  @include content_space;
   padding: 10rem 0;
 
   color: colors.$off-black;
@@ -22,9 +20,21 @@
 
   @include device(laptop) {
     padding: 5rem 3rem;
-
     gap: 10rem;
   }
+
+  @include device(mobile) {
+    gap: 5rem;
+  }
+
+  @include device(mobileM) {
+    gap: 3rem;
+    padding: 5rem 1rem;
+  }
+}
+
+.logo {
+  @include logo;
 }
 
 .bottom {
@@ -56,6 +66,17 @@
 
     @include device(tablet) {
       gap: 2rem;
+    }
+  }
+
+  @include device(mobile) {
+    // flex-direction: column-reverse;
+    // align-items: flex-start;
+
+    // gap: 2rem;
+
+    .social_media {
+      display: none;
     }
   }
 }

@@ -43,4 +43,8 @@
       }
     }
   }
+
+  @include device(mobile) {
+    gap: 3rem;
+  }
 }

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./styles.module.scss";
-
+import { RiArticleLine } from "react-icons/ri";
 import menu from "@/utils/menu.json";
 
 import { PrimaryIcon, PrimaryText } from "../Buttons";
@@ -19,10 +19,23 @@ export const Header = () => {
         <Menu items={menu.items} />
       </div>
       <div className={styles.right}>
-        <a href="https://nublson.substack.com" target="_blank">
+        <a
+          href="https://nublson.substack.com"
+          target="_blank"
+          className={styles.newsletter_text}
+        >
           <PrimaryText title="Newsletter" />
         </a>
-        {/* <PrimaryIcon size="regular" icon={<RiSunFill size={"24px"} />} /> */}
+        <a
+          href="https://nublson.substack.com"
+          target="_blank"
+          className={styles.newsletter_icon}
+        >
+          <PrimaryIcon
+            size="regular"
+            icon={<RiArticleLine className={styles.icon} />}
+          />
+        </a>
       </div>
     </div>
   );

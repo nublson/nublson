@@ -3,10 +3,8 @@
 @import "../../sass/base/typography";
 
 .container {
-  max-width: 119.1344rem;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 0 10rem;
+  @include content_space;
+  position: relative;
 
   display: flex;
   flex-direction: column;
@@ -19,6 +17,10 @@
 
   @include device(tablet) {
     padding: 0 3rem 5rem;
+  }
+
+  @include device(mobileM) {
+    padding: 0 1rem 5rem;
   }
 }
 

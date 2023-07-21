@@ -18,6 +18,10 @@
   @include device(tablet) {
     width: 3rem;
   }
+
+  @include device(mobile) {
+    width: 2rem;
+  }
 }
 
 .icon_small {

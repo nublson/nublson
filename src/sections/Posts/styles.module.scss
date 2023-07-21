@@ -5,18 +5,23 @@
 
 .container {
   width: 100%;
-  padding: 10rem 0;
+  padding: 15rem 0;
 
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 
   @include device(laptop) {
-    padding: 5rem 0;
+    padding-bottom: 10rem;
+  }
+
+  @include device(tablet) {
+    padding-top: 10rem;
   }
 }
 
 .posts {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

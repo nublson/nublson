@@ -1,12 +1,32 @@
 @import "../../../sass/abstracts/mixins";
 
 .container {
-  width: 100%;
+  position: absolute;
+  top: 0;
+
+  @include content_space;
+
   padding: 2.5rem 0;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @include device(laptop) {
+    padding: 2.5rem 3rem;
+  }
+
+  @include device(tablet) {
+    padding: 2rem 3rem;
+  }
+
+  @include device(mobile) {
+    padding: 1rem 3rem;
+  }
+
+  @include device(mobileM) {
+    padding: 1rem 1rem;
+  }
 }
 
 .left {
@@ -16,22 +36,11 @@
   gap: 5rem;
 
   .logo {
-    width: 5rem;
-    height: 5rem;
+    @include logo;
   }
 
-  @include device(desktop) {
-    .logo {
-      width: 4rem;
-      height: 4rem;
-    }
-  }
-
-  @include device(tablet) {
-    .logo {
-      width: 3rem;
-      height: 3rem;
-    }
+  @include device(mobile) {
+    gap: 2rem;
   }
 }
 
@@ -40,4 +49,21 @@
   align-items: center;
   justify-content: flex-end;
   gap: 2rem;
+
+  .newsletter_text {
+  }
+
+  .newsletter_icon {
+    display: none;
+  }
+
+  @include device(mobile) {
+    .newsletter_text {
+      display: none;
+    }
+
+    .newsletter_icon {
+      display: initial;
+    }
+  }
 }

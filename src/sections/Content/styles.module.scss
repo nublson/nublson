@@ -1,4 +1,5 @@
 @use "../../sass/abstracts/colors";
+@import "../../sass/abstracts/mixins";
 @import "../../sass/base/typography";
 
 .container {
@@ -12,6 +13,10 @@
 
   @include device(tablet) {
     padding: 5rem 0;
+  }
+
+  @include device(mobile) {
+    padding: 0 0 5rem;
   }
 }
 

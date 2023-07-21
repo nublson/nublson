@@ -23,6 +23,10 @@ body {
   @include device(laptop) {
     font-size: 1.4rem;
   }
+
+  @include device(mobile) {
+    font-size: 1.2rem;
+  }
 }
 
 a {

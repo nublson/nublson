@@ -1,4 +1,5 @@
 @use "../../../sass/abstracts/colors";
+@import "../../../sass/abstracts/mixins";
 @import "../../../sass/base/typography";
 
 .container {
@@ -11,6 +12,10 @@
   align-items: center;
   justify-content: flex-start;
   gap: 5rem;
+
+  @include device(mobile) {
+    gap: 1rem;
+  }
 }
 
 .item {

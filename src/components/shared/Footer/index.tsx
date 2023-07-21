@@ -41,7 +41,7 @@ export const Footer = ({ socialList }: FooterProps) => {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-        <Image src={logo} alt="nubl. logo" width={50} height={50} />
+        <Image src={logo} alt="nubl. logo" className={styles.logo} />
 
         <div className={styles.bottom}>
           <div className={styles.copyright}>

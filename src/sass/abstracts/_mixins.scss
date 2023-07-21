@@ -16,6 +16,18 @@
       @content;
     }
   }
+
+  @if $type == mobileM {
+    @media only screen and (max-width: 375px) {
+      @content;
+    }
+  }
+
+  @if $type == mobileS {
+    @media only screen and (max-width: 320px) {
+      @content;
+    }
+  }
 }
 
 @mixin button-primary {
@@ -43,6 +55,10 @@
   @include device(tablet) {
     height: 3rem;
     padding: 0;
+  }
+
+  @include device(mobile) {
+    height: 2rem;
   }
 }
 
@@ -112,6 +128,26 @@
       }
     }
   }
+
+  @include device(mobile) {
+    width: 100%;
+
+    .thumbnail {
+      height: 20.53rem;
+    }
+  }
+
+  @include device(mobileM) {
+    .thumbnail {
+      height: 17.72rem;
+    }
+  }
+
+  @include device(mobileS) {
+    .thumbnail {
+      height: 14.62rem;
+    }
+  }
 }
 
 @mixin card-work {
@@ -122,6 +158,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 3rem;
 
   .body {
     flex: 1;
@@ -130,14 +167,14 @@
       @include title-h2;
       margin-bottom: 1rem;
     }
-
-    p {
-      margin-bottom: 3rem;
-    }
   }
 
   a {
     @include link-small;
+  }
+
+  @include device(tablet) {
+    gap: 1rem;
   }
 }
 
@@ -167,9 +204,22 @@
       height: 20rem;
     }
   }
+
+  @include device(mobile) {
+    .thumbnail {
+      height: 15rem;
+    }
+  }
+
+  @include device(mobileM) {
+    .thumbnail {
+      height: 12.5rem;
+    }
+  }
 }
 
 @mixin posts_grid {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, max-content);
   justify-items: start;
@@ -177,6 +227,11 @@
 
   @include device(laptop) {
     gap: 3rem;
+  }
+
+  @include device(mobile) {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 5rem;
   }
 }
 
@@ -190,5 +245,55 @@
 
   @include device(tablet) {
     height: 39.83rem;
+  }
+
+  @include device(mobile) {
+    height: 20.53rem;
+  }
+
+  @include device(mobileM) {
+    height: 17.72rem;
+  }
+
+  @include device(mobileS) {
+    height: 14.62rem;
+  }
+}
+
+@mixin content_space {
+  max-width: 119.1344rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 0 10rem;
+
+  @include device(laptop) {
+    padding: 0 3rem 10rem;
+  }
+
+  @include device(tablet) {
+    padding-bottom: 5rem;
+  }
+
+  @include device(mobile) {
+    padding: 0 3rem 5rem;
+  }
+
+  @include device(mobileM) {
+    padding: 0 1rem 5rem;
+  }
+}
+
+@mixin logo {
+  width: 5rem;
+  height: 5rem;
+
+  @include device(tablet) {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  @include device(mobile) {
+    width: 3.5rem;
+    height: 3.5rem;
   }
 }

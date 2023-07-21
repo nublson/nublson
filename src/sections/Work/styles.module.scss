@@ -16,4 +16,8 @@
   @include device(tablet) {
     grid-template-columns: repeat(2, 32rem);
   }
+
+  @include device(mobile) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
