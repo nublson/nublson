@@ -36,5 +36,11 @@
         font-size: 1.6rem;
       }
     }
+
+    @include device(tablet) {
+      .icon {
+        font-size: 1.2rem;
+      }
+    }
   }
 }

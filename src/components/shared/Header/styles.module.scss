@@ -1,3 +1,5 @@
+@import "../../../sass/abstracts/mixins";
+
 .container {
   width: 100%;
   padding: 2.5rem 0;
@@ -12,6 +14,25 @@
   align-items: center;
   justify-content: flex-start;
   gap: 5rem;
+
+  .logo {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  @include device(desktop) {
+    .logo {
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+
+  @include device(tablet) {
+    .logo {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
 }
 
 .right {

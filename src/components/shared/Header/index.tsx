@@ -14,7 +14,7 @@ export const Header = () => {
     <div className={styles.container}>
       <div className={styles.left}>
         <Link href={"/"}>
-          <Image src={logo} alt="nubl. logo" width={50} height={50} />
+          <Image src={logo} alt="nubl. logo" className={styles.logo} />
         </Link>
         <Menu items={menu.items} />
       </div>

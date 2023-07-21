@@ -12,4 +12,8 @@
     grid-template-columns: repeat(2, 40rem);
     gap: 3rem;
   }
+
+  @include device(tablet) {
+    grid-template-columns: repeat(2, 32rem);
+  }
 }

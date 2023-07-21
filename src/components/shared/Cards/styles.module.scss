@@ -11,23 +11,5 @@
 }
 
 .gear {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 2rem;
-
-  .thumbnail {
-    width: 100%;
-    height: 25rem;
-    position: relative;
-  }
-
-  .details {
-    h2 {
-      @include title-h2;
-      margin-bottom: 1rem;
-    }
-  }
+  @include card-gear;
 }

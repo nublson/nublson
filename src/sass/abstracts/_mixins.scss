@@ -39,6 +39,11 @@
     color: colors.$off_black;
     transition: all 0.2s;
   }
+
+  @include device(tablet) {
+    height: 3rem;
+    padding: 0;
+  }
 }
 
 @mixin card-post {
@@ -88,6 +93,18 @@
 
   @include device(laptop) {
     width: 40rem;
+
+    .thumbnail {
+      height: 22.5rem;
+    }
+  }
+
+  @include device(tablet) {
+    width: 32rem;
+
+    .thumbnail {
+      height: 18rem;
+    }
   }
 }
 
@@ -118,6 +135,34 @@
   }
 }
 
+@mixin card-gear {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
+
+  .thumbnail {
+    width: 100%;
+    height: 25rem;
+    position: relative;
+  }
+
+  .details {
+    h2 {
+      @include title-h2;
+      margin-bottom: 1rem;
+    }
+  }
+
+  @include device(tablet) {
+    .thumbnail {
+      height: 20rem;
+    }
+  }
+}
+
 @mixin posts_grid {
   display: grid;
   grid-template-columns: repeat(2, max-content);
@@ -126,5 +171,18 @@
 
   @include device(laptop) {
     gap: 3rem;
+  }
+}
+
+@mixin frame {
+  width: 100%;
+  height: 67rem;
+
+  @include device(laptop) {
+    height: 54.23rem;
+  }
+
+  @include device(tablet) {
+    height: 39.83rem;
   }
 }

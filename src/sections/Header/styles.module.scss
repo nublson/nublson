@@ -38,11 +38,6 @@
 }
 
 .thumbnail {
+  @include frame;
   position: relative;
-  width: 100%;
-  height: 67rem;
-
-  @include device(laptop) {
-    height: 54.23rem;
-  }
 }

@@ -40,6 +40,10 @@
     align-items: flex-start;
     justify-content: center;
     gap: 2rem;
+
+    @include device(tablet) {
+      gap: 1rem;
+    }
   }
 
   .social_media {
@@ -49,5 +53,9 @@
     align-items: center;
     justify-content: flex-end;
     gap: 2.5rem;
+
+    @include device(tablet) {
+      gap: 2rem;
+    }
   }
 }
