@@ -1,4 +1,5 @@
 @use "../../../sass/abstracts/colors";
+@import "../../../sass/abstracts/mixins";
 
 .footer {
   width: 100%;
@@ -7,6 +8,7 @@
 
 .container {
   max-width: 119.1344rem;
+  width: 100%;
   margin: 0 auto;
   padding: 10rem 0;
 
@@ -17,6 +19,12 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 20rem;
+
+  @include device(laptop) {
+    padding: 5rem 3rem;
+
+    gap: 10rem;
+  }
 }
 
 .bottom {

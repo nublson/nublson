@@ -1,4 +1,5 @@
 @use "../../../sass/abstracts/colors";
+@import "../../../sass/abstracts/mixins";
 @import "../../../sass/base/typography";
 
 .categories {
@@ -44,5 +45,9 @@
         transition: all 0.2s;
       }
     }
+  }
+
+  @include device(laptop) {
+    display: none;
   }
 }

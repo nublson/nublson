@@ -1,4 +1,5 @@
 @import "../../sass/base/typography";
+@import "../../sass/abstracts/mixins";
 
 .container {
   width: 100%;
@@ -6,13 +7,17 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+
+  @include device(laptop) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 5rem;
+  }
 }
 
 .posts {
-  display: grid;
-  grid-template-columns: repeat(2, max-content);
-  gap: 5rem;
-  justify-items: start;
+  @include posts_grid;
 }
 
 .link {

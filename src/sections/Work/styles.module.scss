@@ -1,3 +1,5 @@
+@import "../../sass/abstracts/mixins";
+
 .grid {
   width: 100%;
 
@@ -5,4 +7,9 @@
   grid-template-columns: repeat(2, 46.5rem);
   align-items: start;
   gap: 5rem;
+
+  @include device(laptop) {
+    grid-template-columns: repeat(2, 40rem);
+    gap: 3rem;
+  }
 }

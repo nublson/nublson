@@ -1,15 +1,21 @@
 @use "../../sass/abstracts/colors";
+@import "../../sass/abstracts/mixins";
 @import "../../sass/base/typography";
 
 .container {
   max-width: 119.1344rem;
+  width: 100%;
   margin: 0 auto;
-  padding-bottom: 10rem;
+  padding: 0 0 10rem;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+
+  @include device(laptop) {
+    padding: 0 3rem 10rem;
+  }
 }
 
 .section {
@@ -21,6 +27,12 @@
   align-items: flex-start;
   justify-content: center;
   gap: 5rem;
+
+  @include device(laptop) {
+    padding: 5rem 0;
+
+    gap: 3rem;
+  }
 }
 
 .section_title {

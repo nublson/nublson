@@ -1,4 +1,5 @@
 @use "../sass/abstracts/colors";
+@import "../sass/abstracts/mixins";
 
 * {
   margin: 0;
@@ -19,6 +20,14 @@ body {
   font-display: optional;
   background-color: colors.$background;
   color: colors.$body;
+
+  @include device(tablet) {
+    font-size: 1.4rem;
+  }
+
+  @include device(mobile) {
+    font-size: 1.2rem;
+  }
 }
 
 a {

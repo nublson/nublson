@@ -1,5 +1,6 @@
 @use "../../sass/abstracts/colors";
 @use "../../sass/animations/animations";
+@import "../../sass/abstracts/mixins";
 @import "../../sass/base/typography";
 
 .container {
@@ -9,6 +10,10 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+
+  @include device(laptop) {
+    padding: 5rem 0;
+  }
 }
 
 .posts {
@@ -41,20 +46,14 @@
 }
 
 .grid_down {
-  display: grid;
-  grid-template-columns: repeat(2, max-content);
-  gap: 5rem;
-  justify-items: start;
+  @include posts_grid;
 
   animation-name: smooth_down;
   animation-duration: 0.5s;
 }
 
 .grid_up {
-  display: grid;
-  grid-template-columns: repeat(2, max-content);
-  gap: 5rem;
-  justify-items: start;
+  @include posts_grid;
 
   animation-name: smooth_up;
   animation-duration: 0.5s;
