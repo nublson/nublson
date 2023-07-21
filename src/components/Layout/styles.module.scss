@@ -16,6 +16,10 @@
   @include device(laptop) {
     padding: 0 3rem 10rem;
   }
+
+  @include device(tablet) {
+    padding: 0 3rem 5rem;
+  }
 }
 
 .section {

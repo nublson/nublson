@@ -9,6 +9,10 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+
+  @include device(tablet) {
+    padding: 5rem 0;
+  }
 }
 
 .blocks {

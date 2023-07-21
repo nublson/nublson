@@ -29,7 +29,7 @@
 }
 
 .label {
-  font-size: 1.2rem;
+  @include text-small;
 }
 
 .title {
