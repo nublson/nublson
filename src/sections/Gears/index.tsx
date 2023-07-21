@@ -1,8 +1,8 @@
 import { Gear } from "@/components/shared/Cards";
 import { Categories } from "@/components/shared/Categories";
+import { getSingleImage } from "@/utils/getImage";
 import { GearsCategoryProps } from "@/utils/types";
 import styles from "./styles.module.scss";
-import { getSingleImage } from "@/utils/getImage";
 
 interface GearsSectionProps {
   data: GearsCategoryProps[];

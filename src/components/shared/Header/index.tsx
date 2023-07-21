@@ -1,7 +1,7 @@
-import Image from "next/image";
-import styles from "./styles.module.scss";
-import { RiArticleLine } from "react-icons/ri";
 import menu from "@/utils/menu.json";
+import Image from "next/image";
+import { RiArticleLine } from "react-icons/ri";
+import styles from "./styles.module.scss";
 
 import { PrimaryIcon, PrimaryText } from "../Buttons";
 import { Menu } from "../Menu";

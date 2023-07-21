@@ -1,6 +1,6 @@
+import { getSingleImage } from "@/utils/getImage";
 import Image from "next/image";
 import styles from "./styles.module.scss";
-import { getSingleImage } from "@/utils/getImage";
 
 interface HeaderProps {
   label: string;

@@ -2,8 +2,8 @@ import { Header, LastPosts, WorkSection } from "../sections";
 
 import { getData } from "@/services/notion";
 
-import work from "@/utils/work.json";
 import pages from "@/utils/pages.json";
+import work from "@/utils/work.json";
 
 export const revalidate = 60;
 

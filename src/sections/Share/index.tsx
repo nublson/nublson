@@ -1,6 +1,6 @@
 "use client";
 
-import { PrimaryIcon, PrimaryText } from "@/components/shared/Buttons";
+import { PrimaryIcon } from "@/components/shared/Buttons";
 import { usePathname } from "next/navigation";
 import { RiLinkedinLine, RiTwitterLine, RiWhatsappLine } from "react-icons/ri";
 import styles from "./styles.module.scss";

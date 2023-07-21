@@ -5,8 +5,8 @@ import Link from "next/link";
 import styles from "./styles.module.scss";
 
 import { Post } from "@/components/shared/Cards";
-import { PostProps } from "@/utils/types";
 import { getSingleImage } from "@/utils/getImage";
+import { PostProps } from "@/utils/types";
 
 interface LastPostProps {
   title: string;
