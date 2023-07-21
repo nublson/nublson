@@ -1,4 +1,5 @@
 @use "../../sass/abstracts/colors";
+@import "../../sass/abstracts/mixins";
 @import "../../sass/base/typography";
 
 .container {
@@ -25,5 +26,15 @@
     align-items: center;
     justify-content: flex-end;
     gap: 1rem;
+
+    .icon {
+      font-size: 2rem;
+    }
+
+    @include device(laptop) {
+      .icon {
+        font-size: 1.6rem;
+      }
+    }
   }
 }
