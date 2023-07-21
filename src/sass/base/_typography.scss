@@ -11,6 +11,10 @@
   @include device(tablet) {
     font-size: 1.8rem;
   }
+
+  @include device(mobileM) {
+    font-size: 1.6rem;
+  }
 }
 
 @mixin title-h2 {
@@ -23,6 +27,10 @@
 
   @include device(tablet) {
     font-size: 1.6rem;
+  }
+
+  @include device(mobileM) {
+    font-size: 1.4rem;
   }
 }
 
@@ -38,6 +46,10 @@
   @include device(tablet) {
     font-size: 1.4rem;
   }
+
+  @include device(mobileM) {
+    font-size: 1.2rem;
+  }
 }
 
 @mixin title-h4($color) {
@@ -51,6 +63,10 @@
 
   @include device(tablet) {
     font-size: 1.2rem;
+  }
+
+  @include device(mobileM) {
+    font-size: 1rem;
   }
 }
 
@@ -66,6 +82,10 @@
   @include device(tablet) {
     font-size: 1rem;
   }
+
+  @include device(mobileM) {
+    font-size: 0.8rem;
+  }
 }
 
 @mixin text-small {
@@ -78,6 +98,10 @@
 
   @include device(tablet) {
     font-size: 1rem;
+  }
+
+  @include device(mobileM) {
+    font-size: 0.8rem;
   }
 }
 
