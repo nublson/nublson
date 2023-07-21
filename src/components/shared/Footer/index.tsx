@@ -1,4 +1,5 @@
 import logo from "@/assets/logo_black.svg";
+import moment from "moment";
 import Image from "next/image";
 import {
   RiFileWordLine,
@@ -46,7 +47,7 @@ export const Footer = ({ socialList }: FooterProps) => {
         <div className={styles.bottom}>
           <div className={styles.copyright}>
             <p>With ❤️ and ☕.</p>
-            <p>Copyright © 2023, All rights reserved.</p>
+            <p>Copyright © {moment().year()}, All rights reserved.</p>
           </div>
           <div className={styles.social_media}>
             {socialList.map((item, index) => {
