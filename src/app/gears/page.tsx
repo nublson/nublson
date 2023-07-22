@@ -10,6 +10,18 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Gears",
     description: page.description,
+    openGraph: {
+      type: "article",
+      url: `${process.env.BASE_URL}/gears`,
+      title: "Gears",
+      description: page.description,
+      siteName: "nublson.com",
+      images: [
+        {
+          url: page.thumbnail,
+        },
+      ],
+    },
   };
 }
 

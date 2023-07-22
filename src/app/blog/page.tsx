@@ -2,9 +2,23 @@ import { PostsSection } from "@/sections";
 import { getData } from "@/services/notion";
 import { Metadata } from "next";
 
+import pageData from "@/utils/pagData.json";
+
 export const metadata: Metadata = {
-  title: "Blog",
-  description: "Writing down about personal development and technology.",
+  title: pageData.blog.title,
+  description: pageData.blog.description,
+  openGraph: {
+    type: "website",
+    url: `${process.env.BASE_URL}/blog`,
+    title: pageData.blog.title,
+    description: pageData.blog.description,
+    siteName: "nublson.com",
+    images: [
+      {
+        url: pageData.blog.image,
+      },
+    ],
+  },
 };
 
 export const revalidate = 60;

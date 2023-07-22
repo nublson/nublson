@@ -16,10 +16,26 @@ export async function generateMetadata({
     return post.post_slug === slug;
   });
 
-  return {
-    title: myPost?.title,
-    description: myPost?.description,
-  };
+  if (myPost) {
+    return {
+      title: myPost.title,
+      description: myPost.description,
+      openGraph: {
+        type: "article",
+        url: `${process.env.BASE_URL}/blog/${myPost.post_slug}`,
+        title: myPost.title,
+        description: myPost.description,
+        siteName: "nublson.com",
+        images: [
+          {
+            url: myPost.thumbnail,
+          },
+        ],
+      },
+    };
+  } else {
+    return {};
+  }
 }
 
 export async function generateStaticParams() {

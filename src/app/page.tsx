@@ -8,6 +8,17 @@ import work from "@/utils/work.json";
 
 export const metadata: Metadata = {
   description: pages.home.description,
+  openGraph: {
+    type: "website",
+    url: process.env.BASE_URL,
+    description: pages.home.description,
+    siteName: "nublson.com",
+    images: [
+      {
+        url: pages.home.thumbnail,
+      },
+    ],
+  },
 };
 
 export const revalidate = 60;
