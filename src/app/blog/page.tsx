@@ -2,7 +2,7 @@ import { PostsSection } from "@/sections";
 import { getData } from "@/services/notion";
 import { Metadata } from "next";
 
-import pageData from "@/utils/pagData.json";
+import pageData from "@/utils/pages.json";
 
 export const metadata: Metadata = {
   title: pageData.blog.title,
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     siteName: "nublson.com",
     images: [
       {
-        url: pageData.blog.image,
+        url: pageData.blog.thumbnail,
       },
     ],
   },
