@@ -4,9 +4,14 @@ import gears from "@/utils/gears.json";
 import moment from "moment";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Gears",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getPage(process.env.NOTION_PAGE_GEARS_ID);
+
+  return {
+    title: "Gears",
+    description: page.description,
+  };
+}
 
 export const revalidate = 60;
 

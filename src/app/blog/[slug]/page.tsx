@@ -1,19 +1,13 @@
 import { ContentSection, Header, ShareSection } from "@/sections";
 import { getBlocks, getData } from "@/services/notion";
-import { DynamicPageProps } from "@/utils/types";
+import { DynamicPageProps, MetadataProps } from "@/utils/types";
 import moment from "moment";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import Link from "next/link";
 
-interface MetadataProps {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
-export async function generateMetadata(
-  { params, searchParams }: MetadataProps,
-  parent?: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: MetadataProps): Promise<Metadata> {
   const { slug } = params;
 
   const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
@@ -24,6 +18,7 @@ export async function generateMetadata(
 
   return {
     title: myPost?.title,
+    description: myPost?.description,
   };
 }
 

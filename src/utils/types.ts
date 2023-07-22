@@ -51,3 +51,7 @@ export interface PostCardProps {
   post: PostProps;
   blurData?: string;
 }
+
+export interface MetadataProps {
+  params: { slug: string };
+}

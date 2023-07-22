@@ -4,6 +4,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Blog",
+  description: "Writing down about personal development and technology.",
 };
 
 export const revalidate = 60;

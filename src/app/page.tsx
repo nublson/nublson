@@ -6,7 +6,9 @@ import { getData } from "@/services/notion";
 import pages from "@/utils/pages.json";
 import work from "@/utils/work.json";
 
-export const metadata: Metadata = {};
+export const metadata: Metadata = {
+  description: pages.home.description,
+};
 
 export const revalidate = 60;
 

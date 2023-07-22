@@ -4,6 +4,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Store",
+  description: "Icons, LUT's, Presets and more",
 };
 
 export const revalidate = 60;
