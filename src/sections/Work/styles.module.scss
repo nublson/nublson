@@ -3,21 +3,6 @@
 .grid {
   width: 100%;
 
-  display: grid;
+  @include posts_grid;
   grid-template-columns: repeat(2, 46.5rem);
-  align-items: start;
-  gap: 5rem;
-
-  @include device(laptop) {
-    grid-template-columns: repeat(2, 40rem);
-    gap: 3rem;
-  }
-
-  @include device(tablet) {
-    grid-template-columns: repeat(2, 32rem);
-  }
-
-  @include device(mobile) {
-    grid-template-columns: repeat(1, 1fr);
-  }
 }

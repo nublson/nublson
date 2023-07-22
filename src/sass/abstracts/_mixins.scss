@@ -227,7 +227,11 @@
   gap: 5rem;
 
   @include device(laptop) {
-    gap: 3rem;
+    gap: 2.5rem;
+  }
+
+  @include device(tablet) {
+    grid-template-columns: repeat(2, 32rem);
   }
 
   @include device(mobile) {
