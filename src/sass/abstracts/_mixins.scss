@@ -5,8 +5,26 @@
     }
   }
 
+  @if $type == tabletL {
+    @media only screen and (max-width: 912px) {
+      @content;
+    }
+  }
+
+  @if $type == tabletM {
+    @media only screen and (max-width: 820px) {
+      @content;
+    }
+  }
+
   @if $type == tablet {
     @media only screen and (max-width: 768px) {
+      @content;
+    }
+  }
+
+  @if $type == tabletS {
+    @media only screen and (max-width: 540px) {
       @content;
     }
   }
@@ -25,6 +43,12 @@
 
   @if $type == mobileS {
     @media only screen and (max-width: 320px) {
+      @content;
+    }
+  }
+
+  @if $type == mobileXS {
+    @media only screen and (max-width: 280px) {
       @content;
     }
   }
@@ -55,6 +79,7 @@
   @include device(tablet) {
     height: 3rem;
     padding: 0;
+    border-width: 1.5px;
   }
 
   @include device(mobile) {
@@ -116,6 +141,14 @@
     }
   }
 
+  @include device(tabletM) {
+    width: 35.5rem;
+
+    .thumbnail {
+      height: 19.97rem;
+    }
+  }
+
   @include device(tablet) {
     width: 32rem;
 
@@ -130,9 +163,15 @@
     }
   }
 
-  @include device(mobile) {
+  @include device(tabletS) {
     width: 100%;
 
+    .thumbnail {
+      height: 27rem;
+    }
+  }
+
+  @include device(mobile) {
     .thumbnail {
       height: 20.53rem;
     }
@@ -200,9 +239,15 @@
     }
   }
 
-  @include device(tablet) {
+  @include device(tabletL) {
     .thumbnail {
       height: 20rem;
+    }
+  }
+
+  @include device(tabletS) {
+    .thumbnail {
+      height: 13rem;
     }
   }
 
@@ -215,6 +260,12 @@
   @include device(mobileM) {
     .thumbnail {
       height: 12.5rem;
+    }
+  }
+
+  @include device(mobileXS) {
+    .thumbnail {
+      height: 10rem;
     }
   }
 }
@@ -230,11 +281,15 @@
     gap: 2.5rem;
   }
 
+  @include device(tabletM) {
+    grid-template-columns: repeat(2, 35.5rem);
+  }
+
   @include device(tablet) {
     grid-template-columns: repeat(2, 32rem);
   }
 
-  @include device(mobile) {
+  @include device(tabletS) {
     grid-template-columns: repeat(1, 1fr);
     gap: 5rem;
   }
@@ -248,8 +303,16 @@
     height: 54.23rem;
   }
 
+  @include device(tabletM) {
+    height: 42.76rem;
+  }
+
   @include device(tablet) {
     height: 39.83rem;
+  }
+
+  @include device(tabletS) {
+    height: 27rem;
   }
 
   @include device(mobile) {
@@ -280,11 +343,7 @@
   }
 
   @include device(mobile) {
-    padding: 0 3rem 5rem;
-  }
-
-  @include device(mobileM) {
-    padding: 0 1rem 5rem;
+    padding: 0 2rem 5rem;
   }
 }
 

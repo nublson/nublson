@@ -27,7 +27,7 @@
   justify-content: space-between;
   gap: 5rem;
 
-  @include device(mobile) {
+  @include device(tabletS) {
     width: 100%;
   }
 }

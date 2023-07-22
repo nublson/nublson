@@ -24,12 +24,12 @@
   }
 
   @include device(mobile) {
+    padding: 5rem 2rem;
     gap: 5rem;
   }
 
   @include device(mobileM) {
     gap: 3rem;
-    padding: 5rem 1rem;
   }
 }
 

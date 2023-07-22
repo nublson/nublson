@@ -8,7 +8,7 @@
   align-items: flex-end;
   justify-content: space-between;
 
-  @include device(laptop) {
+  @include device(tabletL) {
     flex-direction: column;
     align-items: flex-start;
 
@@ -30,7 +30,7 @@
     @include link-small;
   }
 
-  @include device(tablet) {
+  @include device(tabletL) {
     justify-content: flex-start;
   }
 }

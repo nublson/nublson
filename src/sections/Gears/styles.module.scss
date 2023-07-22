@@ -41,7 +41,7 @@
     gap: 5rem;
   }
 
-  @include device(tablet) {
+  @include device(tabletL) {
     gap: 3rem;
 
     .items {
@@ -50,12 +50,18 @@
     }
   }
 
+  @include device(tabletS) {
+    .items {
+      grid-template-columns: repeat(3, 13rem);
+      gap: 2rem;
+    }
+  }
+
   @include device(mobile) {
     gap: 2rem;
 
     .items {
       grid-template-columns: repeat(2, 15rem);
-      gap: 2rem;
     }
   }
 
@@ -63,6 +69,12 @@
     .items {
       grid-template-columns: repeat(2, 12.5rem);
       gap: 1rem;
+    }
+  }
+
+  @include device(mobileXS) {
+    .items {
+      grid-template-columns: repeat(2, 10rem);
     }
   }
 }

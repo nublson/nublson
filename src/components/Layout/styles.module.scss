@@ -19,8 +19,8 @@
     padding: 0 3rem 5rem;
   }
 
-  @include device(mobileM) {
-    padding: 0 1rem 5rem;
+  @include device(mobile) {
+    padding: 0 2rem 5rem;
   }
 }
 
