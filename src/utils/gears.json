@@ -6,19 +6,25 @@
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709721/Portfolio/Gears/Camera%20Gears/AnyConv.com__fx30_uexyer.webp",
           "name": "Sony FX30",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "My main camera for videos.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1690036660/Portfolio/Gears/Camera%20Gears/AnyConv.com__m50_daruip.webp",
+          "name": "Canon M50",
+          "description": "Walk around and light-carry camera for images.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709721/Portfolio/Gears/Camera%20Gears/AnyConv.com__30mm_Sigma_n2xzvt.webp",
           "name": "Sigma 30mm f1.4 C",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "My favorite lens. I love the 30mm for portraits and video mostly.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709721/Portfolio/Gears/Camera%20Gears/AnyConv.com__16mm_Sigma_suqidr.webp",
           "name": "Sigma 16mm f1.4 C",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "My favorite vlogging lens.",
           "path": ""
         }
       ]
@@ -29,31 +35,37 @@
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__d3-pro_qjh0m7.webp",
           "name": "Deity V-Mic D3 Pro",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "The best on-camera shotgun I've ever used.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__deity_pocket_wireless_b8hedi.webp",
           "name": "Deity Pocket Wireless",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "A great little wireless setup for lav stuff.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__nd_filter_pjhv6r.webp",
           "name": "K&F ND2-400 & Black Mist 1/4",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "The sharpest, clearest ND's available.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__128gbs_Lexar_quuhqa.webp",
           "name": "Lexar SD Card V90 - 128GB",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Super fast cards for the FX30. I have two of them, one for each slot.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1690037752/Portfolio/Gears/Camera%20Accessories/AnyConv.com__card_reader_rs39fn.webp",
+          "name": "Pgytech Card Reader Case",
+          "description": "Keeps all my SD's safe in a crush and waterproof case. Also a card reader.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__weebill_s_wpdio6.webp",
           "name": "Zhiyun-Tech Weebill S",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Compact and lightweight stabilizer for smooth shooting.",
           "path": ""
         }
       ]
@@ -64,7 +76,7 @@
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__PRVKE_Lite_hbmv2e.webp",
           "name": "WANDRD PRVKE Lite",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "My favourite multi-purpose, every day camera bag.",
           "path": ""
         },
         {
@@ -75,14 +87,14 @@
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__ipado_pro_m2_a4higm.webp",
-          "name": "Apple iPad Pro M2",
+          "name": "Apple 12.9'' M2 iPad Pro",
           "description": "Mus bibendum lorem at lacinia nulla.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__apple_watch_se_l3rcfa.webp",
           "name": "Apple Watch SE",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Great for sleep tracking and gym activities.",
           "path": ""
         },
         {
@@ -176,25 +188,25 @@
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Notion_gbrh7r.png",
           "name": "Notion",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "I organize my entire life here.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Lightroom_pm2dy8.png",
           "name": "Adobe Lightroom",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Used for photo organisation and post processing.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Davinci_Resolve_mrioma.png",
           "name": "Davinci Resolve",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "My video post production software of choice.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Figma_hj2d8l.png",
           "name": "Figma",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Used for UI design and mockups.",
           "path": ""
         },
         {
@@ -206,7 +218,7 @@
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Cron_Calendar_c1tkma.png",
           "name": "Cron Calendar",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "The best calendar app for Mac/iOS.",
           "path": ""
         },
         {
@@ -218,13 +230,13 @@
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Spark_brvfqd.png",
           "name": "Spark",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "My favourite email app. Great design, unified inboxes.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Epidemic_Sound_wkyane.png",
           "name": "Epidemic Sound",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Where I get royalty-free music from.",
           "path": ""
         },
         {
