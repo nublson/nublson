@@ -1,9 +1,12 @@
+import { Metadata } from "next";
 import { Header, LastPosts, WorkSection } from "../sections";
 
 import { getData } from "@/services/notion";
 
 import pages from "@/utils/pages.json";
 import work from "@/utils/work.json";
+
+export const metadata: Metadata = {};
 
 export const revalidate = 60;
 

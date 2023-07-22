@@ -1,5 +1,10 @@
 import { PostsSection } from "@/sections";
 import { getData } from "@/services/notion";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog",
+};
 
 export const revalidate = 60;
 

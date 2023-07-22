@@ -2,6 +2,11 @@ import { ContentSection, GearsSection, Header, ShareSection } from "@/sections";
 import { getBlocks, getPage } from "@/services/notion";
 import gears from "@/utils/gears.json";
 import moment from "moment";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Gears",
+};
 
 export const revalidate = 60;
 
