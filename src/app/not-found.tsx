@@ -5,6 +5,7 @@ import page from "@/utils/pages.json";
 
 export const metadata: Metadata = {
   description: page.notFound.description,
+  metadataBase: new URL(process.env.BASE_URL),
   openGraph: {
     type: "website",
     url: process.env.BASE_URL,

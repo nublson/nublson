@@ -10,6 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Gears",
     description: page.description,
+    metadataBase: new URL(process.env.BASE_URL),
     openGraph: {
       type: "article",
       url: `${process.env.BASE_URL}/gears`,

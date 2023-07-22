@@ -7,6 +7,7 @@ import pageData from "@/utils/pages.json";
 export const metadata: Metadata = {
   title: pageData.blog.title,
   description: pageData.blog.description,
+  metadataBase: new URL(process.env.BASE_URL),
   openGraph: {
     type: "website",
     url: `${process.env.BASE_URL}/blog`,

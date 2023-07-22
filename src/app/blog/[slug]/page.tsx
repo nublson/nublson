@@ -20,6 +20,7 @@ export async function generateMetadata({
     return {
       title: myPost.title,
       description: myPost.description,
+      metadataBase: new URL(process.env.BASE_URL),
       openGraph: {
         type: "article",
         url: `${process.env.BASE_URL}/blog/${myPost.post_slug}`,
