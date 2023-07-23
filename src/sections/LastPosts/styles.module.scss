@@ -1,0 +1,36 @@
+@import "../../sass/base/typography";
+@import "../../sass/abstracts/mixins";
+
+.container {
+  width: 100%;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  @include device(tabletL) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 5rem;
+  }
+}
+
+.posts {
+  @include posts_grid;
+}
+
+.link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  p {
+    @include link-small;
+  }
+
+  @include device(tabletL) {
+    justify-content: flex-start;
+  }
+}

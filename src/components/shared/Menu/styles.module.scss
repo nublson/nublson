@@ -1,0 +1,32 @@
+@use "../../../sass/abstracts/colors";
+@import "../../../sass/abstracts/mixins";
+@import "../../../sass/base/typography";
+
+.container {
+}
+
+.list {
+  list-style: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5rem;
+
+  @include device(mobile) {
+    gap: 3rem;
+  }
+}
+
+.item {
+  @include nav-item;
+}
+
+.active {
+  @include nav-item;
+
+  a {
+    font-weight: 600;
+    text-decoration: underline;
+  }
+}

@@ -1,17 +1,19 @@
-import { IPostCategory } from "./types";
+import { PostProps } from "./types";
 
-export const getCategories = (posts: any[]) => {
-  let categories: IPostCategory[] = [];
+export const getCategories = (posts: PostProps[]) => {
+  let categories: {
+    title: string;
+  }[] = [];
 
-  posts.forEach((post) =>
-    post.categories.forEach((category: IPostCategory) => {
-      const alreadyExists = categories.find((item) => item.id === category.id);
+  posts.forEach((post) => {
+    const alreadyExists = categories.find(
+      (item) => item.title === post.category
+    );
 
-      if (!alreadyExists) {
-        return categories.push({ id: category.id, name: category.name });
-      }
-    })
-  );
+    if (!alreadyExists) {
+      return categories.push({ title: post.category });
+    }
+  });
 
   return categories;
 };

@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "name": "Blog",
+      "path": "blog"
+    },
+    {
+      "name": "Store",
+      "path": "store"
+    },
+    {
+      "name": "Gears",
+      "path": "gears"
+    }
+  ]
+}

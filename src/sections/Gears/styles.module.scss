@@ -1,0 +1,80 @@
+@use "../../sass/abstracts/colors";
+@import "../../sass/abstracts/mixins";
+@import "../../sass/base/typography";
+
+.container {
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15rem;
+}
+
+.gears {
+  flex: 1;
+  padding-bottom: 10rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10rem;
+}
+
+.category {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 5rem;
+
+  h3 {
+    @include title-h3(colors.$title);
+  }
+
+  .items {
+    display: grid;
+    grid-template-columns: repeat(3, 25rem);
+    gap: 5rem;
+  }
+
+  @include device(tabletL) {
+    gap: 3rem;
+
+    .items {
+      grid-template-columns: repeat(3, 20rem);
+      gap: 3rem;
+    }
+  }
+
+  @include device(tabletS) {
+    .items {
+      grid-template-columns: repeat(3, 13rem);
+      gap: 2rem;
+    }
+  }
+
+  @include device(mobile) {
+    gap: 2rem;
+
+    .items {
+      grid-template-columns: repeat(2, 15rem);
+    }
+  }
+
+  @include device(mobileM) {
+    .items {
+      grid-template-columns: repeat(2, 12.5rem);
+      gap: 1rem;
+    }
+  }
+
+  @include device(mobileXS) {
+    .items {
+      grid-template-columns: repeat(2, 10rem);
+    }
+  }
+}

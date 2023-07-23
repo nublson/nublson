@@ -1,0 +1,148 @@
+@use "../../sass/abstracts/colors";
+@import "../../sass/abstracts/mixins";
+@import "../../sass/base/typography";
+
+.container {
+  width: 100%;
+  padding: 10rem 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  @include device(tablet) {
+    padding: 5rem 0;
+  }
+
+  @include device(mobile) {
+    padding: 0 0 5rem;
+  }
+}
+
+.blocks {
+  max-width: 109.2rem;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+  }
+
+  hr {
+    width: 100%;
+    height: 0;
+    margin: 2rem 0;
+  }
+
+  h1 {
+    @include title-h1;
+    margin: 4rem 0 1rem;
+  }
+
+  h2 {
+    @include title-h2;
+    margin: 3rem 0 1rem;
+  }
+
+  h3 {
+    @include title-h3(colors.$title);
+    margin: 2rem 0 1rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  div {
+    width: 100%;
+    padding: 2rem;
+    background-color: colors.$imput_background;
+    margin: 1.5rem 0;
+
+    span {
+      margin-left: 1rem;
+    }
+  }
+
+  blockquote {
+    width: 100%;
+    padding: 0 2rem;
+    margin: 1.5rem 0;
+    border-left: 3px solid colors.$off_white;
+    font-style: italic;
+  }
+
+  ul,
+  ol {
+    list-style-position: inside;
+  }
+
+  iframe {
+    @include frame;
+    height: 61.425rem;
+    margin: 2rem 0 1rem;
+  }
+
+  &.bold {
+    font-weight: 700;
+  }
+
+  &.italic {
+    font-style: italic;
+  }
+
+  &.strikethrough {
+    text-decoration: line-through;
+  }
+
+  &.underline {
+    text-decoration: underline;
+  }
+
+  &.gray {
+    color: #9fa4a9;
+  }
+
+  &.brown {
+    color: #d49675;
+  }
+
+  &.orange {
+    color: #d98538;
+  }
+
+  &.yellow {
+    color: #fade71;
+  }
+
+  &.green {
+    color: #71b283;
+  }
+
+  &.blue {
+    color: #66aada;
+  }
+
+  &.purple {
+    color: #b098d9;
+  }
+
+  &.pink {
+    color: #df84d1;
+  }
+
+  &.red {
+    color: #ea878c;
+  }
+}

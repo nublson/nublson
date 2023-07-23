@@ -1,0 +1,82 @@
+@use "../../../sass/abstracts/colors";
+@import "../../../sass/abstracts/mixins";
+
+.footer {
+  width: 100%;
+  background-color: colors.$off-white;
+}
+
+.container {
+  @include content_space;
+  padding: 10rem 0;
+
+  color: colors.$off-black;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20rem;
+
+  @include device(laptop) {
+    padding: 5rem 3rem;
+    gap: 10rem;
+  }
+
+  @include device(mobile) {
+    padding: 5rem 2rem;
+    gap: 5rem;
+  }
+
+  @include device(mobileM) {
+    gap: 3rem;
+  }
+}
+
+.logo {
+  @include logo;
+}
+
+.bottom {
+  width: 100%;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  .copyright {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+
+    @include device(tablet) {
+      gap: 1rem;
+    }
+  }
+
+  .social_media {
+    font-size: 2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2.5rem;
+
+    @include device(tablet) {
+      gap: 2rem;
+    }
+  }
+
+  @include device(mobile) {
+    // flex-direction: column-reverse;
+    // align-items: flex-start;
+
+    // gap: 2rem;
+
+    .social_media {
+      display: none;
+    }
+  }
+}

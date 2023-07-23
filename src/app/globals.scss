@@ -1,0 +1,46 @@
+@use "../sass/abstracts/colors";
+@import "../sass/abstracts/mixins";
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-size: 62.5%;
+}
+
+body {
+  font-weight: 400;
+  font-size: 1.6rem;
+  font-display: optional;
+  background-color: colors.$background;
+  color: colors.$body;
+
+  @include device(laptop) {
+    font-size: 1.4rem;
+  }
+
+  @include device(mobile) {
+    font-size: 1.2rem;
+  }
+
+  @include device(mobileM) {
+    font-size: 1rem;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: colors.$title;
+}
+
+h1,
+h2,
+h3 {
+  color: colors.$title;
+  font-weight: 700;
+}

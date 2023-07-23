@@ -1,0 +1,65 @@
+@import "../../../sass/abstracts/mixins";
+
+.container {
+  position: absolute;
+  top: 0;
+
+  @include content_space;
+
+  padding: 2.5rem 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include device(laptop) {
+    padding: 2.5rem 3rem;
+  }
+
+  @include device(tablet) {
+    padding: 2rem 3rem;
+  }
+
+  @include device(mobile) {
+    padding: 1rem 2rem;
+  }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5rem;
+
+  .logo {
+    @include logo;
+  }
+
+  @include device(mobile) {
+    gap: 2rem;
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+
+  .newsletter_text {
+  }
+
+  .newsletter_icon {
+    display: none;
+  }
+
+  @include device(mobile) {
+    .newsletter_text {
+      display: none;
+    }
+
+    .newsletter_icon {
+      display: initial;
+    }
+  }
+}

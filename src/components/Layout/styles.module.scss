@@ -1,0 +1,46 @@
+@use "../../sass/abstracts/colors";
+@import "../../sass/abstracts/mixins";
+@import "../../sass/base/typography";
+
+.container {
+  @include content_space;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  @include device(laptop) {
+    padding: 0 3rem 10rem;
+  }
+
+  @include device(tablet) {
+    padding: 0 3rem 5rem;
+  }
+
+  @include device(mobile) {
+    padding: 0 2rem 5rem;
+  }
+}
+
+.section {
+  width: 100%;
+  padding: 10rem 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 5rem;
+
+  @include device(laptop) {
+    padding: 5rem 0;
+
+    gap: 3rem;
+  }
+}
+
+.section_title {
+  @include title-h5(colors.$label);
+}

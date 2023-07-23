@@ -1,0 +1,263 @@
+{
+  "categories": [
+    {
+      "title": "Camera Gears",
+      "gears": [
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709721/Portfolio/Gears/Camera%20Gears/AnyConv.com__fx30_uexyer.webp",
+          "name": "Sony FX30",
+          "description": "My main camera for videos.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1690036660/Portfolio/Gears/Camera%20Gears/AnyConv.com__m50_daruip.webp",
+          "name": "Canon M50",
+          "description": "Walk around and light-carry camera for images.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709721/Portfolio/Gears/Camera%20Gears/AnyConv.com__30mm_Sigma_n2xzvt.webp",
+          "name": "Sigma 30mm f1.4 C",
+          "description": "My favorite lens. I love the 30mm for portraits and video mostly.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709721/Portfolio/Gears/Camera%20Gears/AnyConv.com__16mm_Sigma_suqidr.webp",
+          "name": "Sigma 16mm f1.4 C",
+          "description": "My favorite vlogging lens.",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "title": "Camera Accessories",
+      "gears": [
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__d3-pro_qjh0m7.webp",
+          "name": "Deity V-Mic D3 Pro",
+          "description": "The best on-camera shotgun I've ever used.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__deity_pocket_wireless_b8hedi.webp",
+          "name": "Deity Pocket Wireless",
+          "description": "A great little wireless setup for lav stuff.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__nd_filter_pjhv6r.webp",
+          "name": "K&F ND2-400 & Black Mist 1/4",
+          "description": "The sharpest, clearest ND's available.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__128gbs_Lexar_quuhqa.webp",
+          "name": "Lexar SD Card V90 - 128GB",
+          "description": "Super fast cards for the FX30. I have two of them, one for each slot.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1690037752/Portfolio/Gears/Camera%20Accessories/AnyConv.com__card_reader_rs39fn.webp",
+          "name": "Pgytech Card Reader Case",
+          "description": "Keeps all my SD's safe in a crush and waterproof case. Also a card reader.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709650/Portfolio/Gears/Camera%20Accessories/AnyConv.com__weebill_s_wpdio6.webp",
+          "name": "Zhiyun-Tech Weebill S",
+          "description": "Compact and lightweight stabilizer for smooth shooting.",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "title": "Everyday Carry",
+      "gears": [
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__PRVKE_Lite_hbmv2e.webp",
+          "name": "WANDRD PRVKE Lite",
+          "description": "My favourite multi-purpose, every day camera bag.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__iphone_13_pro_bggcpu.webp",
+          "name": "Apple iPhone 13 Pro",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__ipado_pro_m2_a4higm.webp",
+          "name": "Apple 12.9'' M2 iPad Pro",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__apple_watch_se_l3rcfa.webp",
+          "name": "Apple Watch SE",
+          "description": "Great for sleep tracking and gym activities.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709951/Portfolio/Gears/Everyday%20Carry/AnyConv.com__airpods_pro_j40liz.webp",
+          "name": "Apple AirPods Pro",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "title": "Desk Setup",
+      "gears": [
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__lg_monitor_yxjjuw.webp",
+          "name": "LG 29' Ultrawide",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__mac_mini_dryrwx.webp",
+          "name": "Mac Mini M1 2020",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__mx_master_3s_hoctlo.webp",
+          "name": "Logitech MX Master 3S",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__magic_trackpad_tjbuqr.webp",
+          "name": "Apple Magic Trackpad",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__mx_mechanical_mini_niednu.webp",
+          "name": "Logitech Mechanical Mini",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709866/Portfolio/Gears/Desk%20Setup/AnyConv.com__sony_xm3_ri5wtn.webp",
+          "name": "Sony WH1000XM3",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709866/Portfolio/Gears/Desk%20Setup/AnyConv.com__shure_mv7_evhd7c.webp",
+          "name": "Shure MV7",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__ps5_vfrfni.webp",
+          "name": "Sony Play Station 5",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__ps5_headset_veskcn.webp",
+          "name": "Sony Pulse 3D Wireless",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__keychron_k2_jnlunm.webp",
+          "name": "Keychron K2 Aluminium RGB",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689709866/Portfolio/Gears/Desk%20Setup/AnyConv.com__ssd_t5_rchtlx.webp",
+          "name": "Samsung SSD T5 - 1TB",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689710847/Portfolio/Gears/Desk%20Setup/AnyConv.com__airpods_max_zhwm7g.webp",
+          "name": "Apple AirPods Max",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "title": "Softwares",
+      "gears": [
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Notion_gbrh7r.png",
+          "name": "Notion",
+          "description": "I organize my entire life here.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Lightroom_pm2dy8.png",
+          "name": "Adobe Lightroom",
+          "description": "Used for photo organisation and post processing.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Davinci_Resolve_mrioma.png",
+          "name": "Davinci Resolve",
+          "description": "My video post production software of choice.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Figma_hj2d8l.png",
+          "name": "Figma",
+          "description": "Used for UI design and mockups.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Milanote_laroy6.png",
+          "name": "Milanote",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Cron_Calendar_c1tkma.png",
+          "name": "Cron Calendar",
+          "description": "The best calendar app for Mac/iOS.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Substack_hnisey.png",
+          "name": "Substack",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Spark_brvfqd.png",
+          "name": "Spark",
+          "description": "My favourite email app. Great design, unified inboxes.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Epidemic_Sound_wkyane.png",
+          "name": "Epidemic Sound",
+          "description": "Where I get royalty-free music from.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/VSCode_vqfh2j.png",
+          "name": "VSCode",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/OffScreen_App_ns1nfw.png",
+          "name": "Offscreen",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        },
+        {
+          "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Pillow_App_kdmshb.png",
+          "name": "Pillow",
+          "description": "Mus bibendum lorem at lacinia nulla.",
+          "path": ""
+        }
+      ]
+    }
+  ]
+}

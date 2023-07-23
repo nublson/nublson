@@ -1,0 +1,25 @@
+@import "../../sass/abstracts/mixins";
+
+.grid {
+  width: 100%;
+
+  @include posts_grid;
+  grid-template-columns: repeat(2, 46.5rem);
+
+  @include device(tabletL) {
+    grid-template-columns: repeat(2, 40rem);
+  }
+
+  @include device(tabletM) {
+    grid-template-columns: repeat(2, 35.5rem);
+  }
+
+  @include device(tablet) {
+    grid-template-columns: repeat(2, 32rem);
+  }
+
+  @include device(tabletS) {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 5rem;
+  }
+}

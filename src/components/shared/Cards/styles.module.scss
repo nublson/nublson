@@ -1,0 +1,15 @@
+@use "../../../sass/abstracts/colors";
+@import "../../../sass/base/typography";
+@import "../../../sass/abstracts/mixins";
+
+.work {
+  @include card-work;
+}
+
+.post {
+  @include card-post;
+}
+
+.gear {
+  @include card-gear;
+}

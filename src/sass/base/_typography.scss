@@ -1,0 +1,158 @@
+@import "../abstracts/mixins";
+
+@mixin title-h1 {
+  font-size: 2.2rem;
+  letter-spacing: 0.1rem;
+
+  @include device(laptop) {
+    font-size: 2rem;
+  }
+
+  @include device(tablet) {
+    font-size: 1.8rem;
+  }
+
+  @include device(mobileM) {
+    font-size: 1.6rem;
+  }
+}
+
+@mixin title-h2 {
+  font-size: 2rem;
+  letter-spacing: 0.075rem;
+
+  @include device(laptop) {
+    font-size: 1.8rem;
+  }
+
+  @include device(tablet) {
+    font-size: 1.6rem;
+  }
+
+  @include device(mobileM) {
+    font-size: 1.4rem;
+  }
+}
+
+@mixin title-h3($color) {
+  color: $color;
+  font-size: 1.8rem;
+  letter-spacing: 0.075rem;
+
+  @include device(laptop) {
+    font-size: 1.6rem;
+  }
+
+  @include device(tablet) {
+    font-size: 1.4rem;
+  }
+
+  @include device(mobileM) {
+    font-size: 1.2rem;
+  }
+}
+
+@mixin title-h4($color) {
+  color: $color;
+  font-size: 1.6rem;
+  letter-spacing: 0.075rem;
+
+  @include device(laptop) {
+    font-size: 1.4rem;
+  }
+
+  @include device(tablet) {
+    font-size: 1.2rem;
+  }
+
+  @include device(mobileM) {
+    font-size: 1rem;
+  }
+}
+
+@mixin title-h5($color) {
+  color: $color;
+  font-size: 1.4rem;
+  letter-spacing: 0.075rem;
+
+  @include device(laptop) {
+    font-size: 1.2rem;
+  }
+
+  @include device(tablet) {
+    font-size: 1rem;
+  }
+
+  @include device(mobileM) {
+    font-size: 0.8rem;
+  }
+}
+
+@mixin text-small {
+  font-size: 1.4rem;
+  letter-spacing: 0.075rem;
+
+  @include device(laptop) {
+    font-size: 1.2rem;
+  }
+
+  @include device(tablet) {
+    font-size: 1rem;
+  }
+
+  @include device(mobileM) {
+    font-size: 0.8rem;
+  }
+}
+
+@mixin link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+@mixin link-small {
+  @include link;
+
+  font-size: 1.2rem;
+  text-decoration: underline transparent;
+
+  &:hover {
+    text-decoration: underline;
+    transition: all 0.2s;
+  }
+
+  @include device(laptop) {
+    font-size: 1rem;
+  }
+}
+
+@mixin link-small-underline {
+  @include link-small();
+  text-decoration: underline;
+}
+
+@mixin link-xsmall {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.025rem;
+
+  @include device(laptop) {
+    font-size: 0.8rem;
+  }
+}
+
+@mixin nav-item {
+  cursor: pointer;
+
+  a {
+    color: colors.$off_white;
+    text-decoration: underline transparent;
+
+    &:hover {
+      text-decoration: underline;
+      transition: all 0.2s;
+    }
+  }
+}

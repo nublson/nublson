@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "title": "Youtube",
+      "description": "I upload videos covering tech products, personal development and lifestyle.",
+      "path": "https://youtube.com/@nublson"
+    },
+    {
+      "title": "Tiktok",
+      "description": "I regularly post videos about my daily routine and unboxing.",
+      "path": "https://tiktok.com/@nublson"
+    },
+    {
+      "title": "Instagram",
+      "description": "I share my day to day life and interact with my audience.",
+      "path": "https://instagram.com/nublson"
+    },
+    {
+      "title": "The Road",
+      "description": "My monthly newsletter where I share my experiences and cool stuffs.",
+      "path": "https://nublson.substack.com"
+    }
+  ]
+}

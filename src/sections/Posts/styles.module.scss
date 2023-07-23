@@ -1,0 +1,79 @@
+@use "../../sass/abstracts/colors";
+@use "../../sass/animations/animations";
+@import "../../sass/abstracts/mixins";
+@import "../../sass/base/typography";
+
+.container {
+  width: 100%;
+  padding: 15rem 0;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  @include device(laptop) {
+    padding-bottom: 10rem;
+  }
+
+  @include device(tablet) {
+    padding-top: 10rem;
+  }
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5rem;
+
+  @include device(tabletS) {
+    width: 100%;
+  }
+}
+
+.category {
+  width: 100%;
+
+  animation-name: fadeIn;
+  animation-duration: 0.2s;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  p {
+    @include text-small;
+    color: colors.$label;
+  }
+
+  .title {
+    @include title-h1;
+  }
+}
+
+.grid_down {
+  @include posts_grid;
+
+  animation-name: smooth_down;
+  animation-duration: 0.5s;
+}
+
+.grid_up {
+  @include posts_grid;
+
+  animation-name: smooth_up;
+  animation-duration: 0.5s;
+}
+
+.nav {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin-top: 5rem;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

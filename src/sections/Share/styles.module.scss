@@ -1,0 +1,50 @@
+@use "../../sass/abstracts/colors";
+@import "../../sass/abstracts/mixins";
+@import "../../sass/base/typography";
+
+.container {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .info {
+    p {
+      @include text-small;
+      color: colors.$label;
+    }
+
+    a {
+      @include link-small-underline;
+      display: initial;
+    }
+  }
+
+  .share {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    .icon {
+      font-size: 2rem;
+    }
+
+    @include device(laptop) {
+      .icon {
+        font-size: 1.6rem;
+      }
+    }
+
+    @include device(tablet) {
+      .icon {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  @include device(mobile) {
+    gap: 3rem;
+  }
+}

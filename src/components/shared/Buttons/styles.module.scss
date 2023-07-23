@@ -1,0 +1,37 @@
+@use "../../../sass/abstracts/colors";
+@import "../../../sass/abstracts/mixins";
+
+.primary {
+  @include button-primary;
+
+  @include device(tablet) {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+  }
+}
+
+.icon_regular {
+  @include button-primary;
+  width: 4rem;
+  padding: 0;
+
+  @include device(tablet) {
+    width: 3rem;
+  }
+
+  @include device(mobile) {
+    width: 2rem;
+  }
+}
+
+.icon_small {
+  @include button-primary;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+
+  @include device(tablet) {
+    width: 2rem;
+    height: 2rem;
+  }
+}
