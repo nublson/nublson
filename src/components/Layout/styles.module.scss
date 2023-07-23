@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: flex-start;
 
-  @include device(laptop) {
+  @include device(laptopM) {
     padding: 0 3rem 10rem;
   }
 
@@ -34,7 +34,7 @@
   justify-content: center;
   gap: 5rem;
 
-  @include device(laptop) {
+  @include device(laptopM) {
     padding: 5rem 0;
 
     gap: 3rem;

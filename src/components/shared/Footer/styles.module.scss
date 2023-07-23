@@ -18,7 +18,7 @@
   justify-content: space-between;
   gap: 20rem;
 
-  @include device(laptop) {
+  @include device(laptopM) {
     padding: 5rem 3rem;
     gap: 10rem;
   }

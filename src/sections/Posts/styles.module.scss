@@ -11,7 +11,7 @@
   align-items: flex-start;
   justify-content: space-between;
 
-  @include device(laptop) {
+  @include device(laptopM) {
     padding-bottom: 10rem;
   }
 

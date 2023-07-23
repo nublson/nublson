@@ -31,7 +31,7 @@
       font-size: 2rem;
     }
 
-    @include device(laptop) {
+    @include device(laptopM) {
       .icon {
         font-size: 1.6rem;
       }

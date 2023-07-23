@@ -1,4 +1,10 @@
 @mixin device($type) {
+  @if $type == laptopM {
+    @media only screen and (max-width: 1180px) {
+      @content;
+    }
+  }
+
   @if $type == laptop {
     @media only screen and (max-width: 1024px) {
       @content;
@@ -133,7 +139,7 @@
     }
   }
 
-  @include device(laptop) {
+  @include device(laptopM) {
     width: 40rem;
 
     .thumbnail {
@@ -277,7 +283,7 @@
   justify-items: start;
   gap: 5rem;
 
-  @include device(laptop) {
+  @include device(laptopM) {
     gap: 2.5rem;
   }
 
@@ -299,7 +305,7 @@
   width: 100%;
   height: 67rem;
 
-  @include device(laptop) {
+  @include device(laptopM) {
     height: 54.23rem;
   }
 
@@ -334,7 +340,7 @@
   margin: 0 auto;
   padding: 0 0 10rem;
 
-  @include device(laptop) {
+  @include device(laptopM) {
     padding: 0 3rem 10rem;
   }
 

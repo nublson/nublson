@@ -20,7 +20,7 @@ body {
   background-color: colors.$background;
   color: colors.$body;
 
-  @include device(laptop) {
+  @include device(laptopM) {
     font-size: 1.4rem;
   }
 

@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
 
-  @include device(laptop) {
+  @include device(laptopM) {
     padding: 2.5rem 3rem;
   }
 
