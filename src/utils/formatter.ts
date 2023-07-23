@@ -29,6 +29,7 @@ export const formatPosts = (database: any[]) => {
         ? post.properties.description.rich_text[0].text.content
         : null,
       publish_date: post.properties.publish_date.date.start,
+      modified_date: post.properties.modified_date.last_edited_time,
       category: post.properties.category.select.name,
       path: post.properties.refer_link.url,
     };
@@ -47,6 +48,7 @@ export const formatPageProps = (page: any) => {
         : page.cover.external.url,
     description: page.properties.description.rich_text[0].text.content,
     publish_date: page.properties.publish_date.date.start,
+    modified_date: page.properties.modified_date.last_edited_time,
   };
 
   return formatedPage;

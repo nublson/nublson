@@ -16,6 +16,7 @@ export interface PostProps {
   title: string;
   description: string;
   publish_date: string;
+  modified_date: string;
   category: string;
   path?: string;
 }
@@ -26,6 +27,7 @@ export interface PageProps {
   thumbnail: string;
   description: string;
   publish_date: string;
+  modified_date: string;
 }
 
 export interface DynamicPageProps {
