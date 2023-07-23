@@ -1,5 +1,5 @@
 import { getData } from "@/services/notion";
-import { pages } from "@/utils/sitemapPages.json";
+import sitemapList from "@/utils/sitemapPages.json";
 
 export default async function sitemap() {
   const articles = (await getData(process.env.NOTION_DATABASE_ARTICLES_ID)).map(
@@ -11,7 +11,7 @@ export default async function sitemap() {
     }
   );
 
-  const routes = pages.map((item) => ({
+  const routes = sitemapList.pages.map((item) => ({
     url: `${process.env.BASE_URL}${item.path}`,
     lastModified: new Date().toISOString(),
   }));
