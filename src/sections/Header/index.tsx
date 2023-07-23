@@ -32,6 +32,7 @@ export const Header = async ({
           style={{ objectFit: "cover" }}
           placeholder="blur"
           blurDataURL={base64}
+          priority
         />
       </div>
     </main>

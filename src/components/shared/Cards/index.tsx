@@ -31,6 +31,7 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
           style={{ objectFit: "cover" }}
           placeholder="blur"
           blurDataURL={blurData}
+          priority
         />
       </div>
       <div className={styles.body}>
@@ -69,6 +70,7 @@ export const Gear = ({ image, name, description, blurData }: GearProps) => {
           style={{ objectFit: "cover" }}
           placeholder="blur"
           blurDataURL={blurData}
+          quality={100}
         />
       </div>
       <div className={styles.details}>
