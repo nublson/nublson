@@ -1,8 +1,6 @@
 @import "../../sass/abstracts/mixins";
 
 .grid {
-  width: 100%;
-
   @include posts_grid;
   grid-template-columns: repeat(2, 46.5rem);
 
