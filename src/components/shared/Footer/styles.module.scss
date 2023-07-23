@@ -8,7 +8,8 @@
 
 .container {
   @include content_space;
-  padding: 10rem 0;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
 
   color: colors.$off-black;
 
@@ -19,7 +20,8 @@
   gap: 20rem;
 
   @include device(laptopM) {
-    padding: 5rem 3rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
     gap: 10rem;
   }
 

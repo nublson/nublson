@@ -335,14 +335,10 @@
 }
 
 @mixin content_space {
-  max-width: 119.1344rem;
+  max-width: 122.1344rem;
   width: 100%;
   margin: 0 auto;
-  padding: 0 0 10rem;
-
-  @include device(laptopM) {
-    padding: 0 3rem 10rem;
-  }
+  padding: 0 3rem 10rem;
 
   @include device(tablet) {
     padding-bottom: 5rem;
