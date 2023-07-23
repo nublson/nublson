@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.scss";
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className={poppins.className}>
         <Layout>{children}</Layout>
         <Footer socialList={social.items} />
+        <Analytics />
       </body>
     </html>
   );
