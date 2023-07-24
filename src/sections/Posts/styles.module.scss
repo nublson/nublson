@@ -40,17 +40,23 @@
   animation-duration: 0.2s;
 
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
 
-  p {
-    @include text-small;
-    color: colors.$label;
-  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 
-  .title {
-    @include title-h1;
+    p {
+      @include text-small;
+      color: colors.$label;
+    }
+
+    .title {
+      @include title-h1;
+    }
   }
 }
 

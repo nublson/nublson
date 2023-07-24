@@ -27,6 +27,11 @@
     justify-content: flex-end;
     gap: 1rem;
 
+    .social {
+      width: 4rem;
+      @include button-primary;
+    }
+
     .icon {
       font-size: 2rem;
     }
@@ -38,8 +43,18 @@
     }
 
     @include device(tablet) {
+      .social {
+        width: 3rem;
+      }
+
       .icon {
         font-size: 1.2rem;
+      }
+    }
+
+    @include device(mobile) {
+      .social {
+        width: 2rem;
       }
     }
   }

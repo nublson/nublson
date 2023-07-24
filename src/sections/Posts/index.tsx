@@ -2,12 +2,14 @@
 import { Post } from "@/components/shared/Cards";
 import { Categories } from "@/components/shared/Categories";
 import styles from "./styles.module.scss";
+import { RiCloseLine } from "react-icons/ri";
 
 import assets from "@/assets/blur.json";
 import { useQueryParams } from "@/hooks";
 import { getCategories } from "@/utils/getCategories";
 import { getPostsByCategory } from "@/utils/getPostsByCategory";
 import { PostProps } from "@/utils/types";
+import { PrimaryIcon } from "@/components/shared/Buttons";
 
 interface QueryParams {
   category: string;
@@ -34,8 +36,12 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
       <div className={styles.posts}>
         {queryParams.category && (
           <div className={styles.category}>
-            <p>Category</p>
-            <h1 className={styles.title}>{queryParams.category}</h1>
+            <div className={styles.content}>
+              <p>Category</p>
+              <h1 className={styles.title}>{queryParams.category}</h1>
+            </div>
+
+            <PrimaryIcon size="small" icon={<RiCloseLine className="icon" />} />
           </div>
         )}
 
