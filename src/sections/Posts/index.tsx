@@ -33,33 +33,36 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
 
   return (
     <main className={styles.container}>
-      <div className={styles.posts}>
+      <div className={styles.body}>
         {queryParams.category && (
           <div className={styles.category}>
             <div className={styles.content}>
               <p>Category</p>
               <h1 className={styles.title}>{queryParams.category}</h1>
             </div>
-
-            {/* <PrimaryIcon size="small" icon={<RiCloseLine className="icon" />} /> */}
+            <RiCloseLine
+              onClick={() => setQueryParams({ category: "" })}
+              className={styles.icon}
+            />
           </div>
         )}
-
-        <div
-          className={queryParams.category ? styles.grid_down : styles.grid_up}
-        >
-          {getPostsByCategory(queryParams.category, posts).map(
-            (item, index) => {
-              return (
-                <Post
-                  type={type}
-                  key={index}
-                  post={item}
-                  blurData={assets.base64}
-                />
-              );
-            }
-          )}
+        <div className={styles.posts}>
+          <div
+            className={queryParams.category ? styles.grid_down : styles.grid_up}
+          >
+            {getPostsByCategory(queryParams.category, posts).map(
+              (item, index) => {
+                return (
+                  <Post
+                    type={type}
+                    key={index}
+                    post={item}
+                    blurData={assets.base64}
+                  />
+                );
+              }
+            )}
+          </div>
         </div>
       </div>
       <Categories

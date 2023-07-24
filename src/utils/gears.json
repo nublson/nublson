@@ -111,73 +111,67 @@
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__lg_monitor_yxjjuw.webp",
           "name": "LG 29' Ultrawide",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "An ultrawide monitor, good color accurate and cheap.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__mac_mini_dryrwx.webp",
           "name": "Mac Mini M1 2020",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "My main computer.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__mx_master_3s_hoctlo.webp",
           "name": "Logitech MX Master 3S",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "The best mouse on the market.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__magic_trackpad_tjbuqr.webp",
           "name": "Apple Magic Trackpad",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Just because I like gestures and, it's black.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__mx_mechanical_mini_niednu.webp",
           "name": "Logitech Mechanical Mini",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "My favorite keyboard.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709866/Portfolio/Gears/Desk%20Setup/AnyConv.com__sony_xm3_ri5wtn.webp",
           "name": "Sony WH1000XM3",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Easily the best noise cancelling headphones on the market.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709866/Portfolio/Gears/Desk%20Setup/AnyConv.com__shure_mv7_evhd7c.webp",
           "name": "Shure MV7",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Professional microphone for voiceovers and podcast.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__ps5_vfrfni.webp",
           "name": "Sony Play Station 5",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "you know what this is for.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__ps5_headset_veskcn.webp",
           "name": "Sony Pulse 3D Wireless",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Wireless headphones with surround sound.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709865/Portfolio/Gears/Desk%20Setup/AnyConv.com__keychron_k2_jnlunm.webp",
           "name": "Keychron K2 Aluminium RGB",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "my secondary keyboard, used for gaming.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689709866/Portfolio/Gears/Desk%20Setup/AnyConv.com__ssd_t5_rchtlx.webp",
           "name": "Samsung SSD T5 - 1TB",
-          "description": "Mus bibendum lorem at lacinia nulla.",
-          "path": ""
-        },
-        {
-          "image": "https://res.cloudinary.com/nublson/image/upload/v1689710847/Portfolio/Gears/Desk%20Setup/AnyConv.com__airpods_max_zhwm7g.webp",
-          "name": "Apple AirPods Max",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Super small hot-storage I can travel with.",
           "path": ""
         }
       ]
@@ -212,7 +206,7 @@
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708057/Portfolio/Gears/Softwares/Milanote_laroy6.png",
           "name": "Milanote",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "For pre-production projects.",
           "path": ""
         },
         {
@@ -224,13 +218,13 @@
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Substack_hnisey.png",
           "name": "Substack",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Used to write and publish my newsletter.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Spark_brvfqd.png",
           "name": "Spark",
-          "description": "My favourite email app. Great design, unified inboxes.",
+          "description": "My favorite email app. Great design, unified inboxes.",
           "path": ""
         },
         {
@@ -242,19 +236,19 @@
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/VSCode_vqfh2j.png",
           "name": "VSCode",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "My all-time favorite code editor.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/OffScreen_App_ns1nfw.png",
           "name": "Offscreen",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Control my screen time and block distracting apps.",
           "path": ""
         },
         {
           "image": "https://res.cloudinary.com/nublson/image/upload/v1689708058/Portfolio/Gears/Softwares/Pillow_App_kdmshb.png",
           "name": "Pillow",
-          "description": "Mus bibendum lorem at lacinia nulla.",
+          "description": "Used to track my sleep.",
           "path": ""
         }
       ]
