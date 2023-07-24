@@ -1,8 +1,10 @@
+@use "../../../sass/abstracts/colors";
 @import "../../../sass/abstracts/mixins";
 
 .container {
   position: absolute;
   top: 0;
+  z-index: 999;
 
   @include content_space;
 
@@ -44,10 +46,19 @@
   gap: 2rem;
 
   .newsletter_text {
+    @include button-primary;
   }
 
   .newsletter_icon {
+    @include button-primary;
+    width: 2rem;
     display: none;
+  }
+
+  @include device(tablet) {
+    .newsletter_text {
+      padding: 0 0.5rem;
+    }
   }
 
   @include device(mobile) {
@@ -56,7 +67,9 @@
     }
 
     .newsletter_icon {
-      display: initial;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

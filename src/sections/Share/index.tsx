@@ -29,34 +29,28 @@ export const ShareSection = (props: ShareSectionProps) => {
       <div className={styles.info}>{props.children}</div>
       <div className={styles.share}>
         <a
+          className={styles.social}
           href={generateShareLink("twitter", pathname)}
           target="_blank"
           rel="noopener"
         >
-          <PrimaryIcon
-            size="small"
-            icon={<RiTwitterLine className={styles.icon} />}
-          />
+          <RiTwitterLine className={styles.icon} />
         </a>
         <a
+          className={styles.social}
           href={generateShareLink("whatsapp", pathname)}
           target="_blank"
           rel="noopener"
         >
-          <PrimaryIcon
-            size="small"
-            icon={<RiWhatsappLine className={styles.icon} />}
-          />
+          <RiWhatsappLine className={styles.icon} />
         </a>
         <a
+          className={styles.social}
           href={generateShareLink("linkedIn", pathname)}
           target="_blank"
           rel="noopener"
         >
-          <PrimaryIcon
-            size="small"
-            icon={<RiLinkedinLine className={styles.icon} />}
-          />
+          <RiLinkedinLine className={styles.icon} />
         </a>
       </div>
     </div>
