@@ -41,7 +41,7 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
               <h1 className={styles.title}>{queryParams.category}</h1>
             </div>
 
-            <PrimaryIcon size="small" icon={<RiCloseLine className="icon" />} />
+            {/* <PrimaryIcon size="small" icon={<RiCloseLine className="icon" />} /> */}
           </div>
         )}
 
