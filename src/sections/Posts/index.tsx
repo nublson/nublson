@@ -1,15 +1,14 @@
 "use client";
 import { Post } from "@/components/shared/Cards";
 import { Categories } from "@/components/shared/Categories";
-import styles from "./styles.module.scss";
 import { RiCloseLine } from "react-icons/ri";
+import styles from "./styles.module.scss";
 
 import assets from "@/assets/blur.json";
 import { useQueryParams } from "@/hooks";
 import { getCategories } from "@/utils/getCategories";
 import { getPostsByCategory } from "@/utils/getPostsByCategory";
-import { PostProps } from "@/utils/types";
-import { PrimaryIcon } from "@/components/shared/Buttons";
+import { PageProps } from "@/utils/types";
 
 interface QueryParams {
   category: string;
@@ -17,7 +16,7 @@ interface QueryParams {
 
 interface PostsSectionProps {
   type: "articles" | "products";
-  posts: PostProps[];
+  posts: PageProps[];
 }
 
 export const PostsSection = ({ type, posts }: PostsSectionProps) => {

@@ -9,25 +9,16 @@ export interface SectionProps {
   children: React.ReactNode;
 }
 
-export interface PostProps {
+export interface PageProps {
   id: string;
   post_slug: string;
   thumbnail: string;
   title: string;
   description: string;
-  publish_date: string;
-  modified_date: string;
   category: string;
-  path?: string;
-}
-
-export interface PageProps {
-  id: string;
-  title: string;
-  thumbnail: string;
-  description: string;
   publish_date: string;
   modified_date: string;
+  path?: string;
 }
 
 export interface DynamicPageProps {
@@ -50,7 +41,7 @@ export interface GearsCategoryProps {
 
 export interface PostCardProps {
   type: "articles" | "products";
-  post: PostProps;
+  post: PageProps;
   blurData?: string;
 }
 

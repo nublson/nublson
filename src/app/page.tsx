@@ -11,6 +11,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `/`,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: pages.home.title,
+    description: pages.home.description,
+    siteId: "1131704795604164615",
+    creator: "@nublson",
+    creatorId: "1131704795604164615",
+    images: [pages.home.thumbnail],
+  },
   openGraph: {
     type: "website",
     url: process.env.BASE_URL,

@@ -1,8 +1,8 @@
-import { PostProps } from "./types";
+import { PageProps } from "./types";
 
 export const getPostsByCategory = (
   category: string | undefined,
-  posts: PostProps[]
+  posts: PageProps[]
 ) => {
   if (category) {
     return posts.filter((post) => post.category === category);

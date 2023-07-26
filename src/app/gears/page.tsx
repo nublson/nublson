@@ -10,8 +10,18 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Gears",
     description: page.description,
+    category: page.category,
     alternates: {
       canonical: `/gears`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.title,
+      description: page.description,
+      siteId: "1131704795604164615",
+      creator: "@nublson",
+      creatorId: "1131704795604164615",
+      images: [page.thumbnail],
     },
     openGraph: {
       type: "article",

@@ -10,6 +10,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `/store`,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: pageData.store.title,
+    description: pageData.store.description,
+    siteId: "1131704795604164615",
+    creator: "@nublson",
+    creatorId: "1131704795604164615",
+    images: [pageData.store.thumbnail],
+  },
   openGraph: {
     type: "website",
     url: `${process.env.BASE_URL}/store`,

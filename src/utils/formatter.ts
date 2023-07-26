@@ -1,5 +1,5 @@
 import slugify from "slugify";
-import { PageProps, PostProps } from "./types";
+import { PageProps } from "./types";
 
 export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
@@ -16,7 +16,7 @@ export const formatSlug = (data: string | any) => {
 };
 
 export const formatPosts = (database: any[]) => {
-  const posts: PostProps[] = database.map((post) => {
+  const posts: PageProps[] = database.map((post) => {
     return {
       id: post.id,
       post_slug: formatSlug(post.properties.Name.title[0].text.content),
@@ -41,12 +41,14 @@ export const formatPosts = (database: any[]) => {
 export const formatPageProps = (page: any) => {
   const formatedPage: PageProps = {
     id: page.id,
+    post_slug: formatSlug(page.properties.Name.title[0].text.content),
     title: page.properties.Name.title[0].text.content,
     thumbnail:
       page.cover.type === "file"
         ? page.cover.file.url
         : page.cover.external.url,
     description: page.properties.description.rich_text[0].text.content,
+    category: page.properties.category.select.name,
     publish_date: page.properties.publish_date.date.start,
     modified_date: page.properties.modified_date.last_edited_time,
   };

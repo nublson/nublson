@@ -49,7 +49,7 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
           <Link href={`/blog/${post.post_slug}`}>Read post</Link>
         ) : (
           <a className={styles.external} href={post.path} target="_blank">
-            Visit
+            Get product
             <RiExternalLinkLine />
           </a>
         )}

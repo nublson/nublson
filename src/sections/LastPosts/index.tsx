@@ -6,12 +6,12 @@ import styles from "./styles.module.scss";
 
 import { Post } from "@/components/shared/Cards";
 import { getSingleImage } from "@/utils/getImage";
-import { PostProps } from "@/utils/types";
+import { PageProps } from "@/utils/types";
 
 interface LastPostProps {
   title: string;
   type: "articles" | "products";
-  posts: PostProps[];
+  posts: PageProps[];
   linkTo: string;
 }
 
