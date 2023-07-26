@@ -3,30 +3,30 @@
     "label": "Hi, I'm",
     "title": "Nubelson Fernandes",
     "description": "I'm a Software Engineer, Photographer and aspiring Filmmaker based in Lisbon, Portugal. I create content about technology, lifestyle and personal development.",
-    "thumbnail": "https://res.cloudinary.com/nublson/image/upload/v1687615248/Portfolio/Pages/AnyConv.com__Profile_Horizontal_Hight_nudv1c.webp"
+    "thumbnail": "https://res.cloudinary.com/nublson/image/upload/v1690374800/Portfolio/Pages/Profile_Horizontal_Hight_pepzwv.jpg"
   },
   "blog": {
     "label": "",
     "title": "Blog",
     "description": "Writing down about personal development and technology.",
-    "thumbnail": "https://res.cloudinary.com/nublson/image/upload/v1645816832/Portfolio/Pages/AnyConv.com__books_boqall.webp"
+    "thumbnail": "https://res.cloudinary.com/nublson/image/upload/v1690374911/Portfolio/Pages/nubelson-fernandes-RJTLuCuvbFY-unsplash_dckbgs.jpg"
   },
   "store": {
     "label": "",
     "title": "Store",
     "description": "Icons, LUT's, Presets and more",
-    "thumbnail": "https://res.cloudinary.com/nublson/image/upload/v1643423706/Portfolio/Pages/AnyConv.com__store_wpnvdq.webp"
+    "thumbnail": "https://res.cloudinary.com/nublson/image/upload/v1690374844/Portfolio/Pages/mike-petrucci-c9FQyqIECds-unsplash_vosfwg.jpg"
   },
   "notFound": {
     "label": "Oops,",
     "title": "You're lost",
     "description": "You fell in the middle of an infinite space. Come home!",
-    "thumbnail": "https://res.cloudinary.com/nublson/image/upload/v1643423799/Portfolio/Pages/AnyConv.com__404_wt54dg.webp"
+    "thumbnail": "https://res.cloudinary.com/nublson/image/upload/v1690375154/Portfolio/Pages/nasa-Q1p7bh3SHj8-unsplash_cbkxk6.jpg"
   },
   "offline": {
     "label": "Oops,",
     "title": "You're offline",
     "description": "Looks like you're not connected to a network. Check your settings and try again!",
-    "thumbnail": "https://res.cloudinary.com/nublson/image/upload/v1643423707/Portfolio/Pages/AnyConv.com__offline_d695by.webp"
+    "thumbnail": "https://res.cloudinary.com/nublson/image/upload/v1690375152/Portfolio/Pages/sigmund-EJe6LqEjHpA-unsplash_k2vsk8.jpg"
   }
 }
