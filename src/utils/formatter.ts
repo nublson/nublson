@@ -1,3 +1,4 @@
+import moment from "moment";
 import slugify from "slugify";
 import { PageProps } from "./types";
 
@@ -66,4 +67,8 @@ export const formatBlockWithChildren = (blocks: any[], childBlocks: any[]) => {
 
     return block;
   });
+};
+
+export const setToCurrentDate = (date: string, format: string) => {
+  return moment(date).format(format);
 };

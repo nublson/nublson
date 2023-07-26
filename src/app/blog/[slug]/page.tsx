@@ -1,7 +1,7 @@
 import { ContentSection, Header, ShareSection } from "@/sections";
 import { getBlocks, getData } from "@/services/notion";
+import { setToCurrentDate } from "@/utils/formatter";
 import { DynamicPageProps, MetadataProps } from "@/utils/types";
-import moment from "moment";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -68,7 +68,7 @@ export default async function Page({ params }: DynamicPageProps) {
     return (
       <>
         <Header
-          label={moment(myPost.publish_date).format("MMMM d, YYYY")}
+          label={setToCurrentDate(myPost.publish_date, "LL")}
           title={myPost.title}
           thumbnail={myPost.thumbnail}
           description={myPost.description}
