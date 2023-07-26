@@ -74,7 +74,7 @@ export const Gear = ({ image, name, description, blurData }: GearProps) => {
         />
       </div>
       <div className={styles.details}>
-        <h2>{name}</h2>
+        <h3>{name}</h3>
         <p>{description}</p>
       </div>
     </div>

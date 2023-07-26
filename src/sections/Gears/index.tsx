@@ -19,7 +19,7 @@ export const GearsSection = async ({ data }: GearsSectionProps) => {
               className={styles.category}
               id={category.title.toLowerCase().replace(" ", "")}
             >
-              <h3>{category.title}</h3>
+              <h2>{category.title}</h2>
 
               <div className={styles.items}>
                 {category.gears.map(async (gear, index) => {
