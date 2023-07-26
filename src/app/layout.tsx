@@ -24,6 +24,10 @@ export const metadata: Metadata = {
   },
   description: pages.home.description,
   metadataBase: new URL(process.env.BASE_URL),
+  verification: {
+    google:
+      "google-site-verification=f33po4sil38rZF5iD10dHpJlINIXWeaOFnTOqwBey-s",
+  },
 };
 
 export default function RootLayout({

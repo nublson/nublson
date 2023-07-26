@@ -12,9 +12,7 @@ export async function generateMetadata({
 
   const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
 
-  const myPost = data.find((post) => {
-    return post.post_slug === slug;
-  });
+  const myPost = data.find((post) => post.post_slug === slug);
 
   if (myPost) {
     return {
@@ -31,7 +29,6 @@ export async function generateMetadata({
         siteId: "1131704795604164615",
         creator: "@nublson",
         creatorId: "1131704795604164615",
-        images: [myPost.thumbnail],
       },
       openGraph: {
         type: "article",
@@ -39,13 +36,6 @@ export async function generateMetadata({
         title: myPost.title,
         description: myPost.description,
         siteName: "nublson.com",
-        images: [
-          {
-            url: myPost.thumbnail,
-            width: 1920,
-            height: 1080,
-          },
-        ],
       },
     };
   } else {

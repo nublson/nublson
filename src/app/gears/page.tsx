@@ -21,7 +21,6 @@ export async function generateMetadata(): Promise<Metadata> {
       siteId: "1131704795604164615",
       creator: "@nublson",
       creatorId: "1131704795604164615",
-      images: [page.thumbnail],
     },
     openGraph: {
       type: "article",
@@ -29,13 +28,6 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Gears",
       description: page.description,
       siteName: "nublson.com",
-      images: [
-        {
-          url: page.thumbnail,
-          width: 1920,
-          height: 1080,
-        },
-      ],
     },
   };
 }

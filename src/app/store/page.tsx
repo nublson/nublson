@@ -17,7 +17,6 @@ export const metadata: Metadata = {
     siteId: "1131704795604164615",
     creator: "@nublson",
     creatorId: "1131704795604164615",
-    images: [pageData.store.thumbnail],
   },
   openGraph: {
     type: "website",
@@ -25,13 +24,6 @@ export const metadata: Metadata = {
     title: pageData.store.title,
     description: pageData.store.description,
     siteName: "nublson.com",
-    images: [
-      {
-        url: pageData.store.thumbnail,
-        width: 1920,
-        height: 1080,
-      },
-    ],
   },
 };
 

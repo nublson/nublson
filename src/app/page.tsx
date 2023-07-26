@@ -18,20 +18,12 @@ export const metadata: Metadata = {
     siteId: "1131704795604164615",
     creator: "@nublson",
     creatorId: "1131704795604164615",
-    images: [pages.home.thumbnail],
   },
   openGraph: {
     type: "website",
     url: process.env.BASE_URL,
     description: pages.home.description,
     siteName: "nublson.com",
-    images: [
-      {
-        url: pages.home.thumbnail,
-        width: 1920,
-        height: 1080,
-      },
-    ],
   },
 };
 
