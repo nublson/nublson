@@ -52,7 +52,12 @@ export const Footer = ({ socialList }: FooterProps) => {
           <div className={styles.social_media}>
             {socialList.map((item, index) => {
               return (
-                <a key={index} href={item.path} target="_bank">
+                <a
+                  key={index}
+                  href={item.path}
+                  target="_bank"
+                  aria-label={`${item.name} "social icon"`}
+                >
                   {getIcon(item.name)}
                 </a>
               );
