@@ -20,7 +20,9 @@ export async function generateMetadata({
     return {
       title: myPost.title,
       description: myPost.description,
-      metadataBase: new URL(process.env.BASE_URL),
+      alternates: {
+        canonical: `/blog/${myPost.post_slug}`,
+      },
       openGraph: {
         type: "article",
         url: `${process.env.BASE_URL}/blog/${myPost.post_slug}`,
@@ -30,6 +32,8 @@ export async function generateMetadata({
         images: [
           {
             url: myPost.thumbnail,
+            width: 1920,
+            height: 1080,
           },
         ],
       },

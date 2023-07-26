@@ -7,7 +7,9 @@ import pageData from "@/utils/pages.json";
 export const metadata: Metadata = {
   title: pageData.blog.title,
   description: pageData.blog.description,
-  metadataBase: new URL(process.env.BASE_URL),
+  alternates: {
+    canonical: `/blog`,
+  },
   openGraph: {
     type: "website",
     url: `${process.env.BASE_URL}/blog`,
@@ -17,6 +19,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: pageData.blog.thumbnail,
+        width: 1920,
+        height: 1080,
       },
     ],
   },

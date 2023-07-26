@@ -10,7 +10,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Gears",
     description: page.description,
-    metadataBase: new URL(process.env.BASE_URL),
+    alternates: {
+      canonical: `/gears`,
+    },
     openGraph: {
       type: "article",
       url: `${process.env.BASE_URL}/gears`,
@@ -20,6 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [
         {
           url: page.thumbnail,
+          width: 1920,
+          height: 1080,
         },
       ],
     },

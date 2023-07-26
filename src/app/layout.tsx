@@ -7,6 +7,7 @@ import "./globals.scss";
 import { Layout } from "@/components/Layout";
 import { Footer } from "@/components/shared/Footer";
 
+import pages from "@/utils/pages.json";
 import social from "@/utils/social.json";
 
 const GTM_ID = "GTM-M88VGKTR";
@@ -21,6 +22,8 @@ export const metadata: Metadata = {
     template: "%s | Nubelson Fernandes",
     default: "Nubelson Fernandes",
   },
+  description: pages.home.description,
+  metadataBase: new URL(process.env.BASE_URL),
 };
 
 export default function RootLayout({

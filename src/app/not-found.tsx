@@ -14,6 +14,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: page.notFound.thumbnail,
+        width: 1920,
+        height: 1080,
       },
     ],
   },

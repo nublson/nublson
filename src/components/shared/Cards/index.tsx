@@ -46,7 +46,7 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
 
       <div className={styles.footer}>
         {type === "articles" ? (
-          <Link href={`/blog/${post.post_slug}`}>Read more</Link>
+          <Link href={`/blog/${post.post_slug}`}>Read post</Link>
         ) : (
           <a className={styles.external} href={post.path} target="_blank">
             Visit

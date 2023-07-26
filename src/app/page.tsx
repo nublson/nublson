@@ -8,7 +8,9 @@ import work from "@/utils/work.json";
 
 export const metadata: Metadata = {
   description: pages.home.description,
-  metadataBase: new URL(process.env.BASE_URL),
+  alternates: {
+    canonical: `/`,
+  },
   openGraph: {
     type: "website",
     url: process.env.BASE_URL,
@@ -17,6 +19,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: pages.home.thumbnail,
+        width: 1920,
+        height: 1080,
       },
     ],
   },
