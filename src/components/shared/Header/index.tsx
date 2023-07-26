@@ -22,6 +22,7 @@ export const Header = () => {
           href="https://nublson.substack.com"
           target="_blank"
           className={styles.newsletter_text}
+          aria-label="Subscribe to my newsletter"
         >
           <p>Newsletter</p>
         </a>
@@ -29,6 +30,7 @@ export const Header = () => {
           href="https://nublson.substack.com"
           target="_blank"
           className={styles.newsletter_icon}
+          aria-label="Subscribe to my newsletter"
         >
           <RiArticleLine className={styles.icon} />
         </a>

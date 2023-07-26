@@ -9,7 +9,7 @@ export const Work = ({ title, description, path }: CardItemProps) => {
   return (
     <div className={styles.work}>
       <div className={styles.body}>
-        <h2>{title}</h2>
+        <h3>{title}</h3>
         <p>{description}</p>
       </div>
       <a href={path} target="_blank">
@@ -37,7 +37,7 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
       <div className={styles.body}>
         {type === "articles" ? (
           <Link href={`/blog/${post.post_slug}`}>
-            <h2 className={styles.title}>{post.title}</h2>
+            <h3 className={styles.title}>{post.title}</h3>
           </Link>
         ) : (
           <h2 className={styles.title}>{post.title}</h2>
