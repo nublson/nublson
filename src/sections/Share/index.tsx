@@ -33,6 +33,7 @@ export const ShareSection = (props: ShareSectionProps) => {
           href={generateShareLink("twitter", pathname)}
           target="_blank"
           rel="noopener"
+          aria-label="share twitter icon"
         >
           <RiTwitterLine className={styles.icon} />
         </a>
@@ -41,6 +42,7 @@ export const ShareSection = (props: ShareSectionProps) => {
           href={generateShareLink("whatsapp", pathname)}
           target="_blank"
           rel="noopener"
+          aria-label="share whatsapp icon"
         >
           <RiWhatsappLine className={styles.icon} />
         </a>
@@ -49,6 +51,7 @@ export const ShareSection = (props: ShareSectionProps) => {
           href={generateShareLink("linkedIn", pathname)}
           target="_blank"
           rel="noopener"
+          aria-label="share linkedin icon"
         >
           <RiLinkedinLine className={styles.icon} />
         </a>
