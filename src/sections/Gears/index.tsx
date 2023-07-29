@@ -1,15 +1,14 @@
 import { Gear } from "@/components/shared/Cards";
 import { Categories } from "@/components/shared/Categories";
-import { getGears } from "@/services/notion";
 import { getSingleImage } from "@/utils/getImage";
 import { GearProps } from "@/utils/types";
 import styles from "./styles.module.scss";
 
-export const revalidate = 60;
+interface GearSectionProps {
+  data: GearProps[];
+}
 
-export const GearsSection = async () => {
-  const gears = await getGears(process.env.NOTION_DATABASE_GEARS_ID);
-
+export const GearsSection = ({ data }: GearSectionProps) => {
   const getGearsCategory = (list: GearProps[]) => {
     const categories = list.map((item) => item.category);
 
@@ -21,7 +20,7 @@ export const GearsSection = async () => {
   return (
     <section className={styles.container}>
       <div className={styles.gears}>
-        {getGearsCategory(gears).map((category, index) => {
+        {getGearsCategory(data).map((category, index) => {
           return (
             <div
               key={index}
@@ -31,7 +30,7 @@ export const GearsSection = async () => {
               <h2>{category}</h2>
 
               <div className={styles.items}>
-                {gears
+                {data
                   .filter((item) => item.category === category)
                   .map(async (gear, index) => {
                     const { base64, img } = await getSingleImage(
@@ -55,7 +54,7 @@ export const GearsSection = async () => {
         })}
       </div>
 
-      <Categories type="scroll" categories={getGearsCategory(gears)} />
+      <Categories type="scroll" categories={getGearsCategory(data)} />
     </section>
   );
 };

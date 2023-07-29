@@ -1,5 +1,5 @@
 import { ContentSection, GearsSection, Header, ShareSection } from "@/sections";
-import { getBlocks, getPage } from "@/services/notion";
+import { getBlocks, getGears, getPage } from "@/services/notion";
 import { setToCurrentDate } from "@/utils/formatter";
 import { Metadata } from "next";
 
@@ -35,6 +35,7 @@ export const revalidate = 60;
 
 export default async function Gears() {
   const data = await getPage(process.env.NOTION_PAGE_GEARS_ID);
+  const gears = await getGears(process.env.NOTION_DATABASE_GEARS_ID);
 
   const pageBlocks = await getBlocks(data.id);
 
@@ -47,7 +48,7 @@ export default async function Gears() {
         description={data.description}
       />
       <ContentSection blocks={pageBlocks} />
-      <GearsSection />
+      <GearsSection data={gears} />
       <ShareSection>
         <p>I may earn some commission from sales using these links.</p>
       </ShareSection>
