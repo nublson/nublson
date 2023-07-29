@@ -5,6 +5,8 @@ import { getSingleImage } from "@/utils/getImage";
 import { GearProps } from "@/utils/types";
 import styles from "./styles.module.scss";
 
+export const revalidate = 60;
+
 export const GearsSection = async () => {
   const gears = await getGears(process.env.NOTION_DATABASE_GEARS_ID);
 
