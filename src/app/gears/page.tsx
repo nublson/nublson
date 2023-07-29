@@ -1,7 +1,6 @@
 import { ContentSection, GearsSection, Header, ShareSection } from "@/sections";
 import { getBlocks, getPage } from "@/services/notion";
 import { setToCurrentDate } from "@/utils/formatter";
-import gears from "@/utils/gears.json";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -48,7 +47,7 @@ export default async function Gears() {
         description={data.description}
       />
       <ContentSection blocks={pageBlocks} />
-      <GearsSection data={gears.categories} />
+      <GearsSection />
       <ShareSection>
         <p>I may earn some commission from sales using these links.</p>
       </ShareSection>

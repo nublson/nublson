@@ -1,5 +1,6 @@
 import {
   formatBlockWithChildren,
+  formatGears,
   formatPageProps,
   formatPosts,
 } from "@/utils/formatter";
@@ -31,6 +32,34 @@ export const getData = async (databaseId: string) => {
   });
 
   return formatPosts(results);
+};
+
+export const getGears = async (databaseId: string) => {
+  const { results } = await api.databases.query({
+    database_id: databaseId,
+    filter: {
+      and: [
+        {
+          property: "state",
+          select: {
+            equals: "published",
+          },
+        },
+      ],
+    },
+    sorts: [
+      {
+        property: "category",
+        direction: "ascending",
+      },
+      {
+        property: "Created",
+        direction: "ascending",
+      },
+    ],
+  });
+
+  return formatGears(results);
 };
 
 export const getPage = async (pageId: string) => {

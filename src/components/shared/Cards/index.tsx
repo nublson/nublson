@@ -59,12 +59,17 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
   );
 };
 
-export const Gear = ({ image, name, description, blurData }: GearProps) => {
+export const Gear = ({
+  thumbnail,
+  title,
+  description,
+  blurData,
+}: GearProps) => {
   return (
     <div className={styles.gear}>
       <div className={styles.thumbnail}>
         <Image
-          src={image}
+          src={thumbnail}
           alt="gear thumbnail"
           fill
           style={{ objectFit: "cover" }}
@@ -74,7 +79,7 @@ export const Gear = ({ image, name, description, blurData }: GearProps) => {
         />
       </div>
       <div className={styles.details}>
-        <h3>{name}</h3>
+        <h3>{title}</h3>
         <p>{description}</p>
       </div>
     </div>

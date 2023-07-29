@@ -21,22 +21,20 @@ export interface PageProps {
   path?: string;
 }
 
+export interface GearProps {
+  id?: string;
+  thumbnail: string;
+  title: string;
+  description: string;
+  category: string;
+  blurData?: string;
+  path?: string;
+}
+
 export interface DynamicPageProps {
   params: {
     slug: string;
   };
-}
-
-export interface GearProps {
-  image: string;
-  name: string;
-  description: string;
-  blurData?: string;
-}
-
-export interface GearsCategoryProps {
-  title: string;
-  gears: GearProps[];
 }
 
 export interface PostCardProps {

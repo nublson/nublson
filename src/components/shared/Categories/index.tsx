@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 interface CategoriesProps {
   type: "section" | "scroll";
   categories: string[];
-  onClick: (item: string) => void;
+  onClick?: (item: string) => void;
   comparator?: string;
 }
 
@@ -22,7 +22,7 @@ export const Categories = ({
           return type === "section" ? (
             <p
               key={index}
-              onClick={() => onClick(item)}
+              onClick={() => onClick && onClick(item)}
               className={comparator === item ? styles.active : styles.item}
             >
               {item}

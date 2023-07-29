@@ -1,51 +1,59 @@
 import { Gear } from "@/components/shared/Cards";
 import { Categories } from "@/components/shared/Categories";
+import { getGears } from "@/services/notion";
 import { getSingleImage } from "@/utils/getImage";
-import { GearsCategoryProps } from "@/utils/types";
+import { GearProps } from "@/utils/types";
 import styles from "./styles.module.scss";
 
-interface GearsSectionProps {
-  data: GearsCategoryProps[];
-}
+export const GearsSection = async () => {
+  const gears = await getGears(process.env.NOTION_DATABASE_GEARS_ID);
 
-export const GearsSection = async ({ data }: GearsSectionProps) => {
+  const getGearsCategory = (list: GearProps[]) => {
+    const categories = list.map((item) => item.category);
+
+    return categories.filter(
+      (item, index) => categories.indexOf(item) === index
+    );
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.gears}>
-        {data.map((category, index) => {
+        {getGearsCategory(gears).map((category, index) => {
           return (
             <div
               key={index}
               className={styles.category}
-              id={category.title.toLowerCase().replace(" ", "")}
+              id={category.toLowerCase().replace(" ", "")}
             >
-              <h2>{category.title}</h2>
+              <h2>{category}</h2>
 
               <div className={styles.items}>
-                {category.gears.map(async (gear, index) => {
-                  const { base64, img } = await getSingleImage(gear.image);
+                {gears
+                  .filter((item) => item.category === category)
+                  .map(async (gear, index) => {
+                    const { base64, img } = await getSingleImage(
+                      gear.thumbnail
+                    );
 
-                  return (
-                    <Gear
-                      key={index}
-                      image={img.src}
-                      name={gear.name}
-                      description={gear.description}
-                      blurData={base64}
-                    />
-                  );
-                })}
+                    return (
+                      <Gear
+                        key={index}
+                        thumbnail={img.src}
+                        title={gear.title}
+                        description={gear.description}
+                        category={gear.category}
+                        blurData={base64}
+                      />
+                    );
+                  })}
               </div>
             </div>
           );
         })}
       </div>
 
-      <Categories
-        type="scroll"
-        categories={data.map((item) => item.title)}
-        onClick={(item) => console.log(item)}
-      />
+      <Categories type="scroll" categories={getGearsCategory(gears)} />
     </section>
   );
 };

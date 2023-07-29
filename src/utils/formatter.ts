@@ -1,6 +1,6 @@
 import moment from "moment";
 import slugify from "slugify";
-import { PageProps } from "./types";
+import { GearProps, PageProps } from "./types";
 
 export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
@@ -37,6 +37,26 @@ export const formatPosts = (database: any[]) => {
   });
 
   return posts;
+};
+
+export const formatGears = (database: any[]) => {
+  const gears: GearProps[] = database.map((gear) => {
+    return {
+      id: gear.id,
+      thumbnail:
+        gear.cover.type === "file"
+          ? gear.cover.file.url
+          : gear.cover.external.url,
+      title: gear.properties.Name.title[0].text.content,
+      description: gear.properties.description.rich_text.length
+        ? gear.properties.description.rich_text[0].text.content
+        : null,
+      category: gear.properties.category.select.name,
+      path: gear.properties.refer_link.url,
+    };
+  });
+
+  return gears;
 };
 
 export const formatPageProps = (page: any) => {
