@@ -31,11 +31,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export const revalidate = 60;
+export const revalidate = 30;
 
 export default async function Gears() {
-  const data = await getPage(process.env.NOTION_PAGE_GEARS_ID);
-  const gears = await getGears(process.env.NOTION_DATABASE_GEARS_ID);
+  const [data, gears] = await Promise.all([
+    getPage(process.env.NOTION_PAGE_GEARS_ID),
+    getGears(process.env.NOTION_DATABASE_GEARS_ID),
+  ]);
 
   const pageBlocks = await getBlocks(data.id);
 

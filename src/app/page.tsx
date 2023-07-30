@@ -27,11 +27,13 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 60;
+export const revalidate = 30;
 
 export default async function Home() {
-  const articles = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
-  const products = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
+  const [articles, products] = await Promise.all([
+    getData(process.env.NOTION_DATABASE_ARTICLES_ID),
+    getData(process.env.NOTION_DATABASE_PRODUCTS_ID),
+  ]);
 
   return (
     <>
