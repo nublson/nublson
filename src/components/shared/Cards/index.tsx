@@ -12,7 +12,12 @@ export const Work = ({ title, description, path }: CardItemProps) => {
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
-      <a href={path} target="_blank">
+      <a
+        href={path}
+        target="_blank"
+        rel="noopener"
+        aria-label={`link to ${title}`}
+      >
         Visit
         <RiExternalLinkLine />
       </a>
@@ -48,7 +53,13 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
         {type === "articles" ? (
           <Link href={`/blog/${post.post_slug}`}>Read post</Link>
         ) : (
-          <a className={styles.external} href={post.path} target="_blank">
+          <a
+            className={styles.external}
+            href={post.path}
+            target="_blank"
+            rel="noopener"
+            aria-label={`link to ${post.title}`}
+          >
             Get product
             <RiExternalLinkLine />
           </a>
@@ -64,8 +75,34 @@ export const Gear = ({
   title,
   description,
   blurData,
+  path,
 }: GearProps) => {
-  return (
+  return path ? (
+    <a
+      href={path}
+      aria-label={`link to ${title}`}
+      target="_blank"
+      rel="noopener"
+    >
+      <div className={styles.gear}>
+        <div className={styles.thumbnail}>
+          <Image
+            src={thumbnail}
+            alt="gear thumbnail"
+            fill
+            style={{ objectFit: "cover" }}
+            placeholder="blur"
+            blurDataURL={blurData}
+            quality={100}
+          />
+        </div>
+        <div className={styles.details}>
+          <h3>{title}</h3>
+          <p>{description}</p>
+        </div>
+      </div>
+    </a>
+  ) : (
     <div className={styles.gear}>
       <div className={styles.thumbnail}>
         <Image

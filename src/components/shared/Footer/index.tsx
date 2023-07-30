@@ -56,6 +56,7 @@ export const Footer = ({ socialList }: FooterProps) => {
                   key={index}
                   href={item.path}
                   target="_bank"
+                  rel="noopener"
                   aria-label={`${item.name} "social icon"`}
                 >
                   {getIcon(item.name)}
