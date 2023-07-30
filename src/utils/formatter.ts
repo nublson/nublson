@@ -32,7 +32,7 @@ export const formatPosts = (database: any[]) => {
       publish_date: post.properties.publish_date.date.start,
       modified_date: post.properties.modified_date.last_edited_time,
       category: post.properties.category.select.name,
-      path: post.properties.refer_link.url,
+      path: post.properties.path.url,
     };
   });
 
@@ -52,7 +52,7 @@ export const formatGears = (database: any[]) => {
         ? gear.properties.description.rich_text[0].text.content
         : null,
       category: gear.properties.category.select.name,
-      path: gear.properties.refer_link.url,
+      path: gear.properties.path.url,
     };
   });
 

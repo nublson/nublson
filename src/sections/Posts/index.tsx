@@ -49,18 +49,16 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
           <div
             className={queryParams.category ? styles.grid_down : styles.grid_up}
           >
-            {getPostsByCategory(queryParams.category, posts).map(
-              (item, index) => {
-                return (
-                  <Post
-                    type={type}
-                    key={index}
-                    post={item}
-                    blurData={assets.base64}
-                  />
-                );
-              }
-            )}
+            {getPostsByCategory(queryParams.category, posts).map((item) => {
+              return (
+                <Post
+                  type={type}
+                  key={item.id}
+                  post={item}
+                  blurData={assets.base64}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

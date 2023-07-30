@@ -20,13 +20,13 @@ export const LastPosts = ({ title, type, posts, linkTo }: LastPostProps) => {
     <Section title={title}>
       <div className={styles.container}>
         <div className={styles.posts}>
-          {posts.map(async (item, index) => {
+          {posts.map(async (item) => {
             const { base64, img } = await getSingleImage(item.thumbnail);
 
             return (
               <Post
                 type={type}
-                key={index}
+                key={item.id}
                 post={{ ...item, thumbnail: img.src }}
                 blurData={base64}
               />
