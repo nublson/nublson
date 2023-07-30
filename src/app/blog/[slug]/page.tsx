@@ -22,14 +22,6 @@ export async function generateMetadata({
       alternates: {
         canonical: `/blog/${myPost.post_slug}`,
       },
-      twitter: {
-        card: "summary_large_image",
-        title: myPost.title,
-        description: myPost.description,
-        siteId: "1131704795604164615",
-        creator: "@nublson",
-        creatorId: "1131704795604164615",
-      },
       openGraph: {
         type: "article",
         url: `${process.env.BASE_URL}/blog/${myPost.post_slug}`,
