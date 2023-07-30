@@ -2,9 +2,6 @@
 @import "../../../sass/abstracts/mixins";
 @import "../../../sass/base/typography";
 
-.container {
-}
-
 .list {
   list-style: none;
 
@@ -28,5 +25,6 @@
   a {
     font-weight: 600;
     text-decoration: underline;
+    -webkit-text-decoration: underline;
   }
 }

@@ -37,6 +37,7 @@
       cursor: pointer;
 
       text-decoration: underline;
+      -webkit-text-decoration: underline;
     }
 
     .category {
@@ -44,9 +45,11 @@
       color: colors.$title;
       cursor: pointer;
       text-decoration: underline transparent;
+      -webkit-text-decoration: underline transparent;
 
       &:hover {
         text-decoration: underline;
+        -webkit-text-decoration: underline;
         transition: all 0.2s;
       }
     }

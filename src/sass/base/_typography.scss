@@ -117,9 +117,11 @@
 
   font-size: 1.2rem;
   text-decoration: underline transparent;
+  -webkit-text-decoration: underline transparent;
 
   &:hover {
     text-decoration: underline;
+    -webkit-text-decoration: underline;
     transition: all 0.2s;
   }
 
@@ -131,6 +133,7 @@
 @mixin link-small-underline {
   @include link-small();
   text-decoration: underline;
+  -webkit-text-decoration: underline;
 }
 
 @mixin link-xsmall {
@@ -149,9 +152,11 @@
   a {
     color: colors.$off_white;
     text-decoration: underline transparent;
+    -webkit-text-decoration: underline transparent;
 
     &:hover {
       text-decoration: underline;
+      -webkit-text-decoration: underline;
       transition: all 0.2s;
     }
   }

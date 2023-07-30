@@ -15,7 +15,7 @@ export const Menu = ({ items }: MenuProps) => {
   const pathname = usePathname();
 
   return (
-    <nav className={styles.container}>
+    <nav>
       <ul className={styles.list}>
         {items.map((item, index) => {
           return (
