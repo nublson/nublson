@@ -205,7 +205,7 @@
   gap: 3rem;
 
   .body {
-    h2 {
+    .title {
       @include title-h2;
       margin-bottom: 1rem;
     }
