@@ -97,8 +97,8 @@ export const Gear = ({
           />
         </div>
         <div className={styles.details}>
-          <h3>{title}</h3>
-          <p>{description}</p>
+          <h3 className={styles.title}>{title}</h3>
+          <p className={styles.description}>{description}</p>
         </div>
       </div>
     </a>
@@ -116,8 +116,8 @@ export const Gear = ({
         />
       </div>
       <div className={styles.details}>
-        <h3>{title}</h3>
-        <p>{description}</p>
+        <h3 className={styles.title}>{title}</h3>
+        <p className={styles.description}>{description}</p>
       </div>
     </div>
   );
