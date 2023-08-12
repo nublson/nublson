@@ -1,6 +1,6 @@
-import { PageProps } from "./types";
+import { PostProps } from "./types";
 
-export const getCategories = (posts: PageProps[]) => {
+export const getCategories = (posts: PostProps[]) => {
   let categories: {
     title: string;
   }[] = [];

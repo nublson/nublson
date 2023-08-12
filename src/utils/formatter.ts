@@ -1,6 +1,6 @@
 import moment from "moment";
 import slugify from "slugify";
-import { GearProps, PageProps } from "./types";
+import { GearProps, PostProps } from "./types";
 
 export const formatSlug = (data: string | any) => {
   if (typeof data === "string") {
@@ -17,7 +17,7 @@ export const formatSlug = (data: string | any) => {
 };
 
 export const formatPosts = (database: any[]) => {
-  const posts: PageProps[] = database.map((post) => {
+  const posts: PostProps[] = database.map((post) => {
     return {
       id: post.id,
       post_slug: formatSlug(post.properties.Name.title[0].text.content),
@@ -31,6 +31,25 @@ export const formatPosts = (database: any[]) => {
         : null,
       publish_date: post.properties.publish_date.date.start,
       modified_date: post.properties.modified_date.last_edited_time,
+      category: post.properties.category.select.name,
+      path: post.properties.path.url,
+    };
+  });
+
+  return posts;
+};
+
+export const formatVideos = (database: any[]) => {
+  const posts = database.map((post) => {
+    return {
+      id: post.id,
+      post_slug: formatSlug(post.properties.Name.title[0].text.content),
+      thumbnail:
+        post.cover.type === "file"
+          ? post.cover.file.url
+          : post.cover.external.url,
+      title: post.properties.Name.title[0].text.content,
+      publish_date: post.properties.publish_date.date.start,
       category: post.properties.category.select.name,
       path: post.properties.path.url,
     };
@@ -60,7 +79,7 @@ export const formatGears = (database: any[]) => {
 };
 
 export const formatPageProps = (page: any) => {
-  const formatedPage: PageProps = {
+  const formatedPage: PostProps = {
     id: page.id,
     post_slug: formatSlug(page.properties.Name.title[0].text.content),
     title: page.properties.Name.title[0].text.content,

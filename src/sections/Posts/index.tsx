@@ -8,15 +8,15 @@ import assets from "@/assets/blur.json";
 import { useQueryParams } from "@/hooks";
 import { getCategories } from "@/utils/getCategories";
 import { getPostsByCategory } from "@/utils/getPostsByCategory";
-import { PageProps } from "@/utils/types";
+import { PostProps } from "@/utils/types";
 
 interface QueryParams {
   category: string;
 }
 
 interface PostsSectionProps {
-  type: "articles" | "products";
-  posts: PageProps[];
+  type?: "articles" | "external";
+  posts: PostProps[];
 }
 
 export const PostsSection = ({ type, posts }: PostsSectionProps) => {

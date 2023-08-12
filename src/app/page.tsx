@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Header, LastPosts, WorkSection } from "../sections";
 
-import { getData } from "@/services/notion";
+import { getData, getVideos } from "@/services/notion";
 
 import pages from "@/utils/pages.json";
 import work from "@/utils/work.json";
@@ -22,9 +22,10 @@ export const metadata: Metadata = {
 export const revalidate = 30;
 
 export default async function Home() {
-  const [articles, products] = await Promise.all([
+  const [articles, products, videos] = await Promise.all([
     getData(process.env.NOTION_DATABASE_ARTICLES_ID),
     getData(process.env.NOTION_DATABASE_PRODUCTS_ID),
+    getVideos(process.env.NOTION_DATABASE_VIDEOS_ID),
   ]);
 
   return (
@@ -44,10 +45,10 @@ export default async function Home() {
       />
       <LastPosts
         title="Products"
-        type="products"
         posts={[products[0], products[1]]}
         linkTo="/store"
       />
+      <LastPosts title="Videos" posts={[videos[0], videos[1]]} />
     </>
   );
 }

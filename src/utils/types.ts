@@ -9,7 +9,7 @@ export interface SectionProps {
   children: React.ReactNode;
 }
 
-export interface PageProps {
+export interface PostProps {
   id: string;
   post_slug: string;
   thumbnail: string;
@@ -18,6 +18,16 @@ export interface PageProps {
   category: string;
   publish_date: string;
   modified_date: string;
+  path?: string;
+}
+
+export interface VideoProps {
+  id: string;
+  post_slug: string;
+  thumbnail: string;
+  title: string;
+  category: string;
+  publish_date: string;
   path?: string;
 }
 
@@ -38,8 +48,8 @@ export interface DynamicPageProps {
 }
 
 export interface PostCardProps {
-  type: "articles" | "products";
-  post: PageProps;
+  type?: "articles" | "external";
+  post: PostProps | VideoProps;
   blurData?: string;
 }
 

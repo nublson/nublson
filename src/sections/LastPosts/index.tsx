@@ -6,13 +6,13 @@ import styles from "./styles.module.scss";
 
 import { Post } from "@/components/shared/Cards";
 import { getSingleImage } from "@/utils/getImage";
-import { PageProps } from "@/utils/types";
+import { PostProps, VideoProps } from "@/utils/types";
 
 interface LastPostProps {
   title: string;
-  type: "articles" | "products";
-  posts: PageProps[];
-  linkTo: string;
+  type?: "articles" | "external";
+  posts: PostProps[] | VideoProps[];
+  linkTo?: string;
 }
 
 export const LastPosts = ({ title, type, posts, linkTo }: LastPostProps) => {
@@ -33,10 +33,12 @@ export const LastPosts = ({ title, type, posts, linkTo }: LastPostProps) => {
             );
           })}
         </div>
-        <Link className={styles.link} href={linkTo}>
-          <p>Full list</p>
-          <RiArrowRightLine />
-        </Link>
+        {linkTo && (
+          <Link className={styles.link} href={linkTo}>
+            <p>Full list</p>
+            <RiArrowRightLine />
+          </Link>
+        )}
       </div>
     </Section>
   );
