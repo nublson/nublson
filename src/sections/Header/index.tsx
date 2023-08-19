@@ -1,4 +1,4 @@
-import { getSingleImage } from "@/utils/getImage";
+import { getRemoteImage } from "@/utils/getImage";
 import Image from "next/image";
 import styles from "./styles.module.scss";
 
@@ -15,7 +15,7 @@ export const Header = async ({
   thumbnail,
   description,
 }: HeaderProps) => {
-  const { base64, img } = await getSingleImage(thumbnail);
+  const { base64, img } = await getRemoteImage(thumbnail);
 
   return (
     <main className={styles.container}>

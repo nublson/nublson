@@ -5,7 +5,7 @@ import Link from "next/link";
 import styles from "./styles.module.scss";
 
 import { Post } from "@/components/shared/Cards";
-import { getSingleImage } from "@/utils/getImage";
+import { getRemoteImage } from "@/utils/getImage";
 import { PostProps, VideoProps } from "@/utils/types";
 
 interface LastPostProps {
@@ -13,15 +13,22 @@ interface LastPostProps {
   type?: "articles" | "external";
   posts: PostProps[] | VideoProps[];
   linkTo?: string;
+  external?: boolean;
 }
 
-export const LastPosts = ({ title, type, posts, linkTo }: LastPostProps) => {
+export const LastPosts = ({
+  title,
+  type,
+  posts,
+  linkTo,
+  external,
+}: LastPostProps) => {
   return (
     <Section title={title}>
       <div className={styles.container}>
         <div className={styles.posts}>
           {posts.map(async (item) => {
-            const { base64, img } = await getSingleImage(item.thumbnail);
+            const { base64, img } = await getRemoteImage(item.thumbnail);
 
             return (
               <Post
@@ -33,12 +40,24 @@ export const LastPosts = ({ title, type, posts, linkTo }: LastPostProps) => {
             );
           })}
         </div>
-        {linkTo && (
-          <Link className={styles.link} href={linkTo}>
-            <p>Full list</p>
-            <RiArrowRightLine />
-          </Link>
-        )}
+        {linkTo &&
+          (external ? (
+            <a
+              className={styles.link}
+              href={linkTo}
+              target="_blank"
+              rel="noopener"
+              aria-label={`link to ${title}`}
+            >
+              <p>Full list</p>
+              <RiArrowRightLine />
+            </a>
+          ) : (
+            <Link className={styles.link} href={linkTo}>
+              <p>Full list</p>
+              <RiArrowRightLine />
+            </Link>
+          ))}
       </div>
     </Section>
   );

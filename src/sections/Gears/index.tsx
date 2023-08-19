@@ -1,6 +1,6 @@
 import { Gear } from "@/components/shared/Cards";
 import { Categories } from "@/components/shared/Categories";
-import { getSingleImage } from "@/utils/getImage";
+import { getRemoteImage } from "@/utils/getImage";
 import { GearProps } from "@/utils/types";
 import styles from "./styles.module.scss";
 
@@ -33,7 +33,7 @@ export const GearsSection = ({ data }: GearSectionProps) => {
                 {data
                   .filter((item) => item.category === category)
                   .map(async (gear) => {
-                    const { base64, img } = await getSingleImage(
+                    const { base64, img } = await getRemoteImage(
                       gear.thumbnail
                     );
 

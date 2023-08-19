@@ -1,6 +1,6 @@
 import { getPlaiceholder } from "plaiceholder";
 
-export const getSingleImage = async (src: string) => {
+export const getRemoteImage = async (src: string) => {
   const buffer = await fetch(src).then(async (res) =>
     Buffer.from(await res.arrayBuffer())
   );

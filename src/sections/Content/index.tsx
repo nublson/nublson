@@ -1,4 +1,4 @@
-import { getSingleImage } from "@/utils/getImage";
+import { getRemoteImage } from "@/utils/getImage";
 import { Render, withContentValidation } from "@9gustin/react-notion-render";
 import Image from "next/image";
 import styles from "./styles.module.scss";
@@ -18,7 +18,7 @@ export const ContentSection = ({ blocks }: ContentSectionProps) => {
           blockComponentsMapper={{
             image: withContentValidation(async (props) => {
               if (props.media && props.media.src) {
-                const { base64, img } = await getSingleImage(props.media.src);
+                const { base64, img } = await getRemoteImage(props.media.src);
 
                 return (
                   <Image
