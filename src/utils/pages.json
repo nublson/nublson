@@ -9,24 +9,24 @@
     "label": "",
     "title": "Blog",
     "description": "Writing down about personal development and technology.",
-    "thumbnail": "https://images.unsplash.com/photo-1645887583922-b1902f09696e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1332&q=80"
+    "thumbnail": "https://res.cloudinary.com/dkmegdsic/image/upload/v1692524897/nublson.com/pages/blog_ebwsdc.jpg"
   },
   "store": {
     "label": "",
     "title": "Store",
     "description": "Icons, LUT's, Presets and more",
-    "thumbnail": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+    "thumbnail": "https://res.cloudinary.com/dkmegdsic/image/upload/v1692524895/nublson.com/pages/store_r73ykh.jpg"
   },
   "notFound": {
     "label": "Oops,",
     "title": "You're lost",
     "description": "You fell in the middle of an infinite space. Come home!",
-    "thumbnail": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80"
+    "thumbnail": "https://res.cloudinary.com/dkmegdsic/image/upload/v1692524896/nublson.com/pages/lost_eusmbi.jpg"
   },
   "offline": {
     "label": "Oops,",
     "title": "You're offline",
     "description": "Looks like you're not connected to a network. Check your settings and try again!",
-    "thumbnail": "https://images.unsplash.com/photo-1615309662472-4ca77a77a189?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+    "thumbnail": "https://res.cloudinary.com/dkmegdsic/image/upload/v1692524897/nublson.com/pages/offline_gj6lpw.jpg"
   }
 }
