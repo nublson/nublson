@@ -1,8 +1,14 @@
 "use client";
 
 import { PrimaryIcon } from "@/components/shared/Buttons";
+import copy from "copy-to-clipboard";
 import { usePathname } from "next/navigation";
-import { RiLinkedinLine, RiTwitterLine, RiWhatsappLine } from "react-icons/ri";
+import {
+  RiFileCopyLine,
+  RiLinkedinLine,
+  RiTwitterLine,
+  RiWhatsappLine,
+} from "react-icons/ri";
 import styles from "./styles.module.scss";
 
 interface ShareSectionProps {
@@ -28,6 +34,11 @@ export const ShareSection = (props: ShareSectionProps) => {
     <div className={styles.container}>
       <div className={styles.info}>{props.children}</div>
       <div className={styles.share}>
+        <PrimaryIcon
+          icon={<RiFileCopyLine className={styles.icon} />}
+          size="regular"
+          onClick={() => copy(`${process.env.BASE_URL}${pathname}`)}
+        />
         <a
           className={styles.social}
           href={generateShareLink("twitter", pathname)}
