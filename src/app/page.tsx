@@ -45,11 +45,13 @@ export default async function Home() {
       />
       <LastPosts
         title="Products"
+        type="products"
         posts={[products[0], products[1]]}
         linkTo="/store"
       />
       <LastPosts
         title="Videos"
+        type="videos"
         posts={[videos[0], videos[1]]}
         external
         linkTo="https://youtube.com/@nublson"

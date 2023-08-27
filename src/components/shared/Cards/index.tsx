@@ -45,13 +45,20 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
             <h3 className={styles.title}>{post.title}</h3>
           </Link>
         ) : (
-          <h2 className={styles.title}>{post.title}</h2>
+          <a
+            href={post.path}
+            target="_blank"
+            rel="noopener"
+            aria-label={`link to ${post.title}`}
+          >
+            <h3 className={styles.title}>{post.title}</h3>
+          </a>
         )}
       </div>
 
       <div className={styles.footer}>
         {type && type === "articles" ? (
-          <Link href={`/blog/${post.post_slug}`}>Read post</Link>
+          <Link href={`/blog/${post.post_slug}`}>Read</Link>
         ) : (
           <a
             className={styles.external}
@@ -60,7 +67,7 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
             rel="noopener"
             aria-label={`link to ${post.title}`}
           >
-            Open
+            {type === "products" ? "Get" : "Watch"}
             <RiExternalLinkLine />
           </a>
         )}

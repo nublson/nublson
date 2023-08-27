@@ -10,7 +10,7 @@ import { PostProps, VideoProps } from "@/utils/types";
 
 interface LastPostProps {
   title: string;
-  type?: "articles" | "external";
+  type?: "articles" | "products" | "videos";
   posts: PostProps[] | VideoProps[];
   linkTo?: string;
   external?: boolean;

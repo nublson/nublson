@@ -24,5 +24,5 @@ export const revalidate = 30;
 export default async function Store() {
   const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
 
-  return <PostsSection posts={data} />;
+  return <PostsSection posts={data} type="products" />;
 }

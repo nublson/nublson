@@ -15,7 +15,7 @@ interface QueryParams {
 }
 
 interface PostsSectionProps {
-  type?: "articles" | "external";
+  type?: "articles" | "products" | "videos";
   posts: PostProps[];
 }
 
