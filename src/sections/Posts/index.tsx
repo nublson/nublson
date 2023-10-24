@@ -9,6 +9,7 @@ import { useQueryParams } from "@/hooks";
 import { getCategories } from "@/utils/getCategories";
 import { getPostsByCategory } from "@/utils/getPostsByCategory";
 import { PostProps } from "@/utils/types";
+import Link from "next/link";
 
 interface QueryParams {
   category: string;
@@ -50,14 +51,25 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
             className={queryParams.category ? styles.grid_down : styles.grid_up}
           >
             {getPostsByCategory(queryParams.category, posts).map((item) => {
-              return (
-                <Post
-                  type={type}
-                  key={item.id}
-                  post={item}
-                  blurData={assets.base64}
-                />
-              );
+              if (type === "articles") {
+                return (
+                  <Link key={item.id} href={`/blog/${item.post_slug}`}>
+                    <Post type={type} post={item} blurData={assets.base64} />
+                  </Link>
+                );
+              } else {
+                return (
+                  <a
+                    key={item.id}
+                    href={item.path}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label={`link to ${item.title}`}
+                  >
+                    <Post type={type} post={item} blurData={assets.base64} />
+                  </a>
+                );
+              }
             })}
           </div>
         </div>

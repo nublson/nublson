@@ -30,14 +30,33 @@ export const LastPosts = ({
           {posts.map(async (item) => {
             const { base64, img } = await getRemoteImage(item.thumbnail);
 
-            return (
-              <Post
-                type={type}
-                key={item.id}
-                post={{ ...item, thumbnail: img.src }}
-                blurData={base64}
-              />
-            );
+            if (type === "articles") {
+              return (
+                <Link key={item.id} href={`/blog/${item.post_slug}`}>
+                  <Post
+                    type={type}
+                    post={{ ...item, thumbnail: img.src }}
+                    blurData={base64}
+                  />
+                </Link>
+              );
+            } else {
+              return (
+                <a
+                  key={item.id}
+                  href={item.path}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`link to ${item.title}`}
+                >
+                  <Post
+                    type={type}
+                    post={{ ...item, thumbnail: img.src }}
+                    blurData={base64}
+                  />
+                </a>
+              );
+            }
           })}
         </div>
         {linkTo &&

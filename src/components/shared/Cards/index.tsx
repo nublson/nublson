@@ -40,37 +40,14 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
         />
       </div>
       <div className={styles.body}>
-        {type && type === "articles" ? (
-          <Link href={`/blog/${post.post_slug}`}>
-            <h3 className={styles.title}>{post.title}</h3>
-          </Link>
-        ) : (
-          <a
-            href={post.path}
-            target="_blank"
-            rel="noopener"
-            aria-label={`link to ${post.title}`}
-          >
-            <h3 className={styles.title}>{post.title}</h3>
-          </a>
-        )}
+        <h3 className={styles.title}>{post.title}</h3>
       </div>
 
       <div className={styles.footer}>
-        {type && type === "articles" ? (
-          <Link href={`/blog/${post.post_slug}`}>Read</Link>
-        ) : (
-          <a
-            className={styles.external}
-            href={post.path}
-            target="_blank"
-            rel="noopener"
-            aria-label={`link to ${post.title}`}
-          >
-            {type === "products" ? "Get" : "Watch"}
-            <RiExternalLinkLine />
-          </a>
-        )}
+        <span className={type !== "articles" ? styles.external : ""}>
+          {type === "articles" ? "Read" : type === "products" ? "Get" : "Watch"}
+          {type !== "articles" && <RiExternalLinkLine />}
+        </span>
         <p className={styles.category}>{post.category}</p>
       </div>
     </div>

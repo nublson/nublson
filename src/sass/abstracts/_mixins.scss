@@ -124,12 +124,12 @@
     align-items: center;
     justify-content: space-between;
 
-    .external {
-      @include link-small;
+    span {
+      @include link-small-underline;
     }
 
-    a {
-      @include link-small-underline;
+    .external {
+      @include link-small;
     }
 
     .category {
