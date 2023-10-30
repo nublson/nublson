@@ -1,6 +1,6 @@
 import { ContentSection, Header, ShareSection } from "@/sections";
 import { getBlocks, getData } from "@/services/notion";
-import { formatPosts, setToCurrentDate } from "@/utils/formatter";
+import { setToCurrentDate } from "@/utils/formatter";
 import { DynamicPageProps, MetadataProps } from "@/utils/types";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -10,9 +10,7 @@ export async function generateMetadata({
 }: MetadataProps): Promise<Metadata> {
   const { slug } = params;
 
-  const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID).then(
-    (response) => formatPosts(response)
-  );
+  const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
 
   const myPost = data.find((post) => post.post_slug === slug);
 
@@ -38,9 +36,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID).then(
-    (response) => formatPosts(response)
-  );
+  const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
 
   return data.map((post) => ({
     slug: post.post_slug,
@@ -50,9 +46,7 @@ export async function generateStaticParams() {
 export const revalidate = 30;
 
 export default async function Page({ params }: DynamicPageProps) {
-  const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID).then(
-    (response) => formatPosts(response)
-  );
+  const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
 
   const myPost = data.find((post) => {
     return post.post_slug === params.slug;

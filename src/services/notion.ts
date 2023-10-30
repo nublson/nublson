@@ -2,6 +2,7 @@ import {
   formatBlockWithChildren,
   formatGears,
   formatPageProps,
+  formatPosts,
 } from "@/utils/formatter";
 import { Client } from "@notionhq/client";
 
@@ -30,7 +31,7 @@ export const getData = async (databaseId: string) => {
     ],
   });
 
-  return results;
+  return formatPosts(results);
 };
 
 export const getGears = async (databaseId: string) => {

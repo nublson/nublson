@@ -3,7 +3,6 @@ import { Header, LastPosts, WorkSection } from "../sections";
 
 import { getData } from "@/services/notion";
 
-import { formatPosts } from "@/utils/formatter";
 import pages from "@/utils/pages.json";
 import work from "@/utils/work.json";
 
@@ -24,18 +23,10 @@ export const revalidate = 30;
 
 export default async function Home() {
   const [articles, products, videos, newsletter] = await Promise.all([
-    getData(process.env.NOTION_DATABASE_ARTICLES_ID).then((response) =>
-      formatPosts(response)
-    ),
-    getData(process.env.NOTION_DATABASE_PRODUCTS_ID).then((response) =>
-      formatPosts(response)
-    ),
-    getData(process.env.NOTION_DATABASE_VIDEOS_ID).then((response) =>
-      formatPosts(response)
-    ),
-    getData(process.env.NOTION_DATABASE_NEWSLETTER_ID).then((response) =>
-      formatPosts(response)
-    ),
+    getData(process.env.NOTION_DATABASE_ARTICLES_ID),
+    getData(process.env.NOTION_DATABASE_PRODUCTS_ID),
+    getData(process.env.NOTION_DATABASE_VIDEOS_ID),
+    getData(process.env.NOTION_DATABASE_NEWSLETTER_ID),
   ]);
 
   return (
