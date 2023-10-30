@@ -2,7 +2,7 @@ import { PostProps } from "./types";
 
 export const getCategories = (posts: PostProps[]) => {
   let categories: {
-    title: string;
+    title: string | undefined;
   }[] = [];
 
   posts.forEach((post) => {
