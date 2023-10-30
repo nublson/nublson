@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import { Header, LastPosts, WorkSection } from "../sections";
 
-import { getData, getVideos } from "@/services/notion";
+import { getData } from "@/services/notion";
 
+import { formatPosts } from "@/utils/formatter";
 import pages from "@/utils/pages.json";
 import work from "@/utils/work.json";
 
@@ -22,10 +23,19 @@ export const metadata: Metadata = {
 export const revalidate = 30;
 
 export default async function Home() {
-  const [articles, products, videos] = await Promise.all([
-    getData(process.env.NOTION_DATABASE_ARTICLES_ID),
-    getData(process.env.NOTION_DATABASE_PRODUCTS_ID),
-    getVideos(process.env.NOTION_DATABASE_VIDEOS_ID),
+  const [articles, products, videos, newsletter] = await Promise.all([
+    getData(process.env.NOTION_DATABASE_ARTICLES_ID).then((response) =>
+      formatPosts(response)
+    ),
+    getData(process.env.NOTION_DATABASE_PRODUCTS_ID).then((response) =>
+      formatPosts(response)
+    ),
+    getData(process.env.NOTION_DATABASE_VIDEOS_ID).then((response) =>
+      formatPosts(response)
+    ),
+    getData(process.env.NOTION_DATABASE_NEWSLETTER_ID).then((response) =>
+      formatPosts(response)
+    ),
   ]);
 
   return (
@@ -42,6 +52,13 @@ export default async function Home() {
         type="articles"
         posts={[articles[0], articles[1]]}
         linkTo="/blog"
+      />
+      <LastPosts
+        title="Newsletter"
+        type="newsletter"
+        posts={[newsletter[0], newsletter[1]]}
+        external
+        linkTo="https://nublson.substack.com"
       />
       <LastPosts
         title="Products"

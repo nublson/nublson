@@ -26,31 +26,17 @@ export const formatPosts = (database: any[]) => {
           ? post.cover.file.url
           : post.cover.external.url,
       title: post.properties.Name.title[0].text.content,
-      description: post.properties.description.rich_text.length
-        ? post.properties.description.rich_text[0].text.content
-        : null,
+      description:
+        post.properties.description &&
+        post.properties.description.rich_text.length
+          ? post.properties.description.rich_text[0].text.content
+          : null,
       publish_date: post.properties.publish_date.date.start,
-      modified_date: post.properties.modified_date.last_edited_time,
-      category: post.properties.category.select.name,
-      path: post.properties.path.url,
-    };
-  });
-
-  return posts;
-};
-
-export const formatVideos = (database: any[]) => {
-  const posts = database.map((post) => {
-    return {
-      id: post.id,
-      post_slug: formatSlug(post.properties.Name.title[0].text.content),
-      thumbnail:
-        post.cover.type === "file"
-          ? post.cover.file.url
-          : post.cover.external.url,
-      title: post.properties.Name.title[0].text.content,
-      publish_date: post.properties.publish_date.date.start,
-      category: post.properties.category.select.name,
+      modified_date:
+        post.properties.modified_date &&
+        post.properties.modified_date.last_edited_time,
+      category:
+        post.properties.category && post.properties.category.select.name,
       path: post.properties.path.url,
     };
   });
@@ -108,6 +94,6 @@ export const formatBlockWithChildren = (blocks: any[], childBlocks: any[]) => {
   });
 };
 
-export const setToCurrentDate = (date: string, format: string) => {
+export const setToCurrentDate = (date: string | undefined, format: string) => {
   return moment(date).format(format);
 };

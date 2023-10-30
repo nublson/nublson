@@ -6,7 +6,7 @@ interface HeaderProps {
   label: string;
   title: string;
   thumbnail: string;
-  description: string;
+  description?: string;
 }
 
 export const Header = async ({

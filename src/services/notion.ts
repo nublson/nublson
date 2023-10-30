@@ -2,8 +2,6 @@ import {
   formatBlockWithChildren,
   formatGears,
   formatPageProps,
-  formatPosts,
-  formatVideos,
 } from "@/utils/formatter";
 import { Client } from "@notionhq/client";
 
@@ -32,31 +30,7 @@ export const getData = async (databaseId: string) => {
     ],
   });
 
-  return formatPosts(results);
-};
-
-export const getVideos = async (databaseId: string) => {
-  const { results } = await api.databases.query({
-    database_id: databaseId,
-    filter: {
-      and: [
-        {
-          property: "state",
-          select: {
-            equals: "Published",
-          },
-        },
-      ],
-    },
-    sorts: [
-      {
-        property: "publish_date",
-        direction: "descending",
-      },
-    ],
-  });
-
-  return formatVideos(results);
+  return results;
 };
 
 export const getGears = async (databaseId: string) => {

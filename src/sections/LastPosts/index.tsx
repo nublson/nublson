@@ -6,12 +6,12 @@ import styles from "./styles.module.scss";
 
 import { Post } from "@/components/shared/Cards";
 import { getRemoteImage } from "@/utils/getImage";
-import { PostProps, VideoProps } from "@/utils/types";
+import { PostProps } from "@/utils/types";
 
 interface LastPostProps {
   title: string;
-  type?: "articles" | "products" | "videos";
-  posts: PostProps[] | VideoProps[];
+  type?: "articles" | "products" | "videos" | "newsletter";
+  posts: PostProps[];
   linkTo?: string;
   external?: boolean;
 }

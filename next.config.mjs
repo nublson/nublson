@@ -17,6 +17,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "s3.us-west-2.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "prod-files-secure.s3.us-west-2.amazonaws.com",
+      },
     ],
   },
   env: {
@@ -25,6 +29,7 @@ const nextConfig = {
     NOTION_DATABASE_ARTICLES_ID: process.env.NOTION_DATABASE_ARTICLES_ID,
     NOTION_DATABASE_PRODUCTS_ID: process.env.NOTION_DATABASE_PRODUCTS_ID,
     NOTION_DATABASE_VIDEOS_ID: process.env.NOTION_DATABASE_VIDEOS_ID,
+    NOTION_DATABASE_NEWSLETTER_ID: process.env.NOTION_DATABASE_NEWSLETTER_ID,
     NOTION_DATABASE_GEARS_ID: process.env.NOTION_DATABASE_GEARS_ID,
     NOTION_PAGE_GEARS_ID: process.env.NOTION_PAGE_GEARS_ID,
     NEXT_PUBLIC_GA_TRACKING_ID: process.env.NEXT_PUBLIC_GA_TRACKING_ID,

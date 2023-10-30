@@ -2,7 +2,6 @@ import Image from "next/image";
 import { RiExternalLinkLine } from "react-icons/ri";
 
 import { CardItemProps, GearProps, PostCardProps } from "@/utils/types";
-import Link from "next/link";
 import styles from "./styles.module.scss";
 
 export const Work = ({ title, description, path }: CardItemProps) => {
@@ -26,6 +25,19 @@ export const Work = ({ title, description, path }: CardItemProps) => {
 };
 
 export const Post = ({ type, post, blurData }: PostCardProps) => {
+  const getCTAText = (type?: string) => {
+    switch (type) {
+      case "products":
+        return "Get";
+
+      case "videos":
+        return "Watch";
+
+      default:
+        return "Read";
+    }
+  };
+
   return (
     <div className={styles.post}>
       <div className={styles.thumbnail}>
@@ -45,7 +57,7 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
 
       <div className={styles.footer}>
         <span className={type !== "articles" ? styles.external : ""}>
-          {type === "articles" ? "Read" : type === "products" ? "Get" : "Watch"}
+          {getCTAText(type)}
           {type !== "articles" && <RiExternalLinkLine />}
         </span>
         <p className={styles.category}>{post.category}</p>

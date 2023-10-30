@@ -14,20 +14,10 @@ export interface PostProps {
   post_slug: string;
   thumbnail: string;
   title: string;
-  description: string;
-  category: string;
+  description?: string;
+  category?: string;
   publish_date: string;
-  modified_date: string;
-  path?: string;
-}
-
-export interface VideoProps {
-  id: string;
-  post_slug: string;
-  thumbnail: string;
-  title: string;
-  category: string;
-  publish_date: string;
+  modified_date?: string;
   path?: string;
 }
 
@@ -48,8 +38,8 @@ export interface DynamicPageProps {
 }
 
 export interface PostCardProps {
-  type?: "articles" | "products" | "videos";
-  post: PostProps | VideoProps;
+  type?: "articles" | "products" | "videos" | "newsletter";
+  post: PostProps;
   blurData?: string;
 }
 

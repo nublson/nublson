@@ -279,6 +279,10 @@
   justify-items: start;
   gap: 5rem;
 
+  & > a {
+    display: flex;
+  }
+
   @include device(laptopM) {
     gap: 2.5rem;
   }
