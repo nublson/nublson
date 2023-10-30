@@ -2,7 +2,7 @@ import { PostProps } from "./types";
 
 export const getCategories = (posts: PostProps[]) => {
   let categories: {
-    title: string | undefined;
+    title: string;
   }[] = [];
 
   posts.forEach((post) => {
@@ -10,7 +10,7 @@ export const getCategories = (posts: PostProps[]) => {
       (item) => item.title === post.category
     );
 
-    if (!alreadyExists) {
+    if (!alreadyExists && post.category) {
       return categories.push({ title: post.category });
     }
   });
