@@ -39,17 +39,17 @@ export default async function Home() {
       />
       <WorkSection title="Creating on" workList={work.items} />
       <LastPosts
-        title="Articles"
-        type="articles"
-        posts={[articles[0], articles[1]]}
-        linkTo="/blog"
-      />
-      <LastPosts
         title="Newsletter"
         type="newsletter"
         posts={[newsletter[0], newsletter[1]]}
         external
         linkTo="https://nublson.substack.com"
+      />
+      <LastPosts
+        title="Articles"
+        type="articles"
+        posts={[articles[0], articles[1]]}
+        linkTo="/blog"
       />
       <LastPosts
         title="Products"
