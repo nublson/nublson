@@ -3,6 +3,7 @@ import { RiExternalLinkLine } from "react-icons/ri";
 
 import { CardItemProps, GearProps, PostCardProps } from "@/utils/types";
 import styles from "./styles.module.scss";
+import { setToCurrentDate } from "@/utils/formatter";
 
 export const Work = ({ title, description, path }: CardItemProps) => {
   return (
@@ -60,7 +61,11 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
           {getCTAText(type)}
           {type !== "articles" && <RiExternalLinkLine />}
         </span>
-        <p className={styles.category}>{post.category}</p>
+        <p className={styles.category}>
+          {type === "newsletter"
+            ? setToCurrentDate(post.publish_date, "LL")
+            : post.category}
+        </p>
       </div>
     </div>
   );
