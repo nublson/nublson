@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Poppins, Lora } from "next/font/google";
 import Script from "next/script";
 import "./globals.scss";
 
@@ -15,6 +15,13 @@ const GTM_ID = "GTM-M88VGKTR";
 const poppins = Poppins({
   weight: ["400", "600", "700"],
   subsets: ["latin"],
+  variable: "--font-poppins",
+});
+
+const lora = Lora({
+  weight: ["400", "600"],
+  subsets: ["latin"],
+  variable: "--font-lora",
 });
 
 export const metadata: Metadata = {
@@ -36,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${poppins.variable} ${lora.variable}`}>
       <Script id="google-tag-manager" strategy="afterInteractive">
         {`
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -46,7 +53,7 @@ export default function RootLayout({
         })(window,document,'script','dataLayer','${GTM_ID}');
         `}
       </Script>
-      <body className={poppins.className}>
+      <body>
         <Layout>{children}</Layout>
         <Footer socialList={social.items} />
         <Analytics />
