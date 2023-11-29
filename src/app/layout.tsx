@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { Poppins, Lora } from "next/font/google";
 import Script from "next/script";
 import "./globals.scss";
+import GoogleAnalytics from "./GoogleAnalytics";
 
 import { Layout } from "@/components/Layout";
 import { Footer } from "@/components/shared/Footer";
@@ -54,6 +55,7 @@ export default function RootLayout({
         `}
       </Script>
       <body>
+        <GoogleAnalytics />
         <Layout>{children}</Layout>
         <Footer socialList={social.items} />
         <Analytics />
