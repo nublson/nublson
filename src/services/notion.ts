@@ -5,12 +5,13 @@ import {
   formatPosts,
 } from "@/utils/formatter";
 import { Client } from "@notionhq/client";
+import { cache } from "react";
 
 const api = new Client({
   auth: process.env.NOTION_ACCESS_TOKEN,
 });
 
-export const getData = async (databaseId: string) => {
+export const getData = cache(async (databaseId: string) => {
   const { results } = await api.databases.query({
     database_id: databaseId,
     filter: {
@@ -32,9 +33,9 @@ export const getData = async (databaseId: string) => {
   });
 
   return formatPosts(results);
-};
+});
 
-export const getGears = async (databaseId: string) => {
+export const getGears = cache(async (databaseId: string) => {
   const { results } = await api.databases.query({
     database_id: databaseId,
     filter: {
@@ -60,15 +61,15 @@ export const getGears = async (databaseId: string) => {
   });
 
   return formatGears(results);
-};
+});
 
-export const getPage = async (pageId: string) => {
+export const getPage = cache(async (pageId: string) => {
   const response = await api.pages.retrieve({ page_id: pageId });
 
   return formatPageProps(response);
-};
+});
 
-export const getBlocks = async (pageId: string) => {
+export const getBlocks = cache(async (pageId: string) => {
   const response = await api.blocks.children.list({
     block_id: pageId,
   });
@@ -90,4 +91,4 @@ export const getBlocks = async (pageId: string) => {
   );
 
   return blocksWithChildren;
-};
+});

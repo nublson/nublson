@@ -1,9 +1,9 @@
 import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
-import { Poppins, Lora } from "next/font/google";
+import { Lora, Poppins } from "next/font/google";
 import Script from "next/script";
-import "./globals.scss";
 import GoogleAnalytics from "./GoogleAnalytics";
+import "./globals.scss";
 
 import { Layout } from "@/components/Layout";
 import { Footer } from "@/components/shared/Footer";
@@ -38,7 +38,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = "nodejs";
 export const revalidate = 10;
 
 export default function RootLayout({
