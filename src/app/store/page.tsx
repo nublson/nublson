@@ -19,8 +19,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 10;
-
 export default async function Store() {
   const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
 

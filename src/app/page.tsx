@@ -19,8 +19,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 10;
-
 export default async function Home() {
   const [articles, products, videos, newsletter] = await Promise.all([
     getData(process.env.NOTION_DATABASE_ARTICLES_ID),
