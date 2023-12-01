@@ -19,8 +19,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 30;
-
 export default async function Blog() {
   const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
 

@@ -23,8 +23,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export const revalidate = 30;
-
 export default async function Gears() {
   const [data, gears] = await Promise.all([
     getPage(process.env.NOTION_PAGE_GEARS_ID),

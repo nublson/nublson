@@ -38,6 +38,9 @@ export const metadata: Metadata = {
   },
 };
 
+export const runtime = "nodejs";
+export const revalidate = 10;
+
 export default function RootLayout({
   children,
 }: {
