@@ -1,6 +1,6 @@
+import assets from "@/assets/blur.json";
 import { Gear } from "@/components/shared/Cards";
 import { Categories } from "@/components/shared/Categories";
-import { getRemoteImage } from "@/utils/getImage";
 import { GearProps } from "@/utils/types";
 import styles from "./styles.module.scss";
 
@@ -32,19 +32,15 @@ export const GearsSection = ({ data }: GearSectionProps) => {
               <div className={styles.items}>
                 {data
                   .filter((item) => item.category === category)
-                  .map(async (gear) => {
-                    const { base64, img } = await getRemoteImage(
-                      gear.thumbnail
-                    );
-
+                  .map((gear) => {
                     return (
                       <Gear
                         key={gear.id}
-                        thumbnail={img.src}
+                        thumbnail={gear.thumbnail}
                         title={gear.title}
                         description={gear.description}
                         category={gear.category}
-                        blurData={base64}
+                        blurData={assets.base64}
                         path={gear.path}
                       />
                     );

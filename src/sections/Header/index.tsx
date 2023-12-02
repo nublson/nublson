@@ -1,4 +1,4 @@
-import { getRemoteImage } from "@/utils/getImage";
+import assets from "@/assets/blur.json";
 import Image from "next/image";
 import styles from "./styles.module.scss";
 
@@ -15,8 +15,6 @@ export const Header = async ({
   thumbnail,
   description,
 }: HeaderProps) => {
-  const { base64, img } = await getRemoteImage(thumbnail);
-
   return (
     <main className={styles.container}>
       <div className={styles.heading}>
@@ -26,12 +24,12 @@ export const Header = async ({
       </div>
       <div className={styles.thumbnail}>
         <Image
-          src={img.src}
+          src={thumbnail}
           alt={title}
           fill
           style={{ objectFit: "cover" }}
           placeholder="blur"
-          blurDataURL={base64}
+          blurDataURL={assets.base64}
           priority
         />
       </div>

@@ -4,12 +4,9 @@ import { RiArrowRightLine } from "react-icons/ri";
 import Link from "next/link";
 import styles from "./styles.module.scss";
 
+import assets from "@/assets/blur.json";
 import { Post } from "@/components/shared/Cards";
-import { getRemoteImage } from "@/utils/getImage";
 import { PostProps } from "@/utils/types";
-
-export const revalidate = 10;
-export const fetchCache = "force-no-store";
 
 interface LastPostProps {
   title: string;
@@ -30,16 +27,14 @@ export const LastPosts = ({
     <Section title={title}>
       <div className={styles.container}>
         <div className={styles.posts}>
-          {posts.map(async (item) => {
-            const { base64, img } = await getRemoteImage(item.thumbnail);
-
+          {posts.map((item) => {
             if (type === "articles") {
               return (
                 <Link key={item.id} href={`/blog/${item.post_slug}`}>
                   <Post
                     type={type}
-                    post={{ ...item, thumbnail: img.src }}
-                    blurData={base64}
+                    post={{ ...item, thumbnail: item.thumbnail }}
+                    blurData={assets.base64}
                   />
                 </Link>
               );
@@ -54,8 +49,8 @@ export const LastPosts = ({
                 >
                   <Post
                     type={type}
-                    post={{ ...item, thumbnail: img.src }}
-                    blurData={base64}
+                    post={{ ...item, thumbnail: item.thumbnail }}
+                    blurData={assets.base64}
                   />
                 </a>
               );

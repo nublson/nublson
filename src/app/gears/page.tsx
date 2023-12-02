@@ -3,9 +3,6 @@ import { getBlocks, getGears, getPage } from "@/services/notion";
 import { setToCurrentDate } from "@/utils/formatter";
 import { Metadata } from "next";
 
-export const revalidate = 10;
-export const fetchCache = "force-no-store";
-
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPage(process.env.NOTION_PAGE_GEARS_ID);
 
