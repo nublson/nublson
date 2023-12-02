@@ -9,7 +9,7 @@ interface HeaderProps {
   description?: string;
 }
 
-export const Header = async ({
+export const Header = ({
   label,
   title,
   thumbnail,
