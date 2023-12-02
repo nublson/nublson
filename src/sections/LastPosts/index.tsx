@@ -8,6 +8,9 @@ import { Post } from "@/components/shared/Cards";
 import { getRemoteImage } from "@/utils/getImage";
 import { PostProps } from "@/utils/types";
 
+export const revalidate = 10;
+export const fetchCache = "force-no-store";
+
 interface LastPostProps {
   title: string;
   type?: "articles" | "products" | "videos" | "newsletter";
