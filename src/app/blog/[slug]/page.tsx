@@ -5,6 +5,9 @@ import { DynamicPageProps, MetadataProps } from "@/utils/types";
 import { Metadata } from "next";
 import Link from "next/link";
 
+export const revalidate = 10;
+export const fetchCache = "force-no-store";
+
 export async function generateMetadata({
   params,
 }: MetadataProps): Promise<Metadata> {
