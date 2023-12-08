@@ -4,7 +4,13 @@ import withPlaiceholder from "@plaiceholder/next";
 
 const nextConfig = {
   images: {
-    domains: ["**.amazonaws.com", "res.cloudinary.com", "images.unsplash.com"],
+    domains: [
+      "s3.amazonaws.com",
+      "res.cloudinary.com",
+      "images.unsplash.com",
+      "s3.us-west-2.amazonaws.com",
+      "prod-files-secure.s3.us-west-2.amazonaws.com",
+    ],
     remotePatterns: [
       {
         protocol: "https",
