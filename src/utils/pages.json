@@ -3,30 +3,30 @@
     "label": "Hi, I'm",
     "title": "Nubelson Fernandes",
     "description": "I'm a Software Engineer, Photographer and aspiring Filmmaker based in Lisbon, Portugal. I create content about technology, lifestyle and personal development.",
-    "thumbnail": "https://res.cloudinary.com/dkmegdsic/image/upload/v1692467561/nublson.com/pages/Home_u7rbcv.jpg"
+    "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/Home_u7rbcv.jpg"
   },
   "blog": {
     "label": "",
     "title": "Blog",
     "description": "Writing down about personal development and technology.",
-    "thumbnail": "https://res.cloudinary.com/dkmegdsic/image/upload/v1692524897/nublson.com/pages/blog_ebwsdc.jpg"
+    "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/blog_ebwsdc.jpg"
   },
   "store": {
     "label": "",
     "title": "Store",
     "description": "Icons, LUT's, Presets and more",
-    "thumbnail": "https://res.cloudinary.com/dkmegdsic/image/upload/v1692524895/nublson.com/pages/store_r73ykh.jpg"
+    "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/store_r73ykh.jpg"
   },
   "notFound": {
     "label": "Oops,",
     "title": "You're lost",
     "description": "You fell in the middle of an infinite space. Come home!",
-    "thumbnail": "https://res.cloudinary.com/dkmegdsic/image/upload/v1692524896/nublson.com/pages/lost_eusmbi.jpg"
+    "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/lost_eusmbi.jpg"
   },
   "offline": {
     "label": "Oops,",
     "title": "You're offline",
     "description": "Looks like you're not connected to a network. Check your settings and try again!",
-    "thumbnail": "https://res.cloudinary.com/dkmegdsic/image/upload/v1692524897/nublson.com/pages/offline_gj6lpw.jpg"
+    "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/offline_gj6lpw.jpg"
   }
 }
