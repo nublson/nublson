@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import {
   RiFileCopyLine,
   RiLinkedinLine,
-  RiTwitterLine,
   RiWhatsappLine,
+  RiTwitterXLine,
 } from "react-icons/ri";
 import styles from "./styles.module.scss";
 
@@ -46,7 +46,7 @@ export const ShareSection = (props: ShareSectionProps) => {
           rel="noopener"
           aria-label="share twitter icon"
         >
-          <RiTwitterLine className={styles.icon} />
+          <RiTwitterXLine className={styles.icon} />
         </a>
         <a
           className={styles.social}
