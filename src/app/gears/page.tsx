@@ -39,7 +39,7 @@ export default async function Gears() {
         thumbnail={data.thumbnail}
         description={data.description}
       />
-      <ContentSection blocks={pageBlocks} />
+      <ContentSection blocks={pageBlocks} data={data} />
       <GearsSection data={gears} />
       <ShareSection>
         <p>I may earn some commission from sales using these links.</p>

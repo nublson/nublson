@@ -82,15 +82,42 @@
     transition: all 0.2s;
   }
 
+  .icon {
+    font-size: 2rem;
+  }
+
+  @include device(laptopM) {
+    .icon {
+      font-size: 1.6rem;
+    }
+  }
+
   @include device(tablet) {
     height: 3rem;
     padding: 0;
     border-width: 1.5px;
+
+    .icon {
+      font-size: 1.2rem;
+    }
   }
 
   @include device(mobile) {
     height: 2rem;
     border-width: 1px;
+  }
+}
+
+@mixin button-primary--fill {
+  @include button-primary;
+
+  background-color: colors.$off_white;
+  color: colors.$off_black;
+
+  &:hover {
+    background-color: transparent;
+    color: colors.$off_white;
+    transition: all 0.2s;
   }
 }
 

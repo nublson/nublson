@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import {
   RiFileCopyLine,
   RiLinkedinLine,
-  RiWhatsappLine,
   RiTwitterXLine,
+  RiWhatsappLine,
 } from "react-icons/ri";
 import styles from "./styles.module.scss";
 

@@ -61,7 +61,7 @@ export default async function Page({ params }: DynamicPageProps) {
           thumbnail={myPost.thumbnail}
           description={myPost.description}
         />
-        <ContentSection blocks={postBlocks} />
+        <ContentSection blocks={postBlocks} data={myPost} />
         <ShareSection>
           <p>
             Posted in{" "}

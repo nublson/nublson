@@ -32,23 +32,9 @@
       @include button-primary;
     }
 
-    .icon {
-      font-size: 2rem;
-    }
-
-    @include device(laptopM) {
-      .icon {
-        font-size: 1.6rem;
-      }
-    }
-
     @include device(tablet) {
       .social {
         width: 3rem;
-      }
-
-      .icon {
-        font-size: 1.2rem;
       }
     }
 

@@ -1,13 +1,16 @@
 import assets from "@/assets/blur.json";
+import { PostProps } from "@/utils/types";
 import { Render, withContentValidation } from "@9gustin/react-notion-render";
 import Image from "next/image";
+import { RiStore2Line } from "react-icons/ri";
 import styles from "./styles.module.scss";
 
 interface ContentSectionProps {
   blocks: any[];
+  data: PostProps;
 }
 
-export const ContentSection = ({ blocks }: ContentSectionProps) => {
+export const ContentSection = ({ blocks, data }: ContentSectionProps) => {
   return (
     <section className={styles.container}>
       <div className={styles.blocks}>
@@ -35,6 +38,18 @@ export const ContentSection = ({ blocks }: ContentSectionProps) => {
           }}
         />
       </div>
+      {data.path && (
+        <a
+          className={styles.getButton}
+          href={data.path}
+          target="_blank"
+          rel="noopener"
+          aria-label="share twitter icon"
+        >
+          <RiStore2Line className={styles.icon} />
+          <p>Get Now</p>
+        </a>
+      )}
     </section>
   );
 };
