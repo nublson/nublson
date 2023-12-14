@@ -10,7 +10,7 @@ export async function generateMetadata({
 }: MetadataProps): Promise<Metadata> {
   const { slug } = params;
 
-  const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
+  const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
 
   const myPost = data.find((post) => post.post_slug === slug);
 
@@ -20,11 +20,11 @@ export async function generateMetadata({
       description: myPost.description,
       category: myPost.category,
       alternates: {
-        canonical: `/blog/${myPost.post_slug}`,
+        canonical: `/store/${myPost.post_slug}`,
       },
       openGraph: {
         type: "article",
-        url: `${process.env.BASE_URL}/blog/${myPost.post_slug}`,
+        url: `${process.env.BASE_URL}/store/${myPost.post_slug}`,
         title: myPost.title,
         description: myPost.description,
         siteName: "nublson.com",
@@ -36,7 +36,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
+  const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
 
   return data.map((post) => ({
     slug: post.post_slug,
@@ -44,7 +44,7 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: DynamicPageProps) {
-  const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID);
+  const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
 
   const myPost = data.find((post) => {
     return post.post_slug === params.slug;
@@ -65,7 +65,7 @@ export default async function Page({ params }: DynamicPageProps) {
         <ShareSection>
           <p>
             Posted in{" "}
-            <Link href={`/blog?category=${myPost.category}`}>
+            <Link href={`/store?category=${myPost.category}`}>
               {myPost.category}
             </Link>{" "}
           </p>

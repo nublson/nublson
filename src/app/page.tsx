@@ -45,13 +45,13 @@ export default async function Home() {
       />
       <LastPosts
         title="Articles"
-        type="articles"
+        type="blog"
         posts={[articles[0], articles[1]]}
         linkTo="/blog"
       />
       <LastPosts
         title="Products"
-        type="products"
+        type="store"
         posts={[products[0], products[1]]}
         linkTo="/store"
       />

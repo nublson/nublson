@@ -10,7 +10,7 @@ import { PostProps } from "@/utils/types";
 
 interface LastPostProps {
   title: string;
-  type?: "articles" | "products" | "videos" | "newsletter";
+  type?: "blog" | "store" | "videos" | "newsletter";
   posts: PostProps[];
   linkTo?: string;
   external?: boolean;
@@ -28,9 +28,9 @@ export const LastPosts = ({
       <div className={styles.container}>
         <div className={styles.posts}>
           {posts.map((item) => {
-            if (type === "articles") {
+            if (type === "blog" || type === "store") {
               return (
-                <Link key={item.id} href={`/blog/${item.post_slug}`}>
+                <Link key={item.id} href={`/${type}/${item.post_slug}`}>
                   <Post
                     type={type}
                     post={{ ...item, thumbnail: item.thumbnail }}

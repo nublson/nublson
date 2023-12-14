@@ -28,7 +28,7 @@ export const Work = ({ title, description, path }: CardItemProps) => {
 export const Post = ({ type, post, blurData }: PostCardProps) => {
   const getCTAText = (type?: string) => {
     switch (type) {
-      case "products":
+      case "store":
         return "Get";
 
       case "videos":
@@ -57,9 +57,9 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
       </div>
 
       <div className={styles.footer}>
-        <span className={type !== "articles" ? styles.external : ""}>
+        <span className={type !== "blog" ? styles.external : ""}>
           {getCTAText(type)}
-          {type !== "articles" && <RiExternalLinkLine />}
+          {type !== "blog" && <RiExternalLinkLine />}
         </span>
         <p className={styles.category}>
           {type === "newsletter"

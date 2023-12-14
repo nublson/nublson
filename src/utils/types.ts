@@ -38,7 +38,7 @@ export interface DynamicPageProps {
 }
 
 export interface PostCardProps {
-  type?: "articles" | "products" | "videos" | "newsletter";
+  type?: "blog" | "store" | "videos" | "newsletter";
   post: PostProps;
   blurData?: string;
 }

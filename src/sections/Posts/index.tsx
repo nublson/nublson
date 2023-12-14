@@ -16,7 +16,7 @@ interface QueryParams {
 }
 
 interface PostsSectionProps {
-  type?: "articles" | "products";
+  type?: "blog" | "store";
   posts: PostProps[];
 }
 
@@ -51,25 +51,11 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
             className={queryParams.category ? styles.grid_down : styles.grid_up}
           >
             {getPostsByCategory(queryParams.category, posts).map((item) => {
-              if (type === "articles") {
-                return (
-                  <Link key={item.id} href={`/blog/${item.post_slug}`}>
-                    <Post type={type} post={item} blurData={assets.base64} />
-                  </Link>
-                );
-              } else {
-                return (
-                  <a
-                    key={item.id}
-                    href={item.path}
-                    target="_blank"
-                    rel="noopener"
-                    aria-label={`link to ${item.title}`}
-                  >
-                    <Post type={type} post={item} blurData={assets.base64} />
-                  </a>
-                );
-              }
+              return (
+                <Link key={item.id} href={`/${type}/${item.post_slug}`}>
+                  <Post type={type} post={item} blurData={assets.base64} />
+                </Link>
+              );
             })}
           </div>
         </div>
