@@ -62,7 +62,11 @@
   }
 
   p {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+
+    @include device(mobile) {
+      margin-bottom: 1rem;
+    }
   }
 
   a {
