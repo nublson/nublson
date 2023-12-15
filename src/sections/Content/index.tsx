@@ -44,7 +44,7 @@ export const ContentSection = ({ blocks, data }: ContentSectionProps) => {
           href={data.path}
           target="_blank"
           rel="noopener"
-          aria-label="share twitter icon"
+          aria-label="get button"
         >
           <RiStore2Line className={styles.icon} />
           <p>Get Now</p>

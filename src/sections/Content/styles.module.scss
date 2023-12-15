@@ -154,4 +154,8 @@
 .getButton {
   @include button-primary--fill;
   gap: 1rem;
+
+  @include device(mobile) {
+    gap: 0.5rem;
+  }
 }
