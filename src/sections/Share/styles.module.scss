@@ -28,8 +28,8 @@
     gap: 1rem;
 
     .social {
-      width: 4rem;
       @include button-primary;
+      width: 4rem;
     }
 
     @include device(tablet) {

@@ -14,10 +14,14 @@
 
   @include device(tablet) {
     padding: 5rem 0;
+
+    gap: 3rem;
   }
 
   @include device(mobile) {
     padding: 0 0 5rem;
+
+    gap: 2rem;
   }
 }
 

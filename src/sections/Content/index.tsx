@@ -13,6 +13,18 @@ interface ContentSectionProps {
 export const ContentSection = ({ blocks, data }: ContentSectionProps) => {
   return (
     <section className={styles.container}>
+      {data.path && (
+        <a
+          className={styles.getButton}
+          href={data.path}
+          target="_blank"
+          rel="noopener"
+          aria-label="get button"
+        >
+          <RiStore2Line className={styles.icon} />
+          <p>Get Now</p>
+        </a>
+      )}
       <div className={styles.blocks}>
         <Render
           blocks={blocks}
@@ -38,18 +50,6 @@ export const ContentSection = ({ blocks, data }: ContentSectionProps) => {
           }}
         />
       </div>
-      {data.path && (
-        <a
-          className={styles.getButton}
-          href={data.path}
-          target="_blank"
-          rel="noopener"
-          aria-label="get button"
-        >
-          <RiStore2Line className={styles.icon} />
-          <p>Get Now</p>
-        </a>
-      )}
     </section>
   );
 };

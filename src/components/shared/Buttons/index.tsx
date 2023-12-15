@@ -6,7 +6,7 @@ interface ButtonDefaultProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 interface ButtonIconProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon: React.ReactNode;
+  children: React.ReactNode;
   size: "regular" | "small";
 }
 
@@ -18,13 +18,10 @@ export const PrimaryText = ({ title, ...props }: ButtonDefaultProps) => {
   );
 };
 
-export const PrimaryIcon = ({ icon, size, ...props }: ButtonIconProps) => {
+export const PrimaryIcon = ({ children, size, ...props }: ButtonIconProps) => {
   return (
-    <button
-      className={size === "regular" ? styles.icon_regular : styles.icon_small}
-      {...props}
-    >
-      {icon}
+    <button className={styles.button} {...props}>
+      {children}
     </button>
   );
 };
