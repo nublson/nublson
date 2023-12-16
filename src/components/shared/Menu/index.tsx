@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./styles.module.scss";
 
+import { getIsCurrentPath } from "@/utils/utils";
+
 interface MenuProps {
   items: {
     name: string;
@@ -22,12 +24,27 @@ export const Menu = ({ items }: MenuProps) => {
             <li
               key={index}
               className={
-                pathname.startsWith(`/${item.path}`)
+                getIsCurrentPath(item.path, pathname)
                   ? styles.active
                   : styles.item
               }
             >
-              <Link href={`/${item.path}`}>{item.name}</Link>
+              <Link
+                href={`/${item.path}`}
+                aria-disabled={
+                  getIsCurrentPath(item.path, pathname) ? true : false
+                }
+                style={{
+                  pointerEvents: getIsCurrentPath(item.path, pathname)
+                    ? "none"
+                    : "all",
+                  cursor: getIsCurrentPath(item.path, pathname)
+                    ? "none"
+                    : "pointer",
+                }}
+              >
+                {item.name}
+              </Link>
             </li>
           );
         })}
