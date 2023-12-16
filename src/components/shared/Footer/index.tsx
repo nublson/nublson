@@ -4,9 +4,10 @@ import Image from "next/image";
 import {
   RiFileWordLine,
   RiInstagramLine,
-  RiTwitterLine,
+  RiTwitterXLine,
   RiUnsplashLine,
   RiYoutubeLine,
+  RiTiktokLine,
 } from "react-icons/ri";
 import styles from "./styles.module.scss";
 
@@ -31,8 +32,11 @@ export const Footer = ({ socialList }: FooterProps) => {
       case "Unsplash":
         return <RiUnsplashLine color="#000000" />;
 
+      case "Tiktok":
+        return <RiTiktokLine color="#000000" />;
+
       case "Twitter":
-        return <RiTwitterLine color="#000000" />;
+        return <RiTwitterXLine color="#000000" />;
 
       default:
         return <RiFileWordLine color="#000000" />;
@@ -46,7 +50,7 @@ export const Footer = ({ socialList }: FooterProps) => {
 
         <div className={styles.bottom}>
           <div className={styles.copyright}>
-            <p>With ❤️ and ☕.</p>
+            <p>By Nubelson, with ❤️ and ☕.</p>
             <p>Copyright © {moment().year()}, All rights reserved.</p>
           </div>
           <div className={styles.social_media}>

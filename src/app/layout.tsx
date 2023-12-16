@@ -48,9 +48,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} ${lora.variable}`}>
       <body>
-        <GoogleAnalytics />
         <Layout>{children}</Layout>
         <Footer socialList={social.items} />
+        <GoogleAnalytics />
         <GoogleTagManager gtmId={GTM_ID} />
         <Analytics />
         <noscript
