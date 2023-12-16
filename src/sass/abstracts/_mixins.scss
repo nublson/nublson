@@ -1,60 +1,60 @@
 @mixin device($type) {
   @if $type == laptopM {
-    @media only screen and (max-width: 1180px) {
+    @media only screen and (max-width: 1185px) {
       @content;
     }
   }
 
   @if $type == laptop {
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (max-width: 1029px) {
       @content;
     }
   }
 
   @if $type == tabletL {
-    @media only screen and (max-width: 912px) {
+    @media only screen and (max-width: 917px) {
       @content;
     }
   }
 
   @if $type == tabletM {
-    @media only screen and (max-width: 820px) {
+    @media only screen and (max-width: 825px) {
       @content;
     }
   }
 
   @if $type == tablet {
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 772px) {
       @content;
     }
   }
 
   @if $type == tabletS {
-    @media only screen and (max-width: 540px) {
+    @media only screen and (max-width: 545px) {
       @content;
     }
   }
 
   @if $type == mobile {
-    @media only screen and (max-width: 425px) {
+    @media only screen and (max-width: 430px) {
       @content;
     }
   }
 
   @if $type == mobileM {
-    @media only screen and (max-width: 375px) {
+    @media only screen and (max-width: 380px) {
       @content;
     }
   }
 
   @if $type == mobileS {
-    @media only screen and (max-width: 320px) {
+    @media only screen and (max-width: 325px) {
       @content;
     }
   }
 
   @if $type == mobileXS {
-    @media only screen and (max-width: 280px) {
+    @media only screen and (max-width: 285px) {
       @content;
     }
   }

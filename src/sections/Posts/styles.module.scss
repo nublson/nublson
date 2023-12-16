@@ -23,13 +23,29 @@
 }
 
 .body {
-  max-width: 91.4rem;
+  width: 91.4rem;
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 5rem;
+
+  @include device(laptop) {
+    width: 82.5rem;
+  }
+
+  @include device(tabletM) {
+    width: 73.5rem;
+  }
+
+  @include device(tablet) {
+    width: 66.5rem;
+  }
+
+  @include device(mobile) {
+    width: 100%;
+  }
 }
 
 .category {
