@@ -147,6 +147,8 @@
 }
 
 @mixin nav-item {
+  cursor: pointer;
+
   a {
     color: colors.$off_white;
     text-decoration: underline transparent;

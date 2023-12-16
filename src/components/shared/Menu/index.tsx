@@ -29,22 +29,7 @@ export const Menu = ({ items }: MenuProps) => {
                   : styles.item
               }
             >
-              <Link
-                href={`/${item.path}`}
-                aria-disabled={
-                  getIsCurrentPath(item.path, pathname) ? true : false
-                }
-                style={{
-                  pointerEvents: getIsCurrentPath(item.path, pathname)
-                    ? "none"
-                    : "all",
-                  cursor: getIsCurrentPath(item.path, pathname)
-                    ? "none"
-                    : "pointer",
-                }}
-              >
-                {item.name}
-              </Link>
+              <Link href={`/${item.path}`}>{item.name}</Link>
             </li>
           );
         })}
