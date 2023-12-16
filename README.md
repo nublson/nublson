@@ -1,4 +1,4 @@
-<h1 align="left">Hi <img src="https://raw.githubusercontent.com/kaueMarques/kaueMarques/master/hi.gif" width="30px">, my name is Nubelson Fernandes!</h1>
+<h1 align="left">Hi 👋🏾, my name is Nubelson Fernandes!</h1>
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=nublson&color=blueviolet" alt="Profile views" /> </p>
 <img align="right" width="300em" height="300em" src="./animation_500_kv8i962g.gif?raw=true"/>
 
