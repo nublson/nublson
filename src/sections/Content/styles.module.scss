@@ -69,6 +69,10 @@
     }
   }
 
+  strong {
+    color: colors.$title;
+  }
+
   a {
     text-decoration: underline;
     -webkit-text-decoration: underline;
@@ -102,60 +106,6 @@
     @include frame;
     height: 61.425rem;
     margin: 2rem 0 1rem;
-  }
-
-  &.bold {
-    font-weight: 700;
-  }
-
-  &.italic {
-    font-style: italic;
-  }
-
-  &.strikethrough {
-    text-decoration: line-through;
-    -webkit-text-decoration: line-through;
-  }
-
-  &.underline {
-    text-decoration: underline;
-    -webkit-text-decoration: underline;
-  }
-
-  &.gray {
-    color: #9fa4a9;
-  }
-
-  &.brown {
-    color: #d49675;
-  }
-
-  &.orange {
-    color: #d98538;
-  }
-
-  &.yellow {
-    color: #fade71;
-  }
-
-  &.green {
-    color: #71b283;
-  }
-
-  &.blue {
-    color: #66aada;
-  }
-
-  &.purple {
-    color: #b098d9;
-  }
-
-  &.pink {
-    color: #df84d1;
-  }
-
-  &.red {
-    color: #ea878c;
   }
 }
 
