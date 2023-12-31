@@ -22,5 +22,5 @@ export const metadata: Metadata = {
 export default async function Books() {
   const data = await getData(process.env.NOTION_DATABASE_BOOKS_ID);
 
-  return <PostsSection posts={data} type="store" />;
+  return <PostsSection posts={data} type="books" />;
 }
