@@ -33,51 +33,67 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
 
   return (
     <main className={styles.container}>
-      <div className={styles.body}>
-        {queryParams.category && (
-          <div className={styles.category}>
-            <div className={styles.content}>
-              <p>Category</p>
-              <h1 className={styles.title}>{queryParams.category}</h1>
+      {posts.length > 0 ? (
+        <>
+          <div className={styles.body}>
+            {queryParams.category && (
+              <div className={styles.category}>
+                <div className={styles.content}>
+                  <p>Category</p>
+                  <h1 className={styles.title}>{queryParams.category}</h1>
+                </div>
+                <RiCloseLine
+                  onClick={() => setQueryParams({ category: "" })}
+                  className={styles.icon}
+                />
+              </div>
+            )}
+            <div className={styles.posts}>
+              <div
+                className={
+                  queryParams.category
+                    ? `${styles.grid_down} ${
+                        type === "books" ? styles.flex : styles.grid
+                      }`
+                    : `${styles.grid_up} ${
+                        type === "books" ? styles.flex : styles.grid
+                      }`
+                }
+              >
+                {getPostsByCategory(queryParams.category, posts).map((item) => {
+                  return (
+                    <Link key={item.id} href={`/${type}/${item.post_slug}`}>
+                      {type === "books" ? (
+                        <Book
+                          type={type}
+                          post={item}
+                          blurData={assets.base64}
+                        />
+                      ) : (
+                        <Post
+                          type={type}
+                          post={item}
+                          blurData={assets.base64}
+                        />
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-            <RiCloseLine
-              onClick={() => setQueryParams({ category: "" })}
-              className={styles.icon}
-            />
           </div>
-        )}
-        <div className={styles.posts}>
-          <div
-            className={
-              queryParams.category
-                ? `${styles.grid_down} ${
-                    type === "books" ? styles.flex : styles.grid
-                  }`
-                : `${styles.grid_up} ${
-                    type === "books" ? styles.flex : styles.grid
-                  }`
-            }
-          >
-            {getPostsByCategory(queryParams.category, posts).map((item) => {
-              return (
-                <Link key={item.id} href={`/${type}/${item.post_slug}`}>
-                  {type === "books" ? (
-                    <Book type={type} post={item} blurData={assets.base64} />
-                  ) : (
-                    <Post type={type} post={item} blurData={assets.base64} />
-                  )}
-                </Link>
-              );
-            })}
-          </div>
+          <Categories
+            type="section"
+            categories={getCategories(posts).map((item) => item.title)}
+            onClick={(item) => setParams(item)}
+            comparator={queryParams.category}
+          />
+        </>
+      ) : (
+        <div className={styles.empty}>
+          <p>No content yet...</p>
         </div>
-      </div>
-      <Categories
-        type="section"
-        categories={getCategories(posts).map((item) => item.title)}
-        onClick={(item) => setParams(item)}
-        comparator={queryParams.category}
-      />
+      )}
     </main>
   );
 };
