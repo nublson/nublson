@@ -4,6 +4,7 @@ import { setToCurrentDate } from "@/utils/formatter";
 import { DynamicPageProps, MetadataProps } from "@/utils/types";
 import { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -72,5 +73,7 @@ export default async function Page({ params }: DynamicPageProps) {
         </ShareSection>
       </>
     );
+  } else {
+    notFound();
   }
 }
