@@ -22,7 +22,7 @@ export const ContentSection = ({ blocks, data }: ContentSectionProps) => {
           aria-label="get button"
         >
           <RiStore2Line className={styles.icon} />
-          <p>Get Now</p>
+          <p>Get Here</p>
         </a>
       )}
       <div className={styles.blocks}>
