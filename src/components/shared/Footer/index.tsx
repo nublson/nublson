@@ -1,14 +1,17 @@
 import logo from "@/assets/logo_black.svg";
+import menu from "@/utils/menu.json";
 import moment from "moment";
 import Image from "next/image";
 import {
   RiFileWordLine,
   RiInstagramLine,
+  RiTiktokLine,
   RiTwitterXLine,
   RiUnsplashLine,
   RiYoutubeLine,
-  RiTiktokLine,
 } from "react-icons/ri";
+import { Menu } from "../Menu";
+
 import styles from "./styles.module.scss";
 
 interface SocialItemProps {
@@ -46,7 +49,10 @@ export const Footer = ({ socialList }: FooterProps) => {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-        <Image src={logo} alt="nubl. logo" className={styles.logo} />
+        <div className={styles.top}>
+          <Image src={logo} alt="nubl. logo" className={styles.logo} />
+          <Menu items={menu.footer} color="black" />
+        </div>
 
         <div className={styles.bottom}>
           <div className={styles.copyright}>

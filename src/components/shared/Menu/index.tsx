@@ -11,9 +11,10 @@ interface MenuProps {
     name: string;
     path: string;
   }[];
+  color: "white" | "black";
 }
 
-export const Menu = ({ items }: MenuProps) => {
+export const Menu = ({ items, color }: MenuProps) => {
   const pathname = usePathname();
 
   return (
@@ -29,7 +30,14 @@ export const Menu = ({ items }: MenuProps) => {
                   : styles.item
               }
             >
-              <Link href={`/${item.path}`}>{item.name}</Link>
+              <Link
+                style={{
+                  color: color === "white" ? "#fcfcfc" : "#020202",
+                }}
+                href={`/${item.path}`}
+              >
+                {item.name}
+              </Link>
             </li>
           );
         })}

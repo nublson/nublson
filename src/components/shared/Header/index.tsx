@@ -15,7 +15,7 @@ export const Header = () => {
         <Link href={"/"}>
           <Image src={logo} alt="nubl. logo" className={styles.logo} />
         </Link>
-        <Menu items={menu.items} />
+        <Menu items={menu.header} color="white" />
       </div>
       <div className={styles.right}>
         <a
