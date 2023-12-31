@@ -1,5 +1,5 @@
 "use client";
-import { Post } from "@/components/shared/Cards";
+import { Post, Book } from "@/components/shared/Cards";
 import { Categories } from "@/components/shared/Categories";
 import { RiCloseLine } from "react-icons/ri";
 import styles from "./styles.module.scss";
@@ -48,12 +48,24 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
         )}
         <div className={styles.posts}>
           <div
-            className={queryParams.category ? styles.grid_down : styles.grid_up}
+            className={
+              queryParams.category
+                ? `${styles.grid_down} ${
+                    type === "books" ? styles.flex : styles.grid
+                  }`
+                : `${styles.grid_up} ${
+                    type === "books" ? styles.flex : styles.grid
+                  }`
+            }
           >
             {getPostsByCategory(queryParams.category, posts).map((item) => {
               return (
                 <Link key={item.id} href={`/${type}/${item.post_slug}`}>
-                  <Post type={type} post={item} blurData={assets.base64} />
+                  {type === "books" ? (
+                    <Book type={type} post={item} blurData={assets.base64} />
+                  ) : (
+                    <Post type={type} post={item} blurData={assets.base64} />
+                  )}
                 </Link>
               );
             })}

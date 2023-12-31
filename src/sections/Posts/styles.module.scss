@@ -100,15 +100,19 @@
 }
 
 .grid_down {
-  @include posts_grid;
-
   animation-name: smooth_down;
   animation-duration: 0.5s;
 }
 
 .grid_up {
-  @include posts_grid;
-
   animation-name: smooth_up;
   animation-duration: 0.5s;
+}
+
+.grid {
+  @include posts_grid;
+}
+
+.flex {
+  @include posts_flex;
 }

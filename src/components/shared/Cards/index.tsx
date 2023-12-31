@@ -34,6 +34,9 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
       case "videos":
         return "Watch";
 
+      case "books":
+        return "Overview";
+
       default:
         return "Read";
     }
@@ -66,6 +69,34 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
             ? setToCurrentDate(post.publish_date, "LL")
             : post.category}
         </p>
+      </div>
+    </div>
+  );
+};
+
+export const Book = ({ post, blurData }: PostCardProps) => {
+  return (
+    <div className={styles.book}>
+      <div className={styles.thumbnail}>
+        <Image
+          src={post.thumbnail}
+          alt="post thumbnail"
+          fill
+          style={{ objectFit: "cover" }}
+          placeholder="blur"
+          blurDataURL={blurData}
+          priority
+        />
+      </div>
+      <div className={styles.body}>
+        <h3 className={styles.title}>{post.title}</h3>
+        <p className={styles.category}>{post.category}</p>
+        <div className={styles.footer}>
+          <p className={styles.author}>
+            By <span>{post.author}</span>
+          </p>
+          <span className={styles.external}>Overview</span>
+        </div>
       </div>
     </div>
   );

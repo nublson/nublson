@@ -13,3 +13,7 @@
 .gear {
   @include card-gear;
 }
+
+.book {
+  @include card-book;
+}
