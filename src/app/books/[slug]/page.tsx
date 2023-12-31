@@ -56,7 +56,7 @@ export default async function Page({ params }: DynamicPageProps) {
     return (
       <>
         <Header
-          label={setToCurrentDate(myPost.publish_date, "LL")}
+          label={`Read in ${setToCurrentDate(myPost.publish_date, "YYYY")}`}
           title={myPost.title}
           thumbnail={myPost.thumbnail}
           description={myPost.description}
