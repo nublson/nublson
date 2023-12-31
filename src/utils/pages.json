@@ -17,6 +17,12 @@
     "description": "Icons, LUT's, Presets and more",
     "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/store_r73ykh.jpg"
   },
+  "books": {
+    "label": "",
+    "title": "Books",
+    "description": "Books I'm reading",
+    "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/store_r73ykh.jpg"
+  },
   "notFound": {
     "label": "Oops,",
     "title": "You're lost",

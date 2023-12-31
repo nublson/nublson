@@ -9,6 +9,7 @@ namespace NodeJS {
     NOTION_DATABASE_VIDEOS_ID: string;
     NOTION_DATABASE_NEWSLETTER_ID: string;
     NOTION_DATABASE_GEARS_ID: string;
+    NOTION_DATABASE_BOOKS_ID: string;
     NOTION_PAGE_GEARS_ID: string;
     NEXT_PUBLIC_GOOGLE_ID: string;
   }

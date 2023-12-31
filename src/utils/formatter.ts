@@ -38,6 +38,7 @@ export const formatPosts = (database: any[]) => {
       category:
         post.properties.category && post.properties.category.select.name,
       path: post.properties.path.url,
+      author: post.properties.author && post.properties.author.select.name,
     };
   });
 

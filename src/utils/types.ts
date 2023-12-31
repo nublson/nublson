@@ -19,6 +19,7 @@ export interface PostProps {
   publish_date: string;
   modified_date?: string;
   path?: string;
+  author?: string;
 }
 
 export interface GearProps {
