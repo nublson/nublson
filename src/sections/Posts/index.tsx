@@ -35,7 +35,7 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
     <main className={styles.container}>
       {posts.length > 0 ? (
         <>
-          <div className={styles.body}>
+          <div className={type === "books" ? styles.bodyFlex : styles.bodyGrid}>
             {queryParams.category && (
               <div className={styles.category}>
                 <div className={styles.content}>

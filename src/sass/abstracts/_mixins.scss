@@ -369,6 +369,49 @@
       }
     }
   }
+
+  @include device(laptop) {
+    width: 100%;
+  }
+
+  @include device(tablet) {
+    height: 12rem;
+
+    .thumbnail {
+      width: 12rem;
+      height: 12rem;
+    }
+
+    .body {
+      padding: 2rem;
+    }
+  }
+
+  @include device(tabletS) {
+    height: 10rem;
+
+    .thumbnail {
+      width: 10rem;
+      height: 10rem;
+    }
+
+    .body {
+      padding: 1rem;
+    }
+  }
+
+  @include device(mobileM) {
+    height: 8rem;
+
+    .thumbnail {
+      width: 8rem;
+      height: 8rem;
+    }
+
+    .body {
+      padding: 0.8rem;
+    }
+  }
 }
 
 @mixin posts_grid {
@@ -408,10 +451,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  gap: 5rem;
 
   & > a {
     width: 100%;
     display: flex;
+  }
+
+  @include device(laptopM) {
+    gap: 2.5rem;
   }
 }
 

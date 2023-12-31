@@ -22,7 +22,7 @@
   }
 }
 
-.body {
+.bodyGrid {
   width: 91.4rem;
 
   display: flex;
@@ -44,6 +44,20 @@
   }
 
   @include device(mobile) {
+    width: 100%;
+  }
+}
+
+.bodyFlex {
+  width: 91.4rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 5rem;
+
+  @include device(laptop) {
     width: 100%;
   }
 }
@@ -88,15 +102,13 @@
 }
 
 .posts {
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: 5rem;
-
-  @include device(tabletS) {
-    width: 100%;
-  }
 }
 
 .grid_down {
