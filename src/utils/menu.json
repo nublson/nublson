@@ -13,10 +13,5 @@
       "path": "gears"
     }
   ],
-  "footer": [
-    {
-      "name": "Books",
-      "path": "books"
-    }
-  ]
+  "footer": []
 }
