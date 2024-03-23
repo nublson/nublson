@@ -51,7 +51,7 @@ export const Footer = ({ socialList }: FooterProps) => {
       <div className={styles.container}>
         <div className={styles.top}>
           <Image src={logo} alt="nubl. logo" className={styles.logo} />
-          {menu.footer.length && <Menu items={menu.footer} color="black" />}
+          {menu.footer.length ? <Menu items={menu.footer} color="black" /> : null}
         </div>
 
         <div className={styles.bottom}>
