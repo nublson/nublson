@@ -27,7 +27,7 @@ export const GearsSection = ({ data }: GearSectionProps) => {
               className={styles.category}
               id={category.toLowerCase().replace(" ", "")}
             >
-              <h2>{category}</h2>
+              <h2 className={styles.group}>{category}</h2>
 
               <div className={styles.items}>
                 {data

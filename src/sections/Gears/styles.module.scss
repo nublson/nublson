@@ -32,6 +32,16 @@
   justify-content: space-between;
   gap: 5rem;
 
+  .group {
+    width: 100%;
+    background-color: colors.$background;
+    z-index: 100;
+
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+
   h3 {
     @include title-h3(colors.$title);
   }

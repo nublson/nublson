@@ -54,7 +54,11 @@ export const getGears = cache(async (databaseId: string) => {
         direction: "ascending",
       },
       {
-        property: "Created",
+        property: "state",
+        direction: "descending",
+      },
+      {
+        property: "updated",
         direction: "ascending",
       },
     ],
