@@ -36,6 +36,7 @@
     width: 100%;
     background-color: colors.$background;
     z-index: 100;
+    padding-top: 2rem;
 
     position: sticky;
     top: 0;
@@ -50,6 +51,12 @@
     display: grid;
     grid-template-columns: repeat(3, 25rem);
     gap: 5rem;
+  }
+
+  @include device(laptop) {
+    .group {
+      padding-top: 1rem;
+    }
   }
 
   @include device(tabletL) {
