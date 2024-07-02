@@ -2,26 +2,17 @@
 @import "../../../sass/abstracts/mixins";
 
 .container {
-  position: absolute;
+  position: sticky;
   top: 0;
   z-index: 999;
 
-  @include content_space;
-
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
+  width: 100vw;
+  padding: 1rem;
+  background-color: colors.$background;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  @include device(tablet) {
-    padding: 2rem 3rem;
-  }
-
-  @include device(mobile) {
-    padding: 1rem 2rem;
-  }
 }
 
 .left {
