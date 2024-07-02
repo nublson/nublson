@@ -41,7 +41,7 @@
   }
 
   .newsletter_icon {
-    @include button-primary;
+    @include button-primary--fill;
     width: 2rem;
     display: none;
   }

@@ -50,8 +50,6 @@ export const GearsSection = ({ data }: GearSectionProps) => {
           );
         })}
       </div>
-
-      <Categories type="scroll" categories={getGearsCategory(data)} />
     </section>
   );
 };

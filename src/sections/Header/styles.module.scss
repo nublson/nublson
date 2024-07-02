@@ -3,7 +3,7 @@
 
 .container {
   width: 100%;
-  padding: 15rem 0 3.8rem;
+  padding: 10rem 0 3.8rem;
 
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@
   }
 
   @include device(tablet) {
-    padding-top: 10rem;
+    padding-top: 5rem;
   }
 }
 

@@ -136,17 +136,17 @@ export const Gear = ({
     </a>
   ) : (
     <div className={styles.gear}>
-      <div className={styles.thumbnail}>
-        <Image
-          src={thumbnail}
-          alt="gear thumbnail"
-          fill
-          style={{ objectFit: "cover" }}
-          placeholder="blur"
-          blurDataURL={blurData}
-          quality={100}
-        />
-      </div>
+      <Image
+        className={styles.thumbnail}
+        src={thumbnail}
+        alt="gear thumbnail"
+        fill
+        style={{ objectFit: "cover" }}
+        placeholder="blur"
+        blurDataURL={blurData}
+        quality={100}
+      />
+
       <div className={styles.details}>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>

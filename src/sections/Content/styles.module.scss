@@ -3,7 +3,9 @@
 @import "../../sass/base/typography";
 
 .container {
+  max-width: 70rem;
   width: 100%;
+  margin: 0 auto;
   padding: 10rem 0;
 
   display: flex;
