@@ -7,7 +7,7 @@
   z-index: 999;
 
   width: 100vw;
-  padding: 1rem;
+  padding: 1.5rem 1.6rem;
   background-color: colors.$background;
 
   display: flex;
@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 5rem;
+  gap: 3rem;
 
   .logo {
     @include logo;
@@ -37,7 +37,7 @@
   gap: 2rem;
 
   .newsletter_text {
-    @include button-primary;
+    @include button-primary--fill;
   }
 
   .newsletter_icon {

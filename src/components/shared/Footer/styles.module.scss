@@ -27,11 +27,11 @@
 
   @include device(mobile) {
     padding: 5rem 2rem;
-    gap: 5rem;
+    gap: 3rem;
   }
 
   @include device(mobileM) {
-    gap: 3rem;
+    gap: 2rem;
   }
 }
 
@@ -82,11 +82,6 @@
   }
 
   @include device(mobile) {
-    // flex-direction: column-reverse;
-    // align-items: flex-start;
-
-    // gap: 2rem;
-
     .social_media {
       display: none;
     }

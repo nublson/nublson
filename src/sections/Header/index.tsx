@@ -22,17 +22,18 @@ export const Header = ({
         <h1 className={styles.title}>{title}</h1>
         <p className={styles.description}>{description}</p>
       </div>
-      <div className={styles.thumbnail}>
-        <Image
-          src={thumbnail}
-          alt={title}
-          fill
-          style={{ objectFit: "cover" }}
-          placeholder="blur"
-          blurDataURL={assets.base64}
-          priority
-        />
-      </div>
+
+      <Image
+        className={styles.thumbnail}
+        src={thumbnail}
+        alt={title}
+        width={1920}
+        height={1080}
+        style={{ objectFit: "cover" }}
+        placeholder="blur"
+        blurDataURL={assets.base64}
+        priority
+      />
     </main>
   );
 };

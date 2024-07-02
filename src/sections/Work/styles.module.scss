@@ -18,6 +18,6 @@
 
   @include device(tabletS) {
     grid-template-columns: repeat(1, 1fr);
-    gap: 5rem;
+    gap: 3rem;
   }
 }

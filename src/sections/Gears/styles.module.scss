@@ -30,7 +30,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 5rem;
+  gap: 3rem;
 
   .group {
     width: 100%;
@@ -50,7 +50,7 @@
   .items {
     display: grid;
     grid-template-columns: repeat(3, 25rem);
-    gap: 5rem;
+    gap: 3rem;
   }
 
   @include device(laptop) {
@@ -60,24 +60,21 @@
   }
 
   @include device(tabletL) {
-    gap: 3rem;
+    gap: 2rem;
 
     .items {
       grid-template-columns: repeat(3, 20rem);
-      gap: 3rem;
+      gap: 2rem;
     }
   }
 
   @include device(tabletS) {
     .items {
       grid-template-columns: repeat(3, 13rem);
-      gap: 2rem;
     }
   }
 
   @include device(mobile) {
-    gap: 2rem;
-
     .items {
       grid-template-columns: repeat(2, 15rem);
     }

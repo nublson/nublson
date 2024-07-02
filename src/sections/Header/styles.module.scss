@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 5rem;
+  gap: 3rem;
 
   @include device(laptopM) {
     padding-bottom: 5rem;
@@ -41,6 +41,7 @@
 }
 
 .thumbnail {
-  @include frame;
-  position: relative;
+  width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
 }

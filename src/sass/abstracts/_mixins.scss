@@ -419,7 +419,7 @@
   display: grid;
   grid-template-columns: repeat(2, max-content);
   justify-items: start;
-  gap: 5rem;
+  gap: 3rem;
 
   & > a {
     width: 100%;
@@ -427,7 +427,7 @@
   }
 
   @include device(laptopM) {
-    gap: 2.5rem;
+    gap: 2rem;
   }
 
   @include device(tabletM) {
@@ -440,7 +440,7 @@
 
   @include device(tabletS) {
     grid-template-columns: repeat(1, 1fr);
-    gap: 5rem;
+    gap: 3rem;
   }
 }
 
@@ -451,7 +451,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 5rem;
+  gap: 3rem;
 
   & > a {
     width: 100%;
@@ -459,7 +459,7 @@
   }
 
   @include device(laptopM) {
-    gap: 2.5rem;
+    gap: 2rem;
   }
 }
 
@@ -500,7 +500,7 @@
   max-width: 102.4rem;
   width: 100%;
   margin: 0 auto;
-  padding: 0 3rem 10rem;
+  padding: 0 0 10rem;
 
   @include device(tablet) {
     padding-bottom: 5rem;
