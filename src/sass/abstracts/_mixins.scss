@@ -130,7 +130,7 @@
 }
 
 @mixin card-post {
-  width: 43.2rem;
+  width: 40rem;
 
   display: flex;
   flex-direction: column;
@@ -174,8 +174,6 @@
   }
 
   @include device(laptopM) {
-    width: 40rem;
-
     .thumbnail {
       height: 22.5rem;
     }

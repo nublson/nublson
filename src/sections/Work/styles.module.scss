@@ -2,11 +2,7 @@
 
 .grid {
   @include posts_grid;
-  grid-template-columns: repeat(2, 46.5rem);
-
-  @include device(tabletL) {
-    grid-template-columns: repeat(2, 40rem);
-  }
+  grid-template-columns: repeat(2, 40rem);
 
   @include device(tabletM) {
     grid-template-columns: repeat(2, 35.5rem);

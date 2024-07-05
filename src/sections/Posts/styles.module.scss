@@ -6,19 +6,15 @@
 .container {
   position: relative;
   width: 100%;
-  padding: 15rem 0;
+  padding: 10rem 0;
 
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 3rem;
 
-  @include device(laptopM) {
-    padding-bottom: 10rem;
-  }
-
   @include device(tablet) {
-    padding-top: 10rem;
+    padding: 5rem 0;
   }
 }
 
