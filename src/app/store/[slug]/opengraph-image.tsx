@@ -19,7 +19,7 @@ interface Props {
 export default async function Image({ params }: Props) {
   const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
 
-  const myPost = data.find((post) => post.post_slug === params.slug);
+  const myPost = data.posts.find((post) => post.post_slug === params.slug);
 
   return new ImageResponse(
     (

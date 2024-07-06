@@ -13,7 +13,7 @@ export async function generateMetadata({
 
   const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
 
-  const myPost = data.find((post) => post.post_slug === slug);
+  const myPost = data.posts.find((post) => post.post_slug === slug);
 
   if (myPost) {
     return {
@@ -39,7 +39,7 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
 
-  return data.map((post) => ({
+  return data.posts.map((post) => ({
     slug: post.post_slug,
   }));
 }
@@ -47,7 +47,7 @@ export async function generateStaticParams() {
 export default async function Page({ params }: DynamicPageProps) {
   const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
 
-  const myPost = data.find((post) => {
+  const myPost = data.posts.find((post) => {
     return post.post_slug === params.slug;
   });
 

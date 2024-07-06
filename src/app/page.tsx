@@ -21,9 +21,9 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const [articles, videos, newsletter] = await Promise.all([
-    getData(process.env.NOTION_DATABASE_ARTICLES_ID),
-    getData(process.env.NOTION_DATABASE_VIDEOS_ID),
-    getData(process.env.NOTION_DATABASE_NEWSLETTER_ID),
+    getData(process.env.NOTION_DATABASE_ARTICLES_ID, 2),
+    getData(process.env.NOTION_DATABASE_VIDEOS_ID, 2),
+    getData(process.env.NOTION_DATABASE_NEWSLETTER_ID, 2),
   ]);
 
   return (
@@ -38,21 +38,21 @@ export default async function Home() {
       <LastPosts
         title="Newsletter"
         type="newsletter"
-        posts={[newsletter[0], newsletter[1]]}
+        posts={newsletter.posts}
         external
         linkTo="https://nublson.substack.com"
       />
       <LastPosts
         title="Last videos"
         type="videos"
-        posts={[videos[0], videos[1]]}
+        posts={videos.posts}
         external
         linkTo="https://youtube.com/@nublson"
       />
       <LastPosts
         title="Last articles"
         type="blog"
-        posts={[articles[0], articles[1]]}
+        posts={articles.posts}
         linkTo="/blog"
       />
     </>

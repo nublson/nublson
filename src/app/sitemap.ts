@@ -7,14 +7,14 @@ export default async function sitemap() {
     getData(process.env.NOTION_DATABASE_PRODUCTS_ID),
   ]);
 
-  const blogSitemaps = articles.map((item) => {
+  const blogSitemaps = articles.posts.map((item) => {
     return {
       url: `${process.env.BASE_URL}/blog/${item.post_slug}`,
       lastModified: item.modified_date,
     };
   });
 
-  const storeSitemaps = products.map((item) => {
+  const storeSitemaps = products.posts.map((item) => {
     return {
       url: `${process.env.BASE_URL}/store/${item.post_slug}`,
       lastModified: item.modified_date,

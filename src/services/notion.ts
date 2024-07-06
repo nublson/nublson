@@ -11,29 +11,37 @@ const api = new Client({
   auth: process.env.NOTION_ACCESS_TOKEN,
 });
 
-export const getData = cache(async (databaseId: string) => {
-  const { results } = await api.databases.query({
-    database_id: databaseId,
-    filter: {
-      and: [
-        {
-          property: "state",
-          select: {
-            equals: "published",
+export const getData = cache(
+  async (databaseId: string, limit?: number, startId?: string) => {
+    const data = await api.databases.query({
+      database_id: databaseId,
+      page_size: limit,
+      start_cursor: startId,
+      filter: {
+        and: [
+          {
+            property: "state",
+            select: {
+              equals: "published",
+            },
           },
+        ],
+      },
+      sorts: [
+        {
+          property: "publish_date",
+          direction: "descending",
         },
       ],
-    },
-    sorts: [
-      {
-        property: "publish_date",
-        direction: "descending",
-      },
-    ],
-  });
+    });
 
-  return formatPosts(results);
-});
+    return {
+      posts: formatPosts(data.results),
+      hasMore: data.has_more,
+      nextPage: data.next_cursor,
+    };
+  }
+);
 
 export const getGears = cache(async (databaseId: string) => {
   const { results } = await api.databases.query({
