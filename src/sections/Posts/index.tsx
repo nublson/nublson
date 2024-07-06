@@ -83,12 +83,6 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
               </div>
             </div>
           </div>
-          <Categories
-            type="section"
-            categories={getCategories(posts).map((item) => item.title)}
-            onClick={(item) => setParams(item)}
-            comparator={queryParams.category}
-          />
         </>
       ) : (
         <div className={styles.empty}>
