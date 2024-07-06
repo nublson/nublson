@@ -10,6 +10,7 @@ import { getCategories } from "@/utils/getCategories";
 import { getPostsByCategory } from "@/utils/getPostsByCategory";
 import { PostProps } from "@/utils/types";
 import Link from "next/link";
+import { useEffect } from "react";
 
 interface QueryParams {
   category: string;
@@ -21,13 +22,13 @@ interface PostsSectionProps {
 }
 
 export const PostsSection = ({ type, posts }: PostsSectionProps) => {
-  const { queryParams, setQueryParams } = useQueryParams<QueryParams>();
+  const { queryParams, setCategoryParams } = useQueryParams<QueryParams>();
 
   const setParams = (value: string) => {
     if (queryParams.category === value) {
-      setQueryParams({ category: "" });
+      setCategoryParams();
     } else {
-      setQueryParams({ category: value });
+      setCategoryParams(value);
     }
   };
 
@@ -43,7 +44,7 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
                   <h1 className={styles.title}>{queryParams.category}</h1>
                 </div>
                 <RiCloseLine
-                  onClick={() => setQueryParams({ category: "" })}
+                  onClick={() => setCategoryParams()}
                   className={styles.icon}
                 />
               </div>

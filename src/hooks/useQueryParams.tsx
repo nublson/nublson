@@ -3,22 +3,21 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export function useQueryParams<T = {}>() {
-  const router = useRouter();
+  const { replace } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const queryParams = Object.fromEntries(searchParams.entries()) as Partial<T>;
   const urlSearchParams = new URLSearchParams(searchParams.toString());
 
-  function setQueryParams(params: Partial<T>) {
-    Object.entries(params).forEach(([key, value]) => {
-      urlSearchParams.set(key, String(value));
-    });
+  function setCategoryParams(category?: string) {
+    if (category) {
+      urlSearchParams.set("category", category);
+    } else {
+      urlSearchParams.delete("category");
+    }
 
-    const search = urlSearchParams.toString();
-    const query = search ? `?${search}` : "";
-
-    router.push(`${pathname}${query}`);
+    replace(`${pathname}?${urlSearchParams.toString()}`);
   }
 
-  return { queryParams, setQueryParams };
+  return { queryParams, setCategoryParams };
 }
