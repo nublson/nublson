@@ -160,16 +160,20 @@
     justify-content: space-between;
 
     span {
-      @include link-small-underline;
-    }
-
-    .external {
       @include link-small;
     }
 
     .category {
       @include link-xsmall;
       color: colors.$label;
+    }
+  }
+
+  &:hover {
+    .footer {
+      span {
+        @include link-small-underline;
+      }
     }
   }
 
@@ -457,19 +461,7 @@
 
 @mixin frame {
   width: 100%;
-  height: 67rem;
-
-  @include device(laptopM) {
-    height: 54.23rem;
-  }
-
-  @include device(tabletM) {
-    height: 42.76rem;
-  }
-
-  @include device(tablet) {
-    height: 39.83rem;
-  }
+  height: 39.375rem;
 
   @include device(tabletS) {
     height: 27rem;

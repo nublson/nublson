@@ -34,9 +34,6 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
       case "videos":
         return "Watch";
 
-      case "books":
-        return "Overview";
-
       default:
         return "Read";
     }
@@ -60,7 +57,7 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
       </div>
 
       <div className={styles.footer}>
-        <span className={type !== "blog" ? styles.external : ""}>
+        <span>
           {getCTAText(type)}
           {type !== "blog" && <RiExternalLinkLine />}
         </span>
