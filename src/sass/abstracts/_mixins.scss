@@ -123,10 +123,6 @@
     border: 2px solid colors.$off_white;
     transition: all 0.2s;
   }
-
-  @include device(tablet) {
-    padding: 0 0.5rem;
-  }
 }
 
 @mixin card-post {

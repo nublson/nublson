@@ -14,8 +14,8 @@ export const ShareSection = (props: ShareSectionProps) => {
   const generateShareLink = (source: string, path: string) => {
     const url = `${process.env.BASE_URL}${path}`;
 
-    if (source === "twitter") {
-      return `https://twitter.com/intent/tweet?url=${url}`;
+    if (source === "x") {
+      return `https://x.com/intent/tweet?url=${url}`;
     } else {
       return `https://wa.me/?text=${url}`;
     }
@@ -27,7 +27,7 @@ export const ShareSection = (props: ShareSectionProps) => {
       <div className={styles.share}>
         <a
           className={styles.social}
-          href={generateShareLink("twitter", pathname)}
+          href={generateShareLink("x", pathname)}
           target="_blank"
           rel="noopener"
           aria-label="share twitter icon"
