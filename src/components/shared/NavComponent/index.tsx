@@ -13,7 +13,7 @@ export const NavComponent = ({ hasMore, pageNumber }: NavComponentProps) => {
     <div className={styles.container}>
       <Link
         className={pageNumber === 1 ? styles.disabledButton : styles.navButton}
-        href={`/blog/${pageNumber - 1}`}
+        href={`/blog/${pageNumber - 1 === 1 ? "" : pageNumber - 1}`}
       >
         <RiArrowLeftSLine className={styles.icon} />
       </Link>

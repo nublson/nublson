@@ -5,11 +5,6 @@ import { Metadata } from "next";
 import pageData from "@/utils/pages.json";
 import { NavComponent } from "@/components/shared/NavComponent";
 
-interface BlogParams {
-  params: {
-    page?: string;
-  };
-}
 export const metadata: Metadata = {
   title: pageData.blog.title,
   description: pageData.blog.description,
@@ -25,34 +20,8 @@ export const metadata: Metadata = {
   },
 };
 
-export async function generateStaticParams() {
-  let pageNumber = 1;
-  let hasMore = true;
-  const pages = [];
-
-  while (hasMore) {
-    const data = await getData(
-      process.env.NOTION_DATABASE_ARTICLES_ID as string,
-      pageNumber,
-      10
-    );
-
-    if (pageNumber === 1) {
-      pages.push({ page: "" });
-    } else {
-      pages.push({ page: `${pageNumber}` });
-    }
-
-    hasMore = data.hasMore;
-    pageNumber += 1;
-  }
-
-  return pages;
-}
-
-export default async function Page({ params }: BlogParams) {
-  const { page } = params;
-  const pageNumber = page ? parseInt(page, 10) : 1;
+export default async function BlogRoot() {
+  const pageNumber = 1;
 
   const data = await getData(
     process.env.NOTION_DATABASE_ARTICLES_ID as string,
@@ -63,7 +32,9 @@ export default async function Page({ params }: BlogParams) {
   return (
     <>
       <PostsSection posts={data.posts} type="blog" />
-      <NavComponent hasMore={data.hasMore} pageNumber={pageNumber} />
+      {data.hasMore && (
+        <NavComponent hasMore={data.hasMore} pageNumber={pageNumber} />
+      )}
     </>
   );
 }

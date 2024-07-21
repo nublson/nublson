@@ -3,6 +3,21 @@ import withPlaiceholder from "@plaiceholder/next";
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  async redirects() {
+    return [
+      // Basic redirect
+      {
+        source: "/blog/1",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
+        source: "/store/1",
+        destination: "/store",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     domains: [
       "s3.amazonaws.com",
