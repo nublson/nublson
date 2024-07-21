@@ -2,6 +2,7 @@ import { PostsSection } from "@/sections";
 import { getData } from "@/services/notion";
 import { Metadata } from "next";
 
+import { NavComponent } from "@/components/shared/NavComponent";
 import pageData from "@/utils/pages.json";
 
 export const metadata: Metadata = {
@@ -19,8 +20,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Store() {
-  const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID, 1);
+export default async function StoreRoot() {
+  const pageNumber = 1;
 
-  return <PostsSection posts={data.posts} type="store" />;
+  const data = await getData(
+    process.env.NOTION_DATABASE_PRODUCTS_ID,
+    pageNumber,
+    10
+  );
+
+  return (
+    <>
+      <PostsSection posts={data.posts} type="store" />
+      <NavComponent
+        navigator="store"
+        hasMore={data.hasMore}
+        pageNumber={pageNumber}
+      />
+    </>
+  );
 }

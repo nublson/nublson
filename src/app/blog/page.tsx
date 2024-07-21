@@ -2,8 +2,8 @@ import { PostsSection } from "@/sections";
 import { getData } from "@/services/notion";
 import { Metadata } from "next";
 
-import pageData from "@/utils/pages.json";
 import { NavComponent } from "@/components/shared/NavComponent";
+import pageData from "@/utils/pages.json";
 
 export const metadata: Metadata = {
   title: pageData.blog.title,
@@ -32,9 +32,11 @@ export default async function BlogRoot() {
   return (
     <>
       <PostsSection posts={data.posts} type="blog" />
-      {data.hasMore && (
-        <NavComponent hasMore={data.hasMore} pageNumber={pageNumber} />
-      )}
+      <NavComponent
+        navigator="blog"
+        hasMore={data.hasMore}
+        pageNumber={pageNumber}
+      />
     </>
   );
 }
