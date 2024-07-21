@@ -2,6 +2,7 @@ import { ContentSection, Header, ShareSection } from "@/sections";
 import { getBlocks, getData } from "@/services/notion";
 import { setToCurrentDate } from "@/utils/formatter";
 import { DynamicPageProps, MetadataProps } from "@/utils/types";
+import { findPostBySlug } from "@/utils/utils";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -11,23 +12,27 @@ export async function generateMetadata({
 }: MetadataProps): Promise<Metadata> {
   const { slug } = params;
 
-  const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID, 1);
+  const result = await findPostBySlug(
+    slug,
+    process.env.NOTION_DATABASE_ARTICLES_ID as string
+  );
 
-  const myPost = data.posts.find((post) => post.post_slug === slug);
+  if (result) {
+    const { post, pageNumber } = result;
+    const postUrl = `/blog/${pageNumber}/${post.post_slug}`;
 
-  if (myPost) {
     return {
-      title: myPost.title,
-      description: myPost.description,
-      category: myPost.category,
+      title: post.title,
+      description: post.description,
+      category: post.category,
       alternates: {
-        canonical: `/blog/${myPost.post_slug}`,
+        canonical: postUrl,
       },
       openGraph: {
         type: "article",
-        url: `${process.env.BASE_URL}/blog/${myPost.post_slug}`,
-        title: myPost.title,
-        description: myPost.description,
+        url: `${process.env.BASE_URL}${postUrl}`,
+        title: post.title,
+        description: post.description,
         siteName: "nublson.com",
       },
     };
