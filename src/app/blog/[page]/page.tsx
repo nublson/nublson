@@ -8,24 +8,30 @@ import { notFound } from "next/navigation";
 
 interface BlogPageParams {
   params: {
-    page?: string;
+    page: string;
   };
 }
 
-export const metadata: Metadata = {
-  title: pageData.blog.title,
-  description: pageData.blog.description,
-  alternates: {
-    canonical: `/blog`,
-  },
-  openGraph: {
-    type: "website",
-    url: `${process.env.BASE_URL}/blog`,
+export async function generateMetadata({
+  params,
+}: BlogPageParams): Promise<Metadata> {
+  const { page } = params;
+
+  return {
     title: pageData.blog.title,
     description: pageData.blog.description,
-    siteName: "nublson.com",
-  },
-};
+    alternates: {
+      canonical: `/blog/${page}`,
+    },
+    openGraph: {
+      type: "website",
+      url: `${process.env.BASE_URL}/blog/${page}`,
+      title: pageData.blog.title,
+      description: pageData.blog.description,
+      siteName: "nublson.com",
+    },
+  };
+}
 
 export async function generateStaticParams() {
   let pageNumber = 1;
@@ -50,7 +56,7 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: BlogPageParams) {
   const { page } = params;
-  const pageNumber = page ? parseInt(page, 10) : 1;
+  const pageNumber = parseInt(page, 10);
 
   const data = await getData(
     process.env.NOTION_DATABASE_ARTICLES_ID as string,

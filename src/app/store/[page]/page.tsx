@@ -8,24 +8,30 @@ import { notFound } from "next/navigation";
 
 interface StorePageParams {
   params: {
-    page?: string;
+    page: string;
   };
 }
 
-export const metadata: Metadata = {
-  title: pageData.store.title,
-  description: pageData.store.description,
-  alternates: {
-    canonical: `/store`,
-  },
-  openGraph: {
-    type: "website",
-    url: `${process.env.BASE_URL}/store`,
-    title: pageData.store.title,
-    description: pageData.store.description,
-    siteName: "nublson.com",
-  },
-};
+export async function generateMetadata({
+  params,
+}: StorePageParams): Promise<Metadata> {
+  const { page } = params;
+
+  return {
+    title: pageData.blog.title,
+    description: pageData.blog.description,
+    alternates: {
+      canonical: `/store/${page}`,
+    },
+    openGraph: {
+      type: "website",
+      url: `${process.env.BASE_URL}/store/${page}`,
+      title: pageData.blog.title,
+      description: pageData.blog.description,
+      siteName: "nublson.com",
+    },
+  };
+}
 
 export async function generateStaticParams() {
   let pageNumber = 1;
@@ -50,7 +56,7 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: StorePageParams) {
   const { page } = params;
-  const pageNumber = page ? parseInt(page, 10) : 1;
+  const pageNumber = parseInt(page, 10);
 
   const data = await getData(
     process.env.NOTION_DATABASE_PRODUCTS_ID as string,
