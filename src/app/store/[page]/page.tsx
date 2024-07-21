@@ -59,7 +59,7 @@ export default async function Page({ params }: StorePageParams) {
 
   return (
     <>
-      <PostsSection posts={data.posts} type="store" />;
+      <PostsSection posts={data.posts} type="store" />
       <NavComponent
         navigator="store"
         hasMore={data.hasMore}

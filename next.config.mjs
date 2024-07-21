@@ -7,13 +7,13 @@ const nextConfig = {
     return [
       // Basic redirect
       {
-        source: "/blog/1",
-        destination: "/blog",
+        source: "/blog",
+        destination: "/blog/1",
         permanent: true,
       },
       {
-        source: "/store/1",
-        destination: "/store",
+        source: "/store",
+        destination: "/store/1",
         permanent: true,
       },
     ];
