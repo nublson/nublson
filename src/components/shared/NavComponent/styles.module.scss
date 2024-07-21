@@ -1,0 +1,33 @@
+@use "../../../sass/abstracts/colors";
+@import "../../../sass/abstracts/mixins";
+@import "../../../sass/base/typography";
+
+.container{
+  width: 100%;
+  padding: 5rem 5rem 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include device(tablet) {
+    padding: 3rem 2.5rem 0;
+  }
+
+  @include device(mobile) {
+    padding: 3rem 0 0;
+  }
+}
+
+.navButton{
+  @include button-primary;
+  width: 4rem;
+
+  @include device(tablet) {
+    width: 3rem;
+  }
+
+  @include device(mobile) {
+    height: 3rem;
+  }
+}
