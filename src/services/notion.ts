@@ -51,6 +51,13 @@ export const getData = cache(
       if (!data.has_more) break;
     }
 
+    if (startId === null) {
+      return {
+        posts: [],
+        hasMore: false,
+      };
+    }
+
     // Fetch the data for the current page
     const data = await api.databases.query({
       database_id: databaseId,
