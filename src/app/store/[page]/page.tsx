@@ -38,11 +38,7 @@ export async function generateStaticParams() {
       10
     );
 
-    if (pageNumber === 1) {
-      pages.push({ page: "" });
-    } else {
-      pages.push({ page: `${pageNumber}` });
-    }
+    pages.push({ page: `${pageNumber}` });
 
     hasMore = data.hasMore;
     pageNumber += 1;
