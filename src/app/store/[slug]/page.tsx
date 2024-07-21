@@ -11,7 +11,7 @@ export async function generateMetadata({
 }: MetadataProps): Promise<Metadata> {
   const { slug } = params;
 
-  const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
+  const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID, 1);
 
   const myPost = data.posts.find((post) => post.post_slug === slug);
 
@@ -37,7 +37,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
+  const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID, 1);
 
   return data.posts.map((post) => ({
     slug: post.post_slug,
@@ -45,7 +45,7 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: DynamicPageProps) {
-  const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID);
+  const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID, 1);
 
   const myPost = data.posts.find((post) => {
     return post.post_slug === params.slug;

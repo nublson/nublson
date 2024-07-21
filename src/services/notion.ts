@@ -7,12 +7,51 @@ import {
 import { Client } from "@notionhq/client";
 import { cache } from "react";
 
+interface ApiResponse {
+  posts: any[]; // Adjust based on the structure of your posts
+  hasMore: boolean;
+  // Add other properties based on your API response
+}
+
 const api = new Client({
   auth: process.env.NOTION_ACCESS_TOKEN,
 });
 
 export const getData = cache(
-  async (databaseId: string, limit?: number, startId?: string) => {
+  async (
+    databaseId: string,
+    page: number,
+    limit?: number
+  ): Promise<ApiResponse> => {
+    // Calculate the correct start_cursor for the given page
+    let startId: string | undefined;
+    for (let i = 1; i < page; i++) {
+      const data = await api.databases.query({
+        database_id: databaseId,
+        page_size: limit,
+        start_cursor: startId,
+        filter: {
+          and: [
+            {
+              property: "state",
+              select: {
+                equals: "published",
+              },
+            },
+          ],
+        },
+        sorts: [
+          {
+            property: "publish_date",
+            direction: "descending",
+          },
+        ],
+      });
+      startId = data.next_cursor as string | undefined;
+      if (!data.has_more) break;
+    }
+
+    // Fetch the data for the current page
     const data = await api.databases.query({
       database_id: databaseId,
       page_size: limit,
@@ -38,7 +77,6 @@ export const getData = cache(
     return {
       posts: formatPosts(data.results),
       hasMore: data.has_more,
-      nextPage: data.next_cursor,
     };
   }
 );

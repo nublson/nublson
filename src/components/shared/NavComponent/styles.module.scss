@@ -2,7 +2,7 @@
 @import "../../../sass/abstracts/mixins";
 @import "../../../sass/base/typography";
 
-.container{
+.container {
   width: 100%;
   padding: 5rem 5rem 0;
 
@@ -19,7 +19,8 @@
   }
 }
 
-.navButton{
+.navButton,
+.disabledButton {
   @include button-primary;
   width: 4rem;
 
@@ -30,4 +31,9 @@
   @include device(mobile) {
     height: 3rem;
   }
+}
+
+.disabledButton {
+  pointer-events: none;
+  opacity: 0.5;
 }

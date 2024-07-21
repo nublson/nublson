@@ -21,9 +21,9 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const [articles, videos, newsletter] = await Promise.all([
-    getData(process.env.NOTION_DATABASE_ARTICLES_ID, 2),
-    getData(process.env.NOTION_DATABASE_VIDEOS_ID, 2),
-    getData(process.env.NOTION_DATABASE_NEWSLETTER_ID, 2),
+    getData(process.env.NOTION_DATABASE_ARTICLES_ID, 1, 2),
+    getData(process.env.NOTION_DATABASE_VIDEOS_ID, 1, 2),
+    getData(process.env.NOTION_DATABASE_NEWSLETTER_ID, 1, 2),
   ]);
 
   return (
