@@ -50,35 +50,36 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: DynamicPageProps) {
-  const data = await getData(process.env.NOTION_DATABASE_PRODUCTS_ID, 1);
+  const result = await findPostBySlug(
+    params.slug,
+    process.env.NOTION_DATABASE_PRODUCTS_ID as string
+  );
 
-  const myPost = data.posts.find((post) => {
-    return post.post_slug === params.slug;
-  });
-
-  if (myPost) {
-    const postBlocks = await getBlocks(myPost.id);
-
-    return (
-      <>
-        <Header
-          label={setToCurrentDate(myPost.publish_date, "LL")}
-          title={myPost.title}
-          thumbnail={myPost.thumbnail}
-          description={myPost.description}
-        />
-        <ContentSection blocks={postBlocks} data={myPost} />
-        <ShareSection>
-          <p>
-            Posted in{" "}
-            <Link href={`/store?category=${myPost.category}`}>
-              {myPost.category}
-            </Link>{" "}
-          </p>
-        </ShareSection>
-      </>
-    );
-  } else {
+  if (!result) {
     notFound();
   }
+
+  const { post, pageNumber } = result;
+
+  const postBlocks = await getBlocks(post.id);
+
+  return (
+    <>
+      <Header
+        label={setToCurrentDate(post.publish_date, "LL")}
+        title={post.title}
+        thumbnail={post.thumbnail}
+        description={post.description}
+      />
+      <ContentSection blocks={postBlocks} data={post} />
+      <ShareSection>
+        <p>
+          Posted in{" "}
+          <Link href={`/store/${pageNumber}?category=${post.category}`}>
+            {post.category}
+          </Link>{" "}
+        </p>
+      </ShareSection>
+    </>
+  );
 }
