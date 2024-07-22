@@ -29,6 +29,7 @@ export const Header = ({
         alt={title}
         width={1920}
         height={1080}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         style={{ objectFit: "cover" }}
         placeholder="blur"
         blurDataURL={assets.base64}

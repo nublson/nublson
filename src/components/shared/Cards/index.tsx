@@ -46,6 +46,7 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
           src={post.thumbnail}
           alt="post thumbnail"
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{ objectFit: "cover" }}
           placeholder="blur"
           blurDataURL={blurData}
@@ -79,6 +80,7 @@ export const Book = ({ post, blurData }: PostCardProps) => {
           src={post.thumbnail}
           alt="post thumbnail"
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{ objectFit: "cover" }}
           placeholder="blur"
           blurDataURL={blurData}
@@ -119,6 +121,7 @@ export const Gear = ({
             src={thumbnail}
             alt="gear thumbnail"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             style={{ objectFit: "cover" }}
             placeholder="blur"
             blurDataURL={blurData}
@@ -138,6 +141,7 @@ export const Gear = ({
         src={thumbnail}
         alt="gear thumbnail"
         fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         style={{ objectFit: "cover" }}
         placeholder="blur"
         blurDataURL={blurData}
