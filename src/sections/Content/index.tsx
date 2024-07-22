@@ -10,6 +10,18 @@ interface ContentSectionProps {
   data: PostProps;
 }
 
+const getPriceValue = (price?: number | null) => {
+  if (price === null) {
+    return null;
+  }
+
+  if (price === 0) {
+    return "- FREE";
+  } else {
+    return `- ${price}€`;
+  }
+};
+
 export const ContentSection = ({ blocks, data }: ContentSectionProps) => {
   return (
     <section className={styles.container}>
@@ -22,7 +34,7 @@ export const ContentSection = ({ blocks, data }: ContentSectionProps) => {
           aria-label="get button"
         >
           <RiStore2Line className={styles.icon} />
-          <p>Get Here</p>
+          <p>Get Here {getPriceValue(data.price)}</p>
         </a>
       )}
       <div className={styles.blocks}>

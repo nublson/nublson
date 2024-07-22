@@ -20,6 +20,7 @@ export interface PostProps {
   modified_date?: string;
   path?: string;
   author?: string;
+  price?: number;
 }
 
 export interface GearProps {
