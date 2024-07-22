@@ -30,7 +30,7 @@ export const LastPosts = ({
           {posts.map((item) => {
             if (type === "blog" || type === "store") {
               return (
-                <Link key={item.id} href={`/${type}/${item.post_slug}`}>
+                <Link key={item.id} href={`/${type}/1/${item.post_slug}`}>
                   <Post
                     type={type}
                     post={{ ...item, thumbnail: item.thumbnail }}
