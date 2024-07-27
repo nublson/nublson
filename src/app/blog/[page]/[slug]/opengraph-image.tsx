@@ -1,5 +1,5 @@
 import { getData } from "@/services/notion";
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
 
 // Image metadata
 export const size = {

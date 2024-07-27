@@ -1,5 +1,5 @@
 import pages from "@/utils/pages.json";
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
 
 // Image metadata
 export const size = {
