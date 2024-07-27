@@ -1,15 +1,14 @@
 import { getData } from "../services/notion";
 
 export const getIsCurrentPath = (path: string, pathname: string) => {
-  return pathname.startsWith(`/${path}`) ? true : false;
+  return pathname.startsWith(`/${path}`);
 };
 
 export async function findPostBySlug(slug: string, databaseId: string) {
   let page = 1;
-  let hasMore = true;
   let totalPosts = 0;
 
-  while (hasMore) {
+  while (true) {
     const data = await getData(databaseId, page, 10);
     if (!data) break;
 
@@ -20,7 +19,7 @@ export async function findPostBySlug(slug: string, databaseId: string) {
     }
 
     totalPosts += data.posts.length;
-    hasMore = data.hasMore;
+    if (!data.hasMore) break;
     page += 1;
   }
 

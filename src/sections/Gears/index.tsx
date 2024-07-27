@@ -1,6 +1,5 @@
 import assets from "@/assets/blur.json";
 import { Gear } from "@/components/shared/Cards";
-import { Categories } from "@/components/shared/Categories";
 import { GearProps } from "@/utils/types";
 import styles from "./styles.module.scss";
 

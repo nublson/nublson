@@ -1,17 +1,25 @@
 import { getPlaiceholder } from "plaiceholder";
 
 export const getRemoteImage = async (src: string) => {
-  const buffer = await fetch(src).then(async (res) =>
-    Buffer.from(await res.arrayBuffer())
-  );
+  try {
+    const response = await fetch(src);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch image from ${src}`);
+    }
 
-  const {
-    base64,
-    metadata: { width, height },
-  } = await getPlaiceholder(buffer);
+    const buffer = Buffer.from(await response.arrayBuffer());
 
-  return {
-    base64,
-    img: { src, width, height },
-  };
+    const {
+      base64,
+      metadata: { width, height },
+    } = await getPlaiceholder(buffer);
+
+    return {
+      base64,
+      img: { src, width, height },
+    };
+  } catch (error) {
+    console.error("Error fetching or processing image:", error);
+    throw error;
+  }
 };

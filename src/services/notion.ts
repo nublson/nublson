@@ -17,52 +17,16 @@ const api = new Client({
   auth: process.env.NOTION_ACCESS_TOKEN,
 });
 
-export const getData = cache(
-  async (
-    databaseId: string,
-    page: number,
-    limit?: number
-  ): Promise<ApiResponse> => {
-    // Calculate the correct start_cursor for the given page
-    let startId: string | undefined;
-    for (let i = 1; i < page; i++) {
-      const data = await api.databases.query({
-        database_id: databaseId,
-        page_size: limit,
-        start_cursor: startId,
-        filter: {
-          and: [
-            {
-              property: "state",
-              select: {
-                equals: "published",
-              },
-            },
-          ],
-        },
-        sorts: [
-          {
-            property: "publish_date",
-            direction: "descending",
-          },
-        ],
-      });
-      startId = data.next_cursor as string | undefined;
-      if (!data.has_more) break;
-    }
-
-    if (startId === null) {
-      return {
-        posts: [],
-        hasMore: false,
-      };
-    }
-
-    // Fetch the data for the current page
-    const data = await api.databases.query({
+const fetchPageData = async (
+  databaseId: string,
+  startCursor: string | undefined,
+  limit?: number
+) => {
+  try {
+    const response = await api.databases.query({
       database_id: databaseId,
       page_size: limit,
-      start_cursor: startId,
+      start_cursor: startCursor,
       filter: {
         and: [
           {
@@ -80,6 +44,34 @@ export const getData = cache(
         },
       ],
     });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getData = cache(
+  async (
+    databaseId: string,
+    page: number,
+    limit?: number
+  ): Promise<ApiResponse> => {
+    let startCursor: string | undefined;
+
+    for (let i = 1; i < page; i++) {
+      const data = await fetchPageData(databaseId, startCursor, limit);
+      startCursor = data.next_cursor as string | undefined;
+      if (!data.has_more) break;
+    }
+
+    if (!startCursor && page > 1) {
+      return {
+        posts: [],
+        hasMore: false,
+      };
+    }
+
+    const data = await fetchPageData(databaseId, startCursor, limit);
 
     return {
       posts: formatPosts(data.results),
@@ -122,7 +114,6 @@ export const getGears = cache(async (databaseId: string) => {
 
 export const getPage = cache(async (pageId: string) => {
   const response = await api.pages.retrieve({ page_id: pageId });
-
   return formatPageProps(response);
 });
 
@@ -131,21 +122,14 @@ export const getBlocks = cache(async (pageId: string) => {
     block_id: pageId,
   });
 
-  const childBlocks = await Promise.all(
+  const childBlocks: { id: string; children: any[] }[] = await Promise.all(
     response.results
       .filter((block: any) => block.has_children)
-      .map(async (block) => {
-        return {
-          id: block.id,
-          children: await getBlocks(block.id),
-        };
-      })
+      .map(async (block) => ({
+        id: block.id,
+        children: await getBlocks(block.id),
+      }))
   );
 
-  const blocksWithChildren = formatBlockWithChildren(
-    response.results,
-    childBlocks
-  );
-
-  return blocksWithChildren;
+  return formatBlockWithChildren(response.results, childBlocks);
 });

@@ -1,6 +1,5 @@
 import Section from "@/components/Layout/Section";
 import { RiArrowRightLine } from "react-icons/ri";
-
 import Link from "next/link";
 import styles from "./styles.module.scss";
 
@@ -28,33 +27,30 @@ export const LastPosts = ({
       <div className={styles.container}>
         <div className={styles.posts}>
           {posts.map((item) => {
-            if (type === "blog" || type === "store") {
-              return (
-                <Link key={item.id} href={`/${type}/1/${item.post_slug}`}>
-                  <Post
-                    type={type}
-                    post={{ ...item, thumbnail: item.thumbnail }}
-                    blurData={assets.base64}
-                  />
-                </Link>
-              );
-            } else {
-              return (
-                <a
-                  key={item.id}
-                  href={item.path}
-                  target="_blank"
-                  rel="noopener"
-                  aria-label={`link to ${item.title}`}
-                >
-                  <Post
-                    type={type}
-                    post={{ ...item, thumbnail: item.thumbnail }}
-                    blurData={assets.base64}
-                  />
-                </a>
-              );
-            }
+            const postContent = (
+              <Post
+                key={item.id}
+                type={type}
+                post={{ ...item, thumbnail: item.thumbnail }}
+                blurData={assets.base64}
+              />
+            );
+
+            return type === "blog" || type === "store" ? (
+              <Link key={item.id} href={`/${type}/1/${item.post_slug}`}>
+                {postContent}
+              </Link>
+            ) : (
+              <a
+                key={item.id}
+                href={item.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`link to ${item.title}`}
+              >
+                {postContent}
+              </a>
+            );
           })}
         </div>
         {linkTo &&
@@ -63,7 +59,7 @@ export const LastPosts = ({
               className={styles.link}
               href={linkTo}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               aria-label={`link to ${title}`}
             >
               <p>Full list</p>
