@@ -30,10 +30,8 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
     switch (type) {
       case "store":
         return "Get";
-
       case "videos":
         return "Watch";
-
       default:
         return "Read";
     }
@@ -46,6 +44,7 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
           src={post.thumbnail}
           alt="post thumbnail"
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{ objectFit: "cover" }}
           placeholder="blur"
           blurDataURL={blurData}
@@ -55,7 +54,6 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
       <div className={styles.body}>
         <h3 className={styles.title}>{post.title}</h3>
       </div>
-
       <div className={styles.footer}>
         <span>
           {getCTAText(type)}
@@ -71,34 +69,6 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
   );
 };
 
-export const Book = ({ post, blurData }: PostCardProps) => {
-  return (
-    <div className={styles.book}>
-      <div className={styles.thumbnail}>
-        <Image
-          src={post.thumbnail}
-          alt="post thumbnail"
-          fill
-          style={{ objectFit: "cover" }}
-          placeholder="blur"
-          blurDataURL={blurData}
-          priority
-        />
-      </div>
-      <div className={styles.body}>
-        <h3 className={styles.title}>{post.title}</h3>
-        <p className={styles.category}>{post.category}</p>
-        <div className={styles.footer}>
-          <p className={styles.author}>
-            By <span>{post.author}</span>
-          </p>
-          <span className={styles.external}>Overview</span>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 export const Gear = ({
   thumbnail,
   title,
@@ -106,48 +76,37 @@ export const Gear = ({
   blurData,
   path,
 }: GearProps) => {
-  return path ? (
-    <a
-      href={path}
-      aria-label={`link to ${title}`}
-      target="_blank"
-      rel="noopener"
-    >
-      <div className={styles.gear}>
-        <div className={styles.thumbnail}>
-          <Image
-            src={thumbnail}
-            alt="gear thumbnail"
-            fill
-            style={{ objectFit: "cover" }}
-            placeholder="blur"
-            blurDataURL={blurData}
-            quality={100}
-          />
-        </div>
-        <div className={styles.details}>
-          <h3 className={styles.title}>{title}</h3>
-          <p className={styles.description}>{description}</p>
-        </div>
-      </div>
-    </a>
-  ) : (
+  const GearContent = () => (
     <div className={styles.gear}>
-      <Image
-        className={styles.thumbnail}
-        src={thumbnail}
-        alt="gear thumbnail"
-        fill
-        style={{ objectFit: "cover" }}
-        placeholder="blur"
-        blurDataURL={blurData}
-        quality={100}
-      />
-
+      <div className={styles.thumbnail}>
+        <Image
+          src={thumbnail}
+          alt="gear thumbnail"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{ objectFit: "cover" }}
+          placeholder="blur"
+          blurDataURL={blurData}
+          quality={100}
+        />
+      </div>
       <div className={styles.details}>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>
       </div>
     </div>
+  );
+
+  return path ? (
+    <a
+      href={path}
+      aria-label={`link to ${title}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <GearContent />
+    </a>
+  ) : (
+    <GearContent />
   );
 };
