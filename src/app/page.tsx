@@ -20,8 +20,9 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [articles, videos, newsletter] = await Promise.all([
+  const [articles, products, videos, newsletter] = await Promise.all([
     getData(process.env.NOTION_DATABASE_ARTICLES_ID, 1, 2),
+    getData(process.env.NOTION_DATABASE_PRODUCTS_ID, 1, 2),
     getData(process.env.NOTION_DATABASE_VIDEOS_ID, 1, 2),
     getData(process.env.NOTION_DATABASE_NEWSLETTER_ID, 1, 2),
   ]);
@@ -48,6 +49,12 @@ export default async function Home() {
         posts={videos.posts}
         external
         linkTo="https://youtube.com/@nublson"
+      />
+      <LastPosts
+        title="Last products"
+        type="store"
+        posts={products.posts}
+        linkTo="/store"
       />
       <LastPosts
         title="Last articles"
