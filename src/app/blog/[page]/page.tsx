@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { NavComponent } from "@/components/shared/NavComponent";
 import pageData from "@/utils/pages.json";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 interface BlogPageParams {
   params: {
@@ -67,7 +68,9 @@ export default async function Page({ params }: BlogPageParams) {
   if (data.posts.length) {
     return (
       <>
-        <PostsSection posts={data.posts} type="blog" />
+        <Suspense>
+          <PostsSection posts={data.posts} type="blog" />
+        </Suspense>
         <NavComponent
           navigator="blog"
           hasMore={data.hasMore}
