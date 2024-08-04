@@ -18,15 +18,18 @@ export async function generateMetadata({
 }: StorePageParams): Promise<Metadata> {
   const { page } = params;
 
+  const baseUrl = `${process.env.BASE_URL}/store`;
+  const pageUrl = page && Number(page) > 1 ? `/store/${page}` : "/store";
+
   return {
     title: pageData.blog.title,
     description: pageData.blog.description,
     alternates: {
-      canonical: `/store/${page}`,
+      canonical: pageUrl,
     },
     openGraph: {
       type: "website",
-      url: `${process.env.BASE_URL}/store/${page}`,
+      url: baseUrl + (Number(page) > 1 ? `/${page}` : ""),
       title: pageData.blog.title,
       description: pageData.blog.description,
       siteName: "nublson.com",
