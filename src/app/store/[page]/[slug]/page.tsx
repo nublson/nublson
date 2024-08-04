@@ -55,12 +55,32 @@ export default async function Page({ params }: DynamicPageProps) {
     return notFound();
   }
 
+  const allPostsData = await getData(
+    process.env.NOTION_DATABASE_PRODUCTS_ID as string,
+    1
+  );
+  const postsPerPage = 10;
+  const totalPosts = allPostsData.posts.length;
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+  if (Number(pageNumber) > totalPages) {
+    return notFound();
+  }
+
   const post = await findPostBySlug(
     slug,
     process.env.NOTION_DATABASE_PRODUCTS_ID as string
   );
 
   if (!post) {
+    return notFound();
+  }
+
+  const postIndex = allPostsData.posts.findIndex((p) => p.id === post.id);
+
+  const expectedPageNumber = Math.floor(postIndex / postsPerPage) + 1;
+
+  if (Number(pageNumber) !== expectedPageNumber) {
     return notFound();
   }
 
