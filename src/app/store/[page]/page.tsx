@@ -55,30 +55,30 @@ export async function generateStaticParams() {
   return pages;
 }
 
-export default async function Page({ params }: StorePageParams) {
+export default async function StorePage({ params }: StorePageParams) {
   const { page } = params;
-  const pageNumber = parseInt(page, 10);
+  const pageNumber = Number(page);
+
+  if (isNaN(pageNumber) || pageNumber < 1) {
+    return notFound();
+  }
 
   const data = await getData(
-    process.env.NOTION_DATABASE_PRODUCTS_ID as string,
+    process.env.NOTION_DATABASE_PRODUCTS_ID,
     pageNumber,
     10
   );
 
-  if (data.posts.length) {
-    return (
-      <>
-        <Suspense>
-          <PostsSection posts={data.posts} type="store" />
-        </Suspense>
-        <NavComponent
-          navigator="store"
-          hasMore={data.hasMore}
-          pageNumber={pageNumber}
-        />
-      </>
-    );
-  } else {
-    notFound();
-  }
+  return (
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <PostsSection posts={data.posts} type="store" />
+      </Suspense>
+      <NavComponent
+        navigator="store"
+        hasMore={data.hasMore}
+        pageNumber={pageNumber}
+      />
+    </>
+  );
 }

@@ -7,6 +7,7 @@ import pages from "@/utils/pages.json";
 import work from "@/utils/work.json";
 
 export const metadata: Metadata = {
+  title: pages.home.title,
   description: pages.home.description,
   alternates: {
     canonical: `/`,
@@ -36,32 +37,40 @@ export default async function Home() {
         description={pages.home.description}
       />
       <WorkSection title="Creating on" workList={work.items} />
-      <LastPosts
-        title="Newsletter"
-        type="newsletter"
-        posts={newsletter.posts}
-        external
-        linkTo="https://nublson.substack.com"
-      />
-      <LastPosts
-        title="Last videos"
-        type="videos"
-        posts={videos.posts}
-        external
-        linkTo="https://youtube.com/@nublson"
-      />
-      <LastPosts
-        title="Last products"
-        type="store"
-        posts={products.posts}
-        linkTo="/store"
-      />
-      <LastPosts
-        title="Last articles"
-        type="blog"
-        posts={articles.posts}
-        linkTo="/blog"
-      />
+      {newsletter.posts.length && (
+        <LastPosts
+          title="Newsletter"
+          type="newsletter"
+          posts={newsletter.posts}
+          external
+          linkTo="https://nublson.substack.com"
+        />
+      )}
+      {videos.posts.length && (
+        <LastPosts
+          title="Last videos"
+          type="videos"
+          posts={videos.posts}
+          external
+          linkTo="https://youtube.com/@nublson"
+        />
+      )}
+      {products.posts.length && (
+        <LastPosts
+          title="Last products"
+          type="store"
+          posts={products.posts}
+          linkTo="/store"
+        />
+      )}
+      {articles.posts.length && (
+        <LastPosts
+          title="Last articles"
+          type="blog"
+          posts={articles.posts}
+          linkTo="/blog"
+        />
+      )}
     </>
   );
 }
