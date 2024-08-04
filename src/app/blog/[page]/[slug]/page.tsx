@@ -1,7 +1,7 @@
 import { ContentSection, Header, ShareSection } from "@/sections";
 import { getBlocks, getData } from "@/services/notion";
 import { setToCurrentDate } from "@/utils/formatter";
-import { DynamicPageProps, MetadataProps } from "@/utils/types";
+import { DynamicPageProps } from "@/utils/types";
 import { findPostBySlug } from "@/utils/utils";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -9,16 +9,15 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
-}: MetadataProps): Promise<Metadata> {
-  const { slug } = params;
+}: DynamicPageProps): Promise<Metadata> {
+  const { slug, page: pageNumber } = params;
 
-  const result = await findPostBySlug(
+  const post = await findPostBySlug(
     slug,
     process.env.NOTION_DATABASE_ARTICLES_ID as string
   );
 
-  if (result) {
-    const { post, pageNumber } = result;
+  if (post) {
     const postUrl = `/blog/${pageNumber}/${post.post_slug}`;
 
     return {
@@ -50,16 +49,20 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: DynamicPageProps) {
-  const result = await findPostBySlug(
-    params.slug,
+  const { slug, page: pageNumber } = params;
+
+  if (!pageNumber || isNaN(Number(pageNumber))) {
+    return notFound();
+  }
+
+  const post = await findPostBySlug(
+    slug,
     process.env.NOTION_DATABASE_ARTICLES_ID as string
   );
 
-  if (!result) {
-    notFound();
+  if (!post) {
+    return notFound();
   }
-
-  const { post, pageNumber } = result;
 
   const postBlocks = await getBlocks(post.id);
 

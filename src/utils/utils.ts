@@ -5,23 +5,16 @@ export const getIsCurrentPath = (path: string, pathname: string) => {
 };
 
 export async function findPostBySlug(slug: string, databaseId: string) {
-  let page = 1;
-  let totalPosts = 0;
+  try {
+    const data = await getData(databaseId, 1);
 
-  while (true) {
-    const data = await getData(databaseId, page, 10);
-    if (!data) break;
-
-    const post = data.posts.find((post) => post.post_slug === slug);
-    if (post) {
-      const pageNumber = Math.floor(totalPosts / 10) + 1;
-      return { post, pageNumber };
+    if (!data || data.posts.length === 0) {
+      return undefined;
     }
 
-    totalPosts += data.posts.length;
-    if (!data.hasMore) break;
-    page += 1;
+    const post = data.posts.find((post) => post.post_slug === slug);
+    return post || undefined;
+  } catch (error) {
+    return undefined;
   }
-
-  return undefined;
 }

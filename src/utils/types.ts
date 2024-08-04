@@ -36,6 +36,7 @@ export interface GearProps {
 export interface DynamicPageProps {
   params: {
     slug: string;
+    page: number;
   };
 }
 
@@ -43,8 +44,4 @@ export interface PostCardProps {
   type?: "blog" | "store" | "videos" | "newsletter" | "books";
   post: PostProps;
   blurData?: string;
-}
-
-export interface MetadataProps {
-  params: { slug: string };
 }
