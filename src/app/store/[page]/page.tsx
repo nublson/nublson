@@ -63,10 +63,23 @@ export default async function StorePage({ params }: StorePageParams) {
     return notFound();
   }
 
+  const allPostsData = await getData(
+    process.env.NOTION_DATABASE_PRODUCTS_ID as string,
+    1
+  );
+
+  const postsPerPage = 10;
+  const totalPosts = allPostsData.posts.length;
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+  if (pageNumber > totalPages) {
+    return notFound();
+  }
+
   const data = await getData(
     process.env.NOTION_DATABASE_PRODUCTS_ID,
     pageNumber,
-    10
+    postsPerPage
   );
 
   return (
