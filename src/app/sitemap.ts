@@ -2,14 +2,26 @@ import { getData } from "@/services/notion";
 import sitemapList from "@/utils/sitemapPages.json";
 
 export default async function sitemap() {
-  const [articles, products] = await Promise.all([
+  const [articles, products, resources] = await Promise.all([
     getData(process.env.NOTION_DATABASE_ARTICLES_ID as string, 1),
-    getData(process.env.NOTION_DATABASE_PRODUCTS_ID as string, 1),
+    getData(
+      process.env.NOTION_DATABASE_PRODUCTS_ID as string,
+      1,
+      undefined,
+      "products"
+    ),
+    getData(
+      process.env.NOTION_DATABASE_PRODUCTS_ID as string,
+      1,
+      undefined,
+      "resources"
+    ),
   ]);
 
   const postsPerPage = 10;
   const totalArticlePages = Math.ceil(articles.posts.length / postsPerPage);
   const totalProductPages = Math.ceil(products.posts.length / postsPerPage);
+  const totalResourcesPages = Math.ceil(products.posts.length / postsPerPage);
 
   const blogSitemaps = articles.posts.map((item, index) => {
     const pageNumber = Math.floor(index / postsPerPage) + 1;
@@ -23,6 +35,14 @@ export default async function sitemap() {
     const pageNumber = Math.floor(index / postsPerPage) + 1;
     return {
       url: `${process.env.BASE_URL}/store/${pageNumber}/${item.post_slug}`,
+      lastModified: item.modified_date,
+    };
+  });
+
+  const resourcesSitemaps = resources.posts.map((item, index) => {
+    const pageNumber = Math.floor(index / postsPerPage) + 1;
+    return {
+      url: `${process.env.BASE_URL}/resources/${pageNumber}/${item.post_slug}`,
       lastModified: item.modified_date,
     };
   });
@@ -49,6 +69,17 @@ export default async function sitemap() {
     }
   );
 
+  const resourcesPageSitemaps = Array.from(
+    { length: totalResourcesPages },
+    (_, index) => {
+      const pageUrlPart = index > 0 ? `/${index + 1}` : "";
+      return {
+        url: `${process.env.BASE_URL}/resources${pageUrlPart}`,
+        lastModified: new Date().toISOString(),
+      };
+    }
+  );
+
   const routes = sitemapList.pages.map((item) => ({
     url: `${process.env.BASE_URL}${item.path}`,
     lastModified: new Date().toISOString(),
@@ -58,7 +89,9 @@ export default async function sitemap() {
     ...routes,
     ...blogSitemaps,
     ...storeSitemaps,
+    ...resourcesSitemaps,
     ...blogPageSitemaps,
     ...storePageSitemaps,
+    ...resourcesPageSitemaps,
   ];
 }

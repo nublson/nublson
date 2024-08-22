@@ -16,6 +16,11 @@ const nextConfig = {
         destination: "/store/1",
         permanent: true,
       },
+      {
+        source: "/resources",
+        destination: "/resources/1",
+        permanent: true,
+      },
     ];
   },
   images: {

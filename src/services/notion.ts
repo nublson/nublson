@@ -21,7 +21,7 @@ const fetchPageData = async (
   databaseId: string,
   startCursor: string | undefined,
   limit?: number,
-  type?: "product" | "resource"
+  type?: "products" | "resources"
 ) => {
   try {
     const filters = [
@@ -68,7 +68,7 @@ export const getData = cache(
     databaseId: string,
     page: number,
     limit?: number,
-    type?: "product" | "resource"
+    type?: "products" | "resources"
   ): Promise<ApiResponse> => {
     let startCursor: string | undefined;
 

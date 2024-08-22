@@ -1,4 +1,4 @@
-import { getData } from "@/services/notion";
+import pages from "@/utils/pages.json";
 import { ImageResponse } from "next/og";
 
 // Image metadata
@@ -9,23 +9,8 @@ export const size = {
 
 export const contentType = "image/png";
 
-interface Props {
-  params: {
-    slug: string;
-  };
-}
-
 // Image generation
-export default async function Image({ params }: Props) {
-  const data = await getData(
-    process.env.NOTION_DATABASE_PRODUCTS_ID,
-    1,
-    undefined,
-    "products"
-  );
-
-  const myPost = data.posts.find((post) => post.post_slug === params.slug);
-
+export default function Image() {
   return new ImageResponse(
     (
       // ImageResponse JSX element
@@ -39,7 +24,7 @@ export default async function Image({ params }: Props) {
           justifyContent: "center",
         }}
       >
-        <img src={myPost?.thumbnail} alt={myPost?.title} />
+        <img src={pages.store.thumbnail} alt={pages.store.title} />
       </div>
     ),
     {

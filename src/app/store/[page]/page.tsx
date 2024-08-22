@@ -1,4 +1,4 @@
-import { PostsSection } from "@/sections";
+import { Header, PostsSection } from "@/sections";
 import { getData } from "@/services/notion";
 import { Metadata } from "next";
 
@@ -47,7 +47,7 @@ export async function generateStaticParams() {
       process.env.NOTION_DATABASE_PRODUCTS_ID as string,
       pageNumber,
       10,
-      "product"
+      "products"
     );
 
     pages.push({ page: `${pageNumber}` });
@@ -71,7 +71,7 @@ export default async function StorePage({ params }: StorePageParams) {
     process.env.NOTION_DATABASE_PRODUCTS_ID as string,
     1,
     undefined,
-    "product"
+    "products"
   );
 
   const postsPerPage = 10;
@@ -86,11 +86,17 @@ export default async function StorePage({ params }: StorePageParams) {
     process.env.NOTION_DATABASE_PRODUCTS_ID,
     pageNumber,
     postsPerPage,
-    "product"
+    "products"
   );
 
   return (
     <>
+      <Header
+        label={pageData.store.label}
+        title={pageData.store.title}
+        thumbnail={pageData.store.thumbnail}
+        description={pageData.store.description}
+      />
       <Suspense fallback={<div>Loading...</div>}>
         <PostsSection posts={data.posts} type="store" />
       </Suspense>

@@ -45,7 +45,7 @@ export async function generateStaticParams() {
     process.env.NOTION_DATABASE_PRODUCTS_ID,
     1,
     undefined,
-    "products"
+    "resources"
   );
 
   return data.posts.map((post) => ({
@@ -64,8 +64,9 @@ export default async function Page({ params }: DynamicPageProps) {
     process.env.NOTION_DATABASE_PRODUCTS_ID as string,
     1,
     undefined,
-    "products"
+    "resources"
   );
+
   const postsPerPage = 10;
   const totalPosts = allPostsData.posts.length;
   const totalPages = Math.ceil(totalPosts / postsPerPage);
@@ -105,7 +106,7 @@ export default async function Page({ params }: DynamicPageProps) {
       <ShareSection>
         <p>
           Posted in{" "}
-          <Link href={`/store/${pageNumber}?category=${post.category}`}>
+          <Link href={`/resources/${pageNumber}?category=${post.category}`}>
             {post.category}
           </Link>{" "}
         </p>

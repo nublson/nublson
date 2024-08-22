@@ -13,5 +13,10 @@
       "path": "gears"
     }
   ],
-  "footer": []
+  "footer": [
+    {
+      "name": "Resources",
+      "path": "resources"
+    }
+  ]
 }

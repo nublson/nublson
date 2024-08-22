@@ -7,7 +7,7 @@ import pageData from "@/utils/pages.json";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-interface BlogPageParams {
+interface ResourcesPageParams {
   params: {
     page: string;
   };
@@ -15,23 +15,24 @@ interface BlogPageParams {
 
 export async function generateMetadata({
   params,
-}: BlogPageParams): Promise<Metadata> {
+}: ResourcesPageParams): Promise<Metadata> {
   const { page } = params;
 
-  const baseUrl = `${process.env.BASE_URL}/blog`;
-  const pageUrl = page && Number(page) > 1 ? `/blog/${page}` : "/blog";
+  const baseUrl = `${process.env.BASE_URL}/resources`;
+  const pageUrl =
+    page && Number(page) > 1 ? `/resources/${page}` : "/resources";
 
   return {
-    title: pageData.blog.title,
-    description: pageData.blog.description,
+    title: pageData.resources.title,
+    description: pageData.resources.description,
     alternates: {
       canonical: pageUrl,
     },
     openGraph: {
       type: "website",
       url: baseUrl + (Number(page) > 1 ? `/${page}` : ""),
-      title: pageData.blog.title,
-      description: pageData.blog.description,
+      title: pageData.resources.title,
+      description: pageData.resources.description,
       siteName: "nublson.com",
     },
   };
@@ -44,9 +45,10 @@ export async function generateStaticParams() {
 
   while (hasMore) {
     const data = await getData(
-      process.env.NOTION_DATABASE_ARTICLES_ID as string,
+      process.env.NOTION_DATABASE_PRODUCTS_ID as string,
       pageNumber,
-      10
+      10,
+      "resources"
     );
 
     pages.push({ page: `${pageNumber}` });
@@ -58,7 +60,7 @@ export async function generateStaticParams() {
   return pages;
 }
 
-export default async function BlogPage({ params }: BlogPageParams) {
+export default async function ResourcesPage({ params }: ResourcesPageParams) {
   const { page } = params;
   const pageNumber = Number(page);
 
@@ -67,8 +69,10 @@ export default async function BlogPage({ params }: BlogPageParams) {
   }
 
   const allPostsData = await getData(
-    process.env.NOTION_DATABASE_ARTICLES_ID as string,
-    1
+    process.env.NOTION_DATABASE_PRODUCTS_ID as string,
+    1,
+    undefined,
+    "resources"
   );
 
   const postsPerPage = 10;
@@ -80,24 +84,25 @@ export default async function BlogPage({ params }: BlogPageParams) {
   }
 
   const data = await getData(
-    process.env.NOTION_DATABASE_ARTICLES_ID,
+    process.env.NOTION_DATABASE_PRODUCTS_ID,
     pageNumber,
-    postsPerPage
+    postsPerPage,
+    "resources"
   );
 
   return (
     <>
       <Header
-        label={pageData.blog.label}
-        title={pageData.blog.title}
-        thumbnail={pageData.blog.thumbnail}
-        description={pageData.blog.description}
+        label={pageData.resources.label}
+        title={pageData.resources.title}
+        thumbnail={pageData.resources.thumbnail}
+        description={pageData.resources.description}
       />
       <Suspense fallback={<div>Loading...</div>}>
-        <PostsSection posts={data.posts} type="blog" />
+        <PostsSection posts={data.posts} type="store" />
       </Suspense>
       <NavComponent
-        navigator="blog"
+        navigator="resources"
         hasMore={data.hasMore}
         pageNumber={pageNumber}
       />

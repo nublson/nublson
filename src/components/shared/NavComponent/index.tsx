@@ -6,7 +6,7 @@ import styles from "./styles.module.scss";
 interface NavComponentProps {
   hasMore: boolean;
   pageNumber: number;
-  navigator: "blog" | "store";
+  navigator: string;
 }
 
 export const NavComponent = ({
