@@ -22,16 +22,16 @@ export async function generateMetadata({
   const pageUrl = page && Number(page) > 1 ? `/store/${page}` : "/store";
 
   return {
-    title: pageData.blog.title,
-    description: pageData.blog.description,
+    title: pageData.store.title,
+    description: pageData.store.description,
     alternates: {
       canonical: pageUrl,
     },
     openGraph: {
       type: "website",
       url: baseUrl + (Number(page) > 1 ? `/${page}` : ""),
-      title: pageData.blog.title,
-      description: pageData.blog.description,
+      title: pageData.store.title,
+      description: pageData.store.description,
       siteName: "nublson.com",
     },
   };

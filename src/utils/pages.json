@@ -2,25 +2,25 @@
   "home": {
     "label": "Hi, I'm",
     "title": "Nubelson Fernandes",
-    "description": "I'm a Software Engineer, Photographer and aspiring Filmmaker based in Lisbon, Portugal. I create content about technology, lifestyle and personal development.",
+    "description": "I’m a Software Engineer, Content Creator, and aspiring Cinematographer based in Lisbon, Portugal. I write articles, create digital products, and produce videos focused on personal development, lifestyle and technology.",
     "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/Home_u7rbcv.jpg"
   },
   "blog": {
-    "label": "",
-    "title": "Blog",
-    "description": "Writing down about personal development and technology.",
+    "label": "Welcome to my",
+    "title": "Personal Blog",
+    "description": "Dive into articles where I share insights on technology, lifestyle tips, personal development strategies, and more. Get inspired and discover new ideas to enhance your life.",
     "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/blog_ebwsdc.jpg"
   },
   "store": {
-    "label": "",
-    "title": "Store",
-    "description": "Icons, LUT's, Presets and more",
+    "label": "Explore my",
+    "title": "Online Store",
+    "description": "Browse my collection of digital products designed to help you stay productive, organized, and creative. From Wallpaper packs to cinematic LUTs, find the tools you need to elevate your personal growth and creative projects.",
     "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/store_r73ykh.jpg"
   },
   "books": {
-    "label": "",
-    "title": "Books",
-    "description": "Books I'm reading",
+    "label": "Access my",
+    "title": "Digital Resources",
+    "description": "Discover a range of free products, including Notion templates and e-books, designed to help you stay organized and improve your life. These resources are crafted to support your journey in personal growth, productivity, and creativity.",
     "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/store_r73ykh.jpg"
   },
   "notFound": {
