@@ -46,7 +46,8 @@ export async function generateStaticParams() {
     const data = await getData(
       process.env.NOTION_DATABASE_PRODUCTS_ID as string,
       pageNumber,
-      10
+      10,
+      "product"
     );
 
     pages.push({ page: `${pageNumber}` });
@@ -68,7 +69,9 @@ export default async function StorePage({ params }: StorePageParams) {
 
   const allPostsData = await getData(
     process.env.NOTION_DATABASE_PRODUCTS_ID as string,
-    1
+    1,
+    undefined,
+    "product"
   );
 
   const postsPerPage = 10;
@@ -82,7 +85,8 @@ export default async function StorePage({ params }: StorePageParams) {
   const data = await getData(
     process.env.NOTION_DATABASE_PRODUCTS_ID,
     pageNumber,
-    postsPerPage
+    postsPerPage,
+    "product"
   );
 
   return (

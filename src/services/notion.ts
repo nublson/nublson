@@ -20,22 +20,34 @@ const api = new Client({
 const fetchPageData = async (
   databaseId: string,
   startCursor: string | undefined,
-  limit?: number
+  limit?: number,
+  type?: "product" | "resource"
 ) => {
   try {
+    const filters = [
+      {
+        property: "state",
+        select: {
+          equals: "published",
+        },
+      },
+    ];
+
+    if (type) {
+      filters.push({
+        property: "type",
+        select: {
+          equals: type,
+        },
+      });
+    }
+
     const response = await api.databases.query({
       database_id: databaseId,
       page_size: limit,
       start_cursor: startCursor,
       filter: {
-        and: [
-          {
-            property: "state",
-            select: {
-              equals: "published",
-            },
-          },
-        ],
+        and: filters,
       },
       sorts: [
         {
@@ -44,6 +56,7 @@ const fetchPageData = async (
         },
       ],
     });
+
     return response;
   } catch (error) {
     throw error;
@@ -54,12 +67,13 @@ export const getData = cache(
   async (
     databaseId: string,
     page: number,
-    limit?: number
+    limit?: number,
+    type?: "product" | "resource"
   ): Promise<ApiResponse> => {
     let startCursor: string | undefined;
 
     for (let i = 1; i < page; i++) {
-      const data = await fetchPageData(databaseId, startCursor, limit);
+      const data = await fetchPageData(databaseId, startCursor, limit, type);
       startCursor = data.next_cursor as string | undefined;
       if (!data.has_more) break;
     }
@@ -71,7 +85,7 @@ export const getData = cache(
       };
     }
 
-    const data = await fetchPageData(databaseId, startCursor, limit);
+    const data = await fetchPageData(databaseId, startCursor, limit, type);
 
     return {
       posts: formatPosts(data.results),
