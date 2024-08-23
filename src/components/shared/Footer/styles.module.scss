@@ -26,12 +26,9 @@
 
   @include device(mobile) {
     padding: 5rem 2rem;
-    gap: 3rem;
+    gap: 10rem;
   }
 
-  @include device(mobileM) {
-    gap: 2rem;
-  }
 }
 
 .logo {
@@ -81,8 +78,15 @@
   }
 
   @include device(mobile) {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 2rem;
+
     .social_media {
-      display: none;
+      a{
+        height: 2rem;
+      }
     }
   }
 }
