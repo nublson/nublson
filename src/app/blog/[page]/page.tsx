@@ -92,6 +92,7 @@ export default async function BlogPage({ params }: BlogPageParams) {
         title={pageData.blog.title}
         thumbnail={pageData.blog.thumbnail}
         description={pageData.blog.description}
+        scrollIcon
       />
       <Suspense fallback={<div>Loading...</div>}>
         <PostsSection posts={data.posts} type="blog" />

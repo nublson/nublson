@@ -97,6 +97,7 @@ export default async function ResourcesPage({ params }: ResourcesPageParams) {
         title={pageData.resources.title}
         thumbnail={pageData.resources.thumbnail}
         description={pageData.resources.description}
+        scrollIcon
       />
       <Suspense fallback={<div>Loading...</div>}>
         <PostsSection posts={data.posts} type="store" />

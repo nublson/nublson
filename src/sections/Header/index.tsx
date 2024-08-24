@@ -1,5 +1,6 @@
 import assets from "@/assets/blur.json";
 import Image from "next/image";
+import { RiArrowDownSLine } from "react-icons/ri";
 import styles from "./styles.module.scss";
 
 interface HeaderProps {
@@ -7,6 +8,7 @@ interface HeaderProps {
   title: string;
   thumbnail: string;
   description?: string;
+  scrollIcon?: boolean;
 }
 
 export const Header = ({
@@ -14,6 +16,7 @@ export const Header = ({
   title,
   thumbnail,
   description,
+  scrollIcon,
 }: HeaderProps) => {
   return (
     <main className={styles.container}>
@@ -34,6 +37,11 @@ export const Header = ({
         blurDataURL={assets.base64}
         priority
       />
+      {scrollIcon && (
+        <div className={styles.bottom}>
+          <RiArrowDownSLine className={styles.scrollIcon} />
+        </div>
+      )}
     </main>
   );
 };

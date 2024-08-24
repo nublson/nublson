@@ -96,6 +96,7 @@ export default async function StorePage({ params }: StorePageParams) {
         title={pageData.store.title}
         thumbnail={pageData.store.thumbnail}
         description={pageData.store.description}
+        scrollIcon
       />
       <Suspense fallback={<div>Loading...</div>}>
         <PostsSection posts={data.posts} type="store" />

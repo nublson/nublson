@@ -26,7 +26,7 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
   const filteredPosts = getPostsByCategory(queryParams.category, posts);
 
   return (
-    <main className={styles.container}>
+    <main id="articles" className={styles.container}>
       {posts.length > 0 ? (
         <div className={styles.bodyGrid}>
           {queryParams.category && (
