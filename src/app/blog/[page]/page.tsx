@@ -100,11 +100,13 @@ export default async function BlogPage({ params }: BlogPageParams) {
       <Suspense fallback={<div>Loading...</div>}>
         <PostsSection posts={data.posts} type="blog" />
       </Suspense>
-      <NavComponent
-        navigator="blog"
-        hasMore={data.hasMore}
-        pageNumber={pageNumber}
-      />
+      {totalPages > 1 && (
+        <NavComponent
+          navigator="blog"
+          hasMore={data.hasMore}
+          pageNumber={pageNumber}
+        />
+      )}
     </>
   );
 }

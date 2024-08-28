@@ -104,11 +104,13 @@ export default async function StorePage({ params }: StorePageParams) {
       <Suspense fallback={<div>Loading...</div>}>
         <PostsSection posts={data.posts} type="store" />
       </Suspense>
-      <NavComponent
-        navigator="store"
-        hasMore={data.hasMore}
-        pageNumber={pageNumber}
-      />
+      {totalPages > 1 && (
+        <NavComponent
+          navigator="store"
+          hasMore={data.hasMore}
+          pageNumber={pageNumber}
+        />
+      )}
     </>
   );
 }

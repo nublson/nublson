@@ -119,6 +119,7 @@
 
 .grid {
   @include posts_grid;
+  justify-content: center;
 }
 
 .flex {

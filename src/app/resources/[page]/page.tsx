@@ -105,11 +105,13 @@ export default async function ResourcesPage({ params }: ResourcesPageParams) {
       <Suspense fallback={<div>Loading...</div>}>
         <PostsSection posts={data.posts} type="store" />
       </Suspense>
-      <NavComponent
-        navigator="resources"
-        hasMore={data.hasMore}
-        pageNumber={pageNumber}
-      />
+      {totalPages > 1 && (
+        <NavComponent
+          navigator="resources"
+          hasMore={data.hasMore}
+          pageNumber={pageNumber}
+        />
+      )}
     </>
   );
 }
