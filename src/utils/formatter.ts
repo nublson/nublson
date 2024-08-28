@@ -28,8 +28,11 @@ export const formatPosts = (database: any[]): PostProps[] => {
       publish_date: post.properties["Publish Date"].date.start,
       modified_date: post.properties["Modified Date"]?.last_edited_time,
       category: post.properties.Category?.select?.name,
+      keywords: post.properties.Keywords?.multi_select.map(
+        (keyword: any) => keyword.name
+      ),
       path: post.properties.Path.url,
-      author: post.properties.author?.select?.name,
+      author: post.properties.Author?.select?.name,
       price: post.properties.Price?.number,
     };
   });

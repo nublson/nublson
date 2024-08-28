@@ -18,6 +18,14 @@ export const metadata: Metadata = {
     description: pages.home.description,
     siteName: "nublson.com",
   },
+  twitter: {
+    card: "summary_large_image",
+    site: process.env.BASE_URL,
+    title: pages.home.title,
+    description: pages.home.description,
+    images: pages.home.thumbnail,
+    creator: "@nublson",
+  },
 };
 
 export default async function Home() {

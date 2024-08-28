@@ -15,7 +15,7 @@ export async function generateMetadata({
   const post = await findPostBySlug(
     slug,
     process.env.NOTION_DATABASE_CONTENT_ID as string,
-    "Blog",
+    "Blog"
   );
 
   if (post) {
@@ -25,6 +25,7 @@ export async function generateMetadata({
       title: post.title,
       description: post.description,
       category: post.category,
+      keywords: post.keywords,
       alternates: {
         canonical: postUrl,
       },
@@ -34,6 +35,14 @@ export async function generateMetadata({
         title: post.title,
         description: post.description,
         siteName: "nublson.com",
+      },
+      twitter: {
+        card: "summary_large_image",
+        site: `${process.env.BASE_URL}${postUrl}`,
+        title: post.title,
+        description: post.description,
+        images: post.thumbnail,
+        creator: "@nublson",
       },
     };
   } else {

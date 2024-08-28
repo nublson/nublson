@@ -10,6 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Gears",
     description: page.description,
     category: page.category,
+    keywords: page.keywords,
     alternates: {
       canonical: `/gears`,
     },
@@ -19,6 +20,14 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Gears",
       description: page.description,
       siteName: "nublson.com",
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: `${process.env.BASE_URL}/gears`,
+      title: page.title,
+      description: page.description,
+      images: page.thumbnail,
+      creator: "@nublson",
     },
   };
 }

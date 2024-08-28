@@ -35,6 +35,14 @@ export async function generateMetadata({
       description: pageData.resources.description,
       siteName: "nublson.com",
     },
+    twitter: {
+      card: "summary_large_image",
+      site: pageUrl,
+      title: pageData.resources.title,
+      description: pageData.resources.description,
+      images: pageData.resources.thumbnail,
+      creator: "@nublson",
+    },
   };
 }
 

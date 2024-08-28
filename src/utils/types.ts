@@ -15,6 +15,7 @@ export interface PostProps {
   thumbnail: string;
   title: string;
   description?: string;
+  keywords?: string[];
   category?: string;
   publish_date: string;
   modified_date?: string;
