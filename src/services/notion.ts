@@ -35,14 +35,9 @@ const fetchPageData = async (
       },
       {
         property: "State",
-        select:
-          process.env.NODE_ENV === "development"
-            ? {
-                does_not_equal: "To Do",
-              }
-            : {
-                equals: "Done",
-              },
+        select: {
+          equals: "Done",
+        },
       },
     ];
 
