@@ -3,15 +3,17 @@ import sitemapList from "@/utils/sitemapPages.json";
 
 export default async function sitemap() {
   const [articles, products, resources] = await Promise.all([
-    getData(process.env.NOTION_DATABASE_ARTICLES_ID as string, 1),
+    getData(process.env.NOTION_DATABASE_ARTICLES_ID as string, "Blog", 1),
     getData(
       process.env.NOTION_DATABASE_PRODUCTS_ID as string,
+      "Store",
       1,
       undefined,
       "products"
     ),
     getData(
       process.env.NOTION_DATABASE_PRODUCTS_ID as string,
+      "Store",
       1,
       undefined,
       "resources"

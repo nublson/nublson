@@ -14,7 +14,8 @@ export async function generateMetadata({
 
   const post = await findPostBySlug(
     slug,
-    process.env.NOTION_DATABASE_PRODUCTS_ID as string
+    process.env.NOTION_DATABASE_CONTENT_ID as string,
+    "Store"
   );
 
   if (post) {
@@ -42,7 +43,8 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   const data = await getData(
-    process.env.NOTION_DATABASE_PRODUCTS_ID,
+    process.env.NOTION_DATABASE_CONTENT_ID,
+    "Store",
     1,
     undefined,
     "resources"
@@ -61,7 +63,8 @@ export default async function Page({ params }: DynamicPageProps) {
   }
 
   const allPostsData = await getData(
-    process.env.NOTION_DATABASE_PRODUCTS_ID as string,
+    process.env.NOTION_DATABASE_CONTENT_ID as string,
+    "Store",
     1,
     undefined,
     "resources"
@@ -77,7 +80,8 @@ export default async function Page({ params }: DynamicPageProps) {
 
   const post = await findPostBySlug(
     slug,
-    process.env.NOTION_DATABASE_PRODUCTS_ID as string
+    process.env.NOTION_DATABASE_CONTENT_ID as string,
+    "Store"
   );
 
   if (!post) {

@@ -18,7 +18,8 @@ interface Props {
 // Image generation
 export default async function Image({ params }: Props) {
   const data = await getData(
-    process.env.NOTION_DATABASE_PRODUCTS_ID,
+    process.env.NOTION_DATABASE_CONTENT_ID,
+    "Store",
     1,
     undefined,
     "resources"

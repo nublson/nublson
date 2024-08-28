@@ -44,7 +44,8 @@ export async function generateStaticParams() {
 
   while (hasMore) {
     const data = await getData(
-      process.env.NOTION_DATABASE_ARTICLES_ID as string,
+      process.env.NOTION_DATABASE_CONTENT_ID as string,
+      "Blog",
       pageNumber,
       10
     );
@@ -67,7 +68,8 @@ export default async function BlogPage({ params }: BlogPageParams) {
   }
 
   const allPostsData = await getData(
-    process.env.NOTION_DATABASE_ARTICLES_ID as string,
+    process.env.NOTION_DATABASE_CONTENT_ID as string,
+    "Blog",
     1
   );
 
@@ -80,7 +82,8 @@ export default async function BlogPage({ params }: BlogPageParams) {
   }
 
   const data = await getData(
-    process.env.NOTION_DATABASE_ARTICLES_ID,
+    process.env.NOTION_DATABASE_CONTENT_ID,
+    "Blog",
     pageNumber,
     postsPerPage
   );

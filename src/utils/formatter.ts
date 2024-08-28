@@ -14,23 +14,25 @@ export const formatSlug = (data: string | any) => {
 };
 
 export const formatPosts = (database: any[]): PostProps[] => {
-  return database.map((post) => ({
-    id: post.id,
-    post_slug: formatSlug(post.properties.Name.title[0].text.content),
-    thumbnail:
-      post.cover.type === "file"
-        ? post.cover.file.url
-        : post.cover.external.url,
-    title: post.properties.Name.title[0].text.content,
-    description:
-      post.properties.description?.rich_text?.[0]?.text?.content || null,
-    publish_date: post.properties.publish_date.date.start,
-    modified_date: post.properties.modified_date?.last_edited_time,
-    category: post.properties.category?.select?.name,
-    path: post.properties.path.url,
-    author: post.properties.author?.select?.name,
-    price: post.properties.price?.number,
-  }));
+  return database.map((post) => {
+    return {
+      id: post.id,
+      post_slug: formatSlug(post.properties.Name.title[0].text.content),
+      thumbnail:
+        post.cover.type === "file"
+          ? post.cover.file.url
+          : post.cover.external.url,
+      title: post.properties.Name.title[0].text.content,
+      description:
+        post.properties.Description?.rich_text?.[0]?.text?.content || null,
+      publish_date: post.properties["Publish Date"].date.start,
+      modified_date: post.properties["Modified Date"]?.last_edited_time,
+      category: post.properties.Category?.select?.name,
+      path: post.properties.Path.url,
+      author: post.properties.author?.select?.name,
+      price: post.properties.Price?.number,
+    };
+  });
 };
 
 export const formatGears = (database: any[]): GearProps[] => {

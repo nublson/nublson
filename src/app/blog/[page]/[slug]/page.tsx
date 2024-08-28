@@ -14,7 +14,8 @@ export async function generateMetadata({
 
   const post = await findPostBySlug(
     slug,
-    process.env.NOTION_DATABASE_ARTICLES_ID as string
+    process.env.NOTION_DATABASE_CONTENT_ID as string,
+    "Blog",
   );
 
   if (post) {
@@ -41,7 +42,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const data = await getData(process.env.NOTION_DATABASE_ARTICLES_ID, 1);
+  const data = await getData(process.env.NOTION_DATABASE_CONTENT_ID, "Blog", 1);
 
   return data.posts.map((post) => ({
     slug: post.post_slug,
@@ -56,7 +57,8 @@ export default async function Page({ params }: DynamicPageProps) {
   }
 
   const allPostsData = await getData(
-    process.env.NOTION_DATABASE_ARTICLES_ID as string,
+    process.env.NOTION_DATABASE_CONTENT_ID as string,
+    "Blog",
     1
   );
   const postsPerPage = 10;
@@ -69,7 +71,8 @@ export default async function Page({ params }: DynamicPageProps) {
 
   const post = await findPostBySlug(
     slug,
-    process.env.NOTION_DATABASE_ARTICLES_ID as string
+    process.env.NOTION_DATABASE_CONTENT_ID as string,
+    "Blog"
   );
 
   if (!post) {

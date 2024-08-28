@@ -19,6 +19,7 @@ const api = new Client({
 
 const fetchPageData = async (
   databaseId: string,
+  media: string,
   startCursor: string | undefined,
   limit?: number,
   type?: "products" | "resources"
@@ -26,16 +27,22 @@ const fetchPageData = async (
   try {
     const filters = [
       {
-        property: "state",
+        property: "Media",
         select: {
-          equals: "published",
+          equals: media,
+        },
+      },
+      {
+        property: "State",
+        select: {
+          equals: "Done",
         },
       },
     ];
 
     if (type) {
       filters.push({
-        property: "type",
+        property: "Type",
         select: {
           equals: type,
         },
@@ -51,7 +58,7 @@ const fetchPageData = async (
       },
       sorts: [
         {
-          property: "publish_date",
+          property: "Publish Date",
           direction: "descending",
         },
       ],
@@ -66,6 +73,7 @@ const fetchPageData = async (
 export const getData = cache(
   async (
     databaseId: string,
+    media: "Youtube" | "Blog" | "Store" | "Newsletter",
     page: number,
     limit?: number,
     type?: "products" | "resources"
@@ -73,7 +81,7 @@ export const getData = cache(
     let startCursor: string | undefined;
 
     for (let i = 1; i < page; i++) {
-      const data = await fetchPageData(databaseId, startCursor, limit, type);
+      const data = await fetchPageData(databaseId, media, startCursor, limit, type);
       startCursor = data.next_cursor as string | undefined;
       if (!data.has_more) break;
     }
@@ -85,7 +93,7 @@ export const getData = cache(
       };
     }
 
-    const data = await fetchPageData(databaseId, startCursor, limit, type);
+    const data = await fetchPageData(databaseId, media, startCursor, limit, type);
 
     return {
       posts: formatPosts(data.results),
