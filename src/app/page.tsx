@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const [articles, products, videos, newsletter] = await Promise.all([
-    getData(process.env.NOTION_DATABASE_CONTENT_ID, "Blog" ,1, 2),
+    getData(process.env.NOTION_DATABASE_CONTENT_ID, "Blog", 1, 2),
     getData(process.env.NOTION_DATABASE_CONTENT_ID, "Store", 1, 2),
     getData(process.env.NOTION_DATABASE_CONTENT_ID, "Youtube", 1, 2),
     getData(process.env.NOTION_DATABASE_CONTENT_ID, "Newsletter", 1, 2),
@@ -37,7 +37,7 @@ export default async function Home() {
         description={pages.home.description}
       />
       <WorkSection title="Creating on" workList={work.items} />
-      {newsletter.posts.length && (
+      {newsletter.posts.length > 0 && (
         <LastPosts
           title="Newsletter"
           type="newsletter"
@@ -46,7 +46,7 @@ export default async function Home() {
           linkTo="https://nublson.substack.com"
         />
       )}
-      {videos.posts.length && (
+      {videos.posts.length > 0 && (
         <LastPosts
           title="Last videos"
           type="videos"
@@ -55,7 +55,7 @@ export default async function Home() {
           linkTo="https://youtube.com/@nublson"
         />
       )}
-      {products.posts.length && (
+      {products.posts.length > 0 && (
         <LastPosts
           title="Last products"
           type="store"
@@ -63,7 +63,7 @@ export default async function Home() {
           linkTo="/store"
         />
       )}
-      {articles.posts.length && (
+      {articles.posts.length > 0 && (
         <LastPosts
           title="Last articles"
           type="blog"

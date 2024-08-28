@@ -5,6 +5,7 @@ import {
   formatPosts,
 } from "@/utils/formatter";
 import { Client } from "@notionhq/client";
+import { doesNotMatch } from "assert";
 import { cache } from "react";
 
 interface ApiResponse {
@@ -34,9 +35,14 @@ const fetchPageData = async (
       },
       {
         property: "State",
-        select: {
-          equals: "Done",
-        },
+        select:
+          process.env.NODE_ENV === "development"
+            ? {
+                does_not_equal: "To Do",
+              }
+            : {
+                equals: "Done",
+              },
       },
     ];
 
@@ -81,7 +87,13 @@ export const getData = cache(
     let startCursor: string | undefined;
 
     for (let i = 1; i < page; i++) {
-      const data = await fetchPageData(databaseId, media, startCursor, limit, type);
+      const data = await fetchPageData(
+        databaseId,
+        media,
+        startCursor,
+        limit,
+        type
+      );
       startCursor = data.next_cursor as string | undefined;
       if (!data.has_more) break;
     }
@@ -93,7 +105,13 @@ export const getData = cache(
       };
     }
 
-    const data = await fetchPageData(databaseId, media, startCursor, limit, type);
+    const data = await fetchPageData(
+      databaseId,
+      media,
+      startCursor,
+      limit,
+      type
+    );
 
     return {
       posts: formatPosts(data.results),
