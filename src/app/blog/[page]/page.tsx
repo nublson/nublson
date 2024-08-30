@@ -123,6 +123,7 @@ export default async function BlogPage({ params }: BlogPageParams) {
           pageNumber={pageNumber}
           totalPages={totalPages}
           hasMore={data.hasMore}
+          navigator="blog"
         />
       </Suspense>
     </>

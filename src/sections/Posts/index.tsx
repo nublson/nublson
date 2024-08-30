@@ -22,6 +22,7 @@ interface PostsSectionProps {
   pageNumber: number;
   totalPages: number;
   hasMore: boolean;
+  navigator: string;
 }
 
 export const PostsSection = ({
@@ -31,6 +32,7 @@ export const PostsSection = ({
   pageNumber,
   totalPages,
   hasMore,
+  navigator,
 }: PostsSectionProps) => {
   const { queryParams, setCategoryParams } = useQueryParams<QueryParams>();
   const pathname = usePathname();
@@ -85,7 +87,7 @@ export const PostsSection = ({
 
       {totalPages > 1 && !queryParams.category && (
         <NavComponent
-          navigator="blog"
+          navigator={navigator}
           hasMore={hasMore}
           pageNumber={pageNumber}
         />

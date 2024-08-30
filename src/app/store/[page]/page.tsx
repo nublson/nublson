@@ -6,6 +6,7 @@ import { NavComponent } from "@/components/shared/NavComponent";
 import pageData from "@/utils/pages.json";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { PostProps } from "@/utils/types";
 
 interface StorePageParams {
   params: {
@@ -92,6 +93,10 @@ export default async function StorePage({ params }: StorePageParams) {
     return notFound();
   }
 
+  allPostsData.posts.forEach((post, index) => {
+    post.pageNumber = Math.floor(index / postsPerPage) + 1;
+  });
+
   const data = await getData(
     process.env.NOTION_DATABASE_CONTENT_ID,
     "Store",
@@ -99,6 +104,11 @@ export default async function StorePage({ params }: StorePageParams) {
     postsPerPage,
     "products"
   );
+
+  const postsWithPageNumber: PostProps[] = data.posts.map((post) => ({
+    ...post,
+    pageNumber: pageNumber,
+  }));
 
   return (
     <>
@@ -110,15 +120,16 @@ export default async function StorePage({ params }: StorePageParams) {
         scrollIcon
       />
       <Suspense fallback={<div>Loading...</div>}>
-        <PostsSection posts={data.posts} type="store" />
-      </Suspense>
-      {totalPages > 1 && (
-        <NavComponent
-          navigator="store"
-          hasMore={data.hasMore}
+        <PostsSection
+          posts={postsWithPageNumber}
+          allPosts={allPostsData.posts}
+          type="store"
           pageNumber={pageNumber}
+          totalPages={totalPages}
+          hasMore={data.hasMore}
+          navigator="store"
         />
-      )}
+      </Suspense>
     </>
   );
 }
