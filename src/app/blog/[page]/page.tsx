@@ -90,7 +90,6 @@ export default async function BlogPage({ params }: BlogPageParams) {
     return notFound();
   }
 
-  // Assign a page number to each post
   allPostsData.posts.forEach((post, index) => {
     post.pageNumber = Math.floor(index / postsPerPage) + 1;
   });
@@ -121,9 +120,9 @@ export default async function BlogPage({ params }: BlogPageParams) {
           posts={postsWithPageNumber}
           allPosts={allPostsData.posts}
           type="blog"
-          pageNumber={pageNumber} // Pass the pageNumber
-          totalPages={totalPages} // Pass the totalPages
-          hasMore={data.hasMore} // Pass the hasMore flag
+          pageNumber={pageNumber}
+          totalPages={totalPages}
+          hasMore={data.hasMore}
         />
       </Suspense>
     </>

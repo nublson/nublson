@@ -35,7 +35,6 @@ export const PostsSection = ({
   const { queryParams, setCategoryParams } = useQueryParams<QueryParams>();
   const pathname = usePathname();
 
-  // Use regex to remove the trailing page number from the pathname
   const basePathname = pathname.replace(/\/\d+$/, "");
 
   const filteredPosts = getPostsByCategory(
