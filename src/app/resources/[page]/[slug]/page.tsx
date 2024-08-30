@@ -19,12 +19,13 @@ export async function generateMetadata({
   );
 
   if (post) {
-    const postUrl = `/store/${pageNumber}/${post.post_slug}`;
+    const postUrl = `/resources/${pageNumber}/${post.post_slug}`;
 
     return {
       title: post.title,
       description: post.description,
       category: post.category,
+      keywords: post.keywords,
       alternates: {
         canonical: postUrl,
       },
@@ -34,6 +35,14 @@ export async function generateMetadata({
         title: post.title,
         description: post.description,
         siteName: "nublson.com",
+      },
+      twitter: {
+        card: "summary_large_image",
+        site: `${process.env.BASE_URL}${postUrl}`,
+        title: post.title,
+        description: post.description,
+        images: post.thumbnail,
+        creator: "@nublson",
       },
     };
   } else {
