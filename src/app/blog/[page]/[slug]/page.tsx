@@ -101,7 +101,9 @@ export default async function Page({ params }: DynamicPageProps) {
   return (
     <>
       <Header
-        label={setToCurrentDate(post.publish_date, "LL")}
+        label={`${setToCurrentDate(post.publish_date, "LL")}${
+          post.author ? ` by ${post.author}` : ""
+        }`}
         title={post.title}
         thumbnail={post.thumbnail}
         description={post.description}

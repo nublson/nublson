@@ -26,7 +26,7 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
   const filteredPosts = getPostsByCategory(queryParams.category, posts);
 
   return (
-    <main id="articles" className={styles.container}>
+    <section id="articles" className={styles.container}>
       {posts.length > 0 ? (
         <div className={styles.bodyGrid}>
           {queryParams.category && (
@@ -62,6 +62,6 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
           <p>No content yet...</p>
         </div>
       )}
-    </main>
+    </section>
   );
 };

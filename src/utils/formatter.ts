@@ -15,6 +15,11 @@ export const formatSlug = (data: string | any) => {
 
 export const formatPosts = (database: any[]): PostProps[] => {
   return database.map((post) => {
+    const author =
+      post.properties.Author?.people?.length > 0
+        ? post.properties.Author.people[0].name
+        : undefined;
+
     return {
       id: post.id,
       post_slug: formatSlug(post.properties.Name.title[0].text.content),
@@ -32,7 +37,7 @@ export const formatPosts = (database: any[]): PostProps[] => {
         (keyword: any) => keyword.name
       ),
       path: post.properties.Path.url,
-      author: post.properties.Author?.select?.name,
+      author,
       price: post.properties.Price?.number,
     };
   });
