@@ -6,6 +6,7 @@ import { NavComponent } from "@/components/shared/NavComponent";
 import pageData from "@/utils/pages.json";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { PostProps } from "@/utils/types";
 
 interface BlogPageParams {
   params: {
@@ -89,12 +90,22 @@ export default async function BlogPage({ params }: BlogPageParams) {
     return notFound();
   }
 
+  // Assign a page number to each post
+  allPostsData.posts.forEach((post, index) => {
+    post.pageNumber = Math.floor(index / postsPerPage) + 1;
+  });
+
   const data = await getData(
     process.env.NOTION_DATABASE_CONTENT_ID,
     "Blog",
     pageNumber,
     postsPerPage
   );
+
+  const postsWithPageNumber: PostProps[] = data.posts.map((post) => ({
+    ...post,
+    pageNumber: pageNumber,
+  }));
 
   return (
     <>
@@ -106,15 +117,15 @@ export default async function BlogPage({ params }: BlogPageParams) {
         scrollIcon
       />
       <Suspense fallback={<div>Loading...</div>}>
-        <PostsSection posts={data.posts} type="blog" />
-      </Suspense>
-      {totalPages > 1 && (
-        <NavComponent
-          navigator="blog"
-          hasMore={data.hasMore}
-          pageNumber={pageNumber}
+        <PostsSection
+          posts={postsWithPageNumber}
+          allPosts={allPostsData.posts}
+          type="blog"
+          pageNumber={pageNumber} // Pass the pageNumber
+          totalPages={totalPages} // Pass the totalPages
+          hasMore={data.hasMore} // Pass the hasMore flag
         />
-      )}
+      </Suspense>
     </>
   );
 }

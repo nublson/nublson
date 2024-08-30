@@ -22,6 +22,7 @@ export interface PostProps {
   path?: string;
   author?: string;
   price?: number;
+  pageNumber?: number;
 }
 
 export interface GearProps {

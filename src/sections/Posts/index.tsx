@@ -5,6 +5,7 @@ import { RiCloseLine } from "react-icons/ri";
 import styles from "./styles.module.scss";
 
 import assets from "@/assets/blur.json";
+import { NavComponent } from "@/components/shared/NavComponent";
 import { useQueryParams } from "@/hooks";
 import { getPostsByCategory } from "@/utils/getPostsByCategory";
 import { PostProps } from "@/utils/types";
@@ -17,13 +18,30 @@ interface QueryParams {
 interface PostsSectionProps {
   type?: "blog" | "store";
   posts: PostProps[];
+  allPosts: PostProps[];
+  pageNumber: number;
+  totalPages: number;
+  hasMore: boolean;
 }
 
-export const PostsSection = ({ type, posts }: PostsSectionProps) => {
+export const PostsSection = ({
+  type,
+  posts,
+  allPosts,
+  pageNumber,
+  totalPages,
+  hasMore,
+}: PostsSectionProps) => {
   const { queryParams, setCategoryParams } = useQueryParams<QueryParams>();
   const pathname = usePathname();
 
-  const filteredPosts = getPostsByCategory(queryParams.category, posts);
+  // Use regex to remove the trailing page number from the pathname
+  const basePathname = pathname.replace(/\/\d+$/, "");
+
+  const filteredPosts = getPostsByCategory(
+    queryParams.category,
+    queryParams.category ? allPosts : posts
+  );
 
   return (
     <section id="articles" className={styles.container}>
@@ -50,7 +68,10 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
               }
             >
               {filteredPosts.map((item) => (
-                <Link key={item.id} href={`${pathname}/${item.post_slug}`}>
+                <Link
+                  key={item.id}
+                  href={`${basePathname}/${item.pageNumber}/${item.post_slug}`}
+                >
                   <Post type={type} post={item} blurData={assets.base64} />
                 </Link>
               ))}
@@ -61,6 +82,14 @@ export const PostsSection = ({ type, posts }: PostsSectionProps) => {
         <div className={styles.empty}>
           <p>No content yet...</p>
         </div>
+      )}
+
+      {totalPages > 1 && !queryParams.category && (
+        <NavComponent
+          navigator="blog"
+          hasMore={hasMore}
+          pageNumber={pageNumber}
+        />
       )}
     </section>
   );
