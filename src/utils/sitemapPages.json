@@ -5,6 +5,18 @@
       "path": ""
     },
     {
+      "name": "Blog",
+      "path": "/blog"
+    },
+    {
+      "name": "Store",
+      "path": "/store"
+    },
+    {
+      "name": "Resources",
+      "path": "/resources"
+    },
+    {
       "name": "Gears",
       "path": "/gears"
     }
