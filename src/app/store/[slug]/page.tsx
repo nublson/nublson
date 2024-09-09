@@ -10,7 +10,7 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({
   params,
 }: DynamicPageProps): Promise<Metadata> {
-  const { slug, page: pageNumber } = params;
+  const { slug } = params;
 
   const post = await findPostBySlug(
     slug,
@@ -19,7 +19,7 @@ export async function generateMetadata({
   );
 
   if (post) {
-    const postUrl = `/store/${pageNumber}/${post.post_slug}`;
+    const postUrl = `/store/${post.post_slug}`;
 
     return {
       title: post.title,
@@ -54,7 +54,6 @@ export async function generateStaticParams() {
   const data = await getData(
     process.env.NOTION_DATABASE_CONTENT_ID,
     "Store",
-    1,
     undefined,
     "products"
   );
@@ -65,26 +64,7 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: DynamicPageProps) {
-  const { slug, page: pageNumber } = params;
-
-  if (!pageNumber || isNaN(Number(pageNumber))) {
-    return notFound();
-  }
-
-  const allPostsData = await getData(
-    process.env.NOTION_DATABASE_CONTENT_ID as string,
-    "Store",
-    1,
-    undefined,
-    "products"
-  );
-  const postsPerPage = 10;
-  const totalPosts = allPostsData.posts.length;
-  const totalPages = Math.ceil(totalPosts / postsPerPage);
-
-  if (Number(pageNumber) > totalPages) {
-    return notFound();
-  }
+  const { slug } = params;
 
   const post = await findPostBySlug(
     slug,
@@ -93,14 +73,6 @@ export default async function Page({ params }: DynamicPageProps) {
   );
 
   if (!post) {
-    return notFound();
-  }
-
-  const postIndex = allPostsData.posts.findIndex((p) => p.id === post.id);
-
-  const expectedPageNumber = Math.floor(postIndex / postsPerPage) + 1;
-
-  if (Number(pageNumber) !== expectedPageNumber) {
     return notFound();
   }
 
@@ -118,9 +90,7 @@ export default async function Page({ params }: DynamicPageProps) {
       <ShareSection>
         <p>
           Posted in{" "}
-          <Link href={`/store/${pageNumber}?category=${post.category}`}>
-            {post.category}
-          </Link>{" "}
+          <Link href={`/store?category=${post.category}`}>{post.category}</Link>{" "}
         </p>
       </ShareSection>
     </>
