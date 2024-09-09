@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy:prod": "git checkout prod && git merge develop && git push && git checkout develop"
+    "deploy": "git checkout prod && git merge develop && git push && git checkout develop"
   },
   "dependencies": {
     "@9gustin/react-notion-render": "^3.11.2",
