@@ -1,4 +1,4 @@
-import { getData } from "@/services/notion";
+import { findPostBySlug } from "@/utils/utils";
 import { ImageResponse } from "next/og";
 
 // Image metadata
@@ -17,15 +17,11 @@ interface Props {
 
 // Image generation
 export default async function Image({ params }: Props) {
-  const data = await getData(
-    process.env.NOTION_DATABASE_CONTENT_ID,
-    "Store",
-    1,
-    undefined,
-    "resources"
+  const myPost = await findPostBySlug(
+    params.slug,
+    process.env.NOTION_DATABASE_CONTENT_ID as string,
+    "Store"
   );
-
-  const myPost = data.posts.find((post) => post.post_slug === params.slug);
 
   return new ImageResponse(
     (
