@@ -5,7 +5,6 @@ import { RiCloseLine } from "react-icons/ri";
 import styles from "./styles.module.scss";
 
 import assets from "@/assets/blur.json";
-import { NavComponent } from "@/components/shared/NavComponent";
 import { useQueryParams } from "@/hooks";
 import { getPostsByCategory } from "@/utils/getPostsByCategory";
 import { PostProps } from "@/utils/types";
@@ -19,25 +18,11 @@ interface PostsSectionProps {
   type?: "blog" | "store";
   posts: PostProps[];
   allPosts: PostProps[];
-  pageNumber: number;
-  totalPages: number;
-  hasMore: boolean;
-  navigator: string;
 }
 
-export const PostsSection = ({
-  type,
-  posts,
-  allPosts,
-  pageNumber,
-  totalPages,
-  hasMore,
-  navigator,
-}: PostsSectionProps) => {
+export const PostsSection = ({ type, posts, allPosts }: PostsSectionProps) => {
   const { queryParams, setCategoryParams } = useQueryParams<QueryParams>();
   const pathname = usePathname();
-
-  const basePathname = pathname.replace(/\/\d+$/, "");
 
   const filteredPosts = getPostsByCategory(
     queryParams.category,
@@ -69,10 +54,7 @@ export const PostsSection = ({
               }
             >
               {filteredPosts.map((item) => (
-                <Link
-                  key={item.id}
-                  href={`${basePathname}/${item.pageNumber}/${item.post_slug}`}
-                >
+                <Link key={item.id} href={`${pathname}/${item.post_slug}`}>
                   <Post type={type} post={item} blurData={assets.base64} />
                 </Link>
               ))}
@@ -83,14 +65,6 @@ export const PostsSection = ({
         <div className={styles.empty}>
           <p>No content yet...</p>
         </div>
-      )}
-
-      {totalPages > 1 && !queryParams.category && (
-        <NavComponent
-          navigator={navigator}
-          hasMore={hasMore}
-          pageNumber={pageNumber}
-        />
       )}
     </section>
   );

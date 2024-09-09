@@ -4,9 +4,13 @@ export const getIsCurrentPath = (path: string, pathname: string) => {
   return pathname.startsWith(`/${path}`);
 };
 
-export async function findPostBySlug(slug: string, databaseId: string, media: "Youtube" | "Blog" | "Store" | "Newsletter") {
+export async function findPostBySlug(
+  slug: string,
+  databaseId: string,
+  media: "Youtube" | "Blog" | "Store" | "Newsletter"
+) {
   try {
-    const data = await getData(databaseId, media, 1);
+    const data = await getData(databaseId, media);
 
     if (!data || data.posts.length === 0) {
       return undefined;

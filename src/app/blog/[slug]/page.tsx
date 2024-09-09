@@ -10,7 +10,7 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({
   params,
 }: DynamicPageProps): Promise<Metadata> {
-  const { slug, page: pageNumber } = params;
+  const { slug } = params;
 
   const post = await findPostBySlug(
     slug,
@@ -19,7 +19,7 @@ export async function generateMetadata({
   );
 
   if (post) {
-    const postUrl = `/blog/${pageNumber}/${post.post_slug}`;
+    const postUrl = `/blog/${post.post_slug}`;
 
     return {
       title: post.title,
@@ -51,7 +51,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const data = await getData(process.env.NOTION_DATABASE_CONTENT_ID, "Blog", 1);
+  const data = await getData(process.env.NOTION_DATABASE_CONTENT_ID, "Blog");
 
   return data.posts.map((post) => ({
     slug: post.post_slug,
@@ -59,24 +59,7 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: DynamicPageProps) {
-  const { slug, page: pageNumber } = params;
-
-  if (!pageNumber || isNaN(Number(pageNumber))) {
-    return notFound();
-  }
-
-  const allPostsData = await getData(
-    process.env.NOTION_DATABASE_CONTENT_ID as string,
-    "Blog",
-    1
-  );
-  const postsPerPage = 10;
-  const totalPosts = allPostsData.posts.length;
-  const totalPages = Math.ceil(totalPosts / postsPerPage);
-
-  if (Number(pageNumber) > totalPages) {
-    return notFound();
-  }
+  const { slug } = params;
 
   const post = await findPostBySlug(
     slug,
@@ -85,14 +68,6 @@ export default async function Page({ params }: DynamicPageProps) {
   );
 
   if (!post) {
-    return notFound();
-  }
-
-  const postIndex = allPostsData.posts.findIndex((p) => p.id === post.id);
-
-  const expectedPageNumber = Math.floor(postIndex / postsPerPage) + 1;
-
-  if (Number(pageNumber) !== expectedPageNumber) {
     return notFound();
   }
 
@@ -112,9 +87,7 @@ export default async function Page({ params }: DynamicPageProps) {
       <ShareSection>
         <p>
           Posted in{" "}
-          <Link href={`/blog/${pageNumber}?category=${post.category}`}>
-            {post.category}
-          </Link>{" "}
+          <Link href={`/blog?category=${post.category}`}>{post.category}</Link>{" "}
         </p>
       </ShareSection>
     </>

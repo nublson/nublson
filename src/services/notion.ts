@@ -5,12 +5,10 @@ import {
   formatPosts,
 } from "@/utils/formatter";
 import { Client } from "@notionhq/client";
-import { doesNotMatch } from "assert";
 import { cache } from "react";
 
 interface ApiResponse {
   posts: any[]; // Adjust based on the structure of your posts
-  hasMore: boolean;
   // Add other properties based on your API response
 }
 
@@ -21,7 +19,6 @@ const api = new Client({
 const fetchPageData = async (
   databaseId: string,
   media: string,
-  startCursor: string | undefined,
   limit?: number,
   type?: "products" | "resources"
 ) => {
@@ -53,7 +50,6 @@ const fetchPageData = async (
     const response = await api.databases.query({
       database_id: databaseId,
       page_size: limit,
-      start_cursor: startCursor,
       filter: {
         and: filters,
       },
@@ -75,42 +71,13 @@ export const getData = cache(
   async (
     databaseId: string,
     media: "Youtube" | "Blog" | "Store" | "Newsletter",
-    page: number,
     limit?: number,
     type?: "products" | "resources"
   ): Promise<ApiResponse> => {
-    let startCursor: string | undefined;
-
-    for (let i = 1; i < page; i++) {
-      const data = await fetchPageData(
-        databaseId,
-        media,
-        startCursor,
-        limit,
-        type
-      );
-      startCursor = data.next_cursor as string | undefined;
-      if (!data.has_more) break;
-    }
-
-    if (!startCursor && page > 1) {
-      return {
-        posts: [],
-        hasMore: false,
-      };
-    }
-
-    const data = await fetchPageData(
-      databaseId,
-      media,
-      startCursor,
-      limit,
-      type
-    );
+    const data = await fetchPageData(databaseId, media, limit, type);
 
     return {
       posts: formatPosts(data.results),
-      hasMore: data.has_more,
     };
   }
 );

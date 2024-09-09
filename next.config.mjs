@@ -3,26 +3,6 @@ import withPlaiceholder from "@plaiceholder/next";
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  async redirects() {
-    return [
-      // Basic redirect
-      {
-        source: "/blog",
-        destination: "/blog/1",
-        permanent: true,
-      },
-      {
-        source: "/store",
-        destination: "/store/1",
-        permanent: true,
-      },
-      {
-        source: "/resources",
-        destination: "/resources/1",
-        permanent: true,
-      },
-    ];
-  },
   images: {
     remotePatterns: [
       {

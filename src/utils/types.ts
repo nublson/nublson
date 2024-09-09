@@ -38,7 +38,6 @@ export interface GearProps {
 export interface DynamicPageProps {
   params: {
     slug: string;
-    page: number;
   };
 }
 
