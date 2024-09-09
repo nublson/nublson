@@ -37,7 +37,7 @@ export const LastPosts = ({
             );
 
             return type === "blog" || type === "store" ? (
-              <Link key={item.id} href={`/${type}/1/${item.post_slug}`}>
+              <Link key={item.id} href={`/${type}/${item.post_slug}`}>
                 {postContent}
               </Link>
             ) : (
