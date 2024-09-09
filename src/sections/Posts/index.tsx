@@ -30,12 +30,12 @@ export const PostsSection = ({ type, posts, allPosts }: PostsSectionProps) => {
   );
 
   return (
-    <section id="articles" className={styles.container}>
+    <section id="posts" className={styles.container}>
       {posts.length > 0 ? (
-        <div className={styles.bodyGrid}>
+        <div className={styles.content}>
           {queryParams.category && (
             <div className={styles.category}>
-              <div className={styles.content}>
+              <div className={styles.heading}>
                 <p>Category</p>
                 <h1 className={styles.title}>{queryParams.category}</h1>
               </div>
@@ -45,20 +45,18 @@ export const PostsSection = ({ type, posts, allPosts }: PostsSectionProps) => {
               />
             </div>
           )}
-          <div className={styles.posts}>
-            <div
-              className={
-                queryParams.category
-                  ? `${styles.grid_down} ${styles.grid}`
-                  : `${styles.grid_up} ${styles.grid}`
-              }
-            >
-              {filteredPosts.map((item) => (
-                <Link key={item.id} href={`${pathname}/${item.post_slug}`}>
-                  <Post type={type} post={item} blurData={assets.base64} />
-                </Link>
-              ))}
-            </div>
+          <div
+            className={
+              queryParams.category
+                ? `${styles.posts_down} ${styles.posts}`
+                : `${styles.posts_up} ${styles.posts}`
+            }
+          >
+            {filteredPosts.map((item) => (
+              <Link key={item.id} href={`${pathname}/${item.post_slug}`}>
+                <Post type={type} post={item} blurData={assets.base64} />
+              </Link>
+            ))}
           </div>
         </div>
       ) : (

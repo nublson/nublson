@@ -19,44 +19,15 @@
   }
 }
 
-.bodyGrid {
-  width: 91.4rem;
+.content {
+  max-width: 91.4rem;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 3rem;
-
-  @include device(laptop) {
-    width: 82.5rem;
-  }
-
-  @include device(tabletM) {
-    width: 73.5rem;
-  }
-
-  @include device(tablet) {
-    width: 66.5rem;
-  }
-
-  @include device(mobile) {
-    width: 100%;
-  }
-}
-
-.bodyFlex {
-  width: 91.4rem;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 3rem;
-
-  @include device(laptop) {
-    width: 100%;
-  }
 }
 
 .category {
@@ -70,7 +41,7 @@
   align-items: center;
   justify-content: space-between;
 
-  .content {
+  .heading {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -99,32 +70,18 @@
 }
 
 .posts {
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 3rem;
-}
-
-.grid_down {
-  animation-name: smooth_down;
-  animation-duration: 0.5s;
-}
-
-.grid_up {
-  animation-name: smooth_up;
-  animation-duration: 0.5s;
-}
-
-.grid {
   @include posts_grid;
   justify-content: center;
 }
 
-.flex {
-  @include posts_flex;
+.posts_down {
+  animation-name: smooth_down;
+  animation-duration: 0.5s;
+}
+
+.posts_up {
+  animation-name: smooth_up;
+  animation-duration: 0.5s;
 }
 
 .empty {
