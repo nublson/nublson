@@ -45,15 +45,6 @@ export default async function Home() {
         description={pages.home.description}
       />
       <WorkSection title="Creating on" workList={work.items} />
-      {newsletter.posts.length > 0 && (
-        <LastPosts
-          title="Newsletter"
-          type="newsletter"
-          posts={newsletter.posts}
-          external
-          linkTo="https://nublson.substack.com"
-        />
-      )}
       {videos.posts.length > 0 && (
         <LastPosts
           title="Last videos"
@@ -61,6 +52,14 @@ export default async function Home() {
           posts={videos.posts}
           external
           linkTo="https://youtube.com/@nublson"
+        />
+      )}
+      {articles.posts.length > 0 && (
+        <LastPosts
+          title="Last articles"
+          type="blog"
+          posts={articles.posts}
+          linkTo="/blog"
         />
       )}
       {products.posts.length > 0 && (
@@ -71,12 +70,13 @@ export default async function Home() {
           linkTo="/store"
         />
       )}
-      {articles.posts.length > 0 && (
+      {newsletter.posts.length > 0 && (
         <LastPosts
-          title="Last articles"
-          type="blog"
-          posts={articles.posts}
-          linkTo="/blog"
+          title="Newsletter"
+          type="newsletter"
+          posts={newsletter.posts}
+          external
+          linkTo="https://nublson.substack.com"
         />
       )}
     </>
