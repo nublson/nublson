@@ -33,9 +33,7 @@ export const formatPosts = (database: any[]): PostProps[] => {
       publish_date: post.properties["Publish Date"].date.start,
       modified_date: post.properties["Modified Date"]?.last_edited_time,
       category: post.properties.Category?.select?.name,
-      keywords: post.properties.Keywords?.multi_select.map(
-        (keyword: any) => keyword.name
-      ),
+      keywords: post.properties.Keywords?.rich_text?.[0]?.text?.content || null,
       path: post.properties.Path.url,
       author,
       price: post.properties.Price?.number,
