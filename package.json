@@ -21,6 +21,7 @@
     "copy-to-clipboard": "^3.3.3",
     "eslint": "8.43.0",
     "eslint-config-next": "^14.2.5",
+    "eslint-config-prettier": "^9.1.0",
     "moment": "^2.29.4",
     "next": "^14.2.5",
     "plaiceholder": "^3.0.0",
@@ -34,7 +35,6 @@
   "devDependencies": {
     "@types/gtag.js": "^0.0.18",
     "encoding": "^0.1.13",
-    "eslint-config-prettier": "^8.8.0",
     "sass": "^1.63.4"
   }
 }
