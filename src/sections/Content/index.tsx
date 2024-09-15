@@ -53,6 +53,21 @@ export const ContentSection = ({ blocks, data }: ContentSectionProps) => (
         blockComponentsMapper={{
           image: ImageBlock,
         }}
+        linkAttributes={(link) => {
+          const isInternalLink =
+            link.startsWith(process.env.BASE_URL) || link.startsWith("/");
+
+          if (isInternalLink) {
+            return {
+              target: "_self",
+            };
+          }
+
+          return {
+            target: "_blank",
+            rel: "noopener noreferrer",
+          };
+        }}
       />
     </div>
   </section>

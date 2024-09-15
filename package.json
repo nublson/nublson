@@ -10,7 +10,7 @@
     "deploy": "git checkout main && git merge dev && git push && git checkout dev"
   },
   "dependencies": {
-    "@9gustin/react-notion-render": "^3.11.2",
+    "@9gustin/react-notion-render": "git+https://github.com/nublson/react-notion-render.git#feature/customLinks",
     "@next/third-parties": "^14.0.3",
     "@notionhq/client": "^2.2.5",
     "@plaiceholder/next": "^3.0.0",
