@@ -5,12 +5,6 @@
     "description": "I’m a Software Engineer, Content Creator, and aspiring Cinematographer based in Lisbon, Portugal. I write articles, create digital products, and produce videos focused on personal development, lifestyle and technology.",
     "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/Home_u7rbcv.jpg"
   },
-  "resources": {
-    "label": "Access my",
-    "title": "Digital Resources",
-    "description": "Discover a range of free products, including Notion templates and e-books, designed to help you stay organized and improve your life. These resources are crafted to support your journey in personal growth, productivity, and creativity.",
-    "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/resources.jpg"
-  },
   "notFound": {
     "label": "Oops,",
     "title": "You're lost",
