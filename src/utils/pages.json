@@ -5,18 +5,6 @@
     "description": "I’m a Software Engineer, Content Creator, and aspiring Cinematographer based in Lisbon, Portugal. I write articles, create digital products, and produce videos focused on personal development, lifestyle and technology.",
     "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/Home_u7rbcv.jpg"
   },
-  "blog": {
-    "label": "Welcome to my",
-    "title": "Personal Blog",
-    "description": "Dive into articles where I share insights on technology, lifestyle tips, personal development strategies, and more. Get inspired and discover new ideas to enhance your life.",
-    "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/blog_ebwsdc.jpg"
-  },
-  "store": {
-    "label": "Explore my",
-    "title": "Online Store",
-    "description": "Browse my collection of digital products designed to help you stay productive, organized, and creative. From Wallpaper packs to cinematic LUTs, find the tools you need to elevate your personal growth and creative projects.",
-    "thumbnail": "https://s3.amazonaws.com/nublson.com/Pages/store_r73ykh.jpg"
-  },
   "resources": {
     "label": "Access my",
     "title": "Digital Resources",

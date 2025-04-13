@@ -29,10 +29,11 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [videos, newsletter] = await Promise.all([
-    getData(process.env.NOTION_DATABASE_CONTENT_ID, "Youtube", 2),
-    getData(process.env.NOTION_DATABASE_CONTENT_ID, "Newsletter", 2),
-  ]);
+  const videos = await getData(
+    process.env.NOTION_DATABASE_CONTENT_ID,
+    "Youtube",
+    2
+  );
 
   return (
     <>
@@ -50,15 +51,6 @@ export default async function Home() {
           posts={videos.posts}
           external
           linkTo="https://youtube.com/@nublson"
-        />
-      )}
-      {newsletter.posts.length > 0 && (
-        <LastPosts
-          title="Newsletter"
-          type="newsletter"
-          posts={newsletter.posts}
-          external
-          linkTo="https://nublson.substack.com"
         />
       )}
     </>
