@@ -60,9 +60,7 @@ export const Post = ({ type, post, blurData }: PostCardProps) => {
           {type !== "blog" && <RiExternalLinkLine />}
         </span>
         <p className={styles.category}>
-          {type === "newsletter"
-            ? setToCurrentDate(post.publish_date, "LL")
-            : post.category}
+          {setToCurrentDate(post.publish_date, "LL")}
         </p>
       </div>
     </div>

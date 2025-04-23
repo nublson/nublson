@@ -1,10 +1,12 @@
 import { Metadata } from "next";
 import { Header, LastPosts, WorkSection } from "../sections";
+import he from "he";
 
 import { getData } from "@/services/notion";
 
 import pages from "@/utils/pages.json";
 import work from "@/utils/work.json";
+import { getChannelVideos } from "@/services/youtube";
 
 export const metadata: Metadata = {
   title: pages.home.title,
@@ -35,6 +37,11 @@ export default async function Home() {
     2
   );
 
+  const data = await getChannelVideos({
+    channelId: process.env.YOUTUBE_CHANNEL_ID,
+    maxResults: 2,
+  });
+
   return (
     <>
       <Header
@@ -48,7 +55,7 @@ export default async function Home() {
         <LastPosts
           title="Last videos"
           type="videos"
-          posts={videos.posts}
+          posts={data}
           external
           linkTo="https://youtube.com/@nublson"
         />

@@ -8,5 +8,7 @@ namespace NodeJS {
     NOTION_DATABASE_GEARS_ID: string;
     NOTION_PAGE_GEARS_ID: string;
     NEXT_PUBLIC_GOOGLE_ID: string;
+    YOUTUBE_API_KEY: string;
+    YOUTUBE_CHANNEL_ID: string;
   }
 }

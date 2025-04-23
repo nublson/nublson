@@ -5,12 +5,12 @@ import styles from "./styles.module.scss";
 
 import assets from "@/assets/blur.json";
 import { Post } from "@/components/shared/Cards";
-import { PostProps } from "@/utils/types";
+import { PostCardItemProps } from "@/utils/types";
 
 interface LastPostProps {
   title: string;
   type?: "blog" | "store" | "videos" | "newsletter";
-  posts: PostProps[];
+  posts: PostCardItemProps[];
   linkTo?: string;
   external?: boolean;
 }
@@ -36,11 +36,7 @@ export const LastPosts = ({
               />
             );
 
-            return type === "blog" || type === "store" ? (
-              <Link key={item.id} href={`/${type}/${item.post_slug}`}>
-                {postContent}
-              </Link>
-            ) : (
+            return (
               <a
                 key={item.id}
                 href={item.path}

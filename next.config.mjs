@@ -21,6 +21,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.notion.so",
       },
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+      },
     ],
   },
   env: {
@@ -31,6 +35,8 @@ const nextConfig = {
     NOTION_PAGE_GEARS_ID: process.env.NOTION_PAGE_GEARS_ID,
     NEXT_PUBLIC_GA_TRACKING_ID: process.env.NEXT_PUBLIC_GA_TRACKING_ID,
     NEXT_PUBLIC_GOOGLE_ID: process.env.NEXT_PUBLIC_GOOGLE_ID,
+    YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY,
+    YOUTUBE_CHANNEL_ID: process.env.YOUTUBE_CHANNEL_ID,
   },
 };
 

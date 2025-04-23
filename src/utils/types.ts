@@ -25,6 +25,14 @@ export interface PostProps {
   pageNumber?: number;
 }
 
+export interface PostCardItemProps {
+  id: string;
+  title: string;
+  thumbnail: string;
+  publish_date: string;
+  path: string;
+}
+
 export interface GearProps {
   id?: string;
   thumbnail: string;
@@ -43,6 +51,6 @@ export interface DynamicPageProps {
 
 export interface PostCardProps {
   type?: "blog" | "store" | "videos" | "newsletter" | "books";
-  post: PostProps;
+  post: PostCardItemProps;
   blurData?: string;
 }
