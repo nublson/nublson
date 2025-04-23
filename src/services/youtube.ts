@@ -1,5 +1,5 @@
+import { unstable_cache } from "next/cache";
 import axios from "axios";
-import { cache } from "react";
 import he from "he";
 import { PostCardItemProps } from "@/utils/types";
 
@@ -8,23 +8,7 @@ interface YoutubeVideoRequestProps {
   maxResults: number;
 }
 
-interface YoutubeVideoProps {
-  id: {
-    videoId: string;
-  };
-  snippet: {
-    title: string;
-    thumbnails: {
-      maxres?: { url: string };
-      high?: { url: string };
-      medium: { url: string };
-      default?: { url: string };
-    };
-    publishedAt: string;
-  };
-}
-
-export const getChannelVideos = cache(
+export const getChannelVideos = unstable_cache(
   async ({
     channelId,
     maxResults,
@@ -44,7 +28,7 @@ export const getChannelVideos = cache(
       );
 
       return (
-        data.items.map((video: YoutubeVideoProps) => {
+        data.items.map((video: any) => {
           const thumbnails = video.snippet.thumbnails;
           const thumbnailUrl =
             thumbnails.maxres?.url ||
@@ -68,5 +52,7 @@ export const getChannelVideos = cache(
       );
       return [];
     }
-  }
+  },
+  ["youtube-channel-videos"],
+  { revalidate: 1800 }
 );
