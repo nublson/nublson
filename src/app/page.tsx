@@ -1,12 +1,9 @@
 import { Metadata } from "next";
 import { Header, LastPosts, WorkSection } from "../sections";
-import he from "he";
 
-import { getData } from "@/services/notion";
-
+import { getPlaylistVideos } from "@/services/youtube";
 import pages from "@/utils/pages.json";
 import work from "@/utils/work.json";
-import { getChannelVideos } from "@/services/youtube";
 
 export const metadata: Metadata = {
   title: pages.home.title,
@@ -31,15 +28,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const videos = await getData(
-    process.env.NOTION_DATABASE_CONTENT_ID,
-    "Youtube",
-    2
-  );
-
-  const data = await getChannelVideos({
-    channelId: process.env.YOUTUBE_CHANNEL_ID,
-    maxResults: 2,
+  const data = await getPlaylistVideos({
+    playlistId: process.env.YOUTUBE_PLAYLIST_ID,
   });
 
   return (
@@ -51,7 +41,7 @@ export default async function Home() {
         description={pages.home.description}
       />
       <WorkSection title="Creating on" workList={work.items} />
-      {videos.posts.length > 0 && (
+      {data.length > 0 && (
         <LastPosts
           title="Last videos"
           type="videos"
