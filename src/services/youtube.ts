@@ -8,13 +8,36 @@ interface YoutubePlaylistVideoRequestProps {
   maxResults?: number;
 }
 
+interface PlaylistItem {
+  snippet: {
+    resourceId: {
+      videoId: string;
+    };
+  };
+}
+
+interface VideoItem {
+  snippet: {
+    publishedAt: string;
+    title: string;
+    thumbnails: {
+      [key: string]: { url: string };
+    };
+  };
+  status: {
+    privacyStatus: string;
+  };
+  id: string;
+}
+
 export const getPlaylistVideos = unstable_cache(
   async ({
     playlistId,
     maxResults = 2,
   }: YoutubePlaylistVideoRequestProps): Promise<PostCardItemProps[]> => {
     try {
-      const { data } = await axios.get(
+      // First, get the video IDs from the playlistItems endpoint
+      const { data: playlistData } = await axios.get(
         "https://www.googleapis.com/youtube/v3/playlistItems",
         {
           params: {
@@ -26,9 +49,35 @@ export const getPlaylistVideos = unstable_cache(
         }
       );
 
+      const videoIds = playlistData.items
+        .map((item: PlaylistItem) => item.snippet.resourceId.videoId)
+        .filter(Boolean)
+        .join(",");
+
+      if (!videoIds) {
+        return [];
+      }
+
+      // Second, get the video details from the videos endpoint
+      const { data: videosData } = await axios.get(
+        "https://www.googleapis.com/youtube/v3/videos",
+        {
+          params: {
+            key: process.env.YOUTUBE_API_KEY,
+            id: videoIds,
+            part: "snippet,status",
+            videoStatus: "public",
+          },
+        }
+      );
+
+      const publicVideos = videosData.items.filter(
+        (video: VideoItem) => video.status.privacyStatus === "public"
+      );
+
       return (
-        data.items.map((item: any) => {
-          const snippet = item.snippet;
+        publicVideos.map((video: VideoItem) => {
+          const snippet = video.snippet;
           const thumbnails = snippet.thumbnails;
           const thumbnailUrl =
             thumbnails.maxres?.url ||
@@ -37,11 +86,11 @@ export const getPlaylistVideos = unstable_cache(
             thumbnails.default?.url;
 
           return {
-            id: snippet.resourceId.videoId,
+            id: video.id,
             title: he.decode(snippet.title),
             thumbnail: thumbnailUrl,
             publish_date: snippet.publishedAt,
-            path: `https://www.youtube.com/watch?v=${snippet.resourceId.videoId}`,
+            path: `https://www.youtube.com/watch?v=${video.id}`,
           };
         }) || []
       );
