@@ -9,7 +9,12 @@ interface NavigationItem {
   path: string;
 }
 
-export const NavigationList = ({ items }: { items: NavigationItem[] }) => {
+interface NavigationListProps {
+  items: NavigationItem[];
+  className?: string;
+}
+
+export const NavigationList = ({ items, className }: NavigationListProps) => {
   const pathname = usePathname();
 
   return (
@@ -20,6 +25,7 @@ export const NavigationList = ({ items }: { items: NavigationItem[] }) => {
             className={cn(
               "font-medium text-muted-foreground hover:text-foreground transition-colors",
               pathname === item.path && "text-foreground",
+              className,
             )}
             href={item.path}
           >
