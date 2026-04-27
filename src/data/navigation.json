@@ -1,0 +1,34 @@
+{
+  "header": [
+    {
+      "label": "About",
+      "path": "/about"
+    },
+    {
+      "label": "Work",
+      "path": "/work"
+    },
+    {
+      "label": "Blog",
+      "path": "/blog"
+    }
+  ],
+  "footer": [
+    {
+      "label": "Home",
+      "path": "/"
+    },
+    {
+      "label": "About",
+      "path": "/about"
+    },
+    {
+      "label": "Work",
+      "path": "/work"
+    },
+    {
+      "label": "Blog",
+      "path": "/blog"
+    }
+  ]
+}
