@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Typography } from "./typography";
 
 interface NavigationItem {
   label: string;
@@ -20,18 +21,18 @@ export const NavigationList = ({ items, className }: NavigationListProps) => {
   return (
     <ul className="flex items-center gap-5">
       {items.map((item) => (
-        <li key={item.label}>
+        <Typography size="small" component="li" key={item.label}>
           <Link
             className={cn(
               "font-medium text-muted-foreground hover:text-foreground transition-colors",
-              pathname === item.path && "text-foreground",
+              pathname === item.path && "text-accent-foreground",
               className,
             )}
             href={item.path}
           >
             {item.label}
           </Link>
-        </li>
+        </Typography>
       ))}
     </ul>
   );
