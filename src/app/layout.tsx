@@ -38,7 +38,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="flex-1 wrapper">{children}</main>
+          <main className="flex-1 wrapper flex flex-col items-start justify-start gap-[60px]">
+            {children}
+          </main>
           <Footer />
         </ThemeProvider>
       </body>

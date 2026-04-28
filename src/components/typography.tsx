@@ -5,10 +5,10 @@ import * as React from "react";
 const typographyVariants = cva("", {
   variants: {
     variant: {
-      h1: "text-[100px] leading-[120px] tracking-[-5px] text-accent-foreground",
-      h2: "text-[80px] leading-24 tracking-[-4px] text-accent-foreground",
-      h3: "text-[32px] leading-[38.4px] tracking-[-0.96px] text-accent-foreground",
-      h4: "text-[20px] leading-[33.6px] tracking-[-0.42px] text-accent-foreground",
+      h1: "text-[100px] leading-[120px] tracking-[-5px] text-accent-foreground font-semibold",
+      h2: "text-[80px] leading-24 tracking-[-4px] text-accent-foreground font-semibold",
+      h3: "text-[32px] leading-[38.4px] tracking-[-0.96px] text-accent-foreground font-semibold",
+      h4: "text-[20px] leading-[33.6px] tracking-[-0.42px] text-accent-foreground font-semibold",
     },
     size: {
       regular:
