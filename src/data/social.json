@@ -1,0 +1,19 @@
+{
+  "media": [
+    {
+      "label": "YouTube",
+      "icon": "RiYoutubeLine",
+      "url": "https://www.youtube.com/@nublson"
+    },
+    {
+      "label": "GitHub",
+      "icon": "RiGithubLine",
+      "url": "https://github.com/nublson"
+    },
+    {
+      "label": "Mail",
+      "icon": "RiMailOpenLine",
+      "url": "mailto:me@nublson.com"
+    }
+  ]
+}

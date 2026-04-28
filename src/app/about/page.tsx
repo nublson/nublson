@@ -1,7 +1,7 @@
-export default function Home() {
+export default function AboutPage() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center">
-      <p>Hello World</p>
+      <p>About</p>
     </div>
   );
 }
