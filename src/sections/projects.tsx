@@ -1,4 +1,5 @@
-import { SectionHeader } from "@/components/section-header";
+import { ProjectItem } from "@/components/project-item";
+import { SectionWrapper } from "@/components/section-wrapper";
 
 interface ProjectsSectionProps {
   title: string;
@@ -12,11 +13,12 @@ export default function ProjectsSection({
   id,
 }: ProjectsSectionProps) {
   return (
-    <section
-      id={id}
-      className="w-full flex flex-col items-center justify-start gap-8"
-    >
-      <SectionHeader title={title} href={href} />
-    </section>
+    <SectionWrapper title={title} path={href} id={id}>
+      <div className="w-full flex items-center justify-start gap-5">
+        <ProjectItem />
+        <ProjectItem />
+        <ProjectItem />
+      </div>
+    </SectionWrapper>
   );
 }

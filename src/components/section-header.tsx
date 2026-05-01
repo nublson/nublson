@@ -13,7 +13,10 @@ export function SectionHeader({ title, href }: SectionHeaderProps) {
       <div className="w-full flex items-center justify-between">
         <Typography variant="h3">{title}</Typography>
         {href && (
-          <Link href={href} className="text-muted-foreground">
+          <Link
+            href={href}
+            className="text-muted-foreground hover:text-accent-foreground transition-colors duration-100 underline-offset-4 hover:underline"
+          >
             View all
           </Link>
         )}
