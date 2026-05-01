@@ -8,7 +8,7 @@ export function ProjectItem() {
     <Item className="w-63.5 flex flex-col items-start justify-start gap-2.5 p-0">
       <ItemMedia variant="image" className="w-full h-47.5">
         <Image
-          src={`https://avatar.vercel.sh/Post1`}
+          src={`https://avatar.vercel.sh/post-1`}
           alt="Post 1"
           width={255}
           height={300}

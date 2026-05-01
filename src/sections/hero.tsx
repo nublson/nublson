@@ -46,7 +46,7 @@ export default function HeroSection({
           alt={thumbnail.alt}
           width={1000}
           height={1000}
-          className="w-full h-[480px] object-cover aspect-video rounded-lg"
+          className="thumbnail"
         />
       )}
     </section>
