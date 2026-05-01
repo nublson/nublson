@@ -15,7 +15,12 @@ export default function Home() {
           creativity and innovation, constantly exploring new ways to connect
           ideas and build something meaningful."
       />
-      <ProjectsSection title="Latest Projects" href="/work" id="work" />
+      <ProjectsSection
+        title="Latest Projects"
+        href="/work"
+        id="work"
+        postSize="sm"
+      />
       <PostsSection title="Latest Posts" href="/blog" id="blog" />
     </Fragment>
   );
