@@ -136,3 +136,7 @@ body {
 .wrapper {
   @apply w-full max-w-[840px] mx-auto px-5;
 }
+
+.thumbnail {
+  @apply w-full h-[480px] object-cover grayscale aspect-video rounded-lg;
+}
