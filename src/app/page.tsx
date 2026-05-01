@@ -1,4 +1,5 @@
 import Hero from "@/sections/hero";
+import PostsSection from "@/sections/posts";
 import ProjectsSection from "@/sections/projects";
 import { Fragment } from "react";
 
@@ -15,6 +16,7 @@ export default function Home() {
           ideas and build something meaningful."
       />
       <ProjectsSection title="Latest Projects" href="/work" id="work" />
+      <PostsSection title="Latest Posts" href="/blog" id="blog" />
     </Fragment>
   );
 }

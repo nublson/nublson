@@ -12,6 +12,7 @@ export function ProjectItem() {
           alt="Post 1"
           width={255}
           height={300}
+          loading="eager"
           className="w-full h-full object-cover grayscale"
         />
       </ItemMedia>
