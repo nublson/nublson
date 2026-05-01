@@ -29,6 +29,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider
@@ -38,7 +39,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="flex-1 wrapper">{children}</main>
+          <main className="flex-1 wrapper flex flex-col items-start justify-start gap-[60px]">
+            {children}
+          </main>
           <Footer />
         </ThemeProvider>
       </body>
