@@ -1,25 +1,20 @@
-import ContentSection from "@/sections/content";
-import Hero from "@/sections/hero";
-import { getPageBlocks, getPageData } from "@/services/notion";
-import { formatBlockWithChildren, formatPageMetadata } from "@/utils/formatter";
-import { Fragment } from "react";
+import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
+import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
+import { Suspense } from "react";
+import { AboutContent } from "../_components/about-content";
+import { AboutHero } from "../_components/about-hero";
 
-export default async function AboutPage() {
-  const page = await getPageData(process.env.NOTION_PAGE_ABOUT_ID!);
-  const pageBlocks = await getPageBlocks(process.env.NOTION_PAGE_ABOUT_ID!);
+export const revalidate = 10;
 
-  const pageMetadata = formatPageMetadata(page);
-  const pageContent = formatBlockWithChildren(pageBlocks);
-
+export default function AboutPage() {
   return (
-    <Fragment>
-      <Hero
-        title={pageMetadata.title}
-        description={pageMetadata.description}
-        thumbnail={pageMetadata.thumbnail}
-        size="small"
-      />
-      <ContentSection blocks={pageContent} />
-    </Fragment>
+    <>
+      <Suspense fallback={<HeroSkeleton size="small" showThumbnail />}>
+        <AboutHero />
+      </Suspense>
+      <Suspense fallback={<ContentSectionSkeleton />}>
+        <AboutContent />
+      </Suspense>
+    </>
   );
 }

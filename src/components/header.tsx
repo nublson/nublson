@@ -1,11 +1,10 @@
 import navigation from "@/data/navigation.json";
 import social from "@/data/social.json";
 import { RiGithubLine, RiMailOpenLine, RiYoutubeLine } from "@remixicon/react";
-import { Sun } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { NavigationList } from "./navigation-list";
-import { Button } from "./ui/button";
+import { ThemeToggle } from "./theme-toggle";
 import { Separator } from "./ui/separator";
 
 export const Header = () => {
@@ -13,22 +12,23 @@ export const Header = () => {
   const socialMedia = social.media;
 
   return (
-    <header className="wrapper py-3 flex items-center justify-between">
+    <header className="wrapper flex items-center justify-between py-3">
       <div className="flex items-center justify-start gap-5">
-        <Link href="/">
+        <Link href="/" aria-label="Go to homepage">
           <Image
             src="/logo.svg"
-            alt="Logo"
+            alt=""
             width={32}
             height={32}
             className="dark:invert"
+            loading="eager"
           />
         </Link>
         <Separator
           orientation="vertical"
           className="h-5 data-vertical:self-center"
         />
-        <nav>
+        <nav aria-label="Main navigation">
           <NavigationList items={headerNavigation} />
         </nav>
       </div>
@@ -41,7 +41,13 @@ export const Header = () => {
             const iconSize = 16;
 
             return (
-              <a key={item.label} href={item.url} target="_blank">
+              <a
+                key={item.label}
+                aria-label={item.label}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {item.icon === "RiYoutubeLine" && (
                   <RiYoutubeLine size={iconSize} className={iconStyle} />
                 )}
@@ -60,14 +66,7 @@ export const Header = () => {
           orientation="vertical"
           className="h-5 data-vertical:self-center hidden lg:block"
         />
-        <Button
-          disabled
-          variant="ghost"
-          size="icon"
-          className="hidden lg:block"
-        >
-          <Sun />
-        </Button>
+        <ThemeToggle />
       </div>
     </header>
   );

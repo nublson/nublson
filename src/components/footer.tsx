@@ -15,7 +15,9 @@ export const Footer = () => {
           © Nubelson Fernandes | {currentYear}
         </Typography>
 
-        <NavigationList items={footerNavigation} className="font-normal" />
+        <nav aria-label="Footer navigation">
+          <NavigationList items={footerNavigation} className="font-normal" />
+        </nav>
       </div>
     </footer>
   );

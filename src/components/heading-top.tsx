@@ -5,6 +5,8 @@ import { Separator } from "./ui/separator";
 interface HeadingTopProps {
   title: string;
   date: string;
+  /** Raw ISO/machine date for `<time>` (e.g. Notion publish date string). */
+  dateTime: string;
   postsPath: string;
   postType?: string;
 }
@@ -12,6 +14,7 @@ interface HeadingTopProps {
 export function HeadingTop({
   title,
   date,
+  dateTime,
   postsPath,
   postType = "Posts",
 }: HeadingTopProps) {
@@ -22,7 +25,9 @@ export function HeadingTop({
           size="small"
           className="text-muted-foreground hover:text-accent-foreground transition-colors duration-300"
         >
-          <Link href={postsPath}>All {postType}</Link>
+          <Link href={postsPath} aria-label={`View all ${postType}`}>
+            All {postType}
+          </Link>
         </Typography>
 
         <Separator
@@ -38,7 +43,8 @@ export function HeadingTop({
       </div>
 
       <Typography size="small" className="text-muted-foreground">
-        🗓️ {date}
+        <span aria-hidden>🗓️ </span>
+        <time dateTime={dateTime}>{date}</time>
       </Typography>
     </div>
   );

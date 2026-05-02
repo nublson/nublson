@@ -1,29 +1,20 @@
-import Hero from "@/sections/hero";
-import PostsSection from "@/sections/posts";
-import { getDatabasePages, getPageData } from "@/services/notion";
-import { formatPageMetadata, formatPostMetadata } from "@/utils/formatter";
-import { Fragment } from "react";
+import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
+import { PostsSectionSkeleton } from "@/components/skeletons/posts-section-skeleton";
+import { Suspense } from "react";
+import { BlogHero } from "../_components/blog-hero";
+import { BlogPosts } from "../_components/blog-posts";
 
-export default async function BlogPage() {
-  const page = await getPageData(process.env.NOTION_PAGE_BLOG_ID!);
-  const pageMetadata = formatPageMetadata(page);
+export const revalidate = 10;
 
-  const blogPages = await getDatabasePages(
-    process.env.NOTION_DATABASE_CONTENT_ID!,
-    "Blog",
-    20,
-  );
-  const blogPostMetadata = formatPostMetadata(blogPages);
-
+export default function BlogPage() {
   return (
-    <Fragment>
-      <Hero
-        title={pageMetadata.title}
-        description={pageMetadata.description}
-        thumbnail={pageMetadata.thumbnail}
-        size="small"
-      />
-      <PostsSection title="Latest Posts" id="blog" posts={blogPostMetadata} />
-    </Fragment>
+    <>
+      <Suspense fallback={<HeroSkeleton size="small" showThumbnail />}>
+        <BlogHero />
+      </Suspense>
+      <Suspense fallback={<PostsSectionSkeleton rowCount={6} />}>
+        <BlogPosts />
+      </Suspense>
+    </>
   );
 }

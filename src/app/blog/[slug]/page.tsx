@@ -1,26 +1,19 @@
-import { HeadingTop } from "@/components/heading-top";
-import ContentSection from "@/sections/content";
-import Hero from "@/sections/hero";
+import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
+import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
 import {
+  getAllPublishedSlugsForStaticParams,
   getDatabasePageBySlug,
-  getDatabasePages,
-  getPageBlocks,
 } from "@/services/notion";
-import {
-  formatBlockWithChildren,
-  formatPostDateFull,
-  formatPostMetadata,
-} from "@/utils/formatter";
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { Fragment } from "react";
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { BlogPostBody } from "./_components/blog-post-body";
+import { BlogPostHero } from "./_components/blog-post-hero";
 
-const SLUG_PAGE_LIMIT = 100;
+export const revalidate = 10;
 
 export async function generateStaticParams() {
   const databaseId = process.env.NOTION_DATABASE_CONTENT_ID!;
-  const pages = await getDatabasePages(databaseId, "Blog", SLUG_PAGE_LIMIT);
-  return formatPostMetadata(pages).map((p) => ({ slug: p.slug }));
+  return getAllPublishedSlugsForStaticParams(databaseId, "Blog");
 }
 
 export async function generateMetadata({
@@ -43,41 +36,21 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPage({
+export default function BlogPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-  const found = await getDatabasePageBySlug(
-    process.env.NOTION_DATABASE_CONTENT_ID!,
-    "Blog",
-    slug,
-  );
-  if (!found) notFound();
-
-  const { metadata } = found;
-  const pageBlocks = await getPageBlocks(found.page.id);
-  const pageContent = formatBlockWithChildren(pageBlocks);
-
-  const dateLabel = formatPostDateFull(metadata.published_date);
-
   return (
-    <Fragment>
-      <Hero
-        top={
-          <HeadingTop
-            title={metadata.title}
-            date={dateLabel}
-            postsPath="/blog"
-          />
-        }
-        title={metadata.title}
-        description={metadata.description}
-        thumbnail={metadata.thumbnail}
-        size="small"
-      />
-      <ContentSection blocks={pageContent} />
-    </Fragment>
+    <>
+      <Suspense
+        fallback={<HeroSkeleton showThumbnail showTopNav size="small" />}
+      >
+        <BlogPostHero params={params} />
+      </Suspense>
+      <Suspense fallback={<ContentSectionSkeleton />}>
+        <BlogPostBody params={params} />
+      </Suspense>
+    </>
   );
 }

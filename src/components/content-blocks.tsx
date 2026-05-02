@@ -39,7 +39,15 @@ export const ImageBlock = withContentValidation((props: DropedProps) => {
 export const VideoBlock = withContentValidation((props: DropedProps) => {
   const embedUrl = props.media?.src?.replace("watch?v=", "embed/");
 
-  return <iframe src={embedUrl} className="w-full aspect-video" />;
+  return (
+    <iframe
+      src={embedUrl}
+      title="Embedded video"
+      className="aspect-video w-full"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+    />
+  );
 });
 
 export const Heading1Block = withContentValidation((props: DropedProps) => {
@@ -103,6 +111,7 @@ function mapParagraphChildren(children: React.ReactNode): React.ReactNode[] {
             className="underline underline-offset-2 hover:text-accent-foreground transition-all duration-300"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={text}
           >
             {text}
           </a>
