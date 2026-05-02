@@ -1,11 +1,10 @@
 import navigation from "@/data/navigation.json";
 import social from "@/data/social.json";
 import { RiGithubLine, RiMailOpenLine, RiYoutubeLine } from "@remixicon/react";
-import { Sun } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { NavigationList } from "./navigation-list";
-import { Button } from "./ui/button";
+import { ThemeToggle } from "./theme-toggle";
 import { Separator } from "./ui/separator";
 
 export const Header = () => {
@@ -67,15 +66,7 @@ export const Header = () => {
           orientation="vertical"
           className="h-5 data-vertical:self-center hidden lg:block"
         />
-        <Button
-          disabled
-          aria-label="Theme toggle (coming soon)"
-          variant="ghost"
-          size="icon"
-          className="hidden lg:block"
-        >
-          <Sun />
-        </Button>
+        <ThemeToggle />
       </div>
     </header>
   );
