@@ -10,10 +10,13 @@ interface PostItemProps {
 
 export function PostItem({ separator = true, post }: PostItemProps) {
   return (
-    <Item className="px-0">
+    <Item className="p-0">
       <ItemContent className="gap-2.5">
         <ItemTitle className="font-normal">
-          <Typography component="span" className="text-muted-foreground">
+          <Typography
+            component="span"
+            className="text-muted-foreground max-w-22.5 line-clamp-1 break-all"
+          >
             {formatPostDate(post.published_date)}
           </Typography>
           <Typography className="text-accent-foreground line-clamp-1 break-all">
