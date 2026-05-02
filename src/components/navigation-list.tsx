@@ -31,7 +31,12 @@ export const NavigationList = ({ items, className }: NavigationListProps) => {
             className,
           )}
         >
-          <Link href={item.path}>{item.label}</Link>
+          <Link
+            href={item.path}
+            aria-current={pathname === item.path ? "page" : undefined}
+          >
+            {item.label}
+          </Link>
         </Typography>
       ))}
     </ul>

@@ -23,7 +23,12 @@ export default function ProjectsSection({
     <SectionWrapper title={title} path={href} id={id}>
       <div className={cn("w-full", className)}>
         {posts.map((post) => (
-          <Link className="h-min" href={`/work/${post.slug}`} key={post.id}>
+          <Link
+            className="h-min"
+            href={`/work/${post.slug}`}
+            key={post.id}
+            aria-label={`${post.title} — view project`}
+          >
             <ProjectItem post={post} />
           </Link>
         ))}

@@ -1,5 +1,6 @@
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { SkipLink } from "@/components/skip-link";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -31,15 +32,20 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="relative min-h-full flex flex-col">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          <SkipLink />
           <Header />
-          <main className="flex-1 wrapper flex flex-col items-start justify-start gap-[60px]">
+          <main
+            id="main-content"
+            tabIndex={-1}
+            className="flex-1 wrapper flex flex-col items-start justify-start gap-[60px] outline-none"
+          >
             {children}
           </main>
           <Footer />

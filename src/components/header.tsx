@@ -13,12 +13,12 @@ export const Header = () => {
   const socialMedia = social.media;
 
   return (
-    <header className="wrapper py-3 flex items-center justify-between">
+    <header className="wrapper flex items-center justify-between py-3">
       <div className="flex items-center justify-start gap-5">
-        <Link href="/">
+        <Link href="/" aria-label="Go to homepage">
           <Image
             src="/logo.svg"
-            alt="Logo"
+            alt=""
             width={32}
             height={32}
             className="dark:invert"
@@ -29,7 +29,7 @@ export const Header = () => {
           orientation="vertical"
           className="h-5 data-vertical:self-center"
         />
-        <nav>
+        <nav aria-label="Main navigation">
           <NavigationList items={headerNavigation} />
         </nav>
       </div>
@@ -47,6 +47,7 @@ export const Header = () => {
                 aria-label={item.label}
                 href={item.url}
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {item.icon === "RiYoutubeLine" && (
                   <RiYoutubeLine size={iconSize} className={iconStyle} />
@@ -68,7 +69,7 @@ export const Header = () => {
         />
         <Button
           disabled
-          aria-label="Toggle theme"
+          aria-label="Theme toggle (coming soon)"
           variant="ghost"
           size="icon"
           className="hidden lg:block"

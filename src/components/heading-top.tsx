@@ -22,7 +22,9 @@ export function HeadingTop({
           size="small"
           className="text-muted-foreground hover:text-accent-foreground transition-colors duration-300"
         >
-          <Link href={postsPath}>All {postType}</Link>
+          <Link href={postsPath} aria-label={`View all ${postType}`}>
+            All {postType}
+          </Link>
         </Typography>
 
         <Separator
@@ -38,7 +40,8 @@ export function HeadingTop({
       </div>
 
       <Typography size="small" className="text-muted-foreground">
-        🗓️ {date}
+        <span aria-hidden>🗓️ </span>
+        {date}
       </Typography>
     </div>
   );

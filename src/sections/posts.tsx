@@ -20,7 +20,12 @@ export default function PostsSection({
     <SectionWrapper title={title} path={href} id={id}>
       <div className="w-full flex flex-col items-start justify-start gap-3">
         {posts.map((post, index) => (
-          <Link href={`/blog/${post.slug}`} key={post.id} className="w-full">
+          <Link
+            href={`/blog/${post.slug}`}
+            key={post.id}
+            className="w-full"
+            aria-label={`${post.title} — read post`}
+          >
             <PostItem post={post} separator={index !== posts.length - 1} />
           </Link>
         ))}

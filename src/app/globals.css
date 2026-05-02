@@ -131,6 +131,51 @@ body {
   html {
     @apply font-sans;
   }
+
+  :focus-visible {
+    @apply rounded-sm outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+/*
+ * Skip link: visually hidden (not merely translated) until :focus-visible.
+ * Percent translateY does not move a one-line link off-screen.
+ */
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.skip-link:focus-visible {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 9999;
+  width: max-content;
+  height: auto;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  overflow: visible;
+  clip-path: none;
+  white-space: normal;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.08),
+    0 1px 2px -1px rgb(0 0 0 / 0.08);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 .wrapper {
