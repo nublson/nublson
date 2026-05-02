@@ -138,5 +138,5 @@ body {
 }
 
 .thumbnail {
-  @apply w-full h-[480px] object-cover grayscale aspect-video rounded-lg;
+  @apply w-full h-[480px] object-cover aspect-video rounded-lg;
 }

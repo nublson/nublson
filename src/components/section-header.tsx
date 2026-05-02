@@ -15,7 +15,7 @@ export function SectionHeader({ title, href }: SectionHeaderProps) {
         {href && (
           <Link
             href={href}
-            className="text-muted-foreground hover:text-accent-foreground transition-colors duration-100 underline-offset-4 hover:underline"
+            className="text-muted-foreground hover:text-accent-foreground transition-colors duration-300 underline-offset-4 hover:underline"
           >
             View all
           </Link>

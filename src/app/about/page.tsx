@@ -1,19 +1,25 @@
 import ContentSection from "@/sections/content";
 import Hero from "@/sections/hero";
+import { getPageBlocks, getPageData } from "@/services/notion";
+import { formatBlockWithChildren, formatPageMetadata } from "@/utils/formatter";
 import { Fragment } from "react";
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const page = await getPageData(process.env.NOTION_PAGE_ABOUT_ID!);
+  const pageBlocks = await getPageBlocks(process.env.NOTION_PAGE_ABOUT_ID!);
+
+  const pageMetadata = formatPageMetadata(page);
+  const pageContent = formatBlockWithChildren(pageBlocks);
+
   return (
     <Fragment>
       <Hero
-        title="About Me"
-        description="With a rich background in the entertainment industry, I’ve spent years honing my skills in storytelling, production, and innovation. But today, my passion lies in blending creativity with purpose - finding new, impactful ways to connect ideas, spark conversation, and build meaningful projects that leave a lasting impression."
-        thumbnail={{
-          src: "https://avatar.vercel.sh/nublson",
-          alt: "Nubelson Fernandes",
-        }}
+        title={pageMetadata.title}
+        description={pageMetadata.description}
+        thumbnail={pageMetadata.thumbnail}
+        size="small"
       />
-      <ContentSection />
+      <ContentSection blocks={pageContent} />
     </Fragment>
   );
 }
