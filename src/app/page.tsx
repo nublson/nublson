@@ -31,11 +31,11 @@ export default async function Home() {
         title={pageMetadata.title}
         description={pageMetadata.description}
         bottom={
-          <div className="w-full flex items-center justify-between">
-            <Typography className="font-bold text-muted-foreground">
+          <div className="w-full flex items-center justify-between gap-2">
+            <Typography className="font-bold text-muted-foreground line-clamp-1 break-all">
               {pageMetadata.role}
             </Typography>
-            <Typography className="font-bold text-muted-foreground">
+            <Typography className="font-bold text-muted-foreground line-clamp-1 break-all">
               📍 {pageMetadata.location}
             </Typography>
           </div>
@@ -45,8 +45,8 @@ export default async function Home() {
         title="Latest Projects"
         href="/work"
         id="work"
-        postSize="sm"
         posts={projectPostMetadata}
+        className="grid auto-rows-fr grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-5 justify-center"
       />
       <PostsSection
         title="Latest Posts"

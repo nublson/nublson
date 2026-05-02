@@ -11,14 +11,16 @@ export function SectionHeader({ title, href }: SectionHeaderProps) {
   return (
     <div className="w-full flex flex-col items-start justify-start gap-2">
       <div className="w-full flex items-center justify-between">
-        <Typography variant="h3">{title}</Typography>
+        <Typography component="h2" variant="h3">
+          {title}
+        </Typography>
         {href && (
-          <Link
-            href={href}
+          <Typography
+            size="small"
             className="text-muted-foreground hover:text-accent-foreground transition-colors duration-300 underline-offset-4 hover:underline"
           >
-            View all
-          </Link>
+            <Link href={href}>View all</Link>
+          </Typography>
         )}
       </div>
       <Separator />

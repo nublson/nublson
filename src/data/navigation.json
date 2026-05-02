@@ -29,10 +29,6 @@
     {
       "label": "Blog",
       "path": "/blog"
-    },
-    {
-      "label": "Gears",
-      "path": "/gears"
     }
   ]
 }

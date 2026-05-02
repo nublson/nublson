@@ -1,12 +1,11 @@
-import assets from "@/assets/blur.json";
 import { getListBlockItems } from "@/utils/formatter";
 import {
   withContentValidation,
   type Text as NotionRichText,
 } from "@9gustin/react-notion-render";
 import { DropedProps } from "@9gustin/react-notion-render/dist/hoc/withContentValidation";
-import Image from "next/image";
 import React from "react";
+import { CoverImage } from "./cover-image";
 import { Typography } from "./typography";
 
 type ListBlockVariant = "bullet" | "numbered";
@@ -29,16 +28,18 @@ const LIST_BLOCK_VARIANT: Record<
 
 export const ImageBlock = withContentValidation((props: DropedProps) => {
   return (
-    <Image
+    <CoverImage
       src={props.media?.src ?? ""}
       alt={props.media?.alt ?? ""}
-      width={1920}
-      height={1080}
-      placeholder="blur"
-      blurDataURL={assets.base64}
-      className="thumbnail my-10"
+      className="my-10"
     />
   );
+});
+
+export const VideoBlock = withContentValidation((props: DropedProps) => {
+  const embedUrl = props.media?.src?.replace("watch?v=", "embed/");
+
+  return <iframe src={embedUrl} className="w-full aspect-video" />;
 });
 
 export const Heading1Block = withContentValidation((props: DropedProps) => {

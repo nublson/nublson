@@ -21,17 +21,17 @@ export const NavigationList = ({ items, className }: NavigationListProps) => {
   return (
     <ul className="flex items-center gap-5">
       {items.map((item) => (
-        <Typography size="small" component="li" key={item.label}>
-          <Link
-            className={cn(
-              "font-medium text-muted-foreground hover:text-foreground transition-colors",
-              pathname === item.path && "text-accent-foreground",
-              className,
-            )}
-            href={item.path}
-          >
-            {item.label}
-          </Link>
+        <Typography
+          size="small"
+          component="li"
+          key={item.label}
+          className={cn(
+            "font-medium text-muted-foreground hover:text-foreground transition-colors",
+            pathname === item.path && "text-accent-foreground",
+            className,
+          )}
+        >
+          <Link href={item.path}>{item.label}</Link>
         </Typography>
       ))}
     </ul>
