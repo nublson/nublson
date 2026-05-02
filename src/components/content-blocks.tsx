@@ -65,7 +65,6 @@ export const Heading3Block = withContentValidation((props: DropedProps) => {
   );
 });
 
-/** Rich-text span props the renderer puts on child elements (matches `Text` from react-notion-render). */
 type NotionRichTextElementProps = NotionRichText & {
   children?: React.ReactNode;
 };
@@ -100,7 +99,7 @@ function mapParagraphChildren(children: React.ReactNode): React.ReactNode[] {
         return (
           <a
             href={href}
-            className="underline underline-offset-2 hover:text-accent-foreground transition-all duration-100"
+            className="underline underline-offset-2 hover:text-accent-foreground transition-all duration-300"
             target="_blank"
             rel="noopener noreferrer"
           >

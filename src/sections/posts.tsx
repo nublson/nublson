@@ -1,6 +1,7 @@
 import { PostItem } from "@/components/post-item";
 import { SectionWrapper } from "@/components/section-wrapper";
 import { PostMetadata } from "@/utils/formatter";
+import Link from "next/link";
 
 interface PostsSectionProps {
   title: string;
@@ -19,11 +20,9 @@ export default function PostsSection({
     <SectionWrapper title={title} path={href} id={id}>
       <div className="w-full flex flex-col items-start justify-start gap-3">
         {posts.map((post, index) => (
-          <PostItem
-            key={post.id}
-            post={post}
-            separator={index !== posts.length - 1}
-          />
+          <Link href={`/blog/${post.slug}`} key={post.id} className="w-full">
+            <PostItem post={post} separator={index !== posts.length - 1} />
+          </Link>
         ))}
       </div>
     </SectionWrapper>

@@ -1,6 +1,7 @@
 import { ProjectItem } from "@/components/project-item";
 import { SectionWrapper } from "@/components/section-wrapper";
 import { PostMetadata } from "@/utils/formatter";
+import Link from "next/link";
 
 interface ProjectsSectionProps {
   title: string;
@@ -21,7 +22,9 @@ export default function ProjectsSection({
     <SectionWrapper title={title} path={href} id={id}>
       <div className="w-full flex items-start justify-start flex-wrap gap-5">
         {posts.map((post) => (
-          <ProjectItem key={post.id} post={post} size={postSize} />
+          <Link href={`/work/${post.slug}`} key={post.id}>
+            <ProjectItem post={post} size={postSize} />
+          </Link>
         ))}
       </div>
     </SectionWrapper>
