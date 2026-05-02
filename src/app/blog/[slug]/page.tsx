@@ -1,6 +1,6 @@
 import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
 import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
-import { getDatabasePages, getDatabasePageBySlug } from "@/services/notion";
+import { getDatabasePageBySlug, getDatabasePages } from "@/services/notion";
 import { formatPostMetadata } from "@/utils/formatter";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -42,7 +42,9 @@ export default function BlogPostPage({
 }) {
   return (
     <>
-      <Suspense fallback={<HeroSkeleton showThumbnail showTopNav size="small" />}>
+      <Suspense
+        fallback={<HeroSkeleton showThumbnail showTopNav size="small" />}
+      >
         <BlogPostHero params={params} />
       </Suspense>
       <Suspense fallback={<ContentSectionSkeleton />}>

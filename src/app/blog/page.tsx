@@ -7,11 +7,7 @@ import { BlogPosts } from "../_components/blog-posts";
 export default function BlogPage() {
   return (
     <>
-      <Suspense
-        fallback={
-          <HeroSkeleton size="small" showThumbnail />
-        }
-      >
+      <Suspense fallback={<HeroSkeleton size="small" showThumbnail />}>
         <BlogHero />
       </Suspense>
       <Suspense fallback={<PostsSectionSkeleton rowCount={6} />}>
