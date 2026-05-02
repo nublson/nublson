@@ -1,4 +1,4 @@
-import { formatBlockWithChildren } from "@/utils/formatter";
+import { formatBlockWithChildren, formatPostMetadata } from "@/utils/formatter";
 import {
   BlockObjectResponse,
   Client,
@@ -71,6 +71,24 @@ const mediaMap = {
 export const getDatabasePages = cache(
   async (databaseId: string, media: keyof typeof mediaMap, limit?: number) => {
     return fetchDatabasePages(databaseId, mediaMap[media], limit);
+  },
+);
+
+/** Resolves a published database row by URL slug (derived from the page title). */
+export const getDatabasePageBySlug = cache(
+  async (
+    databaseId: string,
+    media: keyof typeof mediaMap,
+    slug: string,
+  ) => {
+    const pages = await getDatabasePages(databaseId, media, 100);
+    const metadataList = formatPostMetadata(pages);
+    const index = metadataList.findIndex((m) => m.slug === slug);
+    if (index === -1) return null;
+    return {
+      page: pages[index]!,
+      metadata: metadataList[index]!,
+    };
   },
 );
 

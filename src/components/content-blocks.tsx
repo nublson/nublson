@@ -43,7 +43,7 @@ export const ImageBlock = withContentValidation((props: DropedProps) => {
 
 export const Heading1Block = withContentValidation((props: DropedProps) => {
   return (
-    <Typography component="h1" variant="h2">
+    <Typography component="h1" variant="h2" className="mt-10">
       {props.children}
     </Typography>
   );
@@ -51,7 +51,7 @@ export const Heading1Block = withContentValidation((props: DropedProps) => {
 
 export const Heading2Block = withContentValidation((props: DropedProps) => {
   return (
-    <Typography component="h2" variant="h3">
+    <Typography component="h2" variant="h3" className="mt-10">
       {props.children}
     </Typography>
   );
@@ -59,7 +59,7 @@ export const Heading2Block = withContentValidation((props: DropedProps) => {
 
 export const Heading3Block = withContentValidation((props: DropedProps) => {
   return (
-    <Typography component="h3" variant="h4">
+    <Typography component="h3" variant="h4" className="mt-10">
       {props.children}
     </Typography>
   );

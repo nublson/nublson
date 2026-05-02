@@ -30,7 +30,10 @@ export function HeadingTop({
           orientation="vertical"
           className="h-5 data-vertical:self-center"
         />
-        <Typography size="small" className="text-muted-foreground">
+        <Typography
+          size="small"
+          className="text-muted-foreground line-clamp-1 break-all"
+        >
           {title}
         </Typography>
       </div>

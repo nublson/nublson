@@ -111,6 +111,15 @@ export const formatPostDate = (date: string) => {
   });
 };
 
+/** e.g. "Sep 19, 2025" — for article / project detail headers */
+export const formatPostDateFull = (date: string) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
+
 export const formatBlockWithChildren = (
   blocks: BlockWithChildren[],
 ): BlockWithChildren[] => {
