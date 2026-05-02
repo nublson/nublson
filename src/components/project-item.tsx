@@ -1,14 +1,16 @@
 import { Typography } from "@/components/typography";
 import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item";
 import { cn } from "@/lib/utils";
+import { PostMetadata } from "@/utils/formatter";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Image from "next/image";
 
 interface ProjectItemProps {
   size?: "sm" | "lg";
+  post: PostMetadata;
 }
 
-export function ProjectItem({ size = "lg" }: ProjectItemProps) {
+export function ProjectItem({ size = "lg", post }: ProjectItemProps) {
   return (
     <Item
       className={cn(
@@ -20,23 +22,25 @@ export function ProjectItem({ size = "lg" }: ProjectItemProps) {
         variant="image"
         className={cn("w-full", size === "sm" ? "h-47.5" : "h-73")}
       >
-        <Image
-          src={`https://avatar.vercel.sh/post-1`}
-          alt="Post 1"
-          width={255}
-          height={300}
-          loading="eager"
-          className="w-full h-full object-cover grayscale"
-        />
+        {post.thumbnail && (
+          <Image
+            src={post.thumbnail}
+            alt={post.title}
+            width={255}
+            height={300}
+            loading="eager"
+            className="w-full h-full object-cover grayscale"
+          />
+        )}
       </ItemMedia>
       <ItemContent className="w-full">
         <ItemTitle className="w-full flex items-center justify-between gap-2">
           <Typography
             component="h4"
             variant="h4"
-            className="text-accent-foreground"
+            className="max-w-[90%] text-accent-foreground line-clamp-1 break-all"
           >
-            Purl
+            {post.title}
           </Typography>
 
           <SquareArrowOutUpRight className="size-4 text-muted-foreground hidden group-hover/item:block" />
@@ -45,7 +49,7 @@ export function ProjectItem({ size = "lg" }: ProjectItemProps) {
           size="small"
           className="text-muted-foreground line-clamp-2 break-all"
         >
-          Modern design inspired by the great outdoors.
+          {post.description}
         </Typography>
       </ItemContent>
     </Item>

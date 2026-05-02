@@ -16,7 +16,14 @@ export default async function Home() {
     4,
   );
 
+  const projectPages = await getDatabasePages(
+    process.env.NOTION_DATABASE_CONTENT_ID!,
+    "Project",
+    3,
+  );
+
   const blogPostMetadata = formatPostMetadata(blogPages);
+  const projectPostMetadata = formatPostMetadata(projectPages);
 
   return (
     <Fragment>
@@ -39,6 +46,7 @@ export default async function Home() {
         href="/work"
         id="work"
         postSize="sm"
+        posts={projectPostMetadata}
       />
       <PostsSection
         title="Latest Posts"

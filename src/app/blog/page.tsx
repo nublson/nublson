@@ -11,7 +11,7 @@ export default async function BlogPage() {
   const blogPages = await getDatabasePages(
     process.env.NOTION_DATABASE_CONTENT_ID!,
     "Blog",
-    100,
+    20,
   );
   const blogPostMetadata = formatPostMetadata(blogPages);
 
