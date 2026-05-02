@@ -2,13 +2,21 @@ import { Typography } from "@/components/typography";
 import Hero from "@/sections/hero";
 import PostsSection from "@/sections/posts";
 import ProjectsSection from "@/sections/projects";
-import { getPageData } from "@/services/notion";
-import { formatPageMetadata } from "@/utils/formatter";
+import { getDatabasePages, getPageData } from "@/services/notion";
+import { formatPageMetadata, formatPostMetadata } from "@/utils/formatter";
 import { Fragment } from "react";
 
 export default async function Home() {
   const page = await getPageData(process.env.NOTION_PAGE_HOME_ID!);
   const pageMetadata = formatPageMetadata(page);
+
+  const blogPages = await getDatabasePages(
+    process.env.NOTION_DATABASE_CONTENT_ID!,
+    "Blog",
+    4,
+  );
+
+  const blogPostMetadata = formatPostMetadata(blogPages);
 
   return (
     <Fragment>
@@ -32,7 +40,12 @@ export default async function Home() {
         id="work"
         postSize="sm"
       />
-      <PostsSection title="Latest Posts" href="/blog" id="blog" />
+      <PostsSection
+        title="Latest Posts"
+        href="/blog"
+        id="blog"
+        posts={blogPostMetadata}
+      />
     </Fragment>
   );
 }

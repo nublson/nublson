@@ -56,3 +56,55 @@ export const formatPageMetadata = (page: PageObjectResponse): PageMetadata => {
         : undefined,
   };
 };
+
+export type PostMetadata = {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  published_date: string;
+  updated_date: string;
+};
+
+export const formatPostMetadata = (databasePages: PageObjectResponse[]) => {
+  return databasePages.map((page) => {
+    const title =
+      page.properties.Name.type === "title"
+        ? (page.properties.Name.title[0]?.plain_text ?? "")
+        : "";
+
+    const thumbnail =
+      page.cover?.type === "file"
+        ? page.cover.file.url
+        : page.cover?.external.url;
+
+    const description =
+      page.properties.Description.type === "rich_text"
+        ? (page.properties.Description.rich_text[0]?.plain_text ?? "")
+        : "";
+
+    const published_date =
+      page.properties["Publish Date"]?.type === "date"
+        ? (page.properties["Publish Date"].date?.start ?? "")
+        : "";
+
+    const updated_date = page.last_edited_time;
+
+    return {
+      id: page.id,
+      title,
+      slug: slugifyText(title),
+      thumbnail,
+      description,
+      published_date,
+      updated_date,
+    };
+  });
+};
+
+export const formatPostDate = (date: string) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+  });
+};

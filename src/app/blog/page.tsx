@@ -1,12 +1,19 @@
 import Hero from "@/sections/hero";
 import PostsSection from "@/sections/posts";
-import { getPageData } from "@/services/notion";
-import { formatPageMetadata } from "@/utils/formatter";
+import { getDatabasePages, getPageData } from "@/services/notion";
+import { formatPageMetadata, formatPostMetadata } from "@/utils/formatter";
 import { Fragment } from "react";
 
 export default async function BlogPage() {
   const page = await getPageData(process.env.NOTION_PAGE_BLOG_ID!);
   const pageMetadata = formatPageMetadata(page);
+
+  const blogPages = await getDatabasePages(
+    process.env.NOTION_DATABASE_CONTENT_ID!,
+    "Blog",
+    100,
+  );
+  const blogPostMetadata = formatPostMetadata(blogPages);
 
   return (
     <Fragment>
@@ -15,7 +22,7 @@ export default async function BlogPage() {
         description={pageMetadata.description}
         thumbnail={pageMetadata.thumbnail}
       />
-      <PostsSection title="Latest Posts" id="blog" />
+      <PostsSection title="Latest Posts" id="blog" posts={blogPostMetadata} />
     </Fragment>
   );
 }
