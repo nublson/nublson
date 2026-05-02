@@ -5,6 +5,8 @@ import { Separator } from "./ui/separator";
 interface HeadingTopProps {
   title: string;
   date: string;
+  /** Raw ISO/machine date for `<time>` (e.g. Notion publish date string). */
+  dateTime: string;
   postsPath: string;
   postType?: string;
 }
@@ -12,6 +14,7 @@ interface HeadingTopProps {
 export function HeadingTop({
   title,
   date,
+  dateTime,
   postsPath,
   postType = "Posts",
 }: HeadingTopProps) {
@@ -41,7 +44,7 @@ export function HeadingTop({
 
       <Typography size="small" className="text-muted-foreground">
         <span aria-hidden>🗓️ </span>
-        {date}
+        <time dateTime={dateTime}>{date}</time>
       </Typography>
     </div>
   );

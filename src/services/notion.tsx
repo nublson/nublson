@@ -7,6 +7,7 @@ import {
   isFullPage,
   type PageObjectResponse,
 } from "@notionhq/client";
+import { unstable_cache } from "next/cache";
 import { cache } from "react";
 
 const api = new Client({
@@ -15,6 +16,9 @@ const api = new Client({
 
 /** Max concurrent child-block fetches per level (Notion rate limits). */
 const PAGE_BLOCKS_FETCH_CONCURRENCY = 10;
+
+/** Max nesting depth when resolving block children (avoids huge trees). */
+const MAX_BLOCK_DEPTH = 5;
 
 const QUERY_PAGE_SIZE = 100;
 
@@ -195,38 +199,48 @@ export type BlockWithChildren = BlockObjectResponse & {
   children?: BlockWithChildren[];
 };
 
-export const getPageBlocks = cache(
-  async (pageId: string): Promise<BlockWithChildren[]> => {
-    const blocks: BlockObjectResponse[] = [];
-    let cursor: string | undefined = undefined;
+async function fetchBlocksRecursive(
+  pageId: string,
+  depth: number,
+): Promise<BlockWithChildren[]> {
+  const blocks: BlockObjectResponse[] = [];
+  let cursor: string | undefined = undefined;
 
-    do {
-      const response = await api.blocks.children.list({
-        block_id: pageId,
-        start_cursor: cursor,
-        page_size: 100,
-      });
+  do {
+    const response = await api.blocks.children.list({
+      block_id: pageId,
+      start_cursor: cursor,
+      page_size: 100,
+    });
 
-      blocks.push(...response.results.filter(isFullBlock));
+    blocks.push(...response.results.filter(isFullBlock));
 
-      cursor = response.has_more
-        ? (response.next_cursor ?? undefined)
-        : undefined;
-    } while (cursor);
+    cursor = response.has_more
+      ? (response.next_cursor ?? undefined)
+      : undefined;
+  } while (cursor);
 
-    const blocksWithChildren = await mapPool(
-      blocks,
-      PAGE_BLOCKS_FETCH_CONCURRENCY,
-      async (block) => {
-        if (!block.has_children) return block;
+  const blocksWithChildren = await mapPool(
+    blocks,
+    PAGE_BLOCKS_FETCH_CONCURRENCY,
+    async (block) => {
+      if (!block.has_children || depth <= 0) return block;
 
-        return {
-          ...block,
-          children: await getPageBlocks(block.id),
-        };
-      },
-    );
+      return {
+        ...block,
+        children: await fetchBlocksRecursive(block.id, depth - 1),
+      };
+    },
+  );
 
-    return formatBlockWithChildren(blocksWithChildren);
-  },
+  return formatBlockWithChildren(blocksWithChildren);
+}
+
+const fetchPageBlocksCached = unstable_cache(
+  async (pageId: string) =>
+    fetchBlocksRecursive(pageId, MAX_BLOCK_DEPTH),
+  ["notion-page-blocks"],
+  { tags: ["notion-blocks"], revalidate: 3600 },
 );
+
+export const getPageBlocks = cache(fetchPageBlocksCached);

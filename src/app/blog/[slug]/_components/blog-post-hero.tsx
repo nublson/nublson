@@ -26,6 +26,7 @@ export async function BlogPostHero({
         <HeadingTop
           title={metadata.title}
           date={dateLabel}
+          dateTime={metadata.published_date}
           postsPath="/blog"
         />
       }
