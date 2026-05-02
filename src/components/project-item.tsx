@@ -18,8 +18,9 @@ export function ProjectItem({ post }: ProjectItemProps) {
             alt={post.title}
             width={640}
             height={424}
-            loading="eager"
-            className="w-full h-full object-cover aspect-4/3"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+            loading="lazy"
+            className="aspect-4/3 h-full w-full object-cover"
           />
         )}
       </ItemMedia>

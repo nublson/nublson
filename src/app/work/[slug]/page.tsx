@@ -1,7 +1,9 @@
 import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
 import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
-import { getDatabasePages, getDatabasePageBySlug } from "@/services/notion";
-import { formatPostMetadata } from "@/utils/formatter";
+import {
+  getAllPublishedSlugsForStaticParams,
+  getDatabasePageBySlug,
+} from "@/services/notion";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { WorkPostBody } from "./_components/work-post-body";
@@ -9,12 +11,9 @@ import { WorkPostHero } from "./_components/work-post-hero";
 
 export const revalidate = 10;
 
-const SLUG_PAGE_LIMIT = 100;
-
 export async function generateStaticParams() {
   const databaseId = process.env.NOTION_DATABASE_CONTENT_ID!;
-  const pages = await getDatabasePages(databaseId, "Project", SLUG_PAGE_LIMIT);
-  return formatPostMetadata(pages).map((p) => ({ slug: p.slug }));
+  return getAllPublishedSlugsForStaticParams(databaseId, "Project");
 }
 
 export async function generateMetadata({

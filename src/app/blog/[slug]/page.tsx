@@ -1,7 +1,9 @@
 import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
 import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
-import { getDatabasePageBySlug, getDatabasePages } from "@/services/notion";
-import { formatPostMetadata } from "@/utils/formatter";
+import {
+  getAllPublishedSlugsForStaticParams,
+  getDatabasePageBySlug,
+} from "@/services/notion";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { BlogPostBody } from "./_components/blog-post-body";
@@ -9,12 +11,9 @@ import { BlogPostHero } from "./_components/blog-post-hero";
 
 export const revalidate = 10;
 
-const SLUG_PAGE_LIMIT = 100;
-
 export async function generateStaticParams() {
   const databaseId = process.env.NOTION_DATABASE_CONTENT_ID!;
-  const pages = await getDatabasePages(databaseId, "Blog", SLUG_PAGE_LIMIT);
-  return formatPostMetadata(pages).map((p) => ({ slug: p.slug }));
+  return getAllPublishedSlugsForStaticParams(databaseId, "Blog");
 }
 
 export async function generateMetadata({
