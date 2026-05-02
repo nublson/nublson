@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="left">Hi 👋🏾, my name is Nubelson Fernandes!</h1>
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=nublson&color=blueviolet" alt="Profile views" /> </p>
+<img align="right" width="300em" height="300em" src="./animation_500_kv8i962g.gif?raw=true"/>
 
-## Getting Started
+- 💼 I’m currently working as a **Senior Software Engineer** at [CERN](https://home.cern/)
 
-First, run the development server:
+- 🧑🏽‍💻 I work with **Web and Mobile Development**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 💻 Addicted and passionate about **Linux 🐧 and Mac OS **
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🚀 You can reach me at [nublson.com](https://nublson.com)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🤯 Fun fact: **I document my life on [youtube](https://youtube.com/@nublson) 📹**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- ⚡ Of course **I ❤️️ ☕**
 
-## Learn More
+<br>
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 &nbsp;Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+![HTML](https://img.shields.io/badge/-HTML-05122A?style=flat&logo=HTML5)&nbsp;
+![CSS](https://img.shields.io/badge/-CSS-05122A?style=flat&logo=CSS3&logoColor=1572B6)&nbsp;
+![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat&logo=typescript)&nbsp;
+![React](https://img.shields.io/badge/-React-05122A?style=flat&logo=react)&nbsp;
+![NextJS](https://img.shields.io/badge/-NextJS-05122A?style=flat&logo=next.js)&nbsp;
+![React Native](https://img.shields.io/badge/-React%20Native-05122A?style=flat&logo=react)&nbsp;
+![Expo](https://img.shields.io/badge/-Expo-05122A?style=flat&logo=expo)&nbsp;
+![Redux](https://img.shields.io/badge/-Redux-05122A?style=flat&logo=redux&logoColor=ba8fff)&nbsp;
+![Styled-Components](https://img.shields.io/badge/-Styled%20Components-05122A?style=flat&logo=styled-components)&nbsp;
 
-## Deploy on Vercel
+<br>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ⚙️ &nbsp;GitHub Analytics
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<br>
+
+<p align="center">
+<img width="530em" src="https://github-readme-stats.vercel.app/api?username=nublson&show_icons=true&theme=nightowl" alt="nublson's stats"/>
+</p>
+
+<br>
+
+---
+
+<br>
+
+<p align="center">
+  <a href="https://instagram.com/nublson" target="_blank">
+ <img align="center" src="https://img.shields.io/badge/-nublson-05122A?style=flat&logo=instagram" alt="instagram"/>
+</a>
+<a href="https://youtube.com/@nublson" target="_blank">
+ <img align="center" src="https://img.shields.io/badge/-nublson-05122A?style=flat&logo=youtube" alt="youtube"/>
+</a>
+</p>
