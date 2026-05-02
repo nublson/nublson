@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import { BlogHero } from "../_components/blog-hero";
 import { BlogPosts } from "../_components/blog-posts";
 
+export const revalidate = 10;
+
 export default function BlogPage() {
   return (
     <>

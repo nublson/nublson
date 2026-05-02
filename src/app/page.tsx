@@ -6,6 +6,8 @@ import { HomeHero } from "./_components/home-hero";
 import { HomePosts } from "./_components/home-posts";
 import { HomeProjects } from "./_components/home-projects";
 
+export const revalidate = 10;
+
 export default function Home() {
   return (
     <>

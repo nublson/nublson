@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import { AboutContent } from "../_components/about-content";
 import { AboutHero } from "../_components/about-hero";
 
+export const revalidate = 10;
+
 export default function AboutPage() {
   return (
     <>

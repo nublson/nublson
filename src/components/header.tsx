@@ -22,6 +22,7 @@ export const Header = () => {
             width={32}
             height={32}
             className="dark:invert"
+            loading="eager"
           />
         </Link>
         <Separator

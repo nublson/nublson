@@ -7,6 +7,8 @@ import { Suspense } from "react";
 import { BlogPostBody } from "./_components/blog-post-body";
 import { BlogPostHero } from "./_components/blog-post-hero";
 
+export const revalidate = 10;
+
 const SLUG_PAGE_LIMIT = 100;
 
 export async function generateStaticParams() {

@@ -7,6 +7,8 @@ import { Suspense } from "react";
 import { WorkPostBody } from "./_components/work-post-body";
 import { WorkPostHero } from "./_components/work-post-hero";
 
+export const revalidate = 10;
+
 const SLUG_PAGE_LIMIT = 100;
 
 export async function generateStaticParams() {

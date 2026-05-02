@@ -6,6 +6,8 @@ import { WorkBody } from "../_components/work-body";
 import { WorkHero } from "../_components/work-hero";
 import { WorkProjects } from "../_components/work-projects";
 
+export const revalidate = 10;
+
 export default function WorkPage() {
   return (
     <>
