@@ -1,4 +1,3 @@
-import { formatPageMetadata } from "@/utils/formatter";
 import { Client, isFullPage } from "@notionhq/client";
 import { cache } from "react";
 
@@ -13,5 +12,5 @@ export const getPageData = cache(async (pageId: string) => {
     throw new Error(`Page ${pageId} is not a full page response`);
   }
 
-  return formatPageMetadata(response);
+  return response;
 });

@@ -3,23 +3,25 @@ import Hero from "@/sections/hero";
 import PostsSection from "@/sections/posts";
 import ProjectsSection from "@/sections/projects";
 import { getPageData } from "@/services/notion";
+import { formatPageMetadata } from "@/utils/formatter";
 import { Fragment } from "react";
 
 export default async function Home() {
-  const pageData = await getPageData(process.env.NOTION_PAGE_HOME_ID!);
+  const page = await getPageData(process.env.NOTION_PAGE_HOME_ID!);
+  const pageMetadata = formatPageMetadata(page);
 
   return (
     <Fragment>
       <Hero
-        title={pageData.title}
-        description={pageData.description}
+        title={pageMetadata.title}
+        description={pageMetadata.description}
         bottom={
           <div className="w-full flex items-center justify-between">
             <Typography className="font-bold text-muted-foreground">
-              {pageData.role}
+              {pageMetadata.role}
             </Typography>
             <Typography className="font-bold text-muted-foreground">
-              📍 {pageData.location}
+              📍 {pageMetadata.location}
             </Typography>
           </div>
         }

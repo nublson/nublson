@@ -1,8 +1,17 @@
 import { PageObjectResponse } from "@notionhq/client";
+import slugify from "slugify";
+
+export const slugifyText = (text: string) => {
+  return slugify(text, {
+    remove: /[*+~.,()'"?!:@]/g,
+    lower: true,
+  });
+};
 
 export type PageMetadata = {
   id: string;
   title: string;
+  slug: string;
   description: string;
   modified_date: string | undefined;
   thumbnail?: string;
@@ -13,6 +22,11 @@ export type PageMetadata = {
 export const formatPageMetadata = (page: PageObjectResponse): PageMetadata => {
   const cover = page.cover;
 
+  const title =
+    page.properties.Name.type === "title"
+      ? (page.properties.Name.title[0]?.plain_text ?? "")
+      : "";
+
   const thumbnail = cover
     ? cover.type === "file"
       ? cover.file.url
@@ -21,10 +35,8 @@ export const formatPageMetadata = (page: PageObjectResponse): PageMetadata => {
 
   return {
     id: page.id,
-    title:
-      page.properties.Name.type === "title"
-        ? (page.properties.Name.title[0]?.plain_text ?? "")
-        : "",
+    title,
+    slug: slugifyText(title),
     thumbnail,
     description:
       page.properties.description?.type === "rich_text"
