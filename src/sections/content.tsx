@@ -9,6 +9,7 @@ import {
   NumberedListBlock,
   ParagraphBlock,
   QuoteBlock,
+  VideoBlock,
 } from "@/components/content-blocks";
 import { BlockWithChildren } from "@/services/notion";
 import { blockEnum, NotionBlock, Render } from "@9gustin/react-notion-render";
@@ -52,6 +53,7 @@ export default function ContentSection({ blocks }: ContentSectionProps) {
           [blockEnum.CODE]: CodeBlock,
           [blockEnum.CALLOUT]: CalloutBlock,
           [blockEnum.QUOTE]: QuoteBlock,
+          [blockEnum.VIDEO]: VideoBlock,
         }}
       />
     </section>

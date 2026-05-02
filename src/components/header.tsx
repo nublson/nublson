@@ -34,31 +34,38 @@ export const Header = () => {
       </div>
 
       <div className="flex items-center justify-end gap-5">
-        {socialMedia.map((item) => {
-          const iconStyle =
-            "text-muted-foreground hover:text-foreground transition-colors";
-          const iconSize = 16;
+        <div className="flex items-center justify-end gap-3">
+          {socialMedia.map((item) => {
+            const iconStyle =
+              "text-muted-foreground hover:text-foreground transition-colors";
+            const iconSize = 16;
 
-          return (
-            <a key={item.label} href={item.url} target="_blank">
-              {item.icon === "RiYoutubeLine" && (
-                <RiYoutubeLine size={iconSize} className={iconStyle} />
-              )}
-              {item.icon === "RiMailOpenLine" && (
-                <RiMailOpenLine size={iconSize} className={iconStyle} />
-              )}
-              {item.icon === "RiGithubLine" && (
-                <RiGithubLine size={iconSize} className={iconStyle} />
-              )}
-            </a>
-          );
-        })}
+            return (
+              <a key={item.label} href={item.url} target="_blank">
+                {item.icon === "RiYoutubeLine" && (
+                  <RiYoutubeLine size={iconSize} className={iconStyle} />
+                )}
+                {item.icon === "RiMailOpenLine" && (
+                  <RiMailOpenLine size={iconSize} className={iconStyle} />
+                )}
+                {item.icon === "RiGithubLine" && (
+                  <RiGithubLine size={iconSize} className={iconStyle} />
+                )}
+              </a>
+            );
+          })}
+        </div>
 
         <Separator
           orientation="vertical"
-          className="h-5 data-vertical:self-center"
+          className="h-5 data-vertical:self-center hidden lg:block"
         />
-        <Button disabled variant="ghost" size="icon">
+        <Button
+          disabled
+          variant="ghost"
+          size="icon"
+          className="hidden lg:block"
+        >
           <Sun />
         </Button>
       </div>

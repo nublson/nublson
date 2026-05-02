@@ -10,8 +10,8 @@ export const Footer = () => {
   return (
     <footer className="wrapper flex flex-col items-center justify-start gap-5 pb-5 mt-10">
       <Separator />
-      <div className="w-full flex items-center justify-between">
-        <Typography size="small" className="text-foreground">
+      <div className="w-full flex flex-col lg:flex-row items-center lg:items-start justify-between gap-2.5">
+        <Typography size="small">
           © Nubelson Fernandes | {currentYear}
         </Typography>
 

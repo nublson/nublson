@@ -14,17 +14,23 @@ export function PostItem({ separator = true, post }: PostItemProps) {
   return (
     <Item className="p-0">
       <ItemContent className="gap-2.5">
-        <ItemTitle className="font-normal w-full">
-          <Typography
-            component="span"
-            className="text-muted-foreground max-w-22.5 line-clamp-1 break-all"
-          >
-            {formatPostDate(post.published_date)}
-          </Typography>
-          <Typography className="flex-1 text-accent-foreground line-clamp-1 break-all">
-            {post.title}
-          </Typography>
-          <SquareArrowOutUpRight className="size-4 text-accent-foreground hidden group-hover/item:block" />
+        <ItemTitle className="font-normal w-full flex items-center justify-between gap-2">
+          <div className="flex items-center justify-start gap-2 md:max-w-[95%]">
+            <Typography
+              component="span"
+              size="small"
+              className="text-muted-foreground w-20 line-clamp-1 break-all"
+            >
+              {formatPostDate(post.published_date)}
+            </Typography>
+            <Typography
+              component="h3"
+              className="flex-1 text-accent-foreground line-clamp-1 break-all"
+            >
+              {post.title}
+            </Typography>
+          </div>
+          <SquareArrowOutUpRight className="size-4 text-accent-foreground hidden md:group-hover/item:block" />
         </ItemTitle>
         <Separator
           className={cn(

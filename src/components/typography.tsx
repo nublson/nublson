@@ -5,16 +5,16 @@ import * as React from "react";
 const typographyVariants = cva("", {
   variants: {
     variant: {
-      h1: "text-[100px] leading-[120px] tracking-[-5px] text-accent-foreground font-semibold",
-      h2: "text-[80px] leading-24 tracking-[-4px] text-accent-foreground font-semibold",
-      h3: "text-[32px] leading-[38.4px] tracking-[-0.96px] text-accent-foreground font-semibold",
-      h4: "text-[20px] leading-[33.6px] tracking-[-0.42px] text-accent-foreground font-semibold",
+      h1: "text-[50px] lg:text-[100px] leading-[1.2em] tracking-[-0.05em] text-accent-foreground font-semibold",
+      h2: "text-[48px] lg:text-[80px] leading-[1.2em] tracking-[-0.03em] text-accent-foreground font-semibold",
+      h3: "text-[24px] lg:text-[32px] leading-[1.6em] tracking-[-0.02em] text-accent-foreground font-semibold",
+      h4: "text-[19px] lg:text-[21px] leading-[33.6px] tracking-[-0.42px] text-accent-foreground font-semibold",
     },
     size: {
       regular:
-        "text-lg leading-[28.8px] tracking-[-0.36px] text-muted-foreground",
+        "text-base lg:text-lg leading-[1.6em] tracking-[-0.02em] text-muted-foreground",
       small:
-        "text-base leading-[28.8px] tracking-[-0.36px] text-muted-foreground",
+        "text-sm lg:text-base leading-[1.6em] tracking-[-0.02em] text-muted-foreground",
     },
   },
 });
