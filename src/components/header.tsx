@@ -41,7 +41,12 @@ export const Header = () => {
             const iconSize = 16;
 
             return (
-              <a key={item.label} href={item.url} target="_blank">
+              <a
+                key={item.label}
+                aria-label={item.label}
+                href={item.url}
+                target="_blank"
+              >
                 {item.icon === "RiYoutubeLine" && (
                   <RiYoutubeLine size={iconSize} className={iconStyle} />
                 )}
@@ -62,6 +67,7 @@ export const Header = () => {
         />
         <Button
           disabled
+          aria-label="Toggle theme"
           variant="ghost"
           size="icon"
           className="hidden lg:block"

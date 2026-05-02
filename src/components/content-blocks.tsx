@@ -103,6 +103,7 @@ function mapParagraphChildren(children: React.ReactNode): React.ReactNode[] {
             className="underline underline-offset-2 hover:text-accent-foreground transition-all duration-300"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={text}
           >
             {text}
           </a>

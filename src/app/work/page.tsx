@@ -1,45 +1,30 @@
-import ContentSection from "@/sections/content";
-import Hero from "@/sections/hero";
-import ProjectsSection from "@/sections/projects";
-import {
-  getDatabasePages,
-  getPageBlocks,
-  getPageData,
-} from "@/services/notion";
-import {
-  formatBlockWithChildren,
-  formatPageMetadata,
-  formatPostMetadata,
-} from "@/utils/formatter";
-import { Fragment } from "react";
+import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
+import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
+import { ProjectsSectionSkeleton } from "@/components/skeletons/projects-section-skeleton";
+import { Suspense } from "react";
+import { WorkBody } from "../_components/work-body";
+import { WorkHero } from "../_components/work-hero";
+import { WorkProjects } from "../_components/work-projects";
 
-export default async function WorkPage() {
-  const page = await getPageData(process.env.NOTION_PAGE_WORK_ID!);
-  const pageBlocks = await getPageBlocks(process.env.NOTION_PAGE_WORK_ID!);
-  const projectPages = await getDatabasePages(
-    process.env.NOTION_DATABASE_CONTENT_ID!,
-    "Project",
-    20,
-  );
-
-  const pageContent = formatBlockWithChildren(pageBlocks);
-  const pageMetadata = formatPageMetadata(page);
-  const projectPostMetadata = formatPostMetadata(projectPages);
-
+export default function WorkPage() {
   return (
-    <Fragment>
-      <Hero
-        title={pageMetadata.title}
-        description={pageMetadata.description}
-        size="small"
-      />
-      <ProjectsSection
-        title="Latest Projects"
-        id="work"
-        posts={projectPostMetadata}
-        className="grid auto-rows-fr grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5 justify-center"
-      />
-      <ContentSection blocks={pageContent} />
-    </Fragment>
+    <>
+      <Suspense fallback={<HeroSkeleton size="small" />}>
+        <WorkHero />
+      </Suspense>
+      <Suspense
+        fallback={
+          <ProjectsSectionSkeleton
+            cardCount={6}
+            gridClassName="grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
+          />
+        }
+      >
+        <WorkProjects />
+      </Suspense>
+      <Suspense fallback={<ContentSectionSkeleton />}>
+        <WorkBody />
+      </Suspense>
+    </>
   );
 }
