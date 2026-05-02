@@ -5,10 +5,7 @@ import Image from "next/image";
 interface HeroSectionProps {
   title: string;
   description?: string;
-  thumbnail?: {
-    src: string;
-    alt: string;
-  };
+  thumbnail?: string;
   bottom?: React.ReactNode;
 }
 
@@ -27,11 +24,12 @@ export default function HeroSection({
 
       {thumbnail && (
         <Image
-          src={thumbnail.src}
-          alt={thumbnail.alt}
+          src={thumbnail}
+          alt="Thumbnail"
           width={1000}
           height={1000}
           className="thumbnail"
+          loading="eager"
         />
       )}
     </section>

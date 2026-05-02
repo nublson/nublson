@@ -2,27 +2,27 @@ import { Typography } from "@/components/typography";
 import Hero from "@/sections/hero";
 import PostsSection from "@/sections/posts";
 import ProjectsSection from "@/sections/projects";
+import { getPageData } from "@/services/notion";
 import { Fragment } from "react";
 
-export default function Home() {
+export default async function Home() {
+  const pageData = await getPageData(process.env.NOTION_PAGE_HOME_ID!);
+
   return (
     <Fragment>
       <Hero
-        title="Nubelson"
+        title={pageData.title}
+        description={pageData.description}
         bottom={
           <div className="w-full flex items-center justify-between">
             <Typography className="font-bold text-muted-foreground">
-              Software Engineer & Content Creator
+              {pageData.role}
             </Typography>
             <Typography className="font-bold text-muted-foreground">
-              📍 Lisbon
+              📍 {pageData.location}
             </Typography>
           </div>
         }
-        description="Hi there! I’m an adventurer based in New York, with a background in
-          the entertainment industry. These days, I’m driven by a love for
-          creativity and innovation, constantly exploring new ways to connect
-          ideas and build something meaningful."
       />
       <ProjectsSection
         title="Latest Projects"
