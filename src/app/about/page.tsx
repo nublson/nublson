@@ -1,12 +1,15 @@
 import ContentSection from "@/sections/content";
 import Hero from "@/sections/hero";
-import { getPageData } from "@/services/notion";
-import { formatPageMetadata } from "@/utils/formatter";
+import { getPageBlocks, getPageData } from "@/services/notion";
+import { formatBlockWithChildren, formatPageMetadata } from "@/utils/formatter";
 import { Fragment } from "react";
 
 export default async function AboutPage() {
   const page = await getPageData(process.env.NOTION_PAGE_ABOUT_ID!);
+  const pageBlocks = await getPageBlocks(process.env.NOTION_PAGE_ABOUT_ID!);
+
   const pageMetadata = formatPageMetadata(page);
+  const pageContent = formatBlockWithChildren(pageBlocks);
 
   return (
     <Fragment>
@@ -14,8 +17,9 @@ export default async function AboutPage() {
         title={pageMetadata.title}
         description={pageMetadata.description}
         thumbnail={pageMetadata.thumbnail}
+        size="small"
       />
-      <ContentSection />
+      <ContentSection blocks={pageContent} />
     </Fragment>
   );
 }

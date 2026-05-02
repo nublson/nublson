@@ -29,7 +29,7 @@ export function ProjectItem({ size = "lg", post }: ProjectItemProps) {
             width={255}
             height={300}
             loading="eager"
-            className="w-full h-full object-cover grayscale"
+            className="w-full h-full object-cover"
           />
         )}
       </ItemMedia>

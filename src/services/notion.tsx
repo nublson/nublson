@@ -1,4 +1,10 @@
-import { Client, isFullPage } from "@notionhq/client";
+import { formatBlockWithChildren } from "@/utils/formatter";
+import {
+  BlockObjectResponse,
+  Client,
+  isFullBlock,
+  isFullPage,
+} from "@notionhq/client";
 import { cache } from "react";
 
 const api = new Client({
@@ -65,5 +71,43 @@ const mediaMap = {
 export const getDatabasePages = cache(
   async (databaseId: string, media: keyof typeof mediaMap, limit?: number) => {
     return fetchDatabasePages(databaseId, mediaMap[media], limit);
+  },
+);
+
+export type BlockWithChildren = BlockObjectResponse & {
+  children?: BlockWithChildren[];
+};
+
+export const getPageBlocks = cache(
+  async (pageId: string): Promise<BlockWithChildren[]> => {
+    const blocks: BlockObjectResponse[] = [];
+    let cursor: string | undefined = undefined;
+
+    do {
+      const response = await api.blocks.children.list({
+        block_id: pageId,
+        start_cursor: cursor,
+        page_size: 100,
+      });
+
+      blocks.push(...response.results.filter(isFullBlock));
+
+      cursor = response.has_more
+        ? (response.next_cursor ?? undefined)
+        : undefined;
+    } while (cursor);
+
+    const blocksWithChildren = await Promise.all(
+      blocks.map(async (block) => {
+        if (!block.has_children) return block;
+
+        return {
+          ...block,
+          children: await getPageBlocks(block.id),
+        };
+      }),
+    );
+
+    return formatBlockWithChildren(blocksWithChildren);
   },
 );

@@ -1,4 +1,5 @@
-import { PageObjectResponse } from "@notionhq/client";
+import { BlockWithChildren } from "@/services/notion";
+import { BlockObjectResponse, PageObjectResponse } from "@notionhq/client";
 import slugify from "slugify";
 
 export const slugifyText = (text: string) => {
@@ -109,3 +110,52 @@ export const formatPostDate = (date: string) => {
     month: "short",
   });
 };
+
+export const formatBlockWithChildren = (
+  blocks: BlockWithChildren[],
+): BlockWithChildren[] => {
+  return blocks.map((block) => {
+    if (!block.has_children || !block.children) return block;
+
+    return {
+      ...block,
+      [block.type]: {
+        ...(block[block.type as keyof BlockObjectResponse] as object),
+        children: block.children,
+      },
+    };
+  });
+};
+
+/**
+ * Block shape that may represent a bullet list: either grouped items (render lib)
+ * or a single Notion bulleted_list_item block.
+ */
+type ListBlockLike =
+  | { items?: Array<{ content?: { text?: Array<{ plain_text?: string }> } }> }
+  | { bulleted_list_item?: { rich_text?: Array<{ plain_text?: string }> } };
+
+/**
+ * Extracts list item strings from a bullet-list block.
+ * Supports both Notion API shape (bulleted_list_item.rich_text) and
+ * render lib shape (items[].content.text[].plain_text).
+ *
+ * @param block - A bullet list block (single bulleted_list_item or grouped items).
+ * @returns Array of plain text strings, one per item.
+ */
+export function getListBlockItems(block: ListBlockLike): string[] {
+  if ("items" in block && Array.isArray(block.items)) {
+    return block.items.map((item) => item.content?.text?.[0]?.plain_text ?? "");
+  }
+  if (
+    "bulleted_list_item" in block &&
+    block.bulleted_list_item?.rich_text &&
+    Array.isArray(block.bulleted_list_item.rich_text)
+  ) {
+    const text = block.bulleted_list_item.rich_text
+      .map((t) => t.plain_text ?? "")
+      .join("");
+    return text ? [text] : [];
+  }
+  return [];
+}

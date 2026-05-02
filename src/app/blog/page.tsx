@@ -21,6 +21,7 @@ export default async function BlogPage() {
         title={pageMetadata.title}
         description={pageMetadata.description}
         thumbnail={pageMetadata.thumbnail}
+        size="small"
       />
       <PostsSection title="Latest Posts" id="blog" posts={blogPostMetadata} />
     </Fragment>
