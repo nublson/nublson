@@ -1,15 +1,17 @@
 import ContentSection from "@/sections/content";
 import Hero from "@/sections/hero";
 import ProjectsSection from "@/sections/projects";
+import { getPageData } from "@/services/notion";
+import { formatPageMetadata } from "@/utils/formatter";
 import { Fragment } from "react";
 
-export default function WorkPage() {
+export default async function WorkPage() {
+  const page = await getPageData(process.env.NOTION_PAGE_WORK_ID!);
+  const pageMetadata = formatPageMetadata(page);
+
   return (
     <Fragment>
-      <Hero
-        title="My Work"
-        description="With a background in the entertainment industry, I specialise in crafting unique, impactful projects that tell compelling stories and connect people in meaningful ways.  I thrive on exploring new ideas, pushing boundaries, and building solutions that not only engage but inspire."
-      />
+      <Hero title={pageMetadata.title} description={pageMetadata.description} />
       <ProjectsSection title="Latest Projects" id="work" />
       <ContentSection />
     </Fragment>
