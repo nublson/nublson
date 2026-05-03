@@ -6,6 +6,7 @@ import {
 } from "@/services/notion";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { WorkJsonLd } from "./_components/work-json-ld";
 import { WorkPostBody } from "./_components/work-post-body";
 import { WorkPostHero } from "./_components/work-post-hero";
 
@@ -30,9 +31,23 @@ export async function generateMetadata({
   if (!found) {
     return { title: "Project not found" };
   }
+  const ogImage = found.metadata.thumbnail ?? "/logo.svg";
   return {
     title: found.metadata.title,
     description: found.metadata.description,
+    openGraph: {
+      title: found.metadata.title,
+      description: found.metadata.description,
+      type: "website",
+      images: [{ url: ogImage }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      creator: "@nublson",
+      title: found.metadata.title,
+      description: found.metadata.description,
+      images: [ogImage],
+    },
   };
 }
 
@@ -43,6 +58,7 @@ export default function WorkPostPage({
 }) {
   return (
     <>
+      <WorkJsonLd params={params} />
       <Suspense fallback={<HeroSkeleton showThumbnail showTopNav size="small" />}>
         <WorkPostHero params={params} />
       </Suspense>

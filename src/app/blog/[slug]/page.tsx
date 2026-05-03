@@ -6,6 +6,7 @@ import {
 } from "@/services/notion";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { BlogJsonLd } from "./_components/blog-json-ld";
 import { BlogPostBody } from "./_components/blog-post-body";
 import { BlogPostHero } from "./_components/blog-post-hero";
 
@@ -30,9 +31,24 @@ export async function generateMetadata({
   if (!found) {
     return { title: "Post not found" };
   }
+  const ogImage = found.metadata.thumbnail ?? "/logo.svg";
   return {
     title: found.metadata.title,
     description: found.metadata.description,
+    openGraph: {
+      title: found.metadata.title,
+      description: found.metadata.description,
+      type: "article",
+      publishedTime: found.metadata.published_date,
+      images: [{ url: ogImage }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      creator: "@nublson",
+      title: found.metadata.title,
+      description: found.metadata.description,
+      images: [ogImage],
+    },
   };
 }
 
@@ -43,6 +59,7 @@ export default function BlogPostPage({
 }) {
   return (
     <>
+      <BlogJsonLd params={params} />
       <Suspense
         fallback={<HeroSkeleton showThumbnail showTopNav size="small" />}
       >
