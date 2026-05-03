@@ -26,7 +26,14 @@ export default function HeroSection({
         <Typography className="text-muted-foreground">{description}</Typography>
       )}
 
-      {thumbnail && <CoverImage src={thumbnail} alt={title} priority />}
+      {thumbnail && (
+        <CoverImage
+          src={thumbnail}
+          alt={title}
+          priority
+          className="aspect-video"
+        />
+      )}
     </section>
   );
 }

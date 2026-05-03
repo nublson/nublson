@@ -240,7 +240,7 @@ const fetchPageBlocksCached = unstable_cache(
   async (pageId: string) =>
     fetchBlocksRecursive(pageId, MAX_BLOCK_DEPTH),
   ["notion-page-blocks"],
-  { tags: ["notion-blocks"], revalidate: 3600 },
+  { tags: ["notion-blocks"], revalidate: 10 },
 );
 
 export const getPageBlocks = cache(fetchPageBlocksCached);
