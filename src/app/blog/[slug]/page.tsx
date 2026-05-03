@@ -4,6 +4,7 @@ import {
   getAllPublishedSlugsForStaticParams,
   getDatabasePageBySlug,
 } from "@/services/notion";
+import { buildShareMetadata } from "@/utils/share-metadata";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { BlogJsonLd } from "./_components/blog-json-ld";
@@ -31,25 +32,17 @@ export async function generateMetadata({
   if (!found) {
     return { title: "Post not found" };
   }
-  const ogImage = found.metadata.thumbnail ?? "/logo.svg";
-  return {
-    title: found.metadata.title,
-    description: found.metadata.description,
-    openGraph: {
+  return buildShareMetadata(
+    {
       title: found.metadata.title,
       description: found.metadata.description,
-      type: "article",
+      thumbnail: found.metadata.thumbnail,
+    },
+    {
+      openGraphType: "article",
       publishedTime: found.metadata.published_date,
-      images: [{ url: ogImage }],
     },
-    twitter: {
-      card: "summary_large_image",
-      creator: "@nublson",
-      title: found.metadata.title,
-      description: found.metadata.description,
-      images: [ogImage],
-    },
-  };
+  );
 }
 
 export default function BlogPostPage({

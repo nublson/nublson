@@ -2,6 +2,7 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { JsonLd } from "@/components/json-ld";
 import { SkipLink } from "@/components/skip-link";
+import { TWITTER_CREATOR_HANDLE } from "@/utils/share-metadata";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -24,6 +25,15 @@ export const metadata: Metadata = {
     default: "Nubelson Fernandes",
   },
   description: "Designer and developer sharing work, writing, and tools.",
+  alternates: {
+    types: {
+      "application/rss+xml": [
+        { url: "/feed.xml", title: "Blog & work" },
+        { url: "/blog/feed.xml", title: "Blog" },
+        { url: "/work/feed.xml", title: "Work" },
+      ],
+    },
+  },
   openGraph: {
     siteName: "Nubelson Fernandes",
     locale: "en_US",
@@ -32,7 +42,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    creator: "@nublson",
+    creator: TWITTER_CREATOR_HANDLE,
     images: ["/logo.svg"],
   },
 };
