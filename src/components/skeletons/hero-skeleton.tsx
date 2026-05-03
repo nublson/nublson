@@ -38,7 +38,7 @@ export function HeroSkeleton({
         <Skeleton className="h-5 w-full rounded-md md:max-w-md" />
       </div>
       {showThumbnail && (
-        <Skeleton className="aspect-4/3 w-full max-w-4xl rounded-lg" />
+        <Skeleton className="aspect-video w-full max-w-4xl rounded-lg" />
       )}
     </section>
   );
