@@ -1,5 +1,9 @@
 import { mapPool } from "@/lib/map-pool";
-import { formatBlockWithChildren, formatPostMetadata } from "@/utils/formatter";
+import {
+  formatBlockWithChildren,
+  formatPostMetadata,
+  type PostMetadata,
+} from "@/utils/formatter";
 import {
   BlockObjectResponse,
   Client,
@@ -113,6 +117,39 @@ export const getDatabasePages = cache(
   },
 );
 
+export type PublishedSitemapEntry = {
+  slug: string;
+  lastModified: Date;
+};
+
+/**
+ * All published rows with Notion `last_edited_time` (paginates past the first 100).
+ * @see getDatabasePageBySlug — same pagination for runtime slug resolution.
+ */
+async function getAllPublishedEntriesWithTimestamps(
+  databaseId: string,
+  media: keyof typeof mediaMap,
+): Promise<PublishedSitemapEntry[]> {
+  const out: PublishedSitemapEntry[] = [];
+  let cursor: string | undefined;
+  do {
+    const { pages, next_cursor } = await queryPublishedPagesPage(
+      databaseId,
+      mediaMap[media],
+      { pageSize: QUERY_PAGE_SIZE, start_cursor: cursor },
+    );
+    const metadataList = formatPostMetadata(pages);
+    for (let i = 0; i < pages.length; i++) {
+      out.push({
+        slug: metadataList[i]!.slug,
+        lastModified: new Date(pages[i]!.last_edited_time),
+      });
+    }
+    cursor = next_cursor;
+  } while (cursor);
+  return out;
+}
+
 /**
  * All published rows for static params (paginates past the first 100).
  * @see getDatabasePageBySlug — same pagination for runtime slug resolution.
@@ -121,7 +158,27 @@ export async function getAllPublishedSlugsForStaticParams(
   databaseId: string,
   media: keyof typeof mediaMap,
 ): Promise<{ slug: string }[]> {
-  const out: { slug: string }[] = [];
+  const entries = await getAllPublishedEntriesWithTimestamps(databaseId, media);
+  return entries.map(({ slug }) => ({ slug }));
+}
+
+/** Same pages as static params, including `lastModified` from Notion for sitemaps. */
+export function getAllPublishedEntriesForSitemap(
+  databaseId: string,
+  media: keyof typeof mediaMap,
+): Promise<PublishedSitemapEntry[]> {
+  return getAllPublishedEntriesWithTimestamps(databaseId, media);
+}
+
+/**
+ * All published posts for RSS (paginates past the first 100), newest first.
+ * @see getAllPublishedEntriesWithTimestamps — same query and ordering.
+ */
+export async function getAllPublishedPostsForFeed(
+  databaseId: string,
+  media: keyof typeof mediaMap,
+): Promise<PostMetadata[]> {
+  const out: PostMetadata[] = [];
   let cursor: string | undefined;
   do {
     const { pages, next_cursor } = await queryPublishedPagesPage(
@@ -129,10 +186,22 @@ export async function getAllPublishedSlugsForStaticParams(
       mediaMap[media],
       { pageSize: QUERY_PAGE_SIZE, start_cursor: cursor },
     );
-    out.push(...formatPostMetadata(pages).map((p) => ({ slug: p.slug })));
+    out.push(...formatPostMetadata(pages));
     cursor = next_cursor;
   } while (cursor);
   return out;
+}
+
+/** `NOTION_PAGE_ABOUT_ID` last edit time when configured and retrievable. */
+export async function getAboutPageLastModified(): Promise<Date | null> {
+  const id = process.env.NOTION_PAGE_ABOUT_ID?.trim();
+  if (!id) return null;
+  try {
+    const page = await getPageData(id);
+    return new Date(page.last_edited_time);
+  } catch {
+    return null;
+  }
 }
 
 /** Resolves a published database row by URL slug (derived from the page title). */
