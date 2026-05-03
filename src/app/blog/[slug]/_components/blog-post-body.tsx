@@ -1,6 +1,5 @@
 import ContentSection from "@/sections/content";
 import { getDatabasePageBySlug, getPageBlocks } from "@/services/notion";
-import { formatBlockWithChildren } from "@/utils/formatter";
 import { notFound } from "next/navigation";
 
 export async function BlogPostBody({
@@ -17,6 +16,5 @@ export async function BlogPostBody({
   if (!found) notFound();
 
   const pageBlocks = await getPageBlocks(found.page.id);
-  const pageContent = formatBlockWithChildren(pageBlocks);
-  return <ContentSection blocks={pageContent} />;
+  return <ContentSection blocks={pageBlocks} />;
 }
