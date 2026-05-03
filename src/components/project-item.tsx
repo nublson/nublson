@@ -1,8 +1,9 @@
+import assets from "@/assets/blur.json";
 import { Typography } from "@/components/typography";
 import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item";
 import { PostMetadata } from "@/utils/formatter";
 import { SquareArrowOutUpRight } from "lucide-react";
-import Image from "next/image";
+import { CoverImage } from "./cover-image";
 
 interface ProjectItemProps {
   post: PostMetadata;
@@ -13,7 +14,7 @@ export function ProjectItem({ post }: ProjectItemProps) {
     <Item className="flex flex-col items-start justify-start gap-2.5 p-0 w-full">
       <ItemMedia variant="image" className="w-full h-auto">
         {post.thumbnail && (
-          <Image
+          <CoverImage
             src={post.thumbnail}
             alt={post.title}
             width={640}
@@ -21,6 +22,8 @@ export function ProjectItem({ post }: ProjectItemProps) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
             loading="lazy"
             className="aspect-4/3 h-full w-full object-cover"
+            placeholder="blur"
+            blurDataURL={assets.base64}
           />
         )}
       </ItemMedia>
