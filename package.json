@@ -11,7 +11,8 @@
     "type-check": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "dotenv": "npx dotenv-vault@latest"
   },
   "dependencies": {
     "@9gustin/react-notion-render": "^3.11.4",
