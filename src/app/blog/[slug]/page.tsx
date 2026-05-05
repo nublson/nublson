@@ -1,5 +1,7 @@
+import { MorePosts } from "@/app/_components/more-posts";
 import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
 import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
+import { PostsSectionSkeleton } from "@/components/skeletons/posts-section-skeleton";
 import {
   getAllPublishedSlugsForStaticParams,
   getDatabasePageBySlug,
@@ -60,6 +62,9 @@ export default function BlogPostPage({
       </Suspense>
       <Suspense fallback={<ContentSectionSkeleton />}>
         <BlogPostBody params={params} />
+      </Suspense>
+      <Suspense fallback={<PostsSectionSkeleton rowCount={4} />}>
+        <MorePosts params={params} />
       </Suspense>
     </>
   );

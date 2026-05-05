@@ -62,13 +62,18 @@ export type PostMetadata = {
   id: string;
   title: string;
   slug: string;
-  thumbnail?: string;
+  thumbnail: string;
   description: string;
   published_date: string;
   updated_date: string;
+  path: string;
+  figma: string;
+  category: string;
 };
 
-export const formatPostMetadata = (databasePages: PageObjectResponse[]) => {
+export const formatPostMetadata = (
+  databasePages: PageObjectResponse[],
+): PostMetadata[] => {
   return databasePages.map((page) => {
     const title =
       page.properties.Name.type === "title"
@@ -78,7 +83,7 @@ export const formatPostMetadata = (databasePages: PageObjectResponse[]) => {
     const thumbnail =
       page.cover?.type === "file"
         ? page.cover.file.url
-        : page.cover?.external.url;
+        : (page.cover?.external.url ?? "");
 
     const description =
       page.properties.Description.type === "rich_text"
@@ -91,6 +96,16 @@ export const formatPostMetadata = (databasePages: PageObjectResponse[]) => {
         : "";
 
     const updated_date = page.last_edited_time;
+    const path =
+      page.properties.Path?.type === "url" ? (page.properties.Path.url ?? "") : "";
+    const figma =
+      page.properties.Figma?.type === "url"
+        ? (page.properties.Figma.url ?? "")
+        : "";
+    const category =
+      page.properties.Category?.type === "select"
+        ? (page.properties.Category.select?.name ?? "")
+        : "";
 
     return {
       id: page.id,
@@ -100,6 +115,9 @@ export const formatPostMetadata = (databasePages: PageObjectResponse[]) => {
       description,
       published_date,
       updated_date,
+      path,
+      figma,
+      category,
     };
   });
 };
@@ -154,7 +172,11 @@ type ListBlockLike =
  */
 export function getListBlockItems(block: ListBlockLike): string[] {
   if ("items" in block && Array.isArray(block.items)) {
-    return block.items.map((item) => item.content?.text?.[0]?.plain_text ?? "");
+    return block.items.map((item) =>
+      (item.content?.text ?? [])
+        .map((textPart) => textPart.plain_text ?? "")
+        .join(""),
+    );
   }
   if (
     "bulleted_list_item" in block &&

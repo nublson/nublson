@@ -34,6 +34,8 @@ export function HeroSkeleton({
             </div>
           )}
         </div>
+      </div>
+      <div className="flex w-full flex-col items-start gap-1.5">
         <Skeleton className="h-5 w-full rounded-md" />
         <Skeleton className="h-5 w-full rounded-md md:max-w-md" />
       </div>

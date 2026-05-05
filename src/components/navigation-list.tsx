@@ -19,15 +19,15 @@ export const NavigationList = ({ items, className }: NavigationListProps) => {
   const pathname = usePathname();
 
   return (
-    <ul className="flex items-center gap-5">
+    <ul className="flex items-center gap-2.5 md:gap-5">
       {items.map((item) => (
         <Typography
           size="small"
           component="li"
           key={item.label}
           className={cn(
-            "font-medium text-muted-foreground hover:text-foreground transition-colors",
-            pathname === item.path && "text-accent-foreground",
+            "link font-medium",
+            pathname === item.path && "font-semibold! text-accent-foreground!",
             className,
           )}
         >
