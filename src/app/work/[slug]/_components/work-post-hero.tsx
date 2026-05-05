@@ -40,7 +40,7 @@ export async function WorkPostHero({
         metadata.path || metadata.figma ? (
           <div className="w-full flex items-center justify-between gap-2">
             {metadata.path && (
-              <Typography className="link" size="small">
+              <Typography className="link justify-start" size="small">
                 <a
                   href={metadata.path}
                   target="_blank"
@@ -51,7 +51,7 @@ export async function WorkPostHero({
               </Typography>
             )}
             {metadata.figma && (
-              <Typography className="link" size="small">
+              <Typography className="link justify-end" size="small">
                 <a
                   href={metadata.figma}
                   target="_blank"
