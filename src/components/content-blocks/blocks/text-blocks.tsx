@@ -29,7 +29,11 @@ export const ParagraphBlock = withContentValidation((props: DropedProps) => {
     ? mapParagraphChildren(props.children)
     : (props.plainText ?? "");
 
-  return <Typography data-testid="paragraph">{content}</Typography>;
+  return (
+    <Typography data-testid="paragraph" className="w-full">
+      {content}
+    </Typography>
+  );
 });
 
 export const CalloutBlock = withContentValidation((props: DropedProps) => {
@@ -43,7 +47,9 @@ export const CalloutBlock = withContentValidation((props: DropedProps) => {
         </Typography>
       )}
       <div className="p-1.5">
-        <Typography>{props.children}</Typography>
+        <Typography className="w-full text-accent-foreground">
+          {props.children}
+        </Typography>
       </div>
     </div>
   );
@@ -56,7 +62,7 @@ export const CodeBlock = withContentValidation((props: DropedProps) => (
 ));
 
 export const QuoteBlock = withContentValidation((props: DropedProps) => (
-  <blockquote className="w-full border-l-2 italic pl-4">
+  <blockquote className="w-full mt-6 border-l-2 pl-6 italic">
     <Typography>{props.children}</Typography>
   </blockquote>
 ));

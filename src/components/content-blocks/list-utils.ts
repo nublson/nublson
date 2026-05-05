@@ -13,12 +13,12 @@ export const LIST_BLOCK_VARIANT: Record<
 > = {
   bullet: {
     tag: "ul",
-    className: "list list-outside list-disc w-full ps-6",
+    className: "list-content list-disc",
     testId: "bulleted-list-item",
   },
   numbered: {
     tag: "ol",
-    className: "list list-outside list-decimal w-full ps-6",
+    className: "list-content list-decimal",
     testId: "numbered-list-item",
   },
 };
@@ -43,7 +43,9 @@ export function listItemsFromProps(props: DropedProps): string[] {
   return [];
 }
 
-export function listItemsFromChildren(children: React.ReactNode): React.ReactNode[] {
+export function listItemsFromChildren(
+  children: React.ReactNode,
+): React.ReactNode[] {
   const childArray = React.Children.toArray(children);
   if (childArray.length === 0) {
     return [];

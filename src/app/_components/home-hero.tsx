@@ -28,7 +28,7 @@ export async function HomeHero() {
         title={pageMetadata.title}
         description={pageMetadata.description}
         bottom={
-          <div className="flex w-full items-center justify-between gap-2">
+          <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
             <Typography className="line-clamp-1 break-all font-bold text-muted-foreground">
               {pageMetadata.role}
             </Typography>
