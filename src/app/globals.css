@@ -187,5 +187,5 @@ body {
 }
 
 .list-content {
-  @apply my-6 ml-6 [&>li]:mt-2 w-full;
+  @apply w-full my-6 pl-6 [&>li]:mt-2;
 }
