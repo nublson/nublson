@@ -88,6 +88,19 @@ describe("getListBlockItems", () => {
     expect(getListBlockItems(block)).toEqual(["First", "Second"]);
   });
 
+  it("joins multiple rich-text fragments per item", () => {
+    const block = {
+      items: [
+        {
+          content: {
+            text: [{ plain_text: "Framework:" }, { plain_text: " Next.js (App Router)" }],
+          },
+        },
+      ],
+    };
+    expect(getListBlockItems(block)).toEqual(["Framework: Next.js (App Router)"]);
+  });
+
   it("extracts items from Notion API shape (bulleted_list_item)", () => {
     const block = {
       bulleted_list_item: {

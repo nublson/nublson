@@ -154,7 +154,9 @@ type ListBlockLike =
  */
 export function getListBlockItems(block: ListBlockLike): string[] {
   if ("items" in block && Array.isArray(block.items)) {
-    return block.items.map((item) => item.content?.text?.[0]?.plain_text ?? "");
+    return block.items.map((item) =>
+      (item.content?.text ?? []).map((textPart) => textPart.plain_text ?? "").join(""),
+    );
   }
   if (
     "bulleted_list_item" in block &&
