@@ -19,11 +19,11 @@ export function HeadingTop({
   postType = "Posts",
 }: HeadingTopProps) {
   return (
-    <div className="w-full flex items-center justify-between gap-2">
-      <div className="flex items-center justify-start gap-2.5">
+    <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
+      <div className="flex-1 flex items-center justify-start gap-2.5">
         <Typography
           size="small"
-          className="text-muted-foreground hover:text-accent-foreground transition-colors duration-300"
+          className="whitespace-nowrap text-muted-foreground hover:text-accent-foreground transition-colors duration-300"
         >
           <Link href={postsPath} aria-label={`View all ${postType}`}>
             All {postType}

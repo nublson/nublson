@@ -19,7 +19,7 @@ export const NavigationList = ({ items, className }: NavigationListProps) => {
   const pathname = usePathname();
 
   return (
-    <ul className="flex items-center gap-5">
+    <ul className="flex items-center gap-2.5 md:gap-5">
       {items.map((item) => (
         <Typography
           size="small"

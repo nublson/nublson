@@ -9,6 +9,7 @@ import {
   NumberedListBlock,
   ParagraphBlock,
   QuoteBlock,
+  TableBlock,
   VideoBlock,
 } from "@/components/content-blocks";
 import { BlockWithChildren } from "@/services/notion";
@@ -22,7 +23,7 @@ export default function ContentSection({ blocks }: ContentSectionProps) {
   return (
     <section
       id="content"
-      className="w-full flex flex-col items-start justify-start gap-0 space-y-5"
+      className="w-full flex flex-col items-start justify-start gap-0 space-y-5 pb-[60px]"
     >
       <Render
         blocks={blocks as NotionBlock[]}
@@ -54,6 +55,7 @@ export default function ContentSection({ blocks }: ContentSectionProps) {
           [blockEnum.CALLOUT]: CalloutBlock,
           [blockEnum.QUOTE]: QuoteBlock,
           [blockEnum.VIDEO]: VideoBlock,
+          [blockEnum.TABLE]: TableBlock,
         }}
       />
     </section>

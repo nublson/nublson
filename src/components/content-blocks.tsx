@@ -9,6 +9,18 @@ import { CoverImage } from "./cover-image";
 import { Typography } from "./typography";
 
 type ListBlockVariant = "bullet" | "numbered";
+type NotionTextLike = { plain_text?: string };
+type TableCellLike = NotionTextLike[] | { text?: NotionTextLike[] };
+type TableRowLike =
+  | { cells?: TableCellLike[] }
+  | { content?: { cells?: TableCellLike[] } }
+  | { table_row?: { cells?: TableCellLike[] } };
+type TableBlockLike = {
+  content?: {
+    hasColumnHeader?: boolean;
+  };
+  items?: TableRowLike[];
+};
 
 const LIST_BLOCK_VARIANT: Record<
   ListBlockVariant,
@@ -188,5 +200,79 @@ export const QuoteBlock = withContentValidation((props: DropedProps) => {
     <blockquote className="w-full border-l-2 italic text-muted-foreground pl-4">
       <Typography>{props.children}</Typography>
     </blockquote>
+  );
+});
+
+function getTableRowsFromBlock(block: unknown): {
+  hasColumnHeader: boolean;
+  rows: string[][];
+} {
+  if (block == null || typeof block !== "object") {
+    return { hasColumnHeader: false, rows: [] };
+  }
+
+  const tableBlock = block as TableBlockLike;
+  const rawRows = Array.isArray(tableBlock.items) ? tableBlock.items : [];
+
+  const rows = rawRows.map((row) => {
+    const rowCells =
+      ("content" in row && row.content?.cells) ||
+      ("table_row" in row && row.table_row?.cells) ||
+      ("cells" in row && row.cells) ||
+      [];
+
+    return rowCells.map((cell) => {
+      const textEntries = Array.isArray(cell) ? cell : (cell.text ?? []);
+      return textEntries.map((text) => text.plain_text ?? "").join("");
+    });
+  });
+
+  return {
+    hasColumnHeader: tableBlock.content?.hasColumnHeader === true,
+    rows,
+  };
+}
+
+export const TableBlock = withContentValidation((props: DropedProps) => {
+  const { hasColumnHeader, rows } = getTableRowsFromBlock(props.config?.block);
+  const [firstRow, ...restRows] = rows;
+  const headerRow = hasColumnHeader ? firstRow : undefined;
+  const bodyRows = hasColumnHeader ? restRows : rows;
+  const cellClassName =
+    "border px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right";
+
+  return (
+    <div className="my-6 w-full overflow-y-auto">
+      <table className="w-full">
+        {headerRow != null && (
+          <thead>
+            <tr className="m-0 border-t p-0">
+              {headerRow.map((cell, index) => (
+                <th
+                  key={`header-cell-${index}`}
+                  className={`${cellClassName} text-accent-foreground font-bold`}
+                >
+                  {cell}
+                </th>
+              ))}
+            </tr>
+          </thead>
+        )}
+        <tbody>
+          {bodyRows.map((row, rowIndex) => (
+            <tr key={`body-row-${rowIndex}`} className="m-0 border-t p-0">
+              {row.map((cell, cellIndex) => (
+                <td
+                  key={`body-cell-${rowIndex}-${cellIndex}`}
+                  className={`${cellClassName} text-muted-foreground`}
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 });

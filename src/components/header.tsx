@@ -13,7 +13,7 @@ export const Header = () => {
 
   return (
     <header className="wrapper flex items-center justify-between py-3">
-      <div className="flex items-center justify-start gap-5">
+      <div className="flex items-center justify-start gap-2.5 md:gap-5">
         <Link href="/" aria-label="Go to homepage">
           <Image
             src="/logo.svg"
