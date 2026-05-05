@@ -19,7 +19,7 @@ export function SectionHeader({ title, href, titleId }: SectionHeaderProps) {
         {href && (
           <Typography
             size="small"
-            className="text-muted-foreground hover:text-accent-foreground transition-colors duration-300 underline-offset-4 hover:underline"
+            className="link underline-offset-4 hover:underline"
           >
             <Link aria-label={`View all ${title}`} href={href}>
               View all

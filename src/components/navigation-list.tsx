@@ -26,8 +26,8 @@ export const NavigationList = ({ items, className }: NavigationListProps) => {
           component="li"
           key={item.label}
           className={cn(
-            "font-medium text-muted-foreground hover:text-foreground transition-colors",
-            pathname === item.path && "text-accent-foreground",
+            "link font-medium",
+            pathname === item.path && "font-semibold! text-accent-foreground!",
             className,
           )}
         >

@@ -70,7 +70,14 @@ async function queryPublishedPagesPage(
     filter: {
       and: andFilters as never,
     },
-    filter_properties: ["title", "Description", "Publish Date"],
+    filter_properties: [
+      "title",
+      "Description",
+      "Publish Date",
+      "Path",
+      "Figma",
+      "Category",
+    ],
     sorts: [
       {
         property: "Publish Date",

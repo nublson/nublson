@@ -54,7 +54,9 @@ export default function WorkPostPage({
     <>
       <WorkJsonLd params={params} />
       <Suspense
-        fallback={<HeroSkeleton showThumbnail showTopNav size="small" />}
+        fallback={
+          <HeroSkeleton showThumbnail showTopNav showBottomRow size="small" />
+        }
       >
         <WorkPostHero params={params} />
       </Suspense>

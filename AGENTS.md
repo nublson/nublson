@@ -1,5 +1,7 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+## Learned User Preferences
+- Prefers concise explanations after code fixes with explicit verification.
+- Often asks to commit immediately after confirming a change works.
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+## Learned Workspace Facts
+- Posts metadata includes Notion properties `Path` (url), `Figma` (url), and `Category` (select).
+- Blog article pages expect `MorePosts` to exclude the current post and show the next three latest posts.

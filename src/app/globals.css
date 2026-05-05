@@ -189,3 +189,10 @@ body {
 .list-content {
   @apply w-full my-6 pl-6 [&>li]:mt-2;
 }
+
+.link {
+  @apply text-muted-foreground hover:text-accent-foreground transition-colors duration-300;
+  &:hover {
+    @apply text-accent-foreground;
+  }
+}
