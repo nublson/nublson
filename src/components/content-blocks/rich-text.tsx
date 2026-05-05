@@ -57,7 +57,9 @@ export function renderRichTextNode(
 ): React.ReactNode {
   const { plain_text, text, href, annotations, children } = textLike;
   const rawText =
-    plain_text ?? text?.content ?? (typeof children === "string" ? children : "");
+    plain_text ??
+    text?.content ??
+    (typeof children === "string" ? children : "");
   const link = href ?? text?.link?.url;
   const styledText = applyTextDecorations(rawText, annotations);
 
@@ -73,7 +75,7 @@ export function renderRichTextNode(
     <a
       key={key}
       href={link}
-      className="underline underline-offset-2 hover:text-accent-foreground transition-all duration-300"
+      className="underline underline-offset-2 text-muted-foreground hover:text-accent-foreground transition-all duration-300"
       target="_blank"
       rel="noopener noreferrer"
       aria-label={rawText}

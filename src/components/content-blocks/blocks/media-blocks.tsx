@@ -3,11 +3,7 @@ import type { DropedProps } from "@9gustin/react-notion-render/dist/hoc/withCont
 import { CoverImage } from "../../cover-image";
 
 export const ImageBlock = withContentValidation((props: DropedProps) => (
-  <CoverImage
-    src={props.media?.src ?? ""}
-    alt={props.media?.alt ?? ""}
-    className="my-10"
-  />
+  <CoverImage src={props.media?.src ?? ""} alt={props.media?.alt ?? ""} />
 ));
 
 export const VideoBlock = withContentValidation((props: DropedProps) => {

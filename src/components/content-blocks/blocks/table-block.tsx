@@ -8,7 +8,7 @@ export const TableBlock = withContentValidation((props: DropedProps) => {
   const headerRow = hasColumnHeader ? firstRow : undefined;
   const bodyRows = hasColumnHeader ? restRows : rows;
   const cellClassName =
-    "border px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right";
+    "border px-4 py-2 text-left [[align=center]]:text-center text-muted-foreground [[align=right]]:text-right";
 
   return (
     <div className="my-6 w-full overflow-y-auto">
@@ -19,7 +19,7 @@ export const TableBlock = withContentValidation((props: DropedProps) => {
               {headerRow.map((cell, index) => (
                 <th
                   key={`header-cell-${index}`}
-                  className={`${cellClassName} text-accent-foreground font-bold`}
+                  className={`${cellClassName} font-bold`}
                 >
                   {cell}
                 </th>
@@ -33,7 +33,7 @@ export const TableBlock = withContentValidation((props: DropedProps) => {
               {row.map((cell, cellIndex) => (
                 <td
                   key={`body-cell-${rowIndex}-${cellIndex}`}
-                  className={`${cellClassName} text-muted-foreground`}
+                  className={`${cellClassName}`}
                 >
                   {cell}
                 </td>
