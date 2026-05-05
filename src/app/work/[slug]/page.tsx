@@ -1,5 +1,7 @@
+import { NavigationProjects } from "@/components/navigation-projects";
 import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
 import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
+import { NavigationProjectsSkeleton } from "@/components/skeletons/navigation-projects-skeleton";
 import {
   getAllPublishedSlugsForStaticParams,
   getDatabasePageBySlug,
@@ -62,6 +64,9 @@ export default function WorkPostPage({
       </Suspense>
       <Suspense fallback={<ContentSectionSkeleton />}>
         <WorkPostBody params={params} />
+      </Suspense>
+      <Suspense fallback={<NavigationProjectsSkeleton />}>
+        <NavigationProjects params={params} />
       </Suspense>
     </>
   );
