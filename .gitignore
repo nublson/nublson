@@ -45,3 +45,5 @@ next-env.d.ts
 .flaskenv*
 !.env.project
 !.env.vault
+
+.cursor/hooks/state/
