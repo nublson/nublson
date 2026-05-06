@@ -1,6 +1,6 @@
 import navigation from "@/data/navigation.json";
 import social from "@/data/social.json";
-import { RiGithubLine, RiMailOpenLine, RiYoutubeLine } from "@remixicon/react";
+import { RiGithubLine, RiInstagramLine, RiYoutubeLine } from "@remixicon/react";
 import Image from "next/image";
 import Link from "next/link";
 import { NavigationList } from "./navigation-list";
@@ -34,7 +34,7 @@ export const Header = () => {
       </div>
 
       <div className="flex items-center justify-end gap-5">
-        <div className="flex items-center justify-end gap-3">
+        <div className="flex items-center justify-end gap-3 md:gap-5">
           {socialMedia.map((item) => {
             const iconStyle =
               "text-muted-foreground hover:text-foreground transition-colors";
@@ -48,11 +48,11 @@ export const Header = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                {item.icon === "RiInstagramLine" && (
+                  <RiInstagramLine size={iconSize} className={iconStyle} />
+                )}
                 {item.icon === "RiYoutubeLine" && (
                   <RiYoutubeLine size={iconSize} className={iconStyle} />
-                )}
-                {item.icon === "RiMailOpenLine" && (
-                  <RiMailOpenLine size={iconSize} className={iconStyle} />
                 )}
                 {item.icon === "RiGithubLine" && (
                   <RiGithubLine size={iconSize} className={iconStyle} />
