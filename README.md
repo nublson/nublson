@@ -2,9 +2,9 @@
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=nublson&color=blueviolet" alt="Profile views" /> </p>
 <img align="right" width="300em" height="300em" src="./animation_500_kv8i962g.gif?raw=true"/>
 
-- 💼 I’m currently working as a **Senior Software Engineer** at [CERN](https://home.cern/)
+- 💼 I’m currently looking for a job
 
-- 🧑🏽‍💻 I work with **Web and Mobile Development**
+- 🧑🏽‍💻 I work with **Web Development**
 
 - 💻 Addicted and passionate about **Linux 🐧 and Mac OS **
 
@@ -20,15 +20,16 @@
 
 <br>
 
-![HTML](https://img.shields.io/badge/-HTML-05122A?style=flat&logo=HTML5)&nbsp;
-![CSS](https://img.shields.io/badge/-CSS-05122A?style=flat&logo=CSS3&logoColor=1572B6)&nbsp;
 ![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat&logo=typescript)&nbsp;
 ![React](https://img.shields.io/badge/-React-05122A?style=flat&logo=react)&nbsp;
-![NextJS](https://img.shields.io/badge/-NextJS-05122A?style=flat&logo=next.js)&nbsp;
-![React Native](https://img.shields.io/badge/-React%20Native-05122A?style=flat&logo=react)&nbsp;
-![Expo](https://img.shields.io/badge/-Expo-05122A?style=flat&logo=expo)&nbsp;
+![TaildindCSS](https://img.shields.io/badge/-TailwindCSS-05122A?style=flat&logo=tailwindcss)&nbsp;
+![Vite](https://img.shields.io/badge/-Vite-05122A?style=flat&logo=vite)&nbsp;
 ![Redux](https://img.shields.io/badge/-Redux-05122A?style=flat&logo=redux&logoColor=ba8fff)&nbsp;
-![Styled-Components](https://img.shields.io/badge/-Styled%20Components-05122A?style=flat&logo=styled-components)&nbsp;
+![Tanstack](https://img.shields.io/badge/-Tanstack-05122A?style=flat&logo=tanstack)&nbsp;
+![Vitest](https://img.shields.io/badge/-Vitest-05122A?style=flat&logo=vitest)&nbsp;
+![Cypress](https://img.shields.io/badge/-Cypress-05122A?style=flat&logo=cypress)&nbsp;
+![Claude](https://img.shields.io/badge/-Claude-05122A?style=flat&logo=claude)&nbsp;
+![Cursor](https://img.shields.io/badge/-Cursor-05122A?style=flat&logo=cursor)&nbsp;
 
 <br>
 
