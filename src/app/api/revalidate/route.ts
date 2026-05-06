@@ -7,10 +7,28 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
-  const body = (await request.json().catch(() => ({}))) as {
-    type?: "blog" | "work";
-    slug?: string;
-  };
+  let body: { type?: "blog" | "work"; slug?: string } = {};
+  const rawBody = await request.text();
+
+  if (rawBody.trim().length > 0) {
+    try {
+      const parsedBody = JSON.parse(rawBody) as unknown;
+
+      if (parsedBody && typeof parsedBody === "object") {
+        body = parsedBody as { type?: "blog" | "work"; slug?: string };
+      } else {
+        return NextResponse.json(
+          { message: "Invalid JSON body: expected an object" },
+          { status: 400 },
+        );
+      }
+    } catch {
+      return NextResponse.json(
+        { message: "Invalid JSON body" },
+        { status: 400 },
+      );
+    }
+  }
 
   if (body.type && body.slug) {
     const path = body.type === "blog" ? `/blog/${body.slug}` : `/work/${body.slug}`;

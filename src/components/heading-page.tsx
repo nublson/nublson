@@ -16,7 +16,7 @@ export function HeadingPage({
   return (
     <div className="w-full flex flex-col items-start justify-start gap-5">
       {top}
-      <div className=" w-full flex flex-col items-start justify-start gap-[6px]">
+      <div className="w-full flex flex-col items-start justify-start gap-[6px]">
         <Typography component="h1" variant={size === "small" ? "h2" : "h1"}>
           {title}
         </Typography>

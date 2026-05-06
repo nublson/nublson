@@ -71,6 +71,10 @@ export function renderRichTextNode(
     );
   }
 
+  if (!link.startsWith("http://") && !link.startsWith("https://")) {
+    return null;
+  }
+
   return (
     <a
       key={key}
