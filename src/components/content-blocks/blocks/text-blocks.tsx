@@ -3,6 +3,7 @@ import type { DropedProps } from "@9gustin/react-notion-render/dist/hoc/withCont
 import React from "react";
 import { Typography } from "../../typography";
 import { mapParagraphChildren } from "../rich-text";
+import { CodeBlockHighlight } from "./code-block-highlight";
 
 type CalloutIconLike = {
   emoji?: string;
@@ -56,9 +57,10 @@ export const CalloutBlock = withContentValidation((props: DropedProps) => {
 });
 
 export const CodeBlock = withContentValidation((props: DropedProps) => (
-  <pre className="w-full">
-    <code>{props.children}</code>
-  </pre>
+  <CodeBlockHighlight
+    language={props.language}
+    code={props.plainText ?? ""}
+  />
 ));
 
 export const QuoteBlock = withContentValidation((props: DropedProps) => (

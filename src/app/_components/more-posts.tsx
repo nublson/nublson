@@ -17,5 +17,9 @@ export async function MorePosts({
     .filter((post) => post.slug !== slug)
     .slice(0, 3);
 
-  return <PostsSection title="More Posts" id="blog" posts={blogPostMetadata} />;
+  return (
+    blogPostMetadata.length > 0 && (
+      <PostsSection title="More Posts" id="blog" posts={blogPostMetadata} />
+    )
+  );
 }
