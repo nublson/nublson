@@ -32,7 +32,12 @@ jobs:
 
       - name: Merge develop into main
         run: |
-          git merge origin/develop --no-edit
+          if git merge-base origin/main origin/develop >/dev/null 2>&1; then
+            git merge origin/develop --no-edit
+          else
+            echo "::notice title=Unrelated histories::main and develop share no merge base; merging with --allow-unrelated-histories (one-time for divergent roots)."
+            git merge origin/develop --no-edit --allow-unrelated-histories
+          fi
         env:
           GIT_MERGE_AUTOEDIT: no
 
