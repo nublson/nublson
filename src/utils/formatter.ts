@@ -1,89 +1,195 @@
-import moment from "moment";
+import { BlockWithChildren } from "@/services/notion";
+import { BlockObjectResponse, PageObjectResponse } from "@notionhq/client";
 import slugify from "slugify";
-import { GearProps, PostProps } from "./types";
 
-export const formatSlug = (data: string | any) => {
-  const content =
-    typeof data === "string"
-      ? data
-      : data.properties.Name.title[0].text.content;
-  return slugify(content, {
+export const slugifyText = (text: string) => {
+  return slugify(text, {
     remove: /[*+~.,()'"?!:@]/g,
     lower: true,
   });
 };
 
-export const formatPosts = (database: any[]): PostProps[] => {
-  return database.map((post) => {
-    const author =
-      post.properties.Author?.people?.length > 0
-        ? post.properties.Author.people[0].name
-        : undefined;
+export type PageMetadata = {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  modified_date: string | undefined;
+  thumbnail?: string;
+  role?: string;
+  location?: string;
+};
+
+export const formatPageMetadata = (page: PageObjectResponse): PageMetadata => {
+  const cover = page.cover;
+
+  const title =
+    page.properties.Name.type === "title"
+      ? (page.properties.Name.title[0]?.plain_text ?? "")
+      : "";
+
+  const thumbnail = cover
+    ? cover.type === "file"
+      ? cover.file.url
+      : cover.external.url
+    : undefined;
+
+  return {
+    id: page.id,
+    title,
+    slug: slugifyText(title),
+    thumbnail,
+    description:
+      page.properties.description?.type === "rich_text"
+        ? (page.properties.description.rich_text[0]?.plain_text ?? "")
+        : "",
+    modified_date:
+      page.properties.modified_date?.type === "last_edited_time"
+        ? page.properties.modified_date.last_edited_time
+        : undefined,
+    role:
+      page.properties.role?.type === "rich_text"
+        ? (page.properties.role.rich_text[0]?.plain_text ?? "")
+        : undefined,
+    location:
+      page.properties.location?.type === "rich_text"
+        ? (page.properties.location.rich_text[0]?.plain_text ?? "")
+        : undefined,
+  };
+};
+
+export type PostMetadata = {
+  id: string;
+  title: string;
+  slug: string;
+  thumbnail?: string;
+  description: string;
+  published_date: string;
+  updated_date: string;
+  path: string;
+  figma: string;
+  category: string;
+};
+
+export const formatPostMetadata = (
+  databasePages: PageObjectResponse[],
+): PostMetadata[] => {
+  return databasePages.map((page) => {
+    const title =
+      page.properties.Name.type === "title"
+        ? (page.properties.Name.title[0]?.plain_text ?? "")
+        : "";
+
+    const cover = page.cover;
+    const thumbnail =
+      cover?.type === "file"
+        ? cover.file.url
+        : cover?.type === "external"
+          ? cover.external.url
+          : undefined;
+
+    const description =
+      page.properties.Description.type === "rich_text"
+        ? (page.properties.Description.rich_text[0]?.plain_text ?? "")
+        : "";
+
+    const published_date =
+      page.properties["Publish Date"]?.type === "date"
+        ? (page.properties["Publish Date"].date?.start ?? "")
+        : "";
+
+    const updated_date = page.last_edited_time;
+    const path =
+      page.properties.Path?.type === "url" ? (page.properties.Path.url ?? "") : "";
+    const figma =
+      page.properties.Figma?.type === "url"
+        ? (page.properties.Figma.url ?? "")
+        : "";
+    const category =
+      page.properties.Category?.type === "select"
+        ? (page.properties.Category.select?.name ?? "")
+        : "";
 
     return {
-      id: post.id,
-      post_slug: formatSlug(post.properties.Name.title[0].text.content),
-      thumbnail:
-        post.cover.type === "file"
-          ? post.cover.file.url
-          : post.cover.external.url,
-      title: post.properties.Name.title[0].text.content,
-      description:
-        post.properties.Description?.rich_text?.[0]?.text?.content || null,
-      publish_date: post.properties["Publish Date"].date.start,
-      modified_date: post.properties["Modified Date"]?.last_edited_time,
-      category: post.properties.Category?.select?.name,
-      keywords: post.properties.Keywords?.rich_text?.[0]?.text?.content || null,
-      path: post.properties.Path.url,
-      author,
-      price: post.properties.Price?.number,
+      id: page.id,
+      title,
+      slug: slugifyText(title),
+      thumbnail,
+      description,
+      published_date,
+      updated_date,
+      path,
+      figma,
+      category,
     };
   });
 };
 
-export const formatGears = (database: any[]): GearProps[] => {
-  return database.map((gear) => ({
-    id: gear.id,
-    thumbnail:
-      gear.cover.type === "file"
-        ? gear.cover.file.url
-        : gear.cover.external.url,
-    title: gear.properties.Name.title[0].text.content,
-    description:
-      gear.properties.description?.rich_text?.[0]?.text?.content || null,
-    category: gear.properties.category?.select?.name,
-    path: gear.properties.path.url,
-  }));
-};
-
-export const formatPageProps = (page: any): PostProps => {
-  return {
-    id: page.id,
-    post_slug: formatSlug(page.properties.Name.title[0].text.content),
-    title: page.properties.Name.title[0].text.content,
-    thumbnail:
-      page.cover.type === "file"
-        ? page.cover.file.url
-        : page.cover.external.url,
-    description:
-      page.properties.description?.rich_text?.[0]?.text?.content || "",
-    category: page.properties.category?.select?.name,
-    publish_date: page.properties.publish_date.date.start,
-    modified_date: page.properties.modified_date?.last_edited_time,
-  };
-};
-
-export const formatBlockWithChildren = (blocks: any[], childBlocks: any[]) => {
-  return blocks.map((block) => {
-    if (block.has_children && !block[block.type].children) {
-      block[block.type].children = childBlocks.find(
-        (x) => x.id === block.id
-      )?.children;
-    }
-    return block;
+export const formatPostDate = (date: string) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
   });
 };
 
-export const setToCurrentDate = (date: string | undefined, format: string) => {
-  return moment(date).format(format);
+/** e.g. "Sep 19, 2025" — for article / project detail headers */
+export const formatPostDateFull = (date: string) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 };
+
+export const formatBlockWithChildren = (
+  blocks: BlockWithChildren[],
+): BlockWithChildren[] => {
+  return blocks.map((block) => {
+    if (!block.has_children || !block.children) return block;
+
+    return {
+      ...block,
+      [block.type]: {
+        ...(block[block.type as keyof BlockObjectResponse] as object),
+        children: block.children,
+      },
+    };
+  });
+};
+
+/**
+ * Block shape that may represent a bullet list: either grouped items (render lib)
+ * or a single Notion bulleted_list_item block.
+ */
+type ListBlockLike =
+  | { items?: Array<{ content?: { text?: Array<{ plain_text?: string }> } }> }
+  | { bulleted_list_item?: { rich_text?: Array<{ plain_text?: string }> } };
+
+/**
+ * Extracts list item strings from a bullet-list block.
+ * Supports both Notion API shape (bulleted_list_item.rich_text) and
+ * render lib shape (items[].content.text[].plain_text).
+ *
+ * @param block - A bullet list block (single bulleted_list_item or grouped items).
+ * @returns Array of plain text strings, one per item.
+ */
+export function getListBlockItems(block: ListBlockLike): string[] {
+  if ("items" in block && Array.isArray(block.items)) {
+    return block.items.map((item) =>
+      (item.content?.text ?? [])
+        .map((textPart) => textPart.plain_text ?? "")
+        .join(""),
+    );
+  }
+  if (
+    "bulleted_list_item" in block &&
+    block.bulleted_list_item?.rich_text &&
+    Array.isArray(block.bulleted_list_item.rich_text)
+  ) {
+    const text = block.bulleted_list_item.rich_text
+      .map((t) => t.plain_text ?? "")
+      .join("");
+    return text ? [text] : [];
+  }
+  return [];
+}

@@ -1,63 +1,89 @@
-import { GoogleTagManager } from "@next/third-parties/google";
-import { Analytics } from "@vercel/analytics/react";
-import { Metadata } from "next";
-import { Lora, Poppins } from "next/font/google";
-import GoogleAnalytics from "./GoogleAnalytics";
-import "./globals.scss";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { JsonLd } from "@/components/json-ld";
+import { SkipLink } from "@/components/skip-link";
+import { TWITTER_CREATOR_HANDLE } from "@/utils/share-metadata";
+import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
-import { Layout } from "@/components/Layout";
-import { Footer } from "@/components/shared/Footer";
-
-import pages from "@/utils/pages.json";
-import social from "@/utils/social.json";
-
-const GTM_ID = "GTM-M88VGKTR";
-
-const poppins = Poppins({
-  weight: ["400", "600", "700"],
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  variable: "--font-poppins",
 });
 
-const lora = Lora({
-  weight: ["400", "600"],
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  variable: "--font-lora",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.BASE_URL!),
   title: {
     template: "%s | Nubelson Fernandes",
     default: "Nubelson Fernandes",
   },
-  description: pages.home.description,
-  metadataBase: new URL(process.env.BASE_URL),
-  verification: {
-    google:
-      "google-site-verification=f33po4sil38rZF5iD10dHpJlINIXWeaOFnTOqwBey-s",
+  description: "Designer and developer sharing work, writing, and tools.",
+  alternates: {
+    types: {
+      "application/rss+xml": [
+        { url: "/feed.xml", title: "Blog & work" },
+        { url: "/blog/feed.xml", title: "Blog" },
+        { url: "/work/feed.xml", title: "Work" },
+      ],
+    },
+  },
+  openGraph: {
+    siteName: "Nubelson Fernandes",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "/logo.svg" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: TWITTER_CREATOR_HANDLE,
+    images: ["/logo.svg"],
   },
 };
 
-export const revalidate = 10;
-
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${lora.variable}`}>
-      <body>
-        <Layout>{children}</Layout>
-        <Footer socialList={social.items} />
-        <GoogleAnalytics />
-        <GoogleTagManager gtmId={GTM_ID} />
-        <Analytics />
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display: none; visibility: hidden;"></iframe>`,
-          }}
-        />
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <body className="relative min-h-full flex flex-col">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Nubelson Fernandes",
+              url: process.env.BASE_URL,
+            }}
+          />
+          <SkipLink />
+          <Header />
+          <main
+            id="main-content"
+            tabIndex={-1}
+            className="flex-1 wrapper flex flex-col items-start justify-start gap-[60px] outline-none"
+          >
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
