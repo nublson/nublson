@@ -18,7 +18,7 @@ export function ProjectItem({ post }: ProjectItemProps) {
             src={post.thumbnail}
             alt={post.title}
             width={640}
-            height={424}
+            height={480}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
             loading="lazy"
             className="aspect-4/3 h-full w-full object-cover"

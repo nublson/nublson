@@ -166,7 +166,24 @@ export async function getAllPublishedSlugsForStaticParams(
   media: keyof typeof mediaMap,
 ): Promise<{ slug: string }[]> {
   const entries = await getAllPublishedEntriesWithTimestamps(databaseId, media);
-  return entries.map(({ slug }) => ({ slug }));
+  const uniqueSlugs = new Set<string>();
+  const duplicateSlugs = new Set<string>();
+
+  for (const { slug } of entries) {
+    if (uniqueSlugs.has(slug)) {
+      duplicateSlugs.add(slug);
+      continue;
+    }
+    uniqueSlugs.add(slug);
+  }
+
+  if (duplicateSlugs.size > 0) {
+    console.warn(
+      `[notion] Duplicate slugs found in "${media}" static params for database ${databaseId}: ${Array.from(duplicateSlugs).join(", ")}`,
+    );
+  }
+
+  return Array.from(uniqueSlugs, (slug) => ({ slug }));
 }
 
 /** Same pages as static params, including `lastModified` from Notion for sitemaps. */

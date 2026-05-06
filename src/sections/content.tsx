@@ -28,21 +28,10 @@ export default function ContentSection({ blocks }: ContentSectionProps) {
       <Render
         blocks={blocks as NotionBlock[]}
         simpleTitles
-        linkAttributes={(link) => {
-          const isInternalLink =
-            link.startsWith(process.env.BASE_URL!) || link.startsWith("/");
-
-          if (isInternalLink) {
-            return {
-              target: "_self",
-            };
-          }
-
-          return {
-            target: "_blank",
-            rel: "noopener noreferrer",
-          };
-        }}
+        linkAttributes={() => ({
+          target: "_blank",
+          rel: "noopener noreferrer",
+        })}
         blockComponentsMapper={{
           [blockEnum.IMAGE]: ImageBlock,
           [blockEnum.HEADING1]: Heading1Block,
