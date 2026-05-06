@@ -1,0 +1,33 @@
+name: Deploy to prod
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  merge-develop-into-main:
+    name: Merge develop into main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge develop into main
+        run: |
+          git fetch origin develop main
+          git checkout main
+          git merge --no-ff origin/develop -m "chore: merge develop into main"
+
+      - name: Push updated main
+        run: git push origin main
