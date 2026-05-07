@@ -29,8 +29,24 @@ export default function ContentSection({ blocks }: ContentSectionProps) {
         blocks={blocks as NotionBlock[]}
         simpleTitles
         linkAttributes={(link) => {
+          const isRootRelativePath =
+            link.startsWith("/") && !link.startsWith("//");
+          const isHashLink = link.startsWith("#");
+          const baseUrl = process.env.BASE_URL;
+          const baseOrigin = baseUrl != null ? new URL(baseUrl).origin : null;
+          const isSameOriginAbsoluteLink = (() => {
+            if (baseOrigin == null) {
+              return false;
+            }
+            try {
+              return new URL(link).origin === baseOrigin;
+            } catch {
+              return false;
+            }
+          })();
+
           const isInternalLink =
-            link.startsWith(process.env.BASE_URL!) || link.startsWith("/");
+            isRootRelativePath || isHashLink || isSameOriginAbsoluteLink;
 
           if (isInternalLink) {
             return {
