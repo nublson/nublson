@@ -27,7 +27,7 @@ function getCalloutEmoji(block: unknown): string {
 export const ParagraphBlock = withContentValidation((props: DropedProps) => {
   const hasChildren = React.Children.count(props.children) > 0;
   const content = hasChildren
-    ? mapParagraphChildren(props.children)
+    ? mapParagraphChildren(props.children, props.config?.linkAttributes)
     : (props.plainText ?? "");
 
   return (

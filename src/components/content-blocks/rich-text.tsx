@@ -51,8 +51,14 @@ type RichTextNodeInput = Pick<
   children?: React.ReactNode;
 };
 
+type LinkAttributesLike = {
+  target?: React.HTMLAttributeAnchorTarget;
+  rel?: string;
+};
+
 export function renderRichTextNode(
   textLike: RichTextNodeInput,
+  linkAttributes?: (url: string) => LinkAttributesLike,
   key?: string,
 ): React.ReactNode {
   const { plain_text, text, href, annotations, children } = textLike;
@@ -71,7 +77,10 @@ export function renderRichTextNode(
     );
   }
 
-  if (!link.startsWith("http://") && !link.startsWith("https://")) {
+  const isHttp = link.startsWith("http://") || link.startsWith("https://");
+  const resolvedLinkAttributes = linkAttributes?.(link);
+
+  if (!isHttp) {
     return null;
   }
 
@@ -80,8 +89,8 @@ export function renderRichTextNode(
       key={key}
       href={link}
       className="underline underline-offset-2 text-muted-foreground hover:text-accent-foreground transition-all duration-300"
-      target="_blank"
-      rel="noopener noreferrer"
+      target={resolvedLinkAttributes?.target ?? "_blank"}
+      rel={resolvedLinkAttributes?.rel}
       aria-label={rawText}
     >
       {styledText}
@@ -91,6 +100,7 @@ export function renderRichTextNode(
 
 export function mapParagraphChildren(
   children: React.ReactNode,
+  linkAttributes?: (url: string) => LinkAttributesLike,
 ): React.ReactNode[] {
   return (
     React.Children.map(children, (child) => {
@@ -103,13 +113,13 @@ export function mapParagraphChildren(
         return child;
       }
 
-      return renderRichTextNode(props);
+      return renderRichTextNode(props, linkAttributes);
     }) ?? []
   );
 }
 
 export function mapListTextParts(parts: ListTextPartLike[]): React.ReactNode[] {
   return parts.map((part, index) =>
-    renderRichTextNode(part, `list-part-${index}`),
+    renderRichTextNode(part, undefined, `list-part-${index}`),
   );
 }
