@@ -8,7 +8,7 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="wrapper flex flex-col items-center justify-start gap-5 pb-5 mt-10">
+    <footer className="wrapper flex flex-col items-center justify-start gap-5 pb-5 mt-10 lg:mt-[60px]">
       <Separator />
       <div className="w-full flex flex-col lg:flex-row items-center lg:items-start justify-between gap-2.5">
         <Typography size="small">

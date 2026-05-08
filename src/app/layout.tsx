@@ -78,7 +78,7 @@ export default function RootLayout({
           <main
             id="main-content"
             tabIndex={-1}
-            className="flex-1 wrapper flex flex-col items-start justify-start gap-[60px] outline-none"
+            className="flex-1 wrapper flex flex-col items-start justify-start gap-10 lg:gap-[60px] outline-none"
           >
             {children}
           </main>
