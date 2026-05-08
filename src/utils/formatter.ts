@@ -69,6 +69,7 @@ export type PostMetadata = {
   path: string;
   figma: string;
   category: string;
+  author: string;
 };
 
 export const formatPostMetadata = (
@@ -97,7 +98,9 @@ export const formatPostMetadata = (
 
     const updated_date = page.last_edited_time;
     const path =
-      page.properties.Path?.type === "url" ? (page.properties.Path.url ?? "") : "";
+      page.properties.Path?.type === "url"
+        ? (page.properties.Path.url ?? "")
+        : "";
     const figma =
       page.properties.Figma?.type === "url"
         ? (page.properties.Figma.url ?? "")
@@ -106,7 +109,15 @@ export const formatPostMetadata = (
       page.properties.Category?.type === "select"
         ? (page.properties.Category.select?.name ?? "")
         : "";
-
+    const author =
+      page.properties.Author?.type === "people"
+        ? (() => {
+            const firstAuthor = page.properties.Author.people[0];
+            return firstAuthor && "name" in firstAuthor
+              ? (firstAuthor.name ?? "")
+              : "";
+          })()
+        : "";
     return {
       id: page.id,
       title,
@@ -118,6 +129,7 @@ export const formatPostMetadata = (
       path,
       figma,
       category,
+      author,
     };
   });
 };
