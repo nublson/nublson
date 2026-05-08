@@ -2,6 +2,7 @@ import {
   BulletListBlock,
   CalloutBlock,
   CodeBlock,
+  DividerBlock,
   Heading1Block,
   Heading2Block,
   Heading3Block,
@@ -72,6 +73,7 @@ export default function ContentSection({ blocks }: ContentSectionProps) {
           [blockEnum.QUOTE]: QuoteBlock,
           [blockEnum.VIDEO]: VideoBlock,
           [blockEnum.TABLE]: TableBlock,
+          [blockEnum.DIVIDER]: DividerBlock,
         }}
       />
     </section>
