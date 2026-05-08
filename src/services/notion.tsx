@@ -77,6 +77,7 @@ async function queryPublishedPagesPage(
       "Path",
       "Figma",
       "Category",
+      "Author",
     ],
     sorts: [
       {
@@ -230,11 +231,7 @@ export async function getAboutPageLastModified(): Promise<Date | null> {
 
 /** Resolves a published database row by URL slug (derived from the page title). */
 export const getDatabasePageBySlug = cache(
-  async (
-    databaseId: string,
-    media: keyof typeof mediaMap,
-    slug: string,
-  ) => {
+  async (databaseId: string, media: keyof typeof mediaMap, slug: string) => {
     const slugProperty = process.env.NOTION_SLUG_PROPERTY?.trim();
     if (slugProperty) {
       try {
@@ -330,8 +327,7 @@ async function fetchBlocksRecursive(
 }
 
 const fetchPageBlocksCached = unstable_cache(
-  async (pageId: string) =>
-    fetchBlocksRecursive(pageId, MAX_BLOCK_DEPTH),
+  async (pageId: string) => fetchBlocksRecursive(pageId, MAX_BLOCK_DEPTH),
   ["notion-page-blocks"],
   { tags: ["notion-blocks"], revalidate: 10 },
 );
