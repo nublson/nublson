@@ -43,6 +43,7 @@ export async function generateMetadata({
     {
       openGraphType: "article",
       publishedTime: found.metadata.published_date,
+      section: found.metadata.category,
     },
   );
 }

@@ -15,6 +15,10 @@ export type ShareMetadataOptions = {
   absoluteTitle?: boolean;
   openGraphType?: "website" | "article";
   publishedTime?: string;
+  /** Maps to `article:section` (article OG type only). */
+  section?: string;
+  /** Maps to `article:tag` (article OG type only). */
+  tags?: string[];
 };
 
 export function buildShareMetadata(
@@ -23,6 +27,7 @@ export function buildShareMetadata(
 ): Metadata {
   const ogImage = thumbnail ?? DEFAULT_OG_IMAGE;
   const openGraphType = options?.openGraphType ?? "website";
+  const isArticle = openGraphType === "article";
 
   return {
     title: options?.absoluteTitle ? { absolute: title } : title,
@@ -34,6 +39,10 @@ export function buildShareMetadata(
       images: [{ url: ogImage }],
       ...(options?.publishedTime
         ? { publishedTime: options.publishedTime }
+        : {}),
+      ...(isArticle && options?.section ? { section: options.section } : {}),
+      ...(isArticle && options?.tags && options.tags.length > 0
+        ? { tags: options.tags }
         : {}),
     },
     twitter: {

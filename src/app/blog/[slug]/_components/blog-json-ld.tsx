@@ -25,6 +25,7 @@ export async function BlogJsonLd({
         image: metadata.thumbnail,
         datePublished: metadata.published_date,
         dateModified: metadata.updated_date,
+        articleSection: metadata.category,
         url: `${process.env.BASE_URL}/blog/${slug}`,
         author: {
           "@type": "Person",
