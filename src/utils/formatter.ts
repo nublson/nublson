@@ -62,7 +62,7 @@ export type PostMetadata = {
   id: string;
   title: string;
   slug: string;
-  thumbnail: string;
+  thumbnail?: string;
   description: string;
   published_date: string;
   updated_date: string;
@@ -81,10 +81,13 @@ export const formatPostMetadata = (
         ? (page.properties.Name.title[0]?.plain_text ?? "")
         : "";
 
+    const cover = page.cover;
     const thumbnail =
-      page.cover?.type === "file"
-        ? page.cover.file.url
-        : (page.cover?.external.url ?? "");
+      cover?.type === "file"
+        ? cover.file.url
+        : cover?.type === "external"
+          ? cover.external.url
+          : undefined;
 
     const description =
       page.properties.Description.type === "rich_text"

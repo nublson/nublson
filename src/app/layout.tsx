@@ -3,6 +3,7 @@ import { Header } from "@/components/header";
 import { JsonLd } from "@/components/json-ld";
 import { SkipLink } from "@/components/skip-link";
 import { TWITTER_CREATOR_HANDLE } from "@/utils/share-metadata";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -83,6 +84,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>

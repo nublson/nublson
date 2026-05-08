@@ -31,13 +31,7 @@ jobs:
         run: git checkout main
 
       - name: Merge develop into main
-        run: |
-          if git merge-base origin/main origin/develop >/dev/null 2>&1; then
-            git merge origin/develop --no-edit
-          else
-            echo "::notice title=Unrelated histories::main and develop share no merge base; merging with --allow-unrelated-histories (one-time for divergent roots)."
-            git merge origin/develop --no-edit --allow-unrelated-histories
-          fi
+        run: git merge origin/develop --no-edit
         env:
           GIT_MERGE_AUTOEDIT: no
 
