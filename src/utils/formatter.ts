@@ -67,7 +67,7 @@ export type PostMetadata = {
   published_date: string;
   updated_date: string;
   path: string;
-  figma: string;
+  source: string;
   category: string;
   author: string;
 };
@@ -104,9 +104,9 @@ export const formatPostMetadata = (
       page.properties.Path?.type === "url"
         ? (page.properties.Path.url ?? "")
         : "";
-    const figma =
-      page.properties.Figma?.type === "url"
-        ? (page.properties.Figma.url ?? "")
+    const source =
+      page.properties.Source?.type === "url"
+        ? (page.properties.Source.url ?? "")
         : "";
     const category =
       page.properties.Category?.type === "select"
@@ -130,7 +130,7 @@ export const formatPostMetadata = (
       published_date,
       updated_date,
       path,
-      figma,
+      source,
       category,
       author,
     };

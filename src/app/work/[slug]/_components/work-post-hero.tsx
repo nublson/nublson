@@ -4,6 +4,7 @@ import Hero from "@/sections/hero";
 import { getDatabasePageBySlug } from "@/services/notion";
 import { formatPostDateFull } from "@/utils/formatter";
 import { notFound } from "next/navigation";
+import { Code, ExternalLink } from "lucide-react";
 
 export async function WorkPostHero({
   params,
@@ -37,7 +38,7 @@ export async function WorkPostHero({
       thumbnail={metadata.thumbnail}
       size="small"
       bottom={
-        metadata.path || metadata.figma ? (
+        metadata.path || metadata.source ? (
           <div className="w-full flex items-center justify-between gap-2">
             {metadata.path && (
               <Typography className="link justify-start" size="small">
@@ -45,19 +46,21 @@ export async function WorkPostHero({
                   href={metadata.path}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="flex items-center gap-2"
                 >
-                  <span aria-hidden="true">🔗</span> Live Demo
+                  <ExternalLink className="size-4" /> Live Demo
                 </a>
               </Typography>
             )}
-            {metadata.figma && (
+            {metadata.source && (
               <Typography className="link justify-end" size="small">
                 <a
-                  href={metadata.figma}
+                  href={metadata.source}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="flex items-center gap-2"
                 >
-                  <span aria-hidden="true">🎨</span> Figma Design
+                  <Code className="size-4" /> Source Code
                 </a>
               </Typography>
             )}

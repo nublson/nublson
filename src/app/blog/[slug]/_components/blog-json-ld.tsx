@@ -15,6 +15,13 @@ export async function BlogJsonLd({
   if (!found) return null;
 
   const { metadata } = found;
+
+  const author = {
+    "@type": "Person",
+    name: metadata.author,
+    url: process.env.BASE_URL,
+  };
+
   return (
     <JsonLd
       data={{
@@ -27,10 +34,11 @@ export async function BlogJsonLd({
         dateModified: metadata.updated_date,
         articleSection: metadata.category,
         url: `${process.env.BASE_URL}/blog/${slug}`,
-        author: {
-          "@type": "Person",
-          name: "Nubelson Fernandes",
-          url: process.env.BASE_URL,
+        author: author,
+        publisher: author,
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `${process.env.BASE_URL}/blog/${slug}`,
         },
       }}
     />

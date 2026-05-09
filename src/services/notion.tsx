@@ -26,6 +26,16 @@ const MAX_BLOCK_DEPTH = 5;
 
 const QUERY_PAGE_SIZE = 100;
 
+const postFilterProperties: string[] = [
+  "title",
+  "Description",
+  "Publish Date",
+  "Path",
+  "Source",
+  "Category",
+  "Author",
+];
+
 const mediaMap = {
   Blog: "Blog",
   Project: "Project",
@@ -70,15 +80,7 @@ async function queryPublishedPagesPage(
     filter: {
       and: andFilters as never,
     },
-    filter_properties: [
-      "title",
-      "Description",
-      "Publish Date",
-      "Path",
-      "Figma",
-      "Category",
-      "Author",
-    ],
+    filter_properties: postFilterProperties,
     sorts: [
       {
         property: "Publish Date",

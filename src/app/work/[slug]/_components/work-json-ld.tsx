@@ -15,6 +15,13 @@ export async function WorkJsonLd({
   if (!found) return null;
 
   const { metadata } = found;
+
+  const creator = {
+    "@type": "Person",
+    name: metadata.author,
+    url: process.env.BASE_URL,
+  };
+
   return (
     <JsonLd
       data={{
@@ -24,10 +31,11 @@ export async function WorkJsonLd({
         description: metadata.description,
         image: metadata.thumbnail,
         url: `${process.env.BASE_URL}/work/${slug}`,
-        creator: {
-          "@type": "Person",
-          name: "Nubelson Fernandes",
-          url: process.env.BASE_URL,
+        creator: creator,
+        publisher: creator,
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `${process.env.BASE_URL}/work/${slug}`,
         },
       }}
     />
