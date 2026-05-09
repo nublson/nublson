@@ -144,6 +144,18 @@ export const formatPostDate = (date: string) => {
   });
 };
 
+/** Normalizes Notion date/date-time strings into ISO 8601 with timezone. */
+export const formatDateTimeIso = (date: string) => {
+  if (!date) return date;
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    return `${date}T00:00:00Z`;
+  }
+
+  const parsed = new Date(date);
+  return Number.isNaN(parsed.getTime()) ? date : parsed.toISOString();
+};
+
 /** e.g. "Sep 19, 2025" — for article / project detail headers */
 export const formatPostDateFull = (date: string) => {
   return new Date(date).toLocaleDateString("en-US", {

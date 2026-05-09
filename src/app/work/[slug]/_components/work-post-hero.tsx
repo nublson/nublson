@@ -2,7 +2,7 @@ import { HeadingTop } from "@/components/heading-top";
 import { Typography } from "@/components/typography";
 import Hero from "@/sections/hero";
 import { getDatabasePageBySlug } from "@/services/notion";
-import { formatPostDateFull } from "@/utils/formatter";
+import { formatDateTimeIso, formatPostDateFull } from "@/utils/formatter";
 import { notFound } from "next/navigation";
 import { Code, ExternalLink } from "lucide-react";
 
@@ -21,6 +21,7 @@ export async function WorkPostHero({
 
   const { metadata } = found;
   const dateLabel = formatPostDateFull(metadata.published_date);
+  const dateTime = formatDateTimeIso(metadata.published_date);
 
   return (
     <Hero
@@ -28,7 +29,7 @@ export async function WorkPostHero({
         <HeadingTop
           title={metadata.title}
           date={dateLabel}
-          dateTime={metadata.published_date}
+          dateTime={dateTime}
           postsPath="/work"
           postType="Projects"
         />
