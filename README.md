@@ -1,6 +1,4 @@
 <h1 align="left">Hi 👋🏾, my name is Nubelson Fernandes!</h1>
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=nublson&color=blueviolet" alt="Profile views" /> </p>
-<img align="right" width="300em" height="300em" src="./animation_500_kv8i962g.gif?raw=true"/>
 
 - 💼 I’m currently looking for a job
 
@@ -30,28 +28,3 @@
 ![Cypress](https://img.shields.io/badge/-Cypress-05122A?style=flat&logo=cypress)&nbsp;
 ![Claude](https://img.shields.io/badge/-Claude-05122A?style=flat&logo=claude)&nbsp;
 ![Cursor](https://img.shields.io/badge/-Cursor-05122A?style=flat&logo=cursor)&nbsp;
-
-<br>
-
-## ⚙️ &nbsp;GitHub Analytics
-
-<br>
-
-<p align="center">
-<img width="530em" src="https://github-readme-stats.vercel.app/api?username=nublson&show_icons=true&theme=nightowl" alt="nublson's stats"/>
-</p>
-
-<br>
-
----
-
-<br>
-
-<p align="center">
-  <a href="https://instagram.com/nublson" target="_blank">
- <img align="center" src="https://img.shields.io/badge/-nublson-05122A?style=flat&logo=instagram" alt="instagram"/>
-</a>
-<a href="https://youtube.com/@nublson" target="_blank">
- <img align="center" src="https://img.shields.io/badge/-nublson-05122A?style=flat&logo=youtube" alt="youtube"/>
-</a>
-</p>
