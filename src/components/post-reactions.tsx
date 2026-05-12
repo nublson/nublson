@@ -44,6 +44,41 @@ async function postSummary(
   return res.json() as Promise<PostReactionSummary>;
 }
 
+/**
+ * Uses the Web Share API when available; otherwise copies the URL to the clipboard.
+ * User canceling the share sheet (AbortError) is ignored.
+ */
+async function shareUrl(
+  url: string,
+  options: { title?: string; onClipboardCopied?: () => void } = {},
+): Promise<void> {
+  const title = options.title ?? "Check out this post";
+  const shareData: ShareData = { title, url };
+
+  const canWebShare =
+    typeof navigator !== "undefined" &&
+    typeof navigator.share === "function" &&
+    (typeof navigator.canShare !== "function" || navigator.canShare(shareData));
+
+  if (canWebShare) {
+    try {
+      await navigator.share(shareData);
+      return;
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") {
+        return;
+      }
+    }
+  }
+
+  try {
+    await navigator.clipboard.writeText(url);
+    options.onClipboardCopied?.();
+  } catch {
+    // Clipboard may be denied; ignore
+  }
+}
+
 export function PostReactions({
   postId,
   postSlug,
@@ -130,17 +165,17 @@ export function PostReactions({
   );
 
   const handleShare = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setShareCopied(true);
-      if (shareResetRef.current) clearTimeout(shareResetRef.current);
-      shareResetRef.current = setTimeout(() => {
-        setShareCopied(false);
-        shareResetRef.current = null;
-      }, 2000);
-    } catch {
-      // Clipboard may be denied; ignore
-    }
+    await shareUrl(window.location.href, {
+      title: document.title || "Check out this post",
+      onClipboardCopied: () => {
+        setShareCopied(true);
+        if (shareResetRef.current) clearTimeout(shareResetRef.current);
+        shareResetRef.current = setTimeout(() => {
+          setShareCopied(false);
+          shareResetRef.current = null;
+        }, 2000);
+      },
+    });
   }, []);
 
   if (loading || !summary) {
