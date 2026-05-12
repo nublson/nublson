@@ -4,6 +4,7 @@ import {
   slugifyText,
   formatPostDate,
   formatPostDateFull,
+  formatCompactCount,
   getListBlockItems,
   formatBlockWithChildren,
   formatPageMetadata,
@@ -74,6 +75,38 @@ describe("formatPostDateFull", () => {
     expect(result).toMatch(/19/);
     expect(result).toMatch(/Sep/);
     expect(result).toMatch(/2024/);
+  });
+});
+
+describe("formatCompactCount", () => {
+  it("returns string integers below 1K unchanged", () => {
+    expect(formatCompactCount(0)).toBe("0");
+    expect(formatCompactCount(1)).toBe("1");
+    expect(formatCompactCount(999)).toBe("999");
+  });
+
+  it("formats thousands with K and up to one decimal", () => {
+    expect(formatCompactCount(1000)).toBe("1K");
+    expect(formatCompactCount(10300)).toBe("10.3K");
+    expect(formatCompactCount(10000)).toBe("10K");
+  });
+
+  it("rolls nearly 1M counts into M when K would round to 1000", () => {
+    expect(formatCompactCount(999_999)).toBe("1M");
+  });
+
+  it("formats millions with M and up to one decimal", () => {
+    expect(formatCompactCount(1_000_000)).toBe("1M");
+    expect(formatCompactCount(1_550_000)).toBe("1.6M");
+  });
+
+  it("truncates fractional input", () => {
+    expect(formatCompactCount(10300.7)).toBe("10.3K");
+  });
+
+  it("returns 0 for non-finite or negative values", () => {
+    expect(formatCompactCount(-1)).toBe("0");
+    expect(formatCompactCount(Number.NaN)).toBe("0");
   });
 });
 

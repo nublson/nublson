@@ -4,6 +4,7 @@ import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-ske
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { PostReactionSummary, ReactionType } from "@/services/reactions";
+import { formatCompactCount } from "@/utils/formatter";
 import { Check, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TooltipWrapper } from "./tooltip-wrapper";
@@ -198,7 +199,7 @@ export function PostReactions({
             onClick={() => void applyReaction("like")}
           >
             <ThumbsUp className="size-4 shrink-0" />
-            {likes ? ` ${likes}` : ""}
+            {likes ? ` ${formatCompactCount(likes)}` : ""}
           </Button>
         </TooltipWrapper>
         <TooltipWrapper content="Dislike">
@@ -212,7 +213,7 @@ export function PostReactions({
             onClick={() => void applyReaction("dislike")}
           >
             <ThumbsDown className="size-4 shrink-0" />
-            {dislikes ? ` ${dislikes}` : ""}
+            {dislikes ? ` ${formatCompactCount(dislikes)}` : ""}
           </Button>
         </TooltipWrapper>
         <TooltipWrapper content={shareCopied ? "Copied!" : "Share"}>

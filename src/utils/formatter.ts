@@ -165,6 +165,35 @@ export const formatPostDateFull = (date: string) => {
   });
 };
 
+/**
+ * Compacts a non-negative count for UI (e.g. reactions).
+ * Examples: `999` → `"999"`, `1000` → `"1K"`, `10300` → `"10.3K"`, `999_999` → `"1M"`.
+ */
+export function formatCompactCount(value: number): string {
+  const n = Math.trunc(Number(value));
+  if (!Number.isFinite(n) || n < 0) return "0";
+  if (n < 1000) return String(n);
+
+  const withSuffix = (divisor: number, suffix: string): string => {
+    const x = n / divisor;
+    const rounded = Math.round(x * 10) / 10;
+    const body = Number.isInteger(rounded)
+      ? String(rounded)
+      : `${rounded.toFixed(1).replace(/\.0$/, "")}`;
+    return `${body}${suffix}`;
+  };
+
+  if (n < 1_000_000) {
+    const roundedK = Math.round((n / 1000) * 10) / 10;
+    if (roundedK >= 1000) {
+      return withSuffix(1_000_000, "M");
+    }
+    return withSuffix(1000, "K");
+  }
+
+  return withSuffix(1_000_000, "M");
+}
+
 export const formatBlockWithChildren = (
   blocks: BlockWithChildren[],
 ): BlockWithChildren[] => {
