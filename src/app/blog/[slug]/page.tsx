@@ -1,6 +1,8 @@
 import { MorePosts } from "@/app/_components/more-posts";
+import { PostReactionsLoader } from "@/app/_components/post-reactions-loader";
 import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
 import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
+import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-skeleton";
 import { PostsSectionSkeleton } from "@/components/skeletons/posts-section-skeleton";
 import {
   getAllPublishedSlugsForStaticParams,
@@ -66,6 +68,9 @@ export default function BlogPostPage({
       </Suspense>
       <Suspense fallback={<PostsSectionSkeleton rowCount={4} />}>
         <MorePosts params={params} />
+      </Suspense>
+      <Suspense fallback={<PostReactionsSkeleton />}>
+        <PostReactionsLoader params={params} />
       </Suspense>
     </>
   );
