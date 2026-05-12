@@ -7,7 +7,6 @@ import type { PostReactionSummary, ReactionType } from "@/services/reactions";
 import { Check, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TooltipWrapper } from "./tooltip-wrapper";
-import { Typography } from "./typography";
 
 type PostReactionsProps = {
   postId: string;
@@ -156,57 +155,29 @@ export function PostReactions({
         <TooltipWrapper content="Like">
           <Button
             type="button"
-            variant="outline"
+            variant={userReaction === "like" ? "default" : "outline"}
             size={likes ? "sm" : "icon-sm"}
             disabled={pending}
             aria-pressed={userReaction === "like"}
-            className={cn(
-              "rounded-full",
-              userReaction === "like" &&
-                "border-primary text-primary bg-primary/5",
-            )}
+            className={cn("rounded-full")}
             onClick={() => void applyReaction("like")}
           >
             <ThumbsUp className="size-4 shrink-0" />
-            {likes ? (
-              <Typography
-                component="span"
-                size="small"
-                className="text-accent-foreground"
-              >
-                {likes}
-              </Typography>
-            ) : (
-              ""
-            )}
+            {likes ? ` ${likes}` : ""}
           </Button>
         </TooltipWrapper>
         <TooltipWrapper content="Dislike">
           <Button
             type="button"
-            variant="outline"
+            variant={userReaction === "dislike" ? "default" : "outline"}
             size={dislikes ? "sm" : "icon-sm"}
             disabled={pending}
             aria-pressed={userReaction === "dislike"}
-            className={cn(
-              "rounded-full",
-              userReaction === "dislike" &&
-                "border-primary text-primary bg-primary/5",
-            )}
+            className={cn("rounded-full")}
             onClick={() => void applyReaction("dislike")}
           >
             <ThumbsDown className="size-4 shrink-0" />
-            {dislikes ? (
-              <Typography
-                component="span"
-                size="small"
-                className="text-accent-foreground"
-              >
-                {dislikes}
-              </Typography>
-            ) : (
-              ""
-            )}
+            {dislikes ? ` ${dislikes}` : ""}
           </Button>
         </TooltipWrapper>
         <TooltipWrapper content={shareCopied ? "Copied!" : "Share"}>
