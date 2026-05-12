@@ -2,6 +2,7 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { JsonLd } from "@/components/json-ld";
 import { SkipLink } from "@/components/skip-link";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { TWITTER_CREATOR_HANDLE } from "@/utils/share-metadata";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -67,26 +68,28 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <JsonLd
-            data={{
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "Nubelson Fernandes",
-              url: process.env.BASE_URL,
-            }}
-          />
-          <SkipLink />
-          <Header />
-          <main
-            id="main-content"
-            tabIndex={-1}
-            className="flex-1 wrapper flex flex-col items-start justify-start gap-10 lg:gap-[60px] outline-none"
-          >
-            {children}
-          </main>
-          <Footer />
-          <SpeedInsights />
-          <Analytics />
+          <TooltipProvider>
+            <JsonLd
+              data={{
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "Nubelson Fernandes",
+                url: process.env.BASE_URL,
+              }}
+            />
+            <SkipLink />
+            <Header />
+            <main
+              id="main-content"
+              tabIndex={-1}
+              className="flex-1 wrapper flex flex-col items-start justify-start gap-10 lg:gap-[60px] outline-none"
+            >
+              {children}
+            </main>
+            <Footer />
+            <SpeedInsights />
+            <Analytics />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
