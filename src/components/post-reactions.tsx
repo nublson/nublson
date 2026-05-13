@@ -9,51 +9,14 @@ import { Check, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TooltipWrapper } from "./tooltip-wrapper";
 
-const FP_CACHE_KEY = "fp_visitor_id";
-const FP_CACHE_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
-
-type FpCache = { visitorId: string; cachedAt: number };
-
-function readFpCache(): string | null {
-  try {
-    const raw = localStorage.getItem(FP_CACHE_KEY);
-    if (!raw) return null;
-    const { visitorId, cachedAt } = JSON.parse(raw) as FpCache;
-    if (Date.now() - cachedAt > FP_CACHE_TTL_MS) return null;
-    return visitorId;
-  } catch {
-    return null;
-  }
-}
-
-function writeFpCache(visitorId: string) {
-  try {
-    localStorage.setItem(
-      FP_CACHE_KEY,
-      JSON.stringify({ visitorId, cachedAt: Date.now() } satisfies FpCache),
-    );
-  } catch {
-    // localStorage may be unavailable (private mode, storage full)
-  }
-}
-
 type PostReactionsProps = {
   postId: string;
   postSlug: string;
   initialData?: PostReactionSummary;
 };
 
-async function fetchSummary(
-  postId: string,
-  fingerprint: string | null,
-): Promise<PostReactionSummary> {
-  const url = new URL(
-    `/api/reactions/${encodeURIComponent(postId)}`,
-    window.location.origin,
-  );
-  if (fingerprint) url.searchParams.set("fp", fingerprint);
-
-  const res = await fetch(url.toString());
+async function fetchSummary(postId: string): Promise<PostReactionSummary> {
+  const res = await fetch(`/api/reactions/${encodeURIComponent(postId)}`);
   if (!res.ok) {
     const body = (await res.json().catch(() => null)) as {
       error?: string;
@@ -67,12 +30,11 @@ async function postSummary(
   postId: string,
   postSlug: string,
   reaction: ReactionType | null,
-  fingerprint: string | null,
 ): Promise<PostReactionSummary> {
   const res = await fetch(`/api/reactions/${encodeURIComponent(postId)}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ reaction, postSlug, fingerprint }),
+    body: JSON.stringify({ reaction, postSlug }),
   });
   if (!res.ok) {
     const body = (await res.json().catch(() => null)) as {
@@ -129,47 +91,14 @@ export function PostReactions({
   const [loading, setLoading] = useState(!initialData);
   const [pending, setPending] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
-  // Lazy initializer reads from localStorage synchronously on first render —
-  // avoids an effect-triggered setState and gives an instant cache hit.
-  const [fingerprint, setFingerprint] = useState<string | null>(() => {
-    if (typeof window === "undefined") return null;
-    return readFpCache();
-  });
   const shareResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // If the cache missed, call the Fingerprint Pro API once and persist the result.
-  useEffect(() => {
-    if (fingerprint) return; // cache hit — nothing to do
-
-    const apiKey = process.env.NEXT_PUBLIC_FINGERPRINT_API_KEY;
-    if (!apiKey) return;
-
-    let cancelled = false;
-
-    import("@fingerprintjs/fingerprintjs-pro")
-      .then((FingerprintJS) => FingerprintJS.load({ apiKey }))
-      .then((fp) => fp.get())
-      .then(({ visitorId }) => {
-        if (cancelled) return;
-        writeFpCache(visitorId);
-        setFingerprint(visitorId);
-      })
-      .catch(() => {
-        // Fingerprinting unavailable — fall back to session-cookie dedup
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [fingerprint]);
-
-  // Initial fetch when no SSR data was provided.
   useEffect(() => {
     if (initialData !== undefined) return;
     let cancelled = false;
     (async () => {
       try {
-        const data = await fetchSummary(postId, null);
+        const data = await fetchSummary(postId);
         if (!cancelled) setSummary(data);
       } catch {
         if (!cancelled)
@@ -182,24 +111,6 @@ export function PostReactions({
       cancelled = true;
     };
   }, [postId, initialData]);
-
-  // Once fingerprint is ready, re-fetch to correct userReaction.
-  // SSR used the session cookie only, so a user who reacted from a different
-  // browser would see the wrong state until this correction runs.
-  useEffect(() => {
-    if (!fingerprint || loading) return;
-    let cancelled = false;
-    fetchSummary(postId, fingerprint)
-      .then((data) => {
-        if (!cancelled) setSummary(data);
-      })
-      .catch(() => {
-        // Keep existing summary on failure
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [fingerprint, postId, loading]);
 
   useEffect(() => {
     return () => {
@@ -243,7 +154,7 @@ export function PostReactions({
       setSummary(optimistic);
       setPending(true);
       try {
-        const data = await postSummary(postId, postSlug, nextUser, fingerprint);
+        const data = await postSummary(postId, postSlug, nextUser);
         setSummary(data);
       } catch {
         setSummary(previous);
@@ -251,7 +162,7 @@ export function PostReactions({
         setPending(false);
       }
     },
-    [summary, pending, postId, postSlug, fingerprint],
+    [summary, pending, postId, postSlug],
   );
 
   const handleShare = useCallback(async () => {

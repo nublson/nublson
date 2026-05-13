@@ -4,6 +4,7 @@ import {
   upsertReaction,
   type ReactionType,
 } from "@/services/reactions";
+import { getClientIp, hashIp } from "@/lib/ip-hash";
 import { randomUUID } from "crypto";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
@@ -39,8 +40,8 @@ function sessionCookieOptions(sessionId: string) {
  * GET /api/reactions/[postId]
  *
  * Returns aggregate counts and the caller's current reaction.
- * Accepts an optional `fp` query param (Fingerprint Pro visitorId) for
- * cross-browser dedup — when present it takes precedence over the session cookie.
+ * The caller's IP is hashed server-side and used as the primary identifier
+ * for cross-browser dedup.
  *
  * Response: { likes: number, dislikes: number, userReaction: "like" | "dislike" | null }
  */
@@ -50,10 +51,10 @@ export async function GET(
 ): Promise<NextResponse> {
   const { postId } = await context.params;
   const { sessionId, isNew } = await resolveSession();
-  const fp = request.nextUrl.searchParams.get("fp") ?? undefined;
+  const ipHash = hashIp(getClientIp(request.headers));
 
   try {
-    const summary = await getPostReactions(postId, sessionId, fp);
+    const summary = await getPostReactions(postId, sessionId, ipHash);
     const response = NextResponse.json(summary);
 
     if (isNew) {
@@ -72,11 +73,12 @@ export async function GET(
  * POST /api/reactions/[postId]
  *
  * Creates, updates, or removes the caller's reaction on a post.
+ * The caller's IP is hashed server-side and used as the conflict key so
+ * the same device cannot react twice regardless of which browser is used.
  *
- * Body: { reaction: "like" | "dislike" | null, postSlug: string, fingerprint?: string }
+ * Body: { reaction: "like" | "dislike" | null, postSlug: string }
  *   reaction = null  → remove the existing reaction
  *   reaction = "like" | "dislike" → upsert the reaction
- *   fingerprint → Fingerprint Pro visitorId for cross-browser dedup (optional)
  *
  * Response: { likes: number, dislikes: number, userReaction: "like" | "dislike" | null }
  */
@@ -100,7 +102,7 @@ export async function POST(
     );
   }
 
-  const { reaction, postSlug, fingerprint } = body as Record<string, unknown>;
+  const { reaction, postSlug } = body as Record<string, unknown>;
 
   if (typeof postSlug !== "string" || postSlug.trim() === "") {
     return NextResponse.json(
@@ -116,23 +118,19 @@ export async function POST(
     );
   }
 
-  const fp =
-    typeof fingerprint === "string" && fingerprint.trim() !== ""
-      ? fingerprint
-      : undefined;
-
   const { sessionId, isNew } = await resolveSession();
+  const ipHash = hashIp(getClientIp(request.headers));
 
   try {
     const summary =
       reaction === null
-        ? await deleteReaction(postId, sessionId, fp)
+        ? await deleteReaction(postId, sessionId, ipHash)
         : await upsertReaction(
             postId,
             postSlug,
             sessionId,
             reaction as ReactionType,
-            fp,
+            ipHash,
           );
 
     const response = NextResponse.json(summary);

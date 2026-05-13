@@ -1,8 +1,9 @@
 import { PostReactions } from "@/components/post-reactions";
+import { getClientIp, hashIp } from "@/lib/ip-hash";
 import { getDatabasePageBySlug } from "@/services/notion";
 import { getPostReactions } from "@/services/reactions";
 import { randomUUID } from "crypto";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 const SESSION_COOKIE = "reaction_session_id";
 
@@ -27,7 +28,9 @@ export async function PostReactionsLoader({
   const postId = found.page.id;
   const jar = await cookies();
   const sessionId = jar.get(SESSION_COOKIE)?.value ?? randomUUID();
-  const initialData = await getPostReactions(postId, sessionId);
+  const reqHeaders = await headers();
+  const ipHash = hashIp(getClientIp(reqHeaders));
+  const initialData = await getPostReactions(postId, sessionId, ipHash);
 
   return (
     <PostReactions postId={postId} postSlug={slug} initialData={initialData} />

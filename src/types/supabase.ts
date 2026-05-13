@@ -17,7 +17,7 @@ export type Database = {
       post_reactions: {
         Row: {
           created_at: string;
-          fingerprint: string | null;
+          ip_hash: string | null;
           id: string;
           post_id: string;
           post_slug: string;
