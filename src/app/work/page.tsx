@@ -1,6 +1,7 @@
 import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
 import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
 import { ProjectsSectionSkeleton } from "@/components/skeletons/projects-section-skeleton";
+import { Separator } from "@/components/ui/separator";
 import { metadataFromNotionPageId } from "@/utils/metadata";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -29,6 +30,7 @@ export default function WorkPage() {
         }
       >
         <WorkProjects />
+        <Separator className="w-full" />
       </Suspense>
       <Suspense fallback={<ContentSectionSkeleton />}>
         <WorkBody />
