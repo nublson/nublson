@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 export const TWITTER_CREATOR_HANDLE = "@nublson";
 
-const DEFAULT_OG_IMAGE = "/logo.svg";
+/** Raster fallback — Safari and many clients ignore SVG for share/OG previews. */
+const DEFAULT_OG_IMAGE = "/apple-icon.png";
 
 export type ShareMetadataInput = {
   title: string;
@@ -25,7 +26,7 @@ export function buildShareMetadata(
   { title, description, thumbnail }: ShareMetadataInput,
   options?: ShareMetadataOptions,
 ): Metadata {
-  const ogImage = thumbnail ?? DEFAULT_OG_IMAGE;
+  const ogImage = thumbnail?.trim() ? thumbnail : DEFAULT_OG_IMAGE;
   const openGraphType = options?.openGraphType ?? "website";
   const isArticle = openGraphType === "article";
 

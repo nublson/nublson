@@ -41,12 +41,12 @@ export const metadata: Metadata = {
     siteName: "Nubelson Fernandes",
     locale: "en_US",
     type: "website",
-    images: [{ url: "/logo.svg" }],
+    images: [{ url: "/apple-icon.png" }],
   },
   twitter: {
     card: "summary_large_image",
     creator: TWITTER_CREATOR_HANDLE,
-    images: ["/logo.svg"],
+    images: ["/apple-icon.png"],
   },
 };
 
