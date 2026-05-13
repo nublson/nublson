@@ -17,7 +17,6 @@ export type Database = {
       post_reactions: {
         Row: {
           created_at: string;
-          ip_hash: string | null;
           id: string;
           post_id: string;
           post_slug: string;
@@ -27,7 +26,6 @@ export type Database = {
         };
         Insert: {
           created_at?: string;
-          fingerprint?: string | null;
           id?: string;
           post_id: string;
           post_slug: string;
@@ -37,7 +35,6 @@ export type Database = {
         };
         Update: {
           created_at?: string;
-          fingerprint?: string | null;
           id?: string;
           post_id?: string;
           post_slug?: string;
