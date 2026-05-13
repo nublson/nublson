@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@9gustin/react-notion-render": "^3.11.4",
+    "@fingerprintjs/fingerprintjs-pro": "^3.12.9",
     "@notionhq/client": "^5.20.0",
     "@remixicon/react": "^4.9.0",
     "@supabase/supabase-js": "^2.105.4",

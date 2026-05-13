@@ -1,23 +1,18 @@
-import { cookies } from "next/headers";
-import { type NextRequest, NextResponse } from "next/server";
-import { randomUUID } from "crypto";
-
 import {
   deleteReaction,
   getPostReactions,
   upsertReaction,
   type ReactionType,
 } from "@/services/reactions";
+import { randomUUID } from "crypto";
+import { cookies } from "next/headers";
+import { NextResponse, type NextRequest } from "next/server";
 
 const SESSION_COOKIE = "reaction_session_id";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
 
 type RouteContext = { params: Promise<{ postId: string }> };
 
-/**
- * Reads (or creates) the anonymous session cookie and returns its value.
- * The cookie is HttpOnly, SameSite=Lax, and Secure in production.
- */
 async function resolveSession(): Promise<{
   sessionId: string;
   isNew: boolean;
@@ -44,18 +39,21 @@ function sessionCookieOptions(sessionId: string) {
  * GET /api/reactions/[postId]
  *
  * Returns aggregate counts and the caller's current reaction.
+ * Accepts an optional `fp` query param (Fingerprint Pro visitorId) for
+ * cross-browser dedup — when present it takes precedence over the session cookie.
  *
  * Response: { likes: number, dislikes: number, userReaction: "like" | "dislike" | null }
  */
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   context: RouteContext,
 ): Promise<NextResponse> {
   const { postId } = await context.params;
   const { sessionId, isNew } = await resolveSession();
+  const fp = request.nextUrl.searchParams.get("fp") ?? undefined;
 
   try {
-    const summary = await getPostReactions(postId, sessionId);
+    const summary = await getPostReactions(postId, sessionId, fp);
     const response = NextResponse.json(summary);
 
     if (isNew) {
@@ -64,7 +62,8 @@ export async function GET(
 
     return response;
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Internal server error";
+    const message =
+      err instanceof Error ? err.message : "Internal server error";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
@@ -74,9 +73,10 @@ export async function GET(
  *
  * Creates, updates, or removes the caller's reaction on a post.
  *
- * Body: { reaction: "like" | "dislike" | null, postSlug: string }
+ * Body: { reaction: "like" | "dislike" | null, postSlug: string, fingerprint?: string }
  *   reaction = null  → remove the existing reaction
  *   reaction = "like" | "dislike" → upsert the reaction
+ *   fingerprint → Fingerprint Pro visitorId for cross-browser dedup (optional)
  *
  * Response: { likes: number, dislikes: number, userReaction: "like" | "dislike" | null }
  */
@@ -94,10 +94,13 @@ export async function POST(
   }
 
   if (!body || typeof body !== "object") {
-    return NextResponse.json({ error: "Request body must be an object" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Request body must be an object" },
+      { status: 400 },
+    );
   }
 
-  const { reaction, postSlug } = body as Record<string, unknown>;
+  const { reaction, postSlug, fingerprint } = body as Record<string, unknown>;
 
   if (typeof postSlug !== "string" || postSlug.trim() === "") {
     return NextResponse.json(
@@ -113,13 +116,24 @@ export async function POST(
     );
   }
 
+  const fp =
+    typeof fingerprint === "string" && fingerprint.trim() !== ""
+      ? fingerprint
+      : undefined;
+
   const { sessionId, isNew } = await resolveSession();
 
   try {
     const summary =
       reaction === null
-        ? await deleteReaction(postId, sessionId)
-        : await upsertReaction(postId, postSlug, sessionId, reaction as ReactionType);
+        ? await deleteReaction(postId, sessionId, fp)
+        : await upsertReaction(
+            postId,
+            postSlug,
+            sessionId,
+            reaction as ReactionType,
+            fp,
+          );
 
     const response = NextResponse.json(summary);
 
@@ -129,7 +143,8 @@ export async function POST(
 
     return response;
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Internal server error";
+    const message =
+      err instanceof Error ? err.message : "Internal server error";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

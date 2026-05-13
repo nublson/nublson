@@ -35,7 +35,7 @@ import {
 // Helpers
 // ---------------------------------------------------------------------------
 
-type ReactionRow = { reaction_type: string; session_id: string };
+type ReactionRow = { reaction_type: string; session_id: string; fingerprint: string | null };
 
 function setupSelectMock(rows: ReactionRow[], error: null | { message: string } = null) {
   mockEqSelect.mockResolvedValueOnce({ data: rows, error });
@@ -61,9 +61,9 @@ describe("getPostReactions", () => {
 
   it("aggregates like and dislike counts correctly", async () => {
     setupSelectMock([
-      { reaction_type: "like", session_id: "s1" },
-      { reaction_type: "like", session_id: "s2" },
-      { reaction_type: "dislike", session_id: "s3" },
+      { reaction_type: "like", session_id: "s1", fingerprint: null },
+      { reaction_type: "like", session_id: "s2", fingerprint: null },
+      { reaction_type: "dislike", session_id: "s3", fingerprint: null },
     ]);
 
     const result = await getPostReactions("post-1", "s9");
@@ -73,13 +73,35 @@ describe("getPostReactions", () => {
 
   it("sets userReaction when the session has an existing row", async () => {
     setupSelectMock([
-      { reaction_type: "like", session_id: "me" },
-      { reaction_type: "dislike", session_id: "other" },
+      { reaction_type: "like", session_id: "me", fingerprint: null },
+      { reaction_type: "dislike", session_id: "other", fingerprint: null },
     ]);
 
     const result = await getPostReactions("post-1", "me");
 
     expect(result).toEqual({ likes: 1, dislikes: 1, userReaction: "like" });
+  });
+
+  it("finds userReaction by fingerprint when provided", async () => {
+    setupSelectMock([
+      { reaction_type: "like", session_id: "browser-a", fingerprint: "device-1" },
+      { reaction_type: "dislike", session_id: "other", fingerprint: "device-2" },
+    ]);
+
+    // browser-b is on the same device as browser-a (same fingerprint)
+    const result = await getPostReactions("post-1", "browser-b", "device-1");
+
+    expect(result).toEqual({ likes: 1, dislikes: 1, userReaction: "like" });
+  });
+
+  it("falls back to session_id lookup when fingerprint matches no row", async () => {
+    setupSelectMock([
+      { reaction_type: "dislike", session_id: "me", fingerprint: null },
+    ]);
+
+    const result = await getPostReactions("post-1", "me", "unknown-fp");
+
+    expect(result).toEqual({ likes: 0, dislikes: 1, userReaction: "dislike" });
   });
 
   it("throws when Supabase returns an error", async () => {
@@ -100,9 +122,9 @@ describe("upsertReaction", () => {
     vi.clearAllMocks();
   });
 
-  it("calls upsert with the correct payload and returns updated summary", async () => {
+  it("upserts with session conflict target when no fingerprint provided", async () => {
     mockUpsert.mockResolvedValueOnce({ error: null });
-    setupSelectMock([{ reaction_type: "like", session_id: "s1" }]);
+    setupSelectMock([{ reaction_type: "like", session_id: "s1", fingerprint: null }]);
 
     const result = await upsertReaction("post-1", "my-post", "s1", "like");
 
@@ -114,6 +136,25 @@ describe("upsertReaction", () => {
         reaction_type: "like",
       },
       { onConflict: "post_id,session_id" },
+    );
+    expect(result).toEqual({ likes: 1, dislikes: 0, userReaction: "like" });
+  });
+
+  it("upserts with fingerprint conflict target when fingerprint provided", async () => {
+    mockUpsert.mockResolvedValueOnce({ error: null });
+    setupSelectMock([{ reaction_type: "like", session_id: "s1", fingerprint: "fp-x" }]);
+
+    const result = await upsertReaction("post-1", "my-post", "s1", "like", "fp-x");
+
+    expect(mockUpsert).toHaveBeenCalledWith(
+      {
+        post_id: "post-1",
+        post_slug: "my-post",
+        session_id: "s1",
+        reaction_type: "like",
+        fingerprint: "fp-x",
+      },
+      { onConflict: "post_id,fingerprint" },
     );
     expect(result).toEqual({ likes: 1, dislikes: 0, userReaction: "like" });
   });
@@ -136,7 +177,7 @@ describe("deleteReaction", () => {
     vi.clearAllMocks();
   });
 
-  it("calls delete with post_id and session_id filters, then returns summary", async () => {
+  it("deletes by session_id when no fingerprint provided", async () => {
     const mockEqSession = vi.fn().mockResolvedValueOnce({ error: null });
     mockEqDelete.mockReturnValueOnce({ eq: mockEqSession });
     setupSelectMock([]);
@@ -145,6 +186,18 @@ describe("deleteReaction", () => {
 
     expect(mockEqDelete).toHaveBeenCalledWith("post_id", "post-1");
     expect(mockEqSession).toHaveBeenCalledWith("session_id", "s1");
+    expect(result).toEqual({ likes: 0, dislikes: 0, userReaction: null });
+  });
+
+  it("deletes by fingerprint when fingerprint provided", async () => {
+    const mockEqFp = vi.fn().mockResolvedValueOnce({ error: null });
+    mockEqDelete.mockReturnValueOnce({ eq: mockEqFp });
+    setupSelectMock([]);
+
+    const result = await deleteReaction("post-1", "s1", "fp-x");
+
+    expect(mockEqDelete).toHaveBeenCalledWith("post_id", "post-1");
+    expect(mockEqFp).toHaveBeenCalledWith("fingerprint", "fp-x");
     expect(result).toEqual({ likes: 0, dislikes: 0, userReaction: null });
   });
 

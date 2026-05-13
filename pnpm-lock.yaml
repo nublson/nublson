@@ -11,6 +11,9 @@ importers:
       '@9gustin/react-notion-render':
         specifier: ^3.11.4
         version: 3.11.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@fingerprintjs/fingerprintjs-pro':
+        specifier: ^3.12.9
+        version: 3.12.9
       '@notionhq/client':
         specifier: ^5.20.0
         version: 5.20.0
@@ -384,6 +387,9 @@ packages:
     peerDependenciesMeta:
       '@noble/hashes':
         optional: true
+
+  '@fingerprintjs/fingerprintjs-pro@3.12.9':
+    resolution: {integrity: sha512-MiM8ASp9nQgY/abPK+1+LaZHvn6aaTX9Zze1ghCDO/Y86k1dbRnDeBr5Zg5fmEhwMda9J7+6zl54lds6GENZUw==}
 
   '@floating-ui/core@1.7.5':
     resolution: {integrity: sha512-1Ih4WTWyw0+lKyFMcBHGbb5U5FtuHJuujoyyr5zTaWS5EYMeT6Jb2AuDeftsCsEuchO+mM2ij5+q9crhydzLhQ==}
@@ -4852,6 +4858,8 @@ snapshots:
   '@exodus/bytes@1.15.0(@noble/hashes@1.8.0)':
     optionalDependencies:
       '@noble/hashes': 1.8.0
+
+  '@fingerprintjs/fingerprintjs-pro@3.12.9': {}
 
   '@floating-ui/core@1.7.5':
     dependencies:
