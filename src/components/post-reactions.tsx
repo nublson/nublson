@@ -48,13 +48,39 @@ async function postSummary(
 /**
  * Uses the Web Share API when available; otherwise copies the URL to the clipboard.
  * User canceling the share sheet (AbortError) is ignored.
+ * When imageUrl is provided, fetches it and passes as a File so iOS shows a thumbnail.
  */
 async function shareUrl(
   url: string,
-  options: { title?: string; onClipboardCopied?: () => void } = {},
+  options: {
+    title?: string;
+    imageUrl?: string;
+    onClipboardCopied?: () => void;
+  } = {},
 ): Promise<void> {
   const title = options.title ?? "Check out this post";
-  const shareData: ShareData = { title, url };
+  let shareData: ShareData = { title, url };
+
+  if (
+    options.imageUrl &&
+    typeof navigator !== "undefined" &&
+    typeof navigator.canShare === "function"
+  ) {
+    try {
+      const res = await fetch(options.imageUrl);
+      if (res.ok) {
+        const blob = await res.blob();
+        if (blob.type.startsWith("image/")) {
+          const ext = blob.type.split("/")[1]?.split("+")[0] ?? "jpg";
+          const file = new File([blob], `thumbnail.${ext}`, { type: blob.type });
+          const withFile: ShareData = { title, url, files: [file] };
+          if (navigator.canShare(withFile)) shareData = withFile;
+        }
+      }
+    } catch {
+      // Image fetch failed — share without it
+    }
+  }
 
   const canWebShare =
     typeof navigator !== "undefined" &&
@@ -166,8 +192,13 @@ export function PostReactions({
   );
 
   const handleShare = useCallback(async () => {
+    const ogMeta = document.querySelector<HTMLMetaElement>(
+      'meta[property="og:image"]',
+    );
+    const imageUrl = ogMeta?.content ?? undefined;
     await shareUrl(window.location.href, {
       title: document.title || "Check out this post",
+      imageUrl,
       onClipboardCopied: () => {
         setShareCopied(true);
         if (shareResetRef.current) clearTimeout(shareResetRef.current);
