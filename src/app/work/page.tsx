@@ -12,7 +12,9 @@ import { WorkProjects } from "../_components/work-projects";
 export const revalidate = 10;
 
 export async function generateMetadata(): Promise<Metadata> {
-  return metadataFromNotionPageId(process.env.NOTION_PAGE_WORK_ID!);
+  return metadataFromNotionPageId(process.env.NOTION_PAGE_WORK_ID!, {
+    canonical: "/work",
+  });
 }
 
 export default function WorkPage() {

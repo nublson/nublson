@@ -9,7 +9,9 @@ import { BlogPosts } from "../_components/blog-posts";
 export const revalidate = 10;
 
 export async function generateMetadata(): Promise<Metadata> {
-  return metadataFromNotionPageId(process.env.NOTION_PAGE_BLOG_ID!);
+  return metadataFromNotionPageId(process.env.NOTION_PAGE_BLOG_ID!, {
+    canonical: "/blog",
+  });
 }
 
 export default function BlogPage() {

@@ -13,6 +13,7 @@ export const revalidate = 10;
 export async function generateMetadata(): Promise<Metadata> {
   return metadataFromNotionPageId(process.env.NOTION_PAGE_HOME_ID!, {
     absoluteTitle: true,
+    canonical: "/",
   });
 }
 

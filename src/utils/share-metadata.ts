@@ -20,6 +20,8 @@ export type ShareMetadataOptions = {
   section?: string;
   /** Maps to `article:tag` (article OG type only). */
   tags?: string[];
+  /** Explicit canonical URL path (e.g. '/about'). Resolved against metadataBase. */
+  canonical?: string;
 };
 
 export function buildShareMetadata(
@@ -33,6 +35,7 @@ export function buildShareMetadata(
   return {
     title: options?.absoluteTitle ? { absolute: title } : title,
     description,
+    ...(options?.canonical ? { alternates: { canonical: options.canonical } } : {}),
     openGraph: {
       title,
       description,
