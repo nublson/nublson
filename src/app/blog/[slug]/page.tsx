@@ -1,7 +1,5 @@
 import { MorePosts } from "@/app/_components/more-posts";
 import { PostReactionsLoader } from "@/app/_components/post-reactions-loader";
-import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
-import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
 import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-skeleton";
 import { PostsSectionSkeleton } from "@/components/skeletons/posts-section-skeleton";
 import {
@@ -59,14 +57,8 @@ export default function BlogPostPage({
   return (
     <>
       <BlogJsonLd params={params} />
-      <Suspense
-        fallback={<HeroSkeleton showThumbnail showTopNav size="small" />}
-      >
-        <BlogPostHero params={params} />
-      </Suspense>
-      <Suspense fallback={<ContentSectionSkeleton />}>
-        <BlogPostBody params={params} />
-      </Suspense>
+      <BlogPostHero params={params} />
+      <BlogPostBody params={params} />
       <Suspense fallback={<PostsSectionSkeleton rowCount={4} />}>
         <MorePosts params={params} />
       </Suspense>

@@ -1,7 +1,5 @@
 import { PostReactionsLoader } from "@/app/_components/post-reactions-loader";
 import { NavigationProjects } from "@/components/navigation-projects";
-import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
-import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
 import { NavigationProjectsSkeleton } from "@/components/skeletons/navigation-projects-skeleton";
 import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-skeleton";
 import {
@@ -58,16 +56,8 @@ export default function WorkPostPage({
   return (
     <>
       <WorkJsonLd params={params} />
-      <Suspense
-        fallback={
-          <HeroSkeleton showThumbnail showTopNav showBottomRow size="small" />
-        }
-      >
-        <WorkPostHero params={params} />
-      </Suspense>
-      <Suspense fallback={<ContentSectionSkeleton />}>
-        <WorkPostBody params={params} />
-      </Suspense>
+      <WorkPostHero params={params} />
+      <WorkPostBody params={params} />
       <Suspense fallback={<NavigationProjectsSkeleton />}>
         <NavigationProjects params={params} />
       </Suspense>
