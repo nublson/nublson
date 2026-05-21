@@ -15,31 +15,69 @@ export function isNotionRichTextElementProps(
   return typeof plain === "string";
 }
 
+const NOTION_COLOR_CLASSES: Record<string, string> = {
+  default: "text-muted-foreground",
+  gray: "text-gray-500",
+  brown: "text-amber-800 dark:text-amber-600",
+  orange: "text-orange-500",
+  yellow: "text-yellow-500",
+  green: "text-green-600",
+  blue: "text-blue-500",
+  purple: "text-purple-500",
+  pink: "text-pink-500",
+  red: "text-red-500",
+  gray_background: "bg-gray-200 dark:bg-gray-700",
+  brown_background: "bg-amber-100 dark:bg-amber-900",
+  orange_background: "bg-orange-100 dark:bg-orange-900",
+  yellow_background: "bg-yellow-100 dark:bg-yellow-900",
+  green_background: "bg-green-100 dark:bg-green-900",
+  blue_background: "bg-blue-100 dark:bg-blue-900",
+  purple_background: "bg-purple-100 dark:bg-purple-900",
+  pink_background: "bg-pink-100 dark:bg-pink-900",
+  red_background: "bg-red-100 dark:bg-red-900",
+};
+
 export function applyTextDecorations(
   content: React.ReactNode,
   annotations?: RichTextAnnotationsLike,
 ): React.ReactNode {
-  if (annotations == null) {
-    return content;
+  const colorClass =
+    NOTION_COLOR_CLASSES[annotations?.color ?? "default"] ??
+    "text-muted-foreground";
+
+  type Wrap = (
+    inner: React.ReactNode,
+    cls: string | undefined,
+  ) => React.ReactNode;
+
+  const wrappers: Wrap[] = [];
+
+  if (annotations?.bold)
+    wrappers.push((c, cls) => <strong className={cls}>{c}</strong>);
+  if (annotations?.italic)
+    wrappers.push((c, cls) => <em className={cls}>{c}</em>);
+  if (annotations?.strikethrough)
+    wrappers.push((c, cls) => <s className={cls}>{c}</s>);
+  if (annotations?.underline)
+    wrappers.push((c, cls) => <u className={cls}>{c}</u>);
+  if (annotations?.code)
+    wrappers.push((c, cls) => (
+      <code
+        className={`font-mono text-[0.875em] bg-muted px-1.5 py-0.5 rounded-sm ${cls ?? "text-muted-foreground"}`}
+      >
+        {c}
+      </code>
+    ));
+
+  if (wrappers.length === 0) {
+    return <span className={colorClass}>{content}</span>;
   }
 
   let decorated = content;
-
-  if (annotations.bold) {
-    decorated = <strong>{decorated}</strong>;
+  for (let i = 0; i < wrappers.length - 1; i++) {
+    decorated = wrappers[i](decorated, undefined);
   }
-  if (annotations.italic) {
-    decorated = <em>{decorated}</em>;
-  }
-  if (annotations.strikethrough) {
-    decorated = <s>{decorated}</s>;
-  }
-  if (annotations.underline) {
-    decorated = <u>{decorated}</u>;
-  }
-  if (annotations.code) {
-    decorated = <code>{decorated}</code>;
-  }
+  decorated = wrappers[wrappers.length - 1](decorated, colorClass);
 
   return decorated;
 }
