@@ -1,14 +1,17 @@
 import { DatabasePostJsonLd } from "@/components/database-post-json-ld";
+import type { PostMetadata } from "@/utils/formatter";
 
-export async function WorkJsonLd({
-  params,
+export function WorkJsonLd({
+  slug,
+  metadata,
 }: {
-  params: Promise<{ slug: string }>;
+  slug: string;
+  metadata: PostMetadata;
 }) {
   return (
     <DatabasePostJsonLd
-      params={params}
-      media="Project"
+      slug={slug}
+      metadata={metadata}
       schemaType="CreativeWork"
       routePrefix="work"
       titleProperty="name"

@@ -3,8 +3,8 @@ import { PostsSectionSkeleton } from "@/components/skeletons/posts-section-skele
 import { metadataFromNotionPageId } from "@/utils/metadata";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { BlogHero } from "../_components/blog-hero";
-import { BlogPosts } from "../_components/blog-posts";
+import { BlogHero } from "../../_components/blog-hero";
+import { BlogPosts } from "../../_components/blog-posts";
 
 export const revalidate = 10;
 

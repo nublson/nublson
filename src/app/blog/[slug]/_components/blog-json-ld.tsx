@@ -1,20 +1,23 @@
 import { DatabasePostJsonLd } from "@/components/database-post-json-ld";
+import type { PostMetadata } from "@/utils/formatter";
 
-export async function BlogJsonLd({
-  params,
+export function BlogJsonLd({
+  slug,
+  metadata,
 }: {
-  params: Promise<{ slug: string }>;
+  slug: string;
+  metadata: PostMetadata;
 }) {
   return (
     <DatabasePostJsonLd
-      params={params}
-      media="Blog"
+      slug={slug}
+      metadata={metadata}
       schemaType="BlogPosting"
       routePrefix="blog"
       titleProperty="headline"
       personProperty="author"
-      extraData={(metadata) => ({
-        articleSection: metadata.category,
+      extraData={(meta) => ({
+        articleSection: meta.category,
       })}
     />
   );

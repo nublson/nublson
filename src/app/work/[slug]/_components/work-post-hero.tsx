@@ -1,25 +1,11 @@
 import { HeadingTop } from "@/components/heading-top";
 import { Typography } from "@/components/typography";
 import Hero from "@/sections/hero";
-import { getDatabasePageBySlug } from "@/services/notion";
+import type { PostMetadata } from "@/utils/formatter";
 import { formatDateTimeIso, formatPostDateFull } from "@/utils/formatter";
-import { notFound } from "next/navigation";
 import { Code, ExternalLink } from "lucide-react";
 
-export async function WorkPostHero({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const found = await getDatabasePageBySlug(
-    process.env.NOTION_DATABASE_CONTENT_ID!,
-    "Project",
-    slug,
-  );
-  if (!found) notFound();
-
-  const { metadata } = found;
+export function WorkPostHero({ metadata }: { metadata: PostMetadata }) {
   const dateLabel = formatPostDateFull(metadata.published_date);
   const dateTime = formatDateTimeIso(metadata.published_date);
 

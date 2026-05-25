@@ -4,9 +4,9 @@ import { ProjectsSectionSkeleton } from "@/components/skeletons/projects-section
 import { metadataFromNotionPageId } from "@/utils/metadata";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { HomeHero } from "./_components/home-hero";
-import { HomePosts } from "./_components/home-posts";
-import { HomeProjects } from "./_components/home-projects";
+import { HomeHero } from "../_components/home-hero";
+import { HomePosts } from "../_components/home-posts";
+import { HomeProjects } from "../_components/home-projects";
 
 export const revalidate = 10;
 

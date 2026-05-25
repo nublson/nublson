@@ -1,20 +1,6 @@
 import ContentSection from "@/sections/content";
-import { getDatabasePageBySlug, getPageBlocks } from "@/services/notion";
-import { notFound } from "next/navigation";
+import type { BlockWithChildren } from "@/services/notion";
 
-export async function WorkPostBody({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const found = await getDatabasePageBySlug(
-    process.env.NOTION_DATABASE_CONTENT_ID!,
-    "Project",
-    slug,
-  );
-  if (!found) notFound();
-
-  const pageBlocks = await getPageBlocks(found.page.id);
-  return <ContentSection blocks={pageBlocks} />;
+export function WorkPostBody({ blocks }: { blocks: BlockWithChildren[] }) {
+  return <ContentSection blocks={blocks} />;
 }

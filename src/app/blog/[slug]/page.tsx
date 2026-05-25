@@ -5,9 +5,11 @@ import { PostsSectionSkeleton } from "@/components/skeletons/posts-section-skele
 import {
   getAllPublishedSlugsForStaticParams,
   getDatabasePageBySlug,
+  getPageBlocks,
 } from "@/services/notion";
 import { buildShareMetadata } from "@/utils/share-metadata";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { BlogJsonLd } from "./_components/blog-json-ld";
 import { BlogPostBody } from "./_components/blog-post-body";
@@ -49,17 +51,27 @@ export async function generateMetadata({
   );
 }
 
-export default function BlogPostPage({
+export default async function BlogPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
+  const found = await getDatabasePageBySlug(
+    process.env.NOTION_DATABASE_CONTENT_ID!,
+    "Blog",
+    slug,
+  );
+  if (!found) notFound();
+
+  const pageBlocks = await getPageBlocks(found.page.id);
+
   return (
     <>
-      <BlogJsonLd params={params} />
+      <BlogJsonLd slug={slug} metadata={found.metadata} />
       <article className="article-layout">
-        <BlogPostHero params={params} />
-        <BlogPostBody params={params} />
+        <BlogPostHero metadata={found.metadata} />
+        <BlogPostBody blocks={pageBlocks} />
       </article>
       <Suspense fallback={<PostsSectionSkeleton rowCount={4} />}>
         <MorePosts params={params} />

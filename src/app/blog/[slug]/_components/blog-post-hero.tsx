@@ -1,23 +1,9 @@
 import { HeadingTop } from "@/components/heading-top";
 import Hero from "@/sections/hero";
-import { getDatabasePageBySlug } from "@/services/notion";
+import type { PostMetadata } from "@/utils/formatter";
 import { formatPostDateFull } from "@/utils/formatter";
-import { notFound } from "next/navigation";
 
-export async function BlogPostHero({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const found = await getDatabasePageBySlug(
-    process.env.NOTION_DATABASE_CONTENT_ID!,
-    "Blog",
-    slug,
-  );
-  if (!found) notFound();
-
-  const { metadata } = found;
+export function BlogPostHero({ metadata }: { metadata: PostMetadata }) {
   const dateLabel = formatPostDateFull(metadata.published_date);
 
   return (

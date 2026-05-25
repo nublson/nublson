@@ -2,7 +2,7 @@ import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
 import { PostsSectionSkeleton } from "@/components/skeletons/posts-section-skeleton";
 import { ProjectsSectionSkeleton } from "@/components/skeletons/projects-section-skeleton";
 
-export default function RootLoading() {
+export default function HomeLoading() {
   return (
     <>
       <HeroSkeleton size="default" showBottomRow />

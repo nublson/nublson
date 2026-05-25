@@ -5,9 +5,11 @@ import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-ske
 import {
   getAllPublishedSlugsForStaticParams,
   getDatabasePageBySlug,
+  getPageBlocks,
 } from "@/services/notion";
 import { buildShareMetadata } from "@/utils/share-metadata";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { WorkJsonLd } from "./_components/work-json-ld";
 import { WorkPostBody } from "./_components/work-post-body";
@@ -48,17 +50,27 @@ export async function generateMetadata({
   );
 }
 
-export default function WorkPostPage({
+export default async function WorkPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
+  const found = await getDatabasePageBySlug(
+    process.env.NOTION_DATABASE_CONTENT_ID!,
+    "Project",
+    slug,
+  );
+  if (!found) notFound();
+
+  const pageBlocks = await getPageBlocks(found.page.id);
+
   return (
     <>
-      <WorkJsonLd params={params} />
+      <WorkJsonLd slug={slug} metadata={found.metadata} />
       <article className="article-layout">
-        <WorkPostHero params={params} />
-        <WorkPostBody params={params} />
+        <WorkPostHero metadata={found.metadata} />
+        <WorkPostBody blocks={pageBlocks} />
       </article>
       <Suspense fallback={<NavigationProjectsSkeleton />}>
         <NavigationProjects params={params} />

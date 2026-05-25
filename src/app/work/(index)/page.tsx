@@ -5,9 +5,9 @@ import { Separator } from "@/components/ui/separator";
 import { metadataFromNotionPageId } from "@/utils/metadata";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { WorkBody } from "../_components/work-body";
-import { WorkHero } from "../_components/work-hero";
-import { WorkProjects } from "../_components/work-projects";
+import { WorkBody } from "../../_components/work-body";
+import { WorkHero } from "../../_components/work-hero";
+import { WorkProjects } from "../../_components/work-projects";
 
 export const revalidate = 10;
 

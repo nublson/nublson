@@ -1,4 +1,3 @@
-import { getDatabasePageBySlug } from "@/services/notion";
 import type { PostMetadata } from "@/utils/formatter";
 import { formatDateTimeIso } from "@/utils/formatter";
 import { JsonLd } from "./json-ld";
@@ -7,8 +6,8 @@ type PersonProperty = "author" | "creator";
 type TitleProperty = "headline" | "name";
 
 type DatabasePostJsonLdProps = {
-  params: Promise<{ slug: string }>;
-  media: "Blog" | "Project";
+  slug: string;
+  metadata: PostMetadata;
   schemaType: "BlogPosting" | "CreativeWork";
   routePrefix: "blog" | "work";
   titleProperty: TitleProperty;
@@ -16,24 +15,15 @@ type DatabasePostJsonLdProps = {
   extraData?: (metadata: PostMetadata) => Record<string, unknown>;
 };
 
-export async function DatabasePostJsonLd({
-  params,
-  media,
+export function DatabasePostJsonLd({
+  slug,
+  metadata,
   schemaType,
   routePrefix,
   titleProperty,
   personProperty,
   extraData,
 }: DatabasePostJsonLdProps) {
-  const { slug } = await params;
-  const found = await getDatabasePageBySlug(
-    process.env.NOTION_DATABASE_CONTENT_ID!,
-    media,
-    slug,
-  );
-  if (!found) return null;
-
-  const { metadata } = found;
   const pageUrl = `${process.env.BASE_URL}/${routePrefix}/${slug}`;
   const person = {
     "@type": "Person",
