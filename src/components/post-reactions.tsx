@@ -224,8 +224,10 @@ export function PostReactions({
       });
       clearTimeout(timeout);
       if (res.status === 401) {
-        nextState = "error";
-        nextError = "Sign in to Purl first";
+        window.open(`${PURL_URL}/login`, "_blank", "noopener,noreferrer");
+        setPurlState("idle");
+        setPurlError(null);
+        return;
       } else if (res.status === 402) {
         nextState = "error";
         nextError = "Link limit reached";
@@ -235,11 +237,16 @@ export function PostReactions({
       }
     } catch (e) {
       clearTimeout(timeout);
-      nextState = "error";
-      nextError =
-        e instanceof Error && e.name === "AbortError"
-          ? "Request timed out"
-          : "Could not reach Purl";
+      if (e instanceof Error && e.name === "AbortError") {
+        nextState = "error";
+        nextError = "Request timed out";
+      } else {
+        // Cross-origin network error — server likely blocks CORS for unauthenticated requests
+        window.open(`${PURL_URL}/login`, "_blank", "noopener,noreferrer");
+        setPurlState("idle");
+        setPurlError(null);
+        return;
+      }
     }
     setPurlState(nextState);
     setPurlError(nextError);
