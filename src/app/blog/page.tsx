@@ -16,13 +16,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function BlogPage() {
   return (
-    <>
+    <section className="article-layout">
       <Suspense fallback={<HeroSkeleton size="small" showThumbnail />}>
         <BlogHero />
       </Suspense>
       <Suspense fallback={<PostsSectionSkeleton rowCount={6} />}>
         <BlogPosts />
       </Suspense>
-    </>
+    </section>
   );
 }

@@ -57,8 +57,10 @@ export default function BlogPostPage({
   return (
     <>
       <BlogJsonLd params={params} />
-      <BlogPostHero params={params} />
-      <BlogPostBody params={params} />
+      <article className="article-layout">
+        <BlogPostHero params={params} />
+        <BlogPostBody params={params} />
+      </article>
       <Suspense fallback={<PostsSectionSkeleton rowCount={4} />}>
         <MorePosts params={params} />
       </Suspense>

@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function Home() {
   return (
-    <>
+    <section className="article-layout">
       <Suspense fallback={<HeroSkeleton size="default" showBottomRow />}>
         <HomeHero />
       </Suspense>
@@ -37,6 +37,6 @@ export default function Home() {
       <Suspense fallback={<PostsSectionSkeleton rowCount={4} showViewAll />}>
         <HomePosts />
       </Suspense>
-    </>
+    </section>
   );
 }

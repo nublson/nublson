@@ -56,8 +56,10 @@ export default function WorkPostPage({
   return (
     <>
       <WorkJsonLd params={params} />
-      <WorkPostHero params={params} />
-      <WorkPostBody params={params} />
+      <article className="article-layout">
+        <WorkPostHero params={params} />
+        <WorkPostBody params={params} />
+      </article>
       <Suspense fallback={<NavigationProjectsSkeleton />}>
         <NavigationProjects params={params} />
       </Suspense>

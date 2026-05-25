@@ -4,5 +4,9 @@ import Hero from "@/sections/hero";
 export default function NotFound() {
   const { title, description, thumbnail } = page.notFound;
 
-  return <Hero title={title} description={description} thumbnail={thumbnail} />;
+  return (
+    <section className="article-layout">
+      <Hero title={title} description={description} thumbnail={thumbnail} />
+    </section>
+  );
 }

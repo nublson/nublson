@@ -196,3 +196,7 @@ body {
     @apply text-accent-foreground;
   }
 }
+
+.article-layout {
+  @apply w-full flex flex-col items-start justify-start gap-10 lg:gap-[60px];
+}

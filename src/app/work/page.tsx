@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function WorkPage() {
   return (
-    <>
+    <section className="article-layout">
       <Suspense fallback={<HeroSkeleton size="small" />}>
         <WorkHero />
       </Suspense>
@@ -37,6 +37,6 @@ export default function WorkPage() {
       <Suspense fallback={<ContentSectionSkeleton />}>
         <WorkBody />
       </Suspense>
-    </>
+    </section>
   );
 }
