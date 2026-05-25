@@ -9,6 +9,44 @@ import { Check, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TooltipWrapper } from "./tooltip-wrapper";
 
+const PURL_URL = process.env.NEXT_PUBLIC_PURL_URL ?? "https://purl.nublson.com";
+
+type PurlState = "idle" | "saving" | "saved" | "error";
+
+function PurlLogo({ className }: { className?: string }) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden
+    >
+      <g clipPath="url(#purl-clip)">
+        <circle cx="16" cy="16" r="16" fill="url(#purl-grad)" />
+      </g>
+      <defs>
+        <radialGradient
+          id="purl-grad"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(6) scale(28.5 26.4348)"
+        >
+          <stop offset="0.457935" stopColor="white" />
+          <stop offset="1" stopColor="#EAE0C8" />
+        </radialGradient>
+        <clipPath id="purl-clip">
+          <rect width="32" height="32" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+
 type PostReactionsProps = {
   postId: string;
   postSlug: string;
@@ -92,6 +130,9 @@ export function PostReactions({
   const [pending, setPending] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
   const shareResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [purlState, setPurlState] = useState<PurlState>("idle");
+  const [purlError, setPurlError] = useState<string | null>(null);
+  const purlResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (initialData !== undefined) return;
@@ -115,6 +156,7 @@ export function PostReactions({
   useEffect(() => {
     return () => {
       if (shareResetRef.current) clearTimeout(shareResetRef.current);
+      if (purlResetRef.current) clearTimeout(purlResetRef.current);
     };
   }, []);
 
@@ -165,6 +207,53 @@ export function PostReactions({
     [summary, pending, postId, postSlug],
   );
 
+  const handleSaveToPurl = useCallback(async () => {
+    if (purlState === "saving") return;
+    setPurlState("saving");
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15_000);
+    let nextState: PurlState = "saved";
+    let nextError: string | null = null;
+    try {
+      const res = await fetch(`${PURL_URL}/api/links`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ url: window.location.href }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+      if (res.status === 401) {
+        nextState = "error";
+        nextError = "Sign in to Purl first";
+      } else if (res.status === 402) {
+        nextState = "error";
+        nextError = "Link limit reached";
+      } else if (!res.ok) {
+        nextState = "error";
+        nextError = "Something went wrong";
+      }
+    } catch (e) {
+      clearTimeout(timeout);
+      nextState = "error";
+      nextError =
+        e instanceof Error && e.name === "AbortError"
+          ? "Request timed out"
+          : "Could not reach Purl";
+    }
+    setPurlState(nextState);
+    setPurlError(nextError);
+    if (purlResetRef.current) clearTimeout(purlResetRef.current);
+    purlResetRef.current = setTimeout(
+      () => {
+        setPurlState("idle");
+        setPurlError(null);
+        purlResetRef.current = null;
+      },
+      nextState === "saved" ? 3000 : 4000,
+    );
+  }, [purlState]);
+
   const handleShare = useCallback(async () => {
     await shareUrl(window.location.href, {
       title: document.title || "Check out this post",
@@ -214,6 +303,37 @@ export function PostReactions({
           >
             <ThumbsDown className="size-4 shrink-0" />
             {dislikes ? ` ${formatCompactCount(dislikes)}` : ""}
+          </Button>
+        </TooltipWrapper>
+        <TooltipWrapper
+          content={
+            purlState === "saved"
+              ? "Saved!"
+              : purlState === "error"
+                ? (purlError ?? "Error")
+                : "Save with Purl"
+          }
+        >
+          <Button
+            type="button"
+            variant={purlState === "saved" ? "default" : "outline"}
+            size="icon-sm"
+            className="rounded-full"
+            disabled={purlState === "saving"}
+            aria-label={
+              purlState === "saved"
+                ? "Saved on Purl"
+                : purlState === "error"
+                  ? (purlError ?? "Error saving with Purl")
+                  : "Save on Purl"
+            }
+            onClick={() => void handleSaveToPurl()}
+          >
+            {purlState === "saved" ? (
+              <Check className="size-4" />
+            ) : (
+              <PurlLogo className="size-4 shrink-0" />
+            )}
           </Button>
         </TooltipWrapper>
         <TooltipWrapper content={shareCopied ? "Copied!" : "Share"}>
