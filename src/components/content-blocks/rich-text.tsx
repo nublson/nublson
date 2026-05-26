@@ -41,9 +41,11 @@ export function applyTextDecorations(
   content: React.ReactNode,
   annotations?: RichTextAnnotationsLike,
 ): React.ReactNode {
+  const colorKey = annotations?.color ?? "default";
   const colorClass =
-    NOTION_COLOR_CLASSES[annotations?.color ?? "default"] ??
-    "text-muted-foreground";
+    annotations?.code && colorKey === "default"
+      ? "text-accent-foreground"
+      : (NOTION_COLOR_CLASSES[colorKey] ?? "text-muted-foreground");
 
   type Wrap = (
     inner: React.ReactNode,
@@ -63,7 +65,7 @@ export function applyTextDecorations(
   if (annotations?.code)
     wrappers.push((c, cls) => (
       <code
-        className={`font-mono text-[0.875em] bg-muted px-1.5 py-0.5 rounded-sm ${cls ?? "text-muted-foreground"}`}
+        className={`font-mono text-[0.875em] bg-muted px-1.5 py-0.5 rounded-sm ${cls ?? "text-accent-foreground"}`}
       >
         {c}
       </code>
