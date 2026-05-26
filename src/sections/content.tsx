@@ -24,7 +24,7 @@ export default function ContentSection({ blocks }: ContentSectionProps) {
   return (
     <section
       id="content"
-      className="w-full flex flex-col items-start justify-start space-y-0 [&>*+*]:mt-6"
+      className="w-full flex flex-col items-start justify-start pb-10 space-y-0 [&>*+*]:mt-6"
     >
       <Render
         blocks={blocks as NotionBlock[]}
