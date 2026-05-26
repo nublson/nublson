@@ -20,7 +20,7 @@ export function HeadingPage({
         <Typography
           component="h1"
           variant={size === "small" ? "h2" : "h1"}
-          className="break-all"
+          className="break-words"
         >
           {title}
         </Typography>
