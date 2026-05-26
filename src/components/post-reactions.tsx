@@ -291,6 +291,7 @@ export function PostReactions({
             size={likes ? "sm" : "icon-sm"}
             disabled={pending}
             aria-pressed={userReaction === "like"}
+            aria-label="Like"
             className={cn("rounded-full")}
             onClick={() => void applyReaction("like")}
           >
@@ -305,6 +306,7 @@ export function PostReactions({
             size={dislikes ? "sm" : "icon-sm"}
             disabled={pending}
             aria-pressed={userReaction === "dislike"}
+            aria-label="Dislike"
             className={cn("rounded-full")}
             onClick={() => void applyReaction("dislike")}
           >
