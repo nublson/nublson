@@ -15,20 +15,19 @@ export function PostItem({ separator = true, post }: PostItemProps) {
     <Item className="p-0">
       <ItemContent className="gap-2.5">
         <ItemTitle className="font-normal w-full flex items-center justify-between gap-2">
-          <div className="flex items-center justify-start gap-2 md:max-w-[95%]">
+          <div className="flex items-baseline justify-start gap-2 md:max-w-[95%]">
             <time
               dateTime={post.published_date}
               className={typographyVariants({
                 size: "small",
-                className:
-                  "text-muted-foreground w-20 line-clamp-1 break-all",
+                className: "text-muted-foreground w-20 line-clamp-1 break-all",
               })}
             >
               {formatPostDate(post.published_date)}
             </time>
             <Typography
               component="h3"
-              className="flex-1 text-accent-foreground line-clamp-1 break-all"
+              className="flex-1 text-accent-foreground line-clamp-2 break-words"
             >
               {post.title}
             </Typography>
