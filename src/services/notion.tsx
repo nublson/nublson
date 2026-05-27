@@ -26,7 +26,7 @@ const MAX_BLOCK_DEPTH = 5;
 
 const QUERY_PAGE_SIZE = 100;
 
-const postFilterProperties: string[] = [
+const defaultPostFilterProperties: string[] = [
   "title",
   "Description",
   "Publish Date",
@@ -41,31 +41,51 @@ const mediaMap = {
   Project: "Project",
 } as const;
 
-const publishedBaseFilters = (media: string) =>
-  [
-    {
-      property: "Media",
-      select: {
-        equals: media,
-      },
-    },
+export type PublishedPageSort = {
+  property: string;
+  direction: "ascending" | "descending";
+};
+
+const defaultPublishedPageSorts: PublishedPageSort[] = [
+  {
+    property: "Publish Date",
+    direction: "descending",
+  },
+];
+
+const publishedBaseFilters = (media?: string) => {
+  const filters = [
     {
       property: "State",
       select: {
         equals: "Done",
       },
     },
-  ] as const;
+  ];
+
+  if (media) {
+    filters.unshift({
+      property: "Media",
+      select: {
+        equals: media,
+      },
+    });
+  }
+
+  return filters;
+};
 
 async function queryPublishedPagesPage(
   databaseId: string,
-  media: string,
   options: {
     pageSize: number;
     start_cursor?: string;
     /** Narrow results (e.g. optional Notion `Slug` rich_text property). */
     extraAnd?: unknown[];
+    sorts?: PublishedPageSort[];
+    filterProperties?: string[];
   },
+  media?: string,
 ): Promise<{
   pages: PageObjectResponse[];
   next_cursor: string | undefined;
@@ -80,13 +100,8 @@ async function queryPublishedPagesPage(
     filter: {
       and: andFilters as never,
     },
-    filter_properties: postFilterProperties,
-    sorts: [
-      {
-        property: "Publish Date",
-        direction: "descending",
-      },
-    ],
+    filter_properties: options.filterProperties ?? defaultPostFilterProperties,
+    sorts: options.sorts ?? defaultPublishedPageSorts,
     page_size: options.pageSize,
     start_cursor: options.start_cursor,
   });
@@ -111,19 +126,35 @@ export const getPageData = cache(async (pageId: string) => {
 
 const fetchDatabasePages = async (
   databaseId: string,
-  media: string,
+  media?: string,
   limit?: number,
+  sorts?: PublishedPageSort[],
+  filterProperties?: string[],
 ) => {
   const pageSize = Math.min(limit ?? QUERY_PAGE_SIZE, QUERY_PAGE_SIZE);
-  const { pages } = await queryPublishedPagesPage(databaseId, media, {
-    pageSize,
-  });
+  const { pages } = await queryPublishedPagesPage(
+    databaseId,
+    { pageSize, sorts, filterProperties },
+    media,
+  );
   return pages;
 };
 
 export const getDatabasePages = cache(
-  async (databaseId: string, media: keyof typeof mediaMap, limit?: number) => {
-    return fetchDatabasePages(databaseId, mediaMap[media], limit);
+  async (
+    databaseId: string,
+    media?: keyof typeof mediaMap,
+    limit?: number,
+    sorts?: PublishedPageSort[],
+    filterProperties?: string[],
+  ) => {
+    return fetchDatabasePages(
+      databaseId,
+      media ? mediaMap[media] : undefined,
+      limit,
+      sorts,
+      filterProperties,
+    );
   },
 );
 
@@ -145,8 +176,8 @@ async function getAllPublishedEntriesWithTimestamps(
   do {
     const { pages, next_cursor } = await queryPublishedPagesPage(
       databaseId,
-      mediaMap[media],
       { pageSize: QUERY_PAGE_SIZE, start_cursor: cursor },
+      mediaMap[media],
     );
     const metadataList = formatPostMetadata(pages);
     for (let i = 0; i < pages.length; i++) {
@@ -210,8 +241,8 @@ export async function getAllPublishedPostsForFeed(
   do {
     const { pages, next_cursor } = await queryPublishedPagesPage(
       databaseId,
-      mediaMap[media],
       { pageSize: QUERY_PAGE_SIZE, start_cursor: cursor },
+      mediaMap[media],
     );
     out.push(...formatPostMetadata(pages));
     cursor = next_cursor;
@@ -239,7 +270,6 @@ export const getDatabasePageBySlug = cache(
       try {
         const { pages } = await queryPublishedPagesPage(
           databaseId,
-          mediaMap[media],
           {
             pageSize: 10,
             extraAnd: [
@@ -249,6 +279,7 @@ export const getDatabasePageBySlug = cache(
               },
             ],
           },
+          mediaMap[media],
         );
         if (pages.length > 0) {
           const metadataList = formatPostMetadata(pages);
@@ -269,8 +300,8 @@ export const getDatabasePageBySlug = cache(
     do {
       const { pages, next_cursor } = await queryPublishedPagesPage(
         databaseId,
-        mediaMap[media],
         { pageSize: QUERY_PAGE_SIZE, start_cursor: cursor },
+        mediaMap[media],
       );
       const metadataList = formatPostMetadata(pages);
       const index = metadataList.findIndex((m) => m.slug === slug);

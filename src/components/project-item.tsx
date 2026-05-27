@@ -40,7 +40,7 @@ export function ProjectItem({ post }: ProjectItemProps) {
         </ItemTitle>
         <Typography
           size="small"
-          className="text-muted-foreground group-hover/item:text-accent-foreground transition-colors duration-300 line-clamp-2 break-all"
+          className="text-muted-foreground group-hover/item:text-accent-foreground transition-colors duration-300 line-clamp-2 break-words"
         >
           {post.description}
         </Typography>
