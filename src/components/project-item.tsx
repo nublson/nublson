@@ -31,7 +31,7 @@ export function ProjectItem({ post }: ProjectItemProps) {
         <ItemTitle className="w-full flex items-center justify-between gap-2">
           <Typography
             component="h3"
-            className="max-w-[90%] text-accent-foreground line-clamp-1 break-all"
+            className="max-w-[85%] text-accent-foreground line-clamp-1 break-all"
           >
             {post.title}
           </Typography>
