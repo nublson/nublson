@@ -9,8 +9,6 @@ import { Check, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TooltipWrapper } from "./tooltip-wrapper";
 
-const PURL_URL = process.env.NEXT_PUBLIC_PURL_URL ?? "https://purl.nublson.com";
-
 type PurlState = "idle" | "saving" | "saved" | "error";
 
 function PurlLogo({ className }: { className?: string }) {
@@ -215,25 +213,22 @@ export function PostReactions({
     let nextState: PurlState = "saved";
     let nextError: string | null = null;
     try {
-      const res = await fetch(`${PURL_URL}/api/links`, {
+      const res = await fetch("/api/purl/links", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ url: window.location.href }),
         signal: controller.signal,
       });
       clearTimeout(timeout);
-      if (res.status === 401) {
-        window.open(`${PURL_URL}/login`, "_blank", "noopener,noreferrer");
-        setPurlState("idle");
-        setPurlError(null);
-        return;
-      } else if (res.status === 402) {
+      if (res.status === 402) {
         nextState = "error";
         nextError = "Link limit reached";
       } else if (!res.ok) {
+        const body = (await res.json().catch(() => null)) as {
+          error?: string;
+        } | null;
         nextState = "error";
-        nextError = "Something went wrong";
+        nextError = body?.error ?? "Something went wrong";
       }
     } catch (e) {
       clearTimeout(timeout);
@@ -241,11 +236,8 @@ export function PostReactions({
         nextState = "error";
         nextError = "Request timed out";
       } else {
-        // Cross-origin network error — server likely blocks CORS for unauthenticated requests
-        window.open(`${PURL_URL}/login`, "_blank", "noopener,noreferrer");
-        setPurlState("idle");
-        setPurlError(null);
-        return;
+        nextState = "error";
+        nextError = "Something went wrong";
       }
     }
     setPurlState(nextState);
