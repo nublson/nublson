@@ -17,13 +17,15 @@ function withDiscoveryHeaders(
     `<${origin}/blog/feed.xml>; rel="alternate"; type="application/rss+xml"; title="Blog"`,
     `<${origin}/work/feed.xml>; rel="alternate"; type="application/rss+xml"; title="Work"`,
     `<${origin}/llms.txt>; rel="help"; type="text/plain"; title="LLMs overview"`,
+    `<${origin}/agents.txt>; rel="agent-policy"; type="text/plain"; title="Agent capabilities"`,
+    `<${origin}/agents.json>; rel="agent-policy"; type="application/json"; title="Agent capabilities"`,
   ].join(", ");
 
   response.headers.set("Link", linkHeader);
   return response;
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   if (acceptsMarkdown(request)) {
     const blogMatch = request.nextUrl.pathname.match(/^\/blog\/([^/]+)$/);
     if (blogMatch?.[1]) {

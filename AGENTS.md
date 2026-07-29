@@ -10,6 +10,10 @@
 - Repository workflow uses `develop` as the integration/default branch for feature PRs before promotion to `main`.
 - Content block renderers run as server components; avoid client-only hooks like `useEffect` unless explicitly making the component client-side.
 - Published date rendering should prefer Notion datetime values when present and fall back to formatter utilities.
+- Gears tools database (`NOTION_DATABASE_GEARS_ID`) has no `Media` property; query it with `getDatabasePages` omitting `media` and pass custom `sorts` and `filterProperties`.
+- `getDatabasePages(databaseId, media?, limit?, sorts?, filterProperties?)` defaults to `Publish Date` descending and blog/work filter properties when overrides are omitted.
+- Markdown negotiation serves blog and work posts: proxy rewrites to `/api/markdown/blog/[slug]` or `/api/markdown/work/[slug]` when `Accept: text/markdown` is present.
+- Agent discovery includes proxy `Link` headers, dynamic `/llms.txt`, `/agents.txt`, `/agents.json`, AI bot rules in `robots.ts`, and static `public/.well-known/*` plus `public/auth.md`.
 
 ## Cursor Cloud specific instructions
 
