@@ -27,7 +27,9 @@ export const NavigationList = ({ items, className }: NavigationListProps) => {
       {items.map((item) => {
         const isActive = pathname === item.path;
         const content = isDocumentPath(item.path) ? (
-          <a href={item.path}>{item.label}</a>
+          <a href={item.path} aria-current={isActive ? "page" : undefined}>
+            {item.label}
+          </a>
         ) : (
           <Link
             href={item.path}

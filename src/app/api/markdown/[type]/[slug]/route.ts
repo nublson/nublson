@@ -52,7 +52,7 @@ export async function GET(
   return new Response(markdown, {
     headers: {
       "Content-Type": "text/markdown; charset=utf-8",
-      "Cache-Control": "s-maxage=10, stale-while-revalidate",
+      "Cache-Control": "s-maxage=10, stale-while-revalidate=59",
       Vary: "Accept",
     },
   });

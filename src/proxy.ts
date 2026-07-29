@@ -3,7 +3,9 @@ import { NextResponse } from "next/server";
 
 function acceptsMarkdown(request: NextRequest): boolean {
   const accept = request.headers.get("accept") ?? "";
-  return accept.includes("text/markdown");
+  return accept
+    .split(",")
+    .some((type) => type.trim().toLowerCase().startsWith("text/markdown"));
 }
 
 function withDiscoveryHeaders(
