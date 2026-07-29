@@ -41,7 +41,7 @@ export async function GET() {
   return new Response(`${sections.join("\n")}\n`, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "s-maxage=10, stale-while-revalidate",
+      "Cache-Control": "s-maxage=10, stale-while-revalidate=59",
     },
   });
 }
