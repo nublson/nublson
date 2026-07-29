@@ -1,0 +1,10 @@
+{
+  "@context": "https://schema.org",
+  "name": "Nubelson Fernandes",
+  "description": "Personal portfolio and writing by Nubelson Fernandes",
+  "url": "https://nublson.com",
+  "capabilities": ["content-reading"],
+  "authentication": {
+    "type": "none"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Nubelson Fernandes",
+  "description": "Personal site and content source — blog and work case studies.",
+  "url": "https://nublson.com",
+  "capabilities": {
+    "resources": true,
+    "tools": false
+  },
+  "resources": [
+    {
+      "name": "Blog posts",
+      "uriTemplate": "https://nublson.com/api/markdown/blog/{slug}"
+    },
+    {
+      "name": "Work posts",
+      "uriTemplate": "https://nublson.com/api/markdown/work/{slug}"
+    }
+  ]
+}

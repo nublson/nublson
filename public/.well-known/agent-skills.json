@@ -1,0 +1,16 @@
+{
+  "skills": [
+    {
+      "id": "read-blog-post",
+      "name": "Read blog post",
+      "description": "Fetch a blog article as markdown",
+      "endpoint": "https://nublson.com/api/markdown/blog/{slug}"
+    },
+    {
+      "id": "read-work-post",
+      "name": "Read work case study",
+      "description": "Fetch a work case study as markdown",
+      "endpoint": "https://nublson.com/api/markdown/work/{slug}"
+    }
+  ]
+}

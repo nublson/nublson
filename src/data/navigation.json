@@ -33,6 +33,10 @@
     {
       "label": "Gears",
       "path": "/gears"
+    },
+    {
+      "label": "Agents",
+      "path": "/agents.txt"
     }
   ]
 }
