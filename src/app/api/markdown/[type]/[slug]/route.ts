@@ -4,6 +4,7 @@ import {
 } from "@/services/notion";
 import { postToMarkdown } from "@/utils/blocks-to-markdown";
 import { formatDateTimeIso } from "@/utils/formatter";
+import { estimateMarkdownTokens } from "@/utils/pages-to-markdown";
 import { NextResponse } from "next/server";
 
 export const revalidate = 10;
@@ -54,6 +55,7 @@ export async function GET(
       "Content-Type": "text/markdown; charset=utf-8",
       "Cache-Control": "s-maxage=10, stale-while-revalidate=59",
       Vary: "Accept",
+      "x-markdown-tokens": String(estimateMarkdownTokens(markdown)),
     },
   });
 }
