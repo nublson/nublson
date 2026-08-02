@@ -7,7 +7,7 @@ export type MarkdownHero = {
 
 export type MarkdownPostLink = {
   title: string;
-  url: string;
+  url?: string;
   description?: string;
   publishedDate?: string;
 };
@@ -20,7 +20,8 @@ export type MarkdownSection = {
 function postLine(post: MarkdownPostLink): string {
   const date = post.publishedDate ? ` (${post.publishedDate.slice(0, 10)})` : "";
   const description = post.description ? `: ${post.description}` : "";
-  return `- [${post.title}](${post.url})${date}${description}`;
+  const link = post.url ? `[${post.title}](${post.url})` : post.title;
+  return `- ${link}${date}${description}`;
 }
 
 export function pageToMarkdown({

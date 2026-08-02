@@ -51,7 +51,7 @@ function gearSections(gears: PostMetadata[]): MarkdownSection[] {
       .filter((gear) => gear.category === category)
       .map((gear) => ({
         title: gear.title,
-        url: gear.path,
+        url: gear.path || undefined,
         description: gear.description || undefined,
       })),
   }));

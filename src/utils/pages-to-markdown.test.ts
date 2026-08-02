@@ -68,6 +68,33 @@ describe("pageToMarkdown", () => {
     );
   });
 
+  it("renders posts without a url as plain text", () => {
+    const markdown = pageToMarkdown({
+      hero: { title: "Gears", description: "Tools I use." },
+      sections: [
+        {
+          heading: "Hardware",
+          posts: [
+            {
+              title: "Unlinked Gear",
+              description: "No Path property in Notion.",
+            },
+            {
+              title: "Linked Gear",
+              url: "https://example.com/gear",
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(markdown).toBe(
+      "# Gears\n\n> Tools I use.\n\n## Hardware\n\n" +
+        "- Unlinked Gear: No Path property in Notion.\n" +
+        "- [Linked Gear](https://example.com/gear)\n",
+    );
+  });
+
   it("omits sections that have no posts", () => {
     const markdown = pageToMarkdown({
       hero: { title: "Home", description: "Hi." },
