@@ -9,6 +9,7 @@ export type AgentsDiscovery = {
     description: string;
   };
   mcpCardUrl: string;
+  mcpEndpointUrl: string;
   skillsIndexUrl: string;
   agentCardUrl: string;
 };
@@ -22,7 +23,8 @@ export function getAgentsDiscovery(baseUrl: string): AgentsDiscovery {
       name: "Nubelson Fernandes",
       description: "Designer and developer sharing work, writing, and tools.",
     },
-    mcpCardUrl: `${base}/.well-known/mcp.json`,
+    mcpCardUrl: `${base}/.well-known/mcp/server-card.json`,
+    mcpEndpointUrl: `${base}/api/mcp`,
     skillsIndexUrl: `${base}/.well-known/agent-skills.json`,
     agentCardUrl: `${base}/.well-known/agent.json`,
   };
@@ -35,6 +37,7 @@ export function buildAgentsTxt(discovery: AgentsDiscovery): string {
     `# JSON: ${discovery.baseUrl}/agents.json`,
     "",
     `MCP: ${discovery.mcpCardUrl}`,
+    `MCP-Endpoint: ${discovery.mcpEndpointUrl}`,
     `Skills: ${discovery.skillsIndexUrl}`,
     `A2A: ${discovery.agentCardUrl}`,
   ];
@@ -55,8 +58,10 @@ export function buildAgentsJson(discovery: AgentsDiscovery) {
     mcp: [
       {
         url: discovery.mcpCardUrl,
+        endpoint: discovery.mcpEndpointUrl,
+        transport: "streamable-http",
         description:
-          "MCP server card for blog and work content resources served as markdown.",
+          "MCP server card and Streamable HTTP endpoint exposing read-only content tools.",
       },
     ],
     skills: [

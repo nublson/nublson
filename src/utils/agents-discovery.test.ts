@@ -14,7 +14,10 @@ describe("agents-discovery", () => {
     expect(txt).toContain("# agents.txt");
     expect(txt).toContain("https://agents-txt.com");
     expect(txt).toContain("JSON: https://nublson.com/agents.json");
-    expect(txt).toContain("MCP: https://nublson.com/.well-known/mcp.json");
+    expect(txt).toContain(
+      "MCP: https://nublson.com/.well-known/mcp/server-card.json",
+    );
+    expect(txt).toContain("MCP-Endpoint: https://nublson.com/api/mcp");
     expect(txt).toContain(
       "Skills: https://nublson.com/.well-known/agent-skills.json",
     );
@@ -31,6 +34,11 @@ describe("agents-discovery", () => {
       description: "Designer and developer sharing work, writing, and tools.",
     });
     expect(json.mcp).toHaveLength(1);
+    expect(json.mcp[0]).toMatchObject({
+      url: "https://nublson.com/.well-known/mcp/server-card.json",
+      endpoint: "https://nublson.com/api/mcp",
+      transport: "streamable-http",
+    });
     expect(json.skills).toHaveLength(1);
     expect(json.a2a).toHaveLength(1);
     expect("payments" in json).toBe(false);
@@ -42,7 +50,7 @@ describe("agents-discovery", () => {
 
     expect(normalized.baseUrl).toBe("https://nublson.com");
     expect(normalized.mcpCardUrl).toBe(
-      "https://nublson.com/.well-known/mcp.json",
+      "https://nublson.com/.well-known/mcp/server-card.json",
     );
   });
 });
