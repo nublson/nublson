@@ -16,9 +16,12 @@ import {
   postToolItem,
   profileFromHero,
   searchPosts,
+  type GearGroup,
+  type Profile,
   type PostToolItem,
 } from "@/utils/mcp-content";
 import { createMcpHandler } from "mcp-handler";
+import { unstable_cache } from "next/cache";
 import { z } from "zod";
 
 const MEDIA_BY_TYPE = { blog: "Blog", work: "Project" } as const;
@@ -43,25 +46,81 @@ function errorResult(message: string) {
   };
 }
 
-async function fetchPostItems(type: PostType): Promise<PostToolItem[]> {
-  const pages = await getDatabasePages(
-    process.env.NOTION_DATABASE_CONTENT_ID!,
-    MEDIA_BY_TYPE[type],
-    50,
-  );
-  return formatPostMetadata(pages).map((post) =>
-    postToolItem(post, baseUrl(), PATH_BY_TYPE[type]),
-  );
-}
+const fetchPostItemsCached = unstable_cache(
+  async (type: PostType): Promise<PostToolItem[]> => {
+    const pages = await getDatabasePages(
+      process.env.NOTION_DATABASE_CONTENT_ID!,
+      MEDIA_BY_TYPE[type],
+      50,
+    );
+    return formatPostMetadata(pages).map((post) =>
+      postToolItem(post, baseUrl(), PATH_BY_TYPE[type]),
+    );
+  },
+  ["mcp-post-items"],
+  { revalidate: 10 },
+);
 
 async function fetchAllPostItems(type?: PostType): Promise<PostToolItem[]> {
-  if (type) return fetchPostItems(type);
+  if (type) return fetchPostItemsCached(type);
   const [blog, work] = await Promise.all([
-    fetchPostItems("blog"),
-    fetchPostItems("work"),
+    fetchPostItemsCached("blog"),
+    fetchPostItemsCached("work"),
   ]);
   return [...blog, ...work];
 }
+
+const fetchPostMarkdownCached = unstable_cache(
+  async (type: PostType, slug: string): Promise<string | null> => {
+    const found = await getDatabasePageBySlug(
+      process.env.NOTION_DATABASE_CONTENT_ID!,
+      MEDIA_BY_TYPE[type],
+      slug,
+    );
+
+    if (!found) return null;
+
+    const blocks = await getPageBlocks(found.page.id);
+    return postToMarkdown({
+      title: found.metadata.title,
+      description: found.metadata.description,
+      publishedDate: formatDateTimeIso(found.metadata.published_date),
+      author: found.metadata.author,
+      category: found.metadata.category || undefined,
+      blocks,
+    });
+  },
+  ["mcp-post-markdown"],
+  { revalidate: 10 },
+);
+
+const fetchGearGroupsCached = unstable_cache(
+  async (): Promise<GearGroup[]> => {
+    const pages = await getDatabasePages(
+      process.env.NOTION_DATABASE_GEARS_ID!,
+      undefined,
+      50,
+      [
+        { property: "Category", direction: "ascending" },
+        { property: "State", direction: "descending" },
+        { property: "Updated", direction: "ascending" },
+      ],
+      ["title", "Description", "Category", "Path"],
+    );
+    return groupGears(formatPostMetadata(pages));
+  },
+  ["mcp-gears"],
+  { revalidate: 10 },
+);
+
+const fetchProfileCached = unstable_cache(
+  async (): Promise<Profile> => {
+    const page = await getPageData(process.env.NOTION_PAGE_HOME_ID!);
+    return profileFromHero(formatPageMetadata(page), social.media, baseUrl());
+  },
+  ["mcp-profile"],
+  { revalidate: 10 },
+);
 
 const handler = createMcpHandler(
   (server) => {
@@ -70,7 +129,7 @@ const handler = createMcpHandler(
       {
         title: "List posts",
         description:
-          "List published blog posts and work case studies with slugs, URLs, dates and descriptions. Omit type to get both.",
+          "List published blog posts and work case studies with slugs, URLs, dates and descriptions. Omit type to get both. Covers the latest 50 posts per type (blog/work).",
         inputSchema: z.object({
           type: z.enum(["blog", "work"]).optional(),
         }),
@@ -90,27 +149,13 @@ const handler = createMcpHandler(
         }),
       },
       async ({ type, slug }) => {
-        const found = await getDatabasePageBySlug(
-          process.env.NOTION_DATABASE_CONTENT_ID!,
-          MEDIA_BY_TYPE[type],
-          slug,
-        );
+        const markdown = await fetchPostMarkdownCached(type, slug);
 
-        if (!found) {
+        if (markdown === null) {
           return errorResult(
             `No ${type} post found for slug "${slug}". Use list_posts to see available slugs.`,
           );
         }
-
-        const blocks = await getPageBlocks(found.page.id);
-        const markdown = postToMarkdown({
-          title: found.metadata.title,
-          description: found.metadata.description,
-          publishedDate: formatDateTimeIso(found.metadata.published_date),
-          author: found.metadata.author,
-          category: found.metadata.category || undefined,
-          blocks,
-        });
 
         return { content: [{ type: "text" as const, text: markdown }] };
       },
@@ -124,20 +169,7 @@ const handler = createMcpHandler(
           "List recommended tools and gear, grouped by category, with product links.",
         inputSchema: z.object({}),
       },
-      async () => {
-        const pages = await getDatabasePages(
-          process.env.NOTION_DATABASE_GEARS_ID!,
-          undefined,
-          50,
-          [
-            { property: "Category", direction: "ascending" },
-            { property: "State", direction: "descending" },
-            { property: "Updated", direction: "ascending" },
-          ],
-          ["title", "Description", "Category", "Path"],
-        );
-        return jsonResult(groupGears(formatPostMetadata(pages)));
-      },
+      async () => jsonResult(await fetchGearGroupsCached()),
     );
 
     server.registerTool(
@@ -148,12 +180,7 @@ const handler = createMcpHandler(
           "Get Nubelson Fernandes' profile: name, role, location, bio and social links.",
         inputSchema: z.object({}),
       },
-      async () => {
-        const page = await getPageData(process.env.NOTION_PAGE_HOME_ID!);
-        return jsonResult(
-          profileFromHero(formatPageMetadata(page), social.media, baseUrl()),
-        );
-      },
+      async () => jsonResult(await fetchProfileCached()),
     );
 
     server.registerTool(
@@ -161,7 +188,7 @@ const handler = createMcpHandler(
       {
         title: "Search posts",
         description:
-          "Case-insensitive search across post titles, descriptions and categories.",
+          "Case-insensitive search across post titles, descriptions and categories. Covers the latest 50 posts per type (blog/work).",
         inputSchema: z.object({
           query: z.string().min(1),
         }),
