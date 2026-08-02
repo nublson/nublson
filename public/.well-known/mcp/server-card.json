@@ -1,0 +1,25 @@
+{
+  "name": "nublson.com",
+  "serverInfo": {
+    "name": "nublson.com",
+    "title": "Nubelson Fernandes — Content MCP Server",
+    "version": "1.0.0",
+    "description": "Read-only MCP server exposing blog posts, work case studies, gear recommendations and profile info from nublson.com."
+  },
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "https://nublson.com/api/mcp"
+  },
+  "capabilities": {
+    "tools": { "listChanged": false }
+  },
+  "tools": [
+    { "name": "list_posts", "description": "List published blog posts and work case studies with slugs, URLs, dates and descriptions." },
+    { "name": "get_post", "description": "Fetch a single blog post or work case study as markdown by slug." },
+    { "name": "list_gears", "description": "List recommended tools and gear, grouped by category, with product links." },
+    { "name": "get_profile", "description": "Get Nubelson Fernandes' profile: name, role, location, bio and social links." },
+    { "name": "search_posts", "description": "Case-insensitive search across post titles, descriptions and categories." }
+  ],
+  "authentication": { "type": "none" },
+  "website": "https://nublson.com"
+}
