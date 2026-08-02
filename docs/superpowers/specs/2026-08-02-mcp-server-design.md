@@ -30,7 +30,7 @@ Server identity: name `nublson.com`, version `1.0.0`.
 | `get_profile` | `{}` | JSON `{name, description, role, location, url, social: [{name, url}]}` | `getPageData(NOTION_PAGE_HOME_ID)` + `formatPageMetadata` + `src/data/social.json` |
 | `search_posts` | `{ query: string }` | Same shape as `list_posts`, filtered | Both post lists filtered by pure `searchPosts()` util |
 
-Error handling: unknown slug or empty search returns a normal MCP tool result with `isError: true` and a helpful message (never an unhandled 500). Invalid input is rejected by zod schemas at the adapter layer.
+Error handling: an unknown slug returns a normal MCP tool result with `isError: true` and a helpful message (never an unhandled 500) — a genuine lookup failure. An empty search returns a *successful* result with a hint message: per MCP semantics, `isError` is reserved for execution failures, and zero matches is a valid outcome. Invalid input is rejected by zod schemas at the adapter layer.
 
 ### Pure helpers: `src/utils/mcp-content.ts`
 

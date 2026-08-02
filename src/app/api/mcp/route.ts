@@ -196,9 +196,14 @@ const handler = createMcpHandler(
       async ({ query }) => {
         const matches = searchPosts(await fetchAllPostItems(), query);
         if (matches.length === 0) {
-          return errorResult(
-            `No posts matched "${query}". Try list_posts for the full index.`,
-          );
+          return {
+            content: [
+              {
+                type: "text" as const,
+                text: `No posts matched "${query}". Try list_posts for the full index.`,
+              },
+            ],
+          };
         }
         return jsonResult(matches);
       },
