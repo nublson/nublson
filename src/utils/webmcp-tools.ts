@@ -28,8 +28,9 @@ export function getWebmcpTools(fetcher: typeof fetch): ModelContextTool[] {
       description:
         "List all published blog posts and work case studies on nublson.com with titles, links and descriptions.",
       inputSchema: { type: "object", properties: {} },
-      async execute() {
+      async execute(input: Record<string, unknown> = {}) {
         try {
+          void input;
           const { text } = await fetchText(fetcher, "/llms.txt");
           return textResult(text);
         } catch {
@@ -48,19 +49,20 @@ export function getWebmcpTools(fetcher: typeof fetch): ModelContextTool[] {
         },
         required: ["query"],
       },
-      async execute(input) {
-        const query = String(input.query ?? "").trim().toLowerCase();
+      async execute(input: Record<string, unknown> = {}) {
         try {
+          const query = String(input.query ?? "").trim().toLowerCase();
           const { text } = await fetchText(fetcher, "/llms.txt");
           const matches = text
             .split("\n")
-            .filter(
-              (line) =>
-                line.startsWith("- ") && line.toLowerCase().includes(query),
-            );
+            .filter((line) => {
+              if (!line.startsWith("- ")) return false;
+              const withoutLinkTarget = line.replace(/\]\([^)]*\)/, "]");
+              return withoutLinkTarget.toLowerCase().includes(query);
+            });
           if (!query || matches.length === 0) {
             return textResult(
-              `No posts matched "${input.query}". Use list_posts for the full index.`,
+              `No posts matched "${query}". Try list_posts for the full index.`,
             );
           }
           return textResult(matches.join("\n"));
@@ -81,18 +83,21 @@ export function getWebmcpTools(fetcher: typeof fetch): ModelContextTool[] {
         },
         required: ["type", "slug"],
       },
-      async execute(input) {
-        const type = input.type === "work" ? "work" : "blog";
-        const slug = String(input.slug ?? "");
+      async execute(input: Record<string, unknown> = {}) {
         try {
-          const { ok, text } = await fetchText(
+          const type = input.type === "work" ? "work" : "blog";
+          const slug = String(input.slug ?? "");
+          const { ok, status, text } = await fetchText(
             fetcher,
             `/api/markdown/${type}/${encodeURIComponent(slug)}`,
           );
           if (!ok) {
-            return textResult(
-              `No ${type} post found for slug "${slug}". Use list_posts to see available posts.`,
-            );
+            if (status === 404) {
+              return textResult(
+                `No ${type} post found for slug "${slug}". Use list_posts to see available slugs.`,
+              );
+            }
+            return textResult("Could not load the post. Try again later.");
           }
           return textResult(text);
         } catch {

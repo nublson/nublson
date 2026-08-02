@@ -60,6 +60,17 @@ describe("getWebmcpTools", () => {
     ).execute({ query: "quantum" });
 
     expect(result.content[0]?.text).toContain("No posts matched");
+    expect(result.content[0]?.text).toContain("Try list_posts for the full index.");
+  });
+
+  it("search_posts does not match against the URL portion of a line", async () => {
+    const fetcher = vi.fn().mockResolvedValue(okResponse(LLMS_TXT));
+    const result = await toolByName(
+      getWebmcpTools(fetcher),
+      "search_posts",
+    ).execute({ query: "https" });
+
+    expect(result.content[0]?.text).toContain("No posts matched");
   });
 
   it("get_post fetches the markdown route", async () => {
@@ -81,7 +92,21 @@ describe("getWebmcpTools", () => {
     );
 
     expect(result.content[0]?.text).toContain("No blog post found");
-    expect(result.content[0]?.text).toContain("list_posts");
+    expect(result.content[0]?.text).toContain("Use list_posts to see available slugs.");
+  });
+
+  it("get_post reports a generic error on a non-404 failure status", async () => {
+    const fetcher = vi
+      .fn()
+      .mockResolvedValue(new Response("boom", { status: 500 }));
+    const result = await toolByName(getWebmcpTools(fetcher), "get_post").execute(
+      { type: "blog", slug: "broken" },
+    );
+
+    expect(result.content[0]?.text).toBe(
+      "Could not load the post. Try again later.",
+    );
+    expect(result.content[0]?.text).not.toContain("No blog post found");
   });
 
   it("never throws when the fetcher rejects", async () => {
@@ -89,6 +114,15 @@ describe("getWebmcpTools", () => {
     for (const tool of getWebmcpTools(fetcher)) {
       const result = await tool.execute({ query: "x", type: "blog", slug: "x" });
       expect(result.content[0]?.text).toContain("Could not load");
+    }
+  });
+
+  it("never rejects when execute is called with undefined input", async () => {
+    const fetcher = vi.fn().mockResolvedValue(okResponse(LLMS_TXT));
+    for (const tool of getWebmcpTools(fetcher)) {
+      await expect(tool.execute(undefined as never)).resolves.toMatchObject({
+        content: [{ type: "text" }],
+      });
     }
   });
 });

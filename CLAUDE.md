@@ -38,7 +38,7 @@ Run a single test file: `pnpm vitest run src/utils/formatter.test.ts`
 - `src/components/content-blocks/` — Notion block renderers. These are Server Components. Never add `useEffect` or other client hooks here unless the file is explicitly marked `"use client"`.
 - `src/components/ui/` — shadcn primitives. Prefer extending these over creating parallel UI components.
 - `src/sections/` — Full-page-width layout sections (hero, posts, projects).
-- Only six components are currently client-side: `theme-toggle`, `navigation-list`, `input-group`, `separator`, `code-block-highlight`, `webmcp-provider`.
+- Client components are the exception, not the rule — currently: `theme-toggle`, `navigation-list`, `input-group`, `separator`, `code-block-highlight`, `post-reactions`, `ui/tooltip`, `webmcp-provider`.
 
 **Styling:** Tailwind CSS v4 via `@tailwindcss/postcss`. Theme tokens are CSS variables in `src/app/globals.css` using oklch color space. Dark mode is class-based (`.dark`). Use `cn()` from `src/lib/utils.ts` for conditional class merging.
 
