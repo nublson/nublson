@@ -16,8 +16,8 @@ Negotiated pages (new):
 |---|---|
 | `/` | Homepage hero (Notion `NOTION_PAGE_HOME_ID`) + latest posts and latest projects as linked lists |
 | `/about` | About hero + full page blocks (`NOTION_PAGE_ABOUT_ID`) via existing `blocks-to-markdown` |
-| `/blog` | Blog section hero (`NOTION_PAGE_BLOG_ID`) + all published blog posts with dates/descriptions |
-| `/work` | Work section hero (`NOTION_PAGE_WORK_ID`) + all published projects with dates/descriptions |
+| `/blog` | Blog section hero (`NOTION_PAGE_BLOG_ID`) + latest 20 blog posts with dates/descriptions (mirrors the HTML page's cap; full list stays available via `/llms.txt` and the sitemap) |
+| `/work` | Work section hero (`NOTION_PAGE_WORK_ID`) + latest 20 projects with dates/descriptions (same cap as the HTML page) |
 | `/gears` | Gears list as linked markdown lists, grouped as the HTML page groups them |
 
 Already working (unchanged): `/blog/[slug]` and `/work/[slug]` via `/api/markdown/[type]/[slug]`.
