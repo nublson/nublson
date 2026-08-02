@@ -77,7 +77,7 @@ Output shape of `pageToMarkdown`:
 
 Rules: the `>` line only if description is non-empty; the role line only if `role` or `location` present (joined with ` — ` when both); empty sections (no posts) are omitted entirely; date rendered as the `YYYY-MM-DD` prefix of `publishedDate`; description suffix only when present; output always ends with a single trailing newline.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `src/utils/pages-to-markdown.test.ts`:
 
@@ -171,12 +171,12 @@ describe("estimateMarkdownTokens", () => {
 });
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `pnpm vitest run src/utils/pages-to-markdown.test.ts`
 Expected: FAIL — cannot resolve `./pages-to-markdown`.
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 Create `src/utils/pages-to-markdown.ts`:
 
@@ -238,12 +238,12 @@ export function estimateMarkdownTokens(markdown: string): number {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `pnpm vitest run src/utils/pages-to-markdown.test.ts`
 Expected: PASS (6 tests).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/utils/pages-to-markdown.ts src/utils/pages-to-markdown.test.ts
@@ -264,7 +264,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 - Consumes: nothing from Task 1.
 - Produces: rewrites `/` → `/api/markdown/pages/home`, `/about` → `/api/markdown/pages/about`, `/blog` → `/api/markdown/pages/blog`, `/work` → `/api/markdown/pages/work`, `/gears` → `/api/markdown/pages/gears` when `Accept: text/markdown`. Task 3 must serve those paths. All negotiated paths (the five above plus `/blog/[slug]`, `/work/[slug]`) get `Vary: Accept` on every response, markdown or HTML.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `src/proxy.test.ts`:
 
@@ -354,12 +354,12 @@ describe("proxy markdown negotiation", () => {
 
 Note: if importing `next/server` fails under the default jsdom environment, add `// @vitest-environment node` as the first line of the test file.
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `pnpm vitest run src/proxy.test.ts`
 Expected: FAIL — the five static-page rewrites return `null` (current proxy only rewrites post paths) and `vary` is not set.
 
-- [ ] **Step 3: Update `src/proxy.ts`**
+- [x] **Step 3: Update `src/proxy.ts`**
 
 Replace the `proxy` function (keep `acceptsMarkdown` and `withDiscoveryHeaders` as-is) and add the path map. The two duplicated blog/work match blocks collapse into one:
 
@@ -411,17 +411,17 @@ export function proxy(request: NextRequest) {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `pnpm vitest run src/proxy.test.ts`
 Expected: PASS (12 tests).
 
-- [ ] **Step 5: Run the full suite, lint, and type-check**
+- [x] **Step 5: Run the full suite, lint, and type-check**
 
 Run: `pnpm test && pnpm lint && pnpm type-check`
 Expected: all pass (no other test touches the proxy).
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/proxy.ts src/proxy.test.ts
@@ -455,7 +455,7 @@ Data per page mirrors the HTML components exactly:
 | work | `NOTION_PAGE_WORK_ID` | `NOTION_PAGE_WORK_ID` | "Latest Projects": `(CONTENT, "Project", 20)` |
 | gears | `NOTION_PAGE_GEARS_ID` | `NOTION_PAGE_GEARS_ID` | one section per gear category (see code) |
 
-- [ ] **Step 1: Write the route**
+- [x] **Step 1: Write the route**
 
 Create `src/app/api/markdown/pages/[page]/route.ts`:
 
@@ -644,12 +644,12 @@ export async function GET(
 
 Note: `getDatabasePages` sorts/filterProperties parameter shapes come from the gears usage in `src/app/_components/gears-category.tsx` — copy exactly. `gear.path` is the external product URL (Notion `Path` property).
 
-- [ ] **Step 2: Verify with lint and type-check**
+- [x] **Step 2: Verify with lint and type-check**
 
 Run: `pnpm lint && pnpm type-check`
 Expected: both pass. (Route files are excluded from unit coverage; behavior is verified in Task 4.)
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add "src/app/api/markdown/pages/[page]/route.ts"
@@ -664,11 +664,11 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 
 **Files:** none (verification only). Requires `.env` with real Notion credentials (already present locally).
 
-- [ ] **Step 1: Start the dev server**
+- [x] **Step 1: Start the dev server**
 
 Run: `pnpm dev` (background).
 
-- [ ] **Step 2: Verify markdown negotiation on every page**
+- [x] **Step 2: Verify markdown negotiation on every page**
 
 ```bash
 for path in / /about /blog /work /gears /blog/some-real-slug; do
@@ -679,12 +679,12 @@ done
 
 Expected: every path returns `200` with `content-type: text/markdown; charset=utf-8`, `vary: Accept`, and `x-markdown-tokens` on the five static pages. (Get a real slug from `curl -s http://localhost:3000/llms.txt`.)
 
-- [ ] **Step 3: Verify markdown content looks right**
+- [x] **Step 3: Verify markdown content looks right**
 
 Run: `curl -s -H "Accept: text/markdown" http://localhost:3000/ | head -30`
 Expected: `# <name>` hero, `## Latest Projects`, `## Latest Posts` with valid links.
 
-- [ ] **Step 4: Verify HTML is unaffected**
+- [x] **Step 4: Verify HTML is unaffected**
 
 ```bash
 curl -s -o /dev/null -D - -H "Accept: text/html" http://localhost:3000/ | grep -i -E "^HTTP|content-type|vary"
@@ -692,12 +692,12 @@ curl -s -o /dev/null -D - -H "Accept: text/html" http://localhost:3000/ | grep -
 
 Expected: `200`, `content-type: text/html`, `vary: Accept` present.
 
-- [ ] **Step 5: Full check suite**
+- [x] **Step 5: Full check suite**
 
 Run: `pnpm test && pnpm lint && pnpm type-check && pnpm build`
 Expected: all pass (build needs the Notion credentials from `.env`).
 
-- [ ] **Step 6: Mark plan checkboxes done and commit any doc updates**
+- [x] **Step 6: Mark plan checkboxes done and commit any doc updates**
 
 ```bash
 git add docs/superpowers/plans/2026-08-02-sitewide-markdown-negotiation.md
