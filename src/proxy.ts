@@ -27,30 +27,50 @@ function withDiscoveryHeaders(
   return response;
 }
 
-export function proxy(request: NextRequest) {
-  if (acceptsMarkdown(request)) {
-    const blogMatch = request.nextUrl.pathname.match(/^\/blog\/([^/]+)$/);
-    if (blogMatch?.[1]) {
-      const rewriteUrl = request.nextUrl.clone();
-      rewriteUrl.pathname = `/api/markdown/blog/${blogMatch[1]}`;
-      return withDiscoveryHeaders(
-        request,
-        NextResponse.rewrite(rewriteUrl),
-      );
-    }
+const PAGE_MARKDOWN_PATHS: Record<string, string> = {
+  "/": "home",
+  "/about": "about",
+  "/blog": "blog",
+  "/work": "work",
+  "/gears": "gears",
+};
 
-    const workMatch = request.nextUrl.pathname.match(/^\/work\/([^/]+)$/);
-    if (workMatch?.[1]) {
+const POST_PATH_PATTERN = /^\/(blog|work)\/([^/]+)$/;
+
+function markdownRewritePath(pathname: string): string | null {
+  const page = PAGE_MARKDOWN_PATHS[pathname];
+  if (page) return `/api/markdown/pages/${page}`;
+
+  const postMatch = pathname.match(POST_PATH_PATTERN);
+  if (postMatch) return `/api/markdown/${postMatch[1]}/${postMatch[2]}`;
+
+  return null;
+}
+
+function isNegotiatedPath(pathname: string): boolean {
+  return pathname in PAGE_MARKDOWN_PATHS || POST_PATH_PATTERN.test(pathname);
+}
+
+export function proxy(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  let response: NextResponse | undefined;
+
+  if (acceptsMarkdown(request)) {
+    const rewritePath = markdownRewritePath(pathname);
+    if (rewritePath) {
       const rewriteUrl = request.nextUrl.clone();
-      rewriteUrl.pathname = `/api/markdown/work/${workMatch[1]}`;
-      return withDiscoveryHeaders(
-        request,
-        NextResponse.rewrite(rewriteUrl),
-      );
+      rewriteUrl.pathname = rewritePath;
+      response = NextResponse.rewrite(rewriteUrl);
     }
   }
 
-  return withDiscoveryHeaders(request, NextResponse.next());
+  response ??= NextResponse.next();
+
+  if (isNegotiatedPath(pathname)) {
+    response.headers.set("Vary", "Accept");
+  }
+
+  return withDiscoveryHeaders(request, response);
 }
 
 export const config = {
