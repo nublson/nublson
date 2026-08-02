@@ -32,7 +32,7 @@
 **Interfaces:**
 - Produces: `buildRobotsTxt(baseUrl: string): string`. Output groups: wildcard (`User-Agent: *` / `Allow: /` / `Content-Signal: …`), blank line, the 7 AI bot `User-Agent:` lines sharing one `Allow: /`, blank line, `Sitemap:` line, trailing newline.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `src/utils/robots-txt.test.ts`:
 
@@ -73,12 +73,12 @@ describe("buildRobotsTxt", () => {
 });
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `pnpm vitest run src/utils/robots-txt.test.ts`
 Expected: FAIL — cannot resolve `./robots-txt`.
 
-- [ ] **Step 3: Write the builder**
+- [x] **Step 3: Write the builder**
 
 Create `src/utils/robots-txt.ts`:
 
@@ -113,7 +113,7 @@ export function buildRobotsTxt(baseUrl: string): string {
 }
 ```
 
-- [ ] **Step 4: Replace the metadata route with a handler**
+- [x] **Step 4: Replace the metadata route with a handler**
 
 Delete `src/app/robots.ts` (`git rm src/app/robots.ts`). Create `src/app/robots.txt/route.ts`:
 
@@ -132,12 +132,12 @@ export async function GET() {
 }
 ```
 
-- [ ] **Step 5: Run tests, lint, type-check**
+- [x] **Step 5: Run tests, lint, type-check**
 
 Run: `pnpm vitest run src/utils/robots-txt.test.ts && pnpm test && pnpm lint && pnpm type-check`
 Expected: all pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/utils/robots-txt.ts src/utils/robots-txt.test.ts src/app/robots.txt/route.ts
@@ -160,7 +160,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 **Interfaces:**
 - Produces: `buildApiCatalog(baseUrl: string): ApiCatalog` where `ApiCatalog = { linkset: [...] }`; route serves it at `/.well-known/api-catalog` with `Content-Type: application/linkset+json`.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `src/utils/api-catalog.test.ts`:
 
@@ -210,12 +210,12 @@ describe("buildApiCatalog", () => {
 });
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `pnpm vitest run src/utils/api-catalog.test.ts`
 Expected: FAIL — cannot resolve `./api-catalog`.
 
-- [ ] **Step 3: Write the builder**
+- [x] **Step 3: Write the builder**
 
 Create `src/utils/api-catalog.ts`:
 
@@ -262,7 +262,7 @@ export function buildApiCatalog(baseUrl: string): ApiCatalog {
 }
 ```
 
-- [ ] **Step 4: Write the route**
+- [x] **Step 4: Write the route**
 
 Create `src/app/.well-known/api-catalog/route.ts`:
 
@@ -284,7 +284,7 @@ export async function GET() {
 }
 ```
 
-- [ ] **Step 5: Verify Next serves the dot-directory route**
+- [x] **Step 5: Verify Next serves the dot-directory route**
 
 Start `pnpm dev` (background), then:
 
@@ -314,7 +314,7 @@ plus a proxy test in `src/proxy.test.ts`:
 
 Then re-run the curl check. Whichever variant ships, note it in your report.
 
-- [ ] **Step 6: Create `public/openapi.json`**
+- [x] **Step 6: Create `public/openapi.json`**
 
 ```json
 {
@@ -438,7 +438,7 @@ Then re-run the curl check. Whichever variant ships, note it in your report.
 }
 ```
 
-- [ ] **Step 7: Validate, run checks, commit**
+- [x] **Step 7: Validate, run checks, commit**
 
 Run: `python3 -m json.tool public/openapi.json > /dev/null && pnpm test && pnpm lint && pnpm type-check`
 Expected: all pass.
@@ -464,7 +464,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 **Interfaces:**
 - Produces: static artifacts at `/.well-known/agent-skills/index.json` and `/.well-known/agent-skills/nublson-content/SKILL.md`; the integrity test binds them. Task 4 points `agents-discovery` at the index URL.
 
-- [ ] **Step 1: Write the integrity test first**
+- [x] **Step 1: Write the integrity test first**
 
 Create `src/utils/agent-skills-integrity.test.ts`:
 
@@ -522,12 +522,12 @@ describe("agent-skills discovery index", () => {
 });
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pnpm vitest run src/utils/agent-skills-integrity.test.ts`
 Expected: FAIL — `index.json` does not exist.
 
-- [ ] **Step 3: Create the skill file**
+- [x] **Step 3: Create the skill file**
 
 Create `public/.well-known/agent-skills/nublson-content/SKILL.md` with EXACTLY this content:
 
@@ -578,7 +578,7 @@ Everything is public; no authentication is required anywhere.
   search, AI input and AI training are all permitted.
 ```
 
-- [ ] **Step 4: Compute the digest and create the index**
+- [x] **Step 4: Compute the digest and create the index**
 
 Run: `shasum -a 256 public/.well-known/agent-skills/nublson-content/SKILL.md`
 
@@ -599,12 +599,12 @@ Create `public/.well-known/agent-skills/index.json`, replacing `<HEX>` with the 
 }
 ```
 
-- [ ] **Step 5: Run the integrity test to verify it passes**
+- [x] **Step 5: Run the integrity test to verify it passes**
 
 Run: `pnpm vitest run src/utils/agent-skills-integrity.test.ts`
 Expected: PASS (2 tests).
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add public/.well-known/agent-skills src/utils/agent-skills-integrity.test.ts
@@ -625,7 +625,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 **Interfaces:**
 - Produces: `getAgentsDiscovery().skillsIndexUrl` becomes `${base}/.well-known/agent-skills/index.json`; auth.md H1 becomes `# Auth.md`. Legacy `public/.well-known/agent-skills.json` stays untouched.
 
-- [ ] **Step 1: Update the discovery test (failing first)**
+- [x] **Step 1: Update the discovery test (failing first)**
 
 In `src/utils/agents-discovery.test.ts`, replace the `Skills:` assertion value with:
 
@@ -637,12 +637,12 @@ In `src/utils/agents-discovery.test.ts`, replace the `Skills:` assertion value w
 
 If any other assertion references `/.well-known/agent-skills.json`, update it to the new URL.
 
-- [ ] **Step 2: Run tests to verify the changed assertion fails**
+- [x] **Step 2: Run tests to verify the changed assertion fails**
 
 Run: `pnpm vitest run src/utils/agents-discovery.test.ts`
 Expected: FAIL on the Skills assertion.
 
-- [ ] **Step 3: Update `src/utils/agents-discovery.ts`**
+- [x] **Step 3: Update `src/utils/agents-discovery.ts`**
 
 Change `skillsIndexUrl` in `getAgentsDiscovery` to:
 
@@ -650,11 +650,11 @@ Change `skillsIndexUrl` in `getAgentsDiscovery` to:
     skillsIndexUrl: `${base}/.well-known/agent-skills/index.json`,
 ```
 
-- [ ] **Step 4: Update `public/auth.md`**
+- [x] **Step 4: Update `public/auth.md`**
 
 Change the first line from `# Authentication` to `# Auth.md`. Everything else stays.
 
-- [ ] **Step 5: Run checks and commit**
+- [x] **Step 5: Run checks and commit**
 
 Run: `pnpm test && pnpm lint && pnpm type-check`
 Expected: all pass.
@@ -672,9 +672,9 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 
 **Files:** none (verification only).
 
-- [ ] **Step 1: Start `pnpm dev` (background), wait for ready**
+- [x] **Step 1: Start `pnpm dev` (background), wait for ready**
 
-- [ ] **Step 2: Verify all four deliverables**
+- [x] **Step 2: Verify all four deliverables**
 
 ```bash
 curl -s http://localhost:3000/robots.txt
@@ -689,12 +689,12 @@ curl -s http://localhost:3000/agents.txt
 
 Expected: robots.txt contains the Content-Signal line, both bot groups and the sitemap; api-catalog returns 200 `application/linkset+json` and valid JSON; openapi.json valid; both skills URLs return 200; auth.md first line is `# Auth.md`; agents.txt `Skills:` line points at `/.well-known/agent-skills/index.json`.
 
-- [ ] **Step 3: Kill dev server; run full checks**
+- [x] **Step 3: Kill dev server; run full checks**
 
 Run: `pnpm test && pnpm lint && pnpm type-check && pnpm build`
 Expected: all pass.
 
-- [ ] **Step 4: Check off plan and commit doc updates**
+- [x] **Step 4: Check off plan and commit doc updates**
 
 ```bash
 git add docs/superpowers/plans/2026-08-02-discovery-quick-wins.md
