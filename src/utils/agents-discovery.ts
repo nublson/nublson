@@ -25,7 +25,7 @@ export function getAgentsDiscovery(baseUrl: string): AgentsDiscovery {
     },
     mcpCardUrl: `${base}/.well-known/mcp/server-card.json`,
     mcpEndpointUrl: `${base}/api/mcp`,
-    skillsIndexUrl: `${base}/.well-known/agent-skills.json`,
+    skillsIndexUrl: `${base}/.well-known/agent-skills/index.json`,
     agentCardUrl: `${base}/.well-known/agent.json`,
   };
 }

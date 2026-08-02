@@ -19,7 +19,7 @@ describe("agents-discovery", () => {
     );
     expect(txt).toContain("MCP-Endpoint: https://nublson.com/api/mcp");
     expect(txt).toContain(
-      "Skills: https://nublson.com/.well-known/agent-skills.json",
+      "Skills: https://nublson.com/.well-known/agent-skills/index.json",
     );
     expect(txt).toContain("A2A: https://nublson.com/.well-known/agent.json");
   });
