@@ -56,7 +56,7 @@ Behavior rules:
 - `groupGears`: groups by `post.category` preserving first-seen category order; empty category → `"Other"`; item `url` = `post.path || undefined`; `description` omitted when empty.
 - `profileFromHero`: `name` = hero.title; `description`/`role`/`location` `undefined` when empty; `url` = baseUrl; `social` keeps only entries whose url starts with `https://`, mapped to `{name: label, url}`.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `src/utils/mcp-content.test.ts`:
 
@@ -232,12 +232,12 @@ describe("profileFromHero", () => {
 });
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `pnpm vitest run src/utils/mcp-content.test.ts`
 Expected: FAIL — cannot resolve `./mcp-content`.
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 Create `src/utils/mcp-content.ts`:
 
@@ -334,12 +334,12 @@ export function profileFromHero(
 }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `pnpm vitest run src/utils/mcp-content.test.ts`
 Expected: PASS (9 tests).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/utils/mcp-content.ts src/utils/mcp-content.test.ts
@@ -359,7 +359,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 **Interfaces:**
 - Produces: `AgentsDiscovery` gains `mcpEndpointUrl: string`; `mcpCardUrl` changes to `/.well-known/mcp/server-card.json`. `buildAgentsTxt` output gains an `MCP-Endpoint:` line directly under the `MCP:` line. `buildAgentsJson().mcp[0]` gains `endpoint` and `transport` fields. Task 4's server card and Task 5's verification rely on these URLs.
 
-- [ ] **Step 1: Update the tests to the new contract (failing first)**
+- [x] **Step 1: Update the tests to the new contract (failing first)**
 
 In `src/utils/agents-discovery.test.ts`, update the existing assertions and add new ones:
 
@@ -384,24 +384,24 @@ In `src/utils/agents-discovery.test.ts`, update the existing assertions and add 
 
 - If any other assertion references `/.well-known/mcp.json`, update it to the server-card URL.
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `pnpm vitest run src/utils/agents-discovery.test.ts`
 Expected: FAIL on the changed assertions.
 
-- [ ] **Step 3: Update `src/utils/agents-discovery.ts`**
+- [x] **Step 3: Update `src/utils/agents-discovery.ts`**
 
 - In `AgentsDiscovery` type: add `mcpEndpointUrl: string;` after `mcpCardUrl`.
 - In `getAgentsDiscovery`: change `mcpCardUrl` to `` `${base}/.well-known/mcp/server-card.json` `` and add `mcpEndpointUrl: `${base}/api/mcp`,`.
 - In `buildAgentsTxt` lines array: after the `MCP:` line add `` `MCP-Endpoint: ${discovery.mcpEndpointUrl}` ``.
 - In `buildAgentsJson` `mcp` array entry: add `endpoint: discovery.mcpEndpointUrl,` and `transport: "streamable-http",` and update the description to `"MCP server card and Streamable HTTP endpoint exposing read-only content tools."`.
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `pnpm vitest run src/utils/agents-discovery.test.ts`
 Expected: PASS.
 
-- [ ] **Step 5: Full suite + lint + type-check, then commit**
+- [x] **Step 5: Full suite + lint + type-check, then commit**
 
 Run: `pnpm test && pnpm lint && pnpm type-check`
 
@@ -424,12 +424,12 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 - Consumes: Task 1's helpers; `getDatabasePages`, `getDatabasePageBySlug`, `getPageBlocks`, `getPageData` from `@/services/notion`; `formatPageMetadata`, `formatPostMetadata` from `@/utils/formatter`; `postToMarkdown` from `@/utils/blocks-to-markdown`; `formatDateTimeIso` from `@/utils/formatter`; `social` from `@/data/social.json`.
 - Produces: `POST /api/mcp` (and GET for protocol negotiation) serving MCP Streamable HTTP with tools `list_posts`, `get_post`, `list_gears`, `get_profile`, `search_posts`. Task 4's card documents these names; Task 5 calls them.
 
-- [ ] **Step 1: Install dependencies**
+- [x] **Step 1: Install dependencies**
 
 Run: `pnpm add mcp-handler @modelcontextprotocol/server zod`
 Expected: `mcp-handler@^2`, `@modelcontextprotocol/server@^2`, `zod@^4` in `package.json` dependencies.
 
-- [ ] **Step 2: Write the route**
+- [x] **Step 2: Write the route**
 
 Create `src/app/api/mcp/route.ts`:
 
@@ -623,12 +623,12 @@ export { handler as GET, handler as POST };
 
 Note: if `serverInfo` is rejected by the installed version's types, check `node_modules/mcp-handler/dist/index.d.ts` for the exact options field (2.x merged SDK server options with `serverInfo`, `verboseLogs`, `onEvent`) and adjust — the server MUST identify as `nublson.com` / `1.0.0`.
 
-- [ ] **Step 3: Verify with lint and type-check**
+- [x] **Step 3: Verify with lint and type-check**
 
 Run: `pnpm lint && pnpm type-check`
 Expected: both pass.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add package.json pnpm-lock.yaml src/app/api/mcp/route.ts
@@ -649,7 +649,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 - Consumes: tool names from Task 3, URLs matching Task 2's discovery values.
 - Produces: static discovery JSON served at `/.well-known/mcp/server-card.json` and `/.well-known/mcp.json`.
 
-- [ ] **Step 1: Create `public/.well-known/mcp/server-card.json`**
+- [x] **Step 1: Create `public/.well-known/mcp/server-card.json`**
 
 ```json
 {
@@ -679,7 +679,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 }
 ```
 
-- [ ] **Step 2: Update `public/.well-known/mcp.json`**
+- [x] **Step 2: Update `public/.well-known/mcp.json`**
 
 Replace the file's content with (keeps the resources block, adds server identity and transport):
 
@@ -714,7 +714,7 @@ Replace the file's content with (keeps the resources block, adds server identity
 }
 ```
 
-- [ ] **Step 3: Validate JSON and commit**
+- [x] **Step 3: Validate JSON and commit**
 
 Run: `python3 -m json.tool public/.well-known/mcp/server-card.json > /dev/null && python3 -m json.tool public/.well-known/mcp.json > /dev/null && echo OK`
 Expected: `OK`.
@@ -732,9 +732,9 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 
 **Files:** none (verification only). Requires `.env.local` Notion credentials (present).
 
-- [ ] **Step 1: Start `pnpm dev` (background), wait for ready**
+- [x] **Step 1: Start `pnpm dev` (background), wait for ready**
 
-- [ ] **Step 2: MCP protocol round-trip via curl**
+- [x] **Step 2: MCP protocol round-trip via curl**
 
 Initialize (expect JSON response with serverInfo name `nublson.com`):
 
@@ -764,7 +764,7 @@ Repeat for `get_post` (real slug → markdown; fake slug → `isError: true`), `
 
 Note: if the server responds with `event:`/`data:` SSE framing, parse the `data:` line — both are valid Streamable HTTP responses.
 
-- [ ] **Step 3: Discovery files reachable**
+- [x] **Step 3: Discovery files reachable**
 
 ```bash
 curl -s -o /dev/null -w "%{http_code} %{content_type}\n" http://localhost:3000/.well-known/mcp/server-card.json
@@ -773,12 +773,12 @@ curl -s http://localhost:3000/agents.txt
 
 Expected: `200 application/json`, and agents.txt contains `MCP-Endpoint: http://localhost:3000/api/mcp`... note agents.txt uses BASE_URL so locally it prints the localhost origin — verify the two MCP lines are present.
 
-- [ ] **Step 4: Kill dev server; run full checks**
+- [x] **Step 4: Kill dev server; run full checks**
 
 Run: `pnpm test && pnpm lint && pnpm type-check && pnpm build`
 Expected: all pass.
 
-- [ ] **Step 5: Check off plan and commit doc updates**
+- [x] **Step 5: Check off plan and commit doc updates**
 
 ```bash
 git add docs/superpowers/plans/2026-08-02-mcp-server.md
