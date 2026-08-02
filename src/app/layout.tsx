@@ -3,6 +3,7 @@ import { Header } from "@/components/header";
 import { JsonLd } from "@/components/json-ld";
 import { SkipLink } from "@/components/skip-link";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { WebmcpProvider } from "@/components/webmcp-provider";
 import { TWITTER_CREATOR_HANDLE } from "@/utils/share-metadata";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -89,6 +90,7 @@ export default function RootLayout({
             <Footer />
             <SpeedInsights />
             <Analytics />
+            <WebmcpProvider />
           </TooltipProvider>
         </ThemeProvider>
       </body>
