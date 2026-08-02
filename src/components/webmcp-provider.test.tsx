@@ -12,7 +12,7 @@ const globals = globalThis as unknown as TestGlobals;
 afterEach(() => {
   delete globals.navigator.modelContext;
   delete globals.document.modelContext;
-  resetWebmcpRegistration();
+  resetWebmcpRegistration?.();
 });
 
 describe("WebmcpProvider", () => {

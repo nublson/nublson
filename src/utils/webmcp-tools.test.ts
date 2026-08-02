@@ -63,6 +63,29 @@ describe("getWebmcpTools", () => {
     expect(result.content[0]?.text).toContain("Try list_posts for the full index.");
   });
 
+  it("search_posts skips the fetch and asks for a query when it is empty", async () => {
+    const fetcher = vi.fn().mockResolvedValue(okResponse(LLMS_TXT));
+    const result = await toolByName(
+      getWebmcpTools(fetcher),
+      "search_posts",
+    ).execute({ query: "   " });
+
+    expect(fetcher).not.toHaveBeenCalled();
+    expect(result.content[0]?.text).toBe(
+      "Provide a search query. Try list_posts for the full index.",
+    );
+  });
+
+  it("search_posts echoes the original casing in the no-match message", async () => {
+    const fetcher = vi.fn().mockResolvedValue(okResponse(LLMS_TXT));
+    const result = await toolByName(
+      getWebmcpTools(fetcher),
+      "search_posts",
+    ).execute({ query: "Quantum Physics" });
+
+    expect(result.content[0]?.text).toContain('No posts matched "Quantum Physics"');
+  });
+
   it("search_posts does not match against the URL portion of a line", async () => {
     const fetcher = vi.fn().mockResolvedValue(okResponse(LLMS_TXT));
     const result = await toolByName(

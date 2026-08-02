@@ -51,7 +51,13 @@ export function getWebmcpTools(fetcher: typeof fetch): ModelContextTool[] {
       },
       async execute(input: Record<string, unknown> = {}) {
         try {
-          const query = String(input.query ?? "").trim().toLowerCase();
+          const rawQuery = String(input.query ?? "").trim();
+          const query = rawQuery.toLowerCase();
+          if (!query) {
+            return textResult(
+              "Provide a search query. Try list_posts for the full index.",
+            );
+          }
           const { text } = await fetchText(fetcher, "/llms.txt");
           const matches = text
             .split("\n")
@@ -60,9 +66,9 @@ export function getWebmcpTools(fetcher: typeof fetch): ModelContextTool[] {
               const withoutLinkTarget = line.replace(/\]\([^)]*\)/, "]");
               return withoutLinkTarget.toLowerCase().includes(query);
             });
-          if (!query || matches.length === 0) {
+          if (matches.length === 0) {
             return textResult(
-              `No posts matched "${query}". Try list_posts for the full index.`,
+              `No posts matched "${rawQuery}". Try list_posts for the full index.`,
             );
           }
           return textResult(matches.join("\n"));

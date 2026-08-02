@@ -14,9 +14,12 @@ type ModelContextLike = {
 let registered = false;
 
 /** Test-only helper: allows re-registration between test cases. */
-export function resetWebmcpRegistration() {
-  registered = false;
-}
+export const resetWebmcpRegistration =
+  process.env.NODE_ENV === "test"
+    ? () => {
+        registered = false;
+      }
+    : undefined;
 
 function findModelContext(): ModelContextLike | undefined {
   const fromNavigator = (
