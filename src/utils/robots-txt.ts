@@ -20,6 +20,7 @@ export function buildRobotsTxt(baseUrl: string): string {
     "",
     ...AI_BOT_USER_AGENTS.map((bot) => `User-Agent: ${bot}`),
     "Allow: /",
+    `Content-Signal: ${CONTENT_SIGNAL}`,
     "",
     `Sitemap: ${base}/sitemap.xml`,
   ];

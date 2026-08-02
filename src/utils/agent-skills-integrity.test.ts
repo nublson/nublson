@@ -33,8 +33,12 @@ describe("agent-skills discovery index", () => {
       expect(skill.type).toBe("skill-md");
       expect(skill.description.length).toBeLessThanOrEqual(1024);
 
-      const relativePath = new URL(skill.url).pathname.replace(
-        "/.well-known/agent-skills/",
+      const url = new URL(skill.url);
+      expect(url.host).toBe("nublson.com");
+      expect(url.pathname).toMatch(/^\/\.well-known\/agent-skills\//);
+
+      const relativePath = url.pathname.replace(
+        /^\/\.well-known\/agent-skills\//,
         "",
       );
       const file = readFileSync(path.join(skillsDir, relativePath));

@@ -9,6 +9,7 @@ export async function GET() {
       headers: {
         "Content-Type": "application/linkset+json",
         "Cache-Control": "s-maxage=10, stale-while-revalidate=59",
+        "Access-Control-Allow-Origin": "*",
       },
     },
   );

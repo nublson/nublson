@@ -114,6 +114,26 @@
           "200": { "description": "JSON-RPC response (or SSE-framed stream)" }
         }
       }
+    },
+    "/api/reactions/{postId}": {
+      "get": {
+        "summary": "Reaction counts for a post",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Like/dislike counts and the caller's own reaction (session-scoped)",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          },
+          "500": { "description": "Reaction store unavailable" }
+        }
+      }
     }
   }
 }

@@ -10,9 +10,9 @@ describe("buildRobotsTxt", () => {
     );
   });
 
-  it("keeps the named AI bot allow group", () => {
+  it("keeps the named AI bot allow group with its own Content-Signal line", () => {
     expect(txt).toContain(
-      "User-Agent: GPTBot\nUser-Agent: ClaudeBot\nUser-Agent: PerplexityBot\nUser-Agent: anthropic-ai\nUser-Agent: Bytespider\nUser-Agent: Amazonbot\nUser-Agent: Meta-ExternalFetcher\nAllow: /\n",
+      "User-Agent: GPTBot\nUser-Agent: ClaudeBot\nUser-Agent: PerplexityBot\nUser-Agent: anthropic-ai\nUser-Agent: Bytespider\nUser-Agent: Amazonbot\nUser-Agent: Meta-ExternalFetcher\nAllow: /\nContent-Signal: search=yes, ai-input=yes, ai-train=yes\n",
     );
   });
 
