@@ -1,0 +1,119 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "nublson.com content API",
+    "version": "1.0.0",
+    "description": "Public read-only endpoints for blog posts, work case studies and site content. No authentication required."
+  },
+  "servers": [{ "url": "https://nublson.com" }],
+  "paths": {
+    "/api/markdown/{type}/{slug}": {
+      "get": {
+        "summary": "Fetch a post as markdown",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "enum": ["blog", "work"] }
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The post as markdown with YAML frontmatter",
+            "content": { "text/markdown": { "schema": { "type": "string" } } }
+          },
+          "404": { "description": "Unknown slug" }
+        }
+      }
+    },
+    "/api/markdown/pages/{page}": {
+      "get": {
+        "summary": "Fetch a static page as markdown",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["home", "about", "blog", "work", "gears"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The page as markdown",
+            "content": { "text/markdown": { "schema": { "type": "string" } } }
+          },
+          "400": { "description": "Invalid page" }
+        }
+      }
+    },
+    "/llms.txt": {
+      "get": {
+        "summary": "Site overview and content index for LLMs",
+        "responses": {
+          "200": {
+            "description": "Markdown-formatted index of all posts",
+            "content": { "text/plain": { "schema": { "type": "string" } } }
+          }
+        }
+      }
+    },
+    "/feed.xml": {
+      "get": {
+        "summary": "Combined RSS feed (blog + work)",
+        "responses": {
+          "200": {
+            "description": "RSS 2.0 feed",
+            "content": {
+              "application/rss+xml": { "schema": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "/blog/feed.xml": {
+      "get": {
+        "summary": "Blog RSS feed",
+        "responses": {
+          "200": {
+            "description": "RSS 2.0 feed",
+            "content": {
+              "application/rss+xml": { "schema": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "/work/feed.xml": {
+      "get": {
+        "summary": "Work RSS feed",
+        "responses": {
+          "200": {
+            "description": "RSS 2.0 feed",
+            "content": {
+              "application/rss+xml": { "schema": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/mcp": {
+      "post": {
+        "summary": "MCP Streamable HTTP endpoint",
+        "description": "Model Context Protocol server (JSON-RPC over HTTP). Tools: list_posts, get_post, list_gears, get_profile, search_posts. See /.well-known/mcp/server-card.json.",
+        "responses": {
+          "200": { "description": "JSON-RPC response (or SSE-framed stream)" }
+        }
+      }
+    }
+  }
+}
