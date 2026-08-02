@@ -1,10 +1,19 @@
 {
-  "name": "Nubelson Fernandes",
+  "name": "nublson.com",
   "description": "Personal site and content source — blog and work case studies.",
   "url": "https://nublson.com",
+  "serverInfo": {
+    "name": "nublson.com",
+    "version": "1.0.0"
+  },
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "https://nublson.com/api/mcp"
+  },
+  "serverCard": "https://nublson.com/.well-known/mcp/server-card.json",
   "capabilities": {
     "resources": true,
-    "tools": false
+    "tools": true
   },
   "resources": [
     {
