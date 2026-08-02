@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "nublson-content",
+      "type": "skill-md",
+      "description": "Read blog posts, work case studies, gear recommendations and profile info from nublson.com as clean markdown or via its MCP server.",
+      "url": "https://nublson.com/.well-known/agent-skills/nublson-content/SKILL.md",
+      "digest": "sha256:a72b8f3f32e66a8c2fed42700f16dde416b0486c0099f6b0bca458254797ad35"
+    }
+  ]
+}
