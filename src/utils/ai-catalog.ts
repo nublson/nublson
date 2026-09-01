@@ -102,3 +102,20 @@ export function buildAiCatalog(baseUrl: string): AiCatalog {
     ],
   };
 }
+
+export const aiCatalogHeaders = {
+  "Content-Type": "application/json; charset=utf-8",
+  "Cache-Control": "public, max-age=3600",
+  "Access-Control-Allow-Origin": "*",
+} as const;
+
+/**
+ * The manifest body is identical on both discovery paths: ARD requires an
+ * `entries` array and ignores other top-level members, so `specVersion` and
+ * `host` are carried through for consumers still on the predecessor spec.
+ */
+export function aiCatalogResponse(baseUrl: string): Response {
+  return new Response(JSON.stringify(buildAiCatalog(baseUrl), null, 2), {
+    headers: aiCatalogHeaders,
+  });
+}

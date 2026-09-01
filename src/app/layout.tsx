@@ -66,7 +66,7 @@ export default function RootLayout({
         {/* ARD discovery: rel="ard" is the normative relation; the
             predecessor rel="ai-catalog" is emitted for consumers that
             have not yet moved off it. Both point at the same manifest. */}
-        <link rel="ard" href="/.well-known/ai-catalog.json" />
+        <link rel="ard" href="/.well-known/ard.json" />
         <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
       </head>
       <body className="relative min-h-full flex flex-col">

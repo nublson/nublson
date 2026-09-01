@@ -23,12 +23,12 @@ describe("buildRobotsTxt", () => {
     );
   });
 
-  it("advertises the ARD manifest with the spec's Agentmap directive", () => {
+  it("points Agentmap at the normative ard.json path", () => {
     expect(txt).toContain(
-      "Agentmap: https://nublson.com/.well-known/ai-catalog.json",
+      "Agentmap: https://nublson.com/.well-known/ard.json",
     );
     expect(buildRobotsTxt("https://nublson.com/")).toContain(
-      "Agentmap: https://nublson.com/.well-known/ai-catalog.json",
+      "Agentmap: https://nublson.com/.well-known/ard.json",
     );
   });
 
