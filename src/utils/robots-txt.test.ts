@@ -23,6 +23,19 @@ describe("buildRobotsTxt", () => {
     );
   });
 
+  it("points Agentmap at the normative ard.json path", () => {
+    expect(txt).toContain(
+      "Agentmap: https://nublson.com/.well-known/ard.json",
+    );
+    expect(buildRobotsTxt("https://nublson.com/")).toContain(
+      "Agentmap: https://nublson.com/.well-known/ard.json",
+    );
+  });
+
+  it("does not use the non-standard AI-Catalog directive", () => {
+    expect(txt).not.toContain("AI-Catalog:");
+  });
+
   it("ends with a single trailing newline", () => {
     expect(txt.endsWith("\n")).toBe(true);
     expect(txt.endsWith("\n\n")).toBe(false);

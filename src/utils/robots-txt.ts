@@ -23,6 +23,7 @@ export function buildRobotsTxt(baseUrl: string): string {
     `Content-Signal: ${CONTENT_SIGNAL}`,
     "",
     `Sitemap: ${base}/sitemap.xml`,
+    `Agentmap: ${base}/.well-known/ard.json`,
   ];
 
   return `${lines.join("\n")}\n`;
