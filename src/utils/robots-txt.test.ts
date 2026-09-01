@@ -23,6 +23,15 @@ describe("buildRobotsTxt", () => {
     );
   });
 
+  it("advertises the ARD capability manifest", () => {
+    expect(txt).toContain(
+      "AI-Catalog: https://nublson.com/.well-known/ai-catalog.json",
+    );
+    expect(buildRobotsTxt("https://nublson.com/")).toContain(
+      "AI-Catalog: https://nublson.com/.well-known/ai-catalog.json",
+    );
+  });
+
   it("ends with a single trailing newline", () => {
     expect(txt.endsWith("\n")).toBe(true);
     expect(txt.endsWith("\n\n")).toBe(false);
