@@ -46,10 +46,24 @@ export function buildAiCatalog(baseUrl: string): AiCatalog {
         ],
       },
       {
+        identifier: "urn:air:nublson.com:a2a:content-agent",
+        displayName: "nublson.com Content Agent",
+        description:
+          "A2A v1.0 agent card for the JSON-RPC endpoint at /api/a2a, answering questions about posts, case studies, gear and profile.",
+        type: "application/a2a-agent-card+json",
+        url: `${base}/.well-known/agent-card.json`,
+        tags: ["a2a", "agent-card", "jsonrpc"],
+        representativeQueries: [
+          "talk to Nubelson Fernandes' agent over A2A",
+          "which A2A skills does nublson.com expose",
+          "ask nublson.com about its published work",
+        ],
+      },
+      {
         identifier: "urn:air:nublson.com:agent:card",
         displayName: "Nubelson Fernandes Agent Card",
         description:
-          "Agent card describing the site's content-reading capability; no authentication required.",
+          "Generic schema.org agent card describing the site's content-reading capability; no authentication required.",
         type: "application/agent-card+json",
         url: `${base}/.well-known/agent.json`,
         tags: ["a2a", "agent-card", "no-auth"],

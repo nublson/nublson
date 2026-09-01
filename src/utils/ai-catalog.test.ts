@@ -8,8 +8,8 @@ describe("buildAiCatalog", () => {
     expect(catalog.specVersion).toBe("1.0");
   });
 
-  it("catalogs five capability entries", () => {
-    expect(catalog.entries).toHaveLength(5);
+  it("catalogs six capability entries", () => {
+    expect(catalog.entries).toHaveLength(6);
   });
 
   it("identifies the host with a did:web identifier and docs link", () => {
@@ -32,9 +32,21 @@ describe("buildAiCatalog", () => {
     });
   });
 
+  it("describes the A2A agent card with its own media type", () => {
+    const entry = catalog.entries.find(
+      (item) => item.identifier === "urn:air:nublson.com:a2a:content-agent",
+    );
+
+    expect(entry).toMatchObject({
+      type: "application/a2a-agent-card+json",
+      url: "https://nublson.com/.well-known/agent-card.json",
+    });
+  });
+
   it("points every entry at a resource the site already serves", () => {
     expect(catalog.entries.map((entry) => entry.url)).toEqual([
       "https://nublson.com/.well-known/mcp/server-card.json",
+      "https://nublson.com/.well-known/agent-card.json",
       "https://nublson.com/.well-known/agent.json",
       "https://nublson.com/.well-known/agent-skills/index.json",
       "https://nublson.com/openapi.json",
@@ -47,7 +59,7 @@ describe("buildAiCatalog", () => {
 
     for (const entry of catalog.entries) {
       expect(entry.identifier).toMatch(
-        /^urn:air:nublson\.com:[a-z]+:[a-z-]+$/,
+        /^urn:air:nublson\.com:[a-z0-9]+:[a-z0-9-]+$/,
       );
     }
   });
