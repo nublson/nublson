@@ -1,6 +1,6 @@
 <h1 align="left">Hi 👋🏾, my name is Nubelson Fernandes!</h1>
 
-- 💼 I’m currently looking for a job
+- 💼 I’m a Software Engineer at [Octo Health](https://hioctohealth.com/) 💚🐙
 
 - 🧑🏽‍💻 I work with **Web Development**
 
