@@ -23,13 +23,17 @@ describe("buildRobotsTxt", () => {
     );
   });
 
-  it("advertises the ARD capability manifest", () => {
+  it("advertises the ARD manifest with the spec's Agentmap directive", () => {
     expect(txt).toContain(
-      "AI-Catalog: https://nublson.com/.well-known/ai-catalog.json",
+      "Agentmap: https://nublson.com/.well-known/ai-catalog.json",
     );
     expect(buildRobotsTxt("https://nublson.com/")).toContain(
-      "AI-Catalog: https://nublson.com/.well-known/ai-catalog.json",
+      "Agentmap: https://nublson.com/.well-known/ai-catalog.json",
     );
+  });
+
+  it("does not use the non-standard AI-Catalog directive", () => {
+    expect(txt).not.toContain("AI-Catalog:");
   });
 
   it("ends with a single trailing newline", () => {
