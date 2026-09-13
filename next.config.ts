@@ -22,6 +22,17 @@ const nextConfig: NextConfig = {
     }));
   },
   images: {
+    // Proxy serves bytes from Notion; allow optimization of local /api paths.
+    localPatterns: [
+      {
+        pathname: "/logo.svg",
+        search: "",
+      },
+      {
+        // Omit `search` so any query string is allowed (ids + cache-buster).
+        pathname: "/api/notion-image",
+      },
+    ],
     remotePatterns: [
       {
         protocol: "https",

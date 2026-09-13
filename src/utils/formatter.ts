@@ -1,6 +1,26 @@
+import { buildNotionImageProxyUrl } from "@/lib/notion-image";
 import { BlockWithChildren } from "@/services/notion";
 import { BlockObjectResponse, PageObjectResponse } from "@notionhq/client";
 import slugify from "slugify";
+
+/** File covers expire; proxy them. External covers stay as-is. */
+function formatCoverThumbnail(
+  page: PageObjectResponse,
+): string | undefined {
+  const cover = page.cover;
+  if (!cover) return undefined;
+  if (cover.type === "file") {
+    return buildNotionImageProxyUrl({
+      resource: "cover",
+      id: page.id,
+      v: page.last_edited_time,
+    });
+  }
+  if (cover.type === "external") {
+    return cover.external.url;
+  }
+  return undefined;
+}
 
 export const slugifyText = (text: string) => {
   return slugify(text, {
@@ -21,18 +41,12 @@ export type PageMetadata = {
 };
 
 export const formatPageMetadata = (page: PageObjectResponse): PageMetadata => {
-  const cover = page.cover;
-
   const title =
     page.properties.Name.type === "title"
       ? (page.properties.Name.title[0]?.plain_text ?? "")
       : "";
 
-  const thumbnail = cover
-    ? cover.type === "file"
-      ? cover.file.url
-      : cover.external.url
-    : undefined;
+  const thumbnail = formatCoverThumbnail(page);
 
   return {
     id: page.id,
@@ -81,13 +95,7 @@ export const formatPostMetadata = (
         ? (page.properties.Name.title[0]?.plain_text ?? "")
         : "";
 
-    const cover = page.cover;
-    const thumbnail =
-      cover?.type === "file"
-        ? cover.file.url
-        : cover?.type === "external"
-          ? cover.external.url
-          : undefined;
+    const thumbnail = formatCoverThumbnail(page);
 
     const description =
       page.properties.Description.type === "rich_text"

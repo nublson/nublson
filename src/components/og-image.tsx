@@ -1,28 +1,45 @@
+import {
+  parseNotionImageProxyUrl,
+  toAbsoluteAssetUrl,
+} from "@/lib/notion-image";
+import { resolveNotionImageUpstream } from "@/services/notion";
+
 export type OgImageData = {
   title: string;
   category?: string;
   thumbnailUrl?: string;
 };
 
+async function fetchThumbnailAsDataUrl(
+  thumbnailUrl: string,
+): Promise<string | undefined> {
+  try {
+    const proxy = parseNotionImageProxyUrl(thumbnailUrl);
+    const upstreamUrl = proxy
+      ? (await resolveNotionImageUpstream(proxy.resource, proxy.id)).url
+      : toAbsoluteAssetUrl(thumbnailUrl);
+
+    if (!upstreamUrl) return undefined;
+
+    const res = await fetch(upstreamUrl, { cache: "no-store" });
+    if (!res.ok) return undefined;
+
+    const buffer = await res.arrayBuffer();
+    const base64 = Buffer.from(buffer).toString("base64");
+    const mimeType = res.headers.get("content-type") ?? "image/jpeg";
+    return `data:${mimeType};base64,${base64}`;
+  } catch {
+    return undefined;
+  }
+}
+
 export async function resolveOgImageData(
   data: OgImageData,
 ): Promise<{ title: string; category: string; thumbnailSrc?: string }> {
   const { title, category = "", thumbnailUrl } = data;
-  let thumbnailSrc: string | undefined;
-
-  if (thumbnailUrl) {
-    try {
-      const res = await fetch(thumbnailUrl);
-      if (res.ok) {
-        const buffer = await res.arrayBuffer();
-        const base64 = Buffer.from(buffer).toString("base64");
-        const mimeType = res.headers.get("content-type") ?? "image/jpeg";
-        thumbnailSrc = `data:${mimeType};base64,${base64}`;
-      }
-    } catch {
-      // thumbnail unavailable — fall back to text-only
-    }
-  }
+  const thumbnailSrc = thumbnailUrl
+    ? await fetchThumbnailAsDataUrl(thumbnailUrl)
+    : undefined;
 
   return { title, category, thumbnailSrc };
 }
