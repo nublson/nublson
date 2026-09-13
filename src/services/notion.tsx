@@ -411,9 +411,11 @@ const THUMBNAIL_BLUR_CONCURRENCY = 10;
  * embed `v=<last_edited_time>`, so entries are content-addressed and never
  * need time-based invalidation — hence `revalidate: false`.
  *
- * Tagged `notion-blur`, deliberately not `notion-blocks`: the Notion webhook
- * in `/api/revalidate` purges `notion-blocks` on every content edit, which
- * would discard every placeholder and re-download every image.
+ * Tagged `notion-blur` rather than `notion-blocks` so nothing purges
+ * placeholders by tag. That alone is not enough: Next also applies an
+ * implicit path tag to entries created while rendering a path, so the
+ * `revalidatePath` in `/api/revalidate` still evicts them — which is what
+ * `thumbnailBlurMemo` below absorbs.
  *
  * Throws rather than returning a fallback so a transient timeout is not
  * written into a permanently-cached entry; the next regeneration retries.
@@ -442,10 +444,33 @@ const getThumbnailBlurCached = unstable_cache(
 
 type ThumbnailBearing = { thumbnail?: string; blurDataURL?: string };
 
+/**
+ * Process-local memo sitting in front of the data cache.
+ *
+ * Next tags every data-cache entry created while rendering a path with an
+ * implicit path tag, so the `revalidatePath("/", "layout")` in
+ * `/api/revalidate` purges blur entries on every Notion edit even though they
+ * carry their own `notion-blur` tag. Keys here are content-addressed, so a
+ * blur can never go stale under its key and this memo can safely outlive that
+ * purge — saving a full image download per cover on every content edit.
+ */
+const thumbnailBlurMemo = new Map<string, string>();
+
+/** Bounded so a long-lived server cannot grow this without limit. */
+const THUMBNAIL_BLUR_MEMO_MAX = 512;
+
 /** Real placeholder when one can be produced, flat 1x1 PNG otherwise. */
 export async function getThumbnailBlur(thumbnail: string): Promise<string> {
+  const memoized = thumbnailBlurMemo.get(thumbnail);
+  if (memoized) return memoized;
+
   try {
-    return await getThumbnailBlurCached(thumbnail);
+    const blurDataUrl = await getThumbnailBlurCached(thumbnail);
+    if (thumbnailBlurMemo.size >= THUMBNAIL_BLUR_MEMO_MAX) {
+      thumbnailBlurMemo.clear();
+    }
+    thumbnailBlurMemo.set(thumbnail, blurDataUrl);
+    return blurDataUrl;
   } catch {
     return FALLBACK_BLUR_DATA_URL;
   }
