@@ -6,6 +6,7 @@ interface HeroSectionProps {
   title: string;
   description?: string;
   thumbnail?: string;
+  blurDataURL?: string;
   top?: React.ReactNode;
   bottom?: React.ReactNode;
   size?: "small" | "default";
@@ -15,6 +16,7 @@ export default function HeroSection({
   title,
   description,
   thumbnail,
+  blurDataURL,
   top,
   bottom,
   size = "default",
@@ -30,6 +32,7 @@ export default function HeroSection({
         <CoverImage
           src={thumbnail}
           alt={title}
+          blurDataURL={blurDataURL}
           priority
           className="aspect-video"
         />

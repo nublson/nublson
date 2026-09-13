@@ -19,6 +19,7 @@ export function BlogPostHero({ metadata }: { metadata: PostMetadata }) {
       title={metadata.title}
       description={metadata.description}
       thumbnail={metadata.thumbnail}
+      blurDataURL={metadata.blurDataURL}
       size="small"
     />
   );

@@ -9,6 +9,7 @@ export function CoverImage({
   sizes = "(max-width: 768px) 100vw, 840px",
   width = 1000,
   height = 1000,
+  blurDataURL,
   ...props
 }: ImageProps) {
   return (
@@ -21,7 +22,10 @@ export function CoverImage({
       sizes={sizes}
       className={cn("thumbnail", className)}
       placeholder="blur"
-      blurDataURL={assets.base64}
+      // Flat 1x1 PNG when the caller has no generated placeholder. Read from
+      // the JSON directly rather than from `@/lib/blur-placeholder`, which
+      // imports `sharp` and must stay out of the component bundle graph.
+      blurDataURL={blurDataURL ?? assets.base64}
     />
   );
 }

@@ -1,12 +1,12 @@
 import { JsonLd } from "@/components/json-ld";
 import social from "@/data/social.json";
 import Hero from "@/sections/hero";
-import { getPageData } from "@/services/notion";
+import { getPageData, withThumbnailBlur } from "@/services/notion";
 import { formatPageMetadata } from "@/utils/formatter";
 
 export async function AboutHero() {
   const page = await getPageData(process.env.NOTION_PAGE_ABOUT_ID!);
-  const pageMetadata = formatPageMetadata(page);
+  const pageMetadata = await withThumbnailBlur(formatPageMetadata(page));
   const sameAs = social.media
     .filter((item) => item.url.startsWith("https://"))
     .map((item) => item.url);
@@ -27,6 +27,7 @@ export async function AboutHero() {
         title={pageMetadata.title}
         description={pageMetadata.description}
         thumbnail={pageMetadata.thumbnail}
+        blurDataURL={pageMetadata.blurDataURL}
         size="small"
       />
     </>

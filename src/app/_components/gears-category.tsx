@@ -1,5 +1,5 @@
 import GearsSection from "@/sections/gears";
-import { getDatabasePages } from "@/services/notion";
+import { getDatabasePages, withThumbnailBlurs } from "@/services/notion";
 import { formatPostMetadata } from "@/utils/formatter";
 
 export async function GearsCategory() {
@@ -24,7 +24,9 @@ export async function GearsCategory() {
     ["title", "Description", "Category", "Path"],
   );
 
-  const gearsPostMetadata = formatPostMetadata(gearsPages);
+  const gearsPostMetadata = await withThumbnailBlurs(
+    formatPostMetadata(gearsPages),
+  );
 
   const categories = gearsPostMetadata.map((post) => post.category);
   const uniqueCategories = [...new Set(categories)];

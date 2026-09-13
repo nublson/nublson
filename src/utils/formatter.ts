@@ -36,6 +36,8 @@ export type PageMetadata = {
   description: string;
   modified_date: string | undefined;
   thumbnail?: string;
+  /** Set by `withThumbnailBlur`, not by the formatter; see `@/services/notion`. */
+  blurDataURL?: string;
   role?: string;
   location?: string;
 };
@@ -77,6 +79,8 @@ export type PostMetadata = {
   title: string;
   slug: string;
   thumbnail?: string;
+  /** Set by `withThumbnailBlur`, not by the formatter; see `@/services/notion`. */
+  blurDataURL?: string;
   description: string;
   published_date: string;
   updated_date: string;
