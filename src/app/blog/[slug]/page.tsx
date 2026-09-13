@@ -6,6 +6,7 @@ import {
   getAllPublishedSlugsForStaticParams,
   getDatabasePageBySlug,
   getPageBlocks,
+  withThumbnailBlur,
 } from "@/services/notion";
 import { buildShareMetadata } from "@/utils/share-metadata";
 import type { Metadata } from "next";
@@ -70,7 +71,7 @@ export default async function BlogPostPage({
     <>
       <BlogJsonLd slug={slug} metadata={found.metadata} />
       <article className="article-layout">
-        <BlogPostHero metadata={found.metadata} />
+        <BlogPostHero metadata={await withThumbnailBlur(found.metadata)} />
         <BlogPostBody blocks={pageBlocks} />
       </article>
       <Suspense fallback={<PostsSectionSkeleton rowCount={4} />}>

@@ -6,6 +6,7 @@ import {
   getAllPublishedSlugsForStaticParams,
   getDatabasePageBySlug,
   getPageBlocks,
+  withThumbnailBlur,
 } from "@/services/notion";
 import { buildShareMetadata } from "@/utils/share-metadata";
 import type { Metadata } from "next";
@@ -69,7 +70,7 @@ export default async function WorkPostPage({
     <>
       <WorkJsonLd slug={slug} metadata={found.metadata} />
       <article className="article-layout">
-        <WorkPostHero metadata={found.metadata} />
+        <WorkPostHero metadata={await withThumbnailBlur(found.metadata)} />
         <WorkPostBody blocks={pageBlocks} />
       </article>
       <Suspense fallback={<NavigationProjectsSkeleton />}>

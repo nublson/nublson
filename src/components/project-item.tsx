@@ -1,4 +1,3 @@
-import assets from "@/assets/blur.json";
 import { Typography } from "@/components/typography";
 import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item";
 import { PostMetadata } from "@/utils/formatter";
@@ -17,13 +16,12 @@ export function ProjectItem({ post }: ProjectItemProps) {
           <CoverImage
             src={post.thumbnail}
             alt={post.title}
+            blurDataURL={post.blurDataURL}
             width={640}
             height={480}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
             loading="lazy"
             className="aspect-4/3 h-full w-full object-cover"
-            placeholder="blur"
-            blurDataURL={assets.base64}
           />
         )}
       </ItemMedia>

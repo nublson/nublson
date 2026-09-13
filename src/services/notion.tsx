@@ -1,6 +1,12 @@
+import {
+  FALLBACK_BLUR_DATA_URL,
+  generateBlurDataUrl,
+} from "@/lib/blur-placeholder";
 import { mapPool } from "@/lib/map-pool";
 import {
   buildNotionImageProxyUrl,
+  parseNotionImageProxyUrl,
+  toAbsoluteAssetUrl,
   type NotionImageResource,
 } from "@/lib/notion-image";
 import {
@@ -393,6 +399,77 @@ export async function resolveNotionImageUpstream(
       ? block.image.file.url
       : block.image.external.url;
   return { url };
+}
+
+/** Max concurrent blur generations (same budget as child-block fetching). */
+const THUMBNAIL_BLUR_CONCURRENCY = 10;
+
+/**
+ * Cached blur placeholder for one thumbnail URL.
+ *
+ * The `thumbnail` argument is the whole cache key, and proxy URLs already
+ * embed `v=<last_edited_time>`, so entries are content-addressed and never
+ * need time-based invalidation — hence `revalidate: false`.
+ *
+ * Tagged `notion-blur`, deliberately not `notion-blocks`: the Notion webhook
+ * in `/api/revalidate` purges `notion-blocks` on every content edit, which
+ * would discard every placeholder and re-download every image.
+ *
+ * Throws rather than returning a fallback so a transient timeout is not
+ * written into a permanently-cached entry; the next regeneration retries.
+ */
+const getThumbnailBlurCached = unstable_cache(
+  async (thumbnail: string): Promise<string> => {
+    const proxy = parseNotionImageProxyUrl(thumbnail);
+    const upstreamUrl = proxy
+      ? (await resolveNotionImageUpstream(proxy.resource, proxy.id)).url
+      : toAbsoluteAssetUrl(thumbnail);
+
+    if (!upstreamUrl) {
+      throw new Error(`Unresolvable thumbnail URL: ${thumbnail}`);
+    }
+
+    const blurDataUrl = await generateBlurDataUrl(upstreamUrl);
+    if (!blurDataUrl) {
+      throw new Error(`Blur generation failed for: ${thumbnail}`);
+    }
+
+    return blurDataUrl;
+  },
+  ["notion-thumbnail-blur"],
+  { tags: ["notion-blur"], revalidate: false },
+);
+
+type ThumbnailBearing = { thumbnail?: string; blurDataURL?: string };
+
+/** Real placeholder when one can be produced, flat 1x1 PNG otherwise. */
+export async function getThumbnailBlur(thumbnail: string): Promise<string> {
+  try {
+    return await getThumbnailBlurCached(thumbnail);
+  } catch {
+    return FALLBACK_BLUR_DATA_URL;
+  }
+}
+
+/**
+ * Attaches `blurDataURL` to metadata that renders a cover image.
+ *
+ * Call this only from components that actually render a `CoverImage`; feeds,
+ * sitemaps, the markdown API and MCP tools read the same metadata but would
+ * pay a full image download for a placeholder they never render.
+ */
+export async function withThumbnailBlur<T extends ThumbnailBearing>(
+  item: T,
+): Promise<T> {
+  if (!item.thumbnail) return item;
+  return { ...item, blurDataURL: await getThumbnailBlur(item.thumbnail) };
+}
+
+/** {@link withThumbnailBlur} over a list, bounded to avoid image-fetch spikes. */
+export async function withThumbnailBlurs<T extends ThumbnailBearing>(
+  items: readonly T[],
+): Promise<T[]> {
+  return mapPool(items, THUMBNAIL_BLUR_CONCURRENCY, withThumbnailBlur);
 }
 
 async function fetchBlocksRecursive(

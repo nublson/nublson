@@ -1,5 +1,5 @@
 import ProjectsSection from "@/sections/projects";
-import { getDatabasePages } from "@/services/notion";
+import { getDatabasePages, withThumbnailBlurs } from "@/services/notion";
 import { formatPostMetadata } from "@/utils/formatter";
 
 export async function HomeProjects() {
@@ -8,7 +8,9 @@ export async function HomeProjects() {
     "Project",
     3,
   );
-  const projectPostMetadata = formatPostMetadata(projectPages);
+  const projectPostMetadata = await withThumbnailBlurs(
+    formatPostMetadata(projectPages),
+  );
 
   return (
     <ProjectsSection
