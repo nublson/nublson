@@ -1,3 +1,4 @@
+import { toAbsoluteAssetUrl } from "@/lib/notion-image";
 import type { PostMetadata } from "@/utils/formatter";
 import { formatDateTimeIso } from "@/utils/formatter";
 import { JsonLd } from "./json-ld";
@@ -38,7 +39,7 @@ export function DatabasePostJsonLd({
         "@type": schemaType,
         [titleProperty]: metadata.title,
         description: metadata.description,
-        image: metadata.thumbnail,
+        image: toAbsoluteAssetUrl(metadata.thumbnail),
         datePublished: formatDateTimeIso(metadata.published_date),
         dateModified: formatDateTimeIso(metadata.updated_date),
         url: pageUrl,

@@ -1,5 +1,9 @@
 import { mapPool } from "@/lib/map-pool";
 import {
+  buildNotionImageProxyUrl,
+  type NotionImageResource,
+} from "@/lib/notion-image";
+import {
   formatBlockWithChildren,
   formatPostMetadata,
   type PostMetadata,
@@ -322,6 +326,75 @@ export type BlockWithChildren = BlockObjectResponse & {
   children?: BlockWithChildren[];
 };
 
+/**
+ * Replaces Notion `file` image URLs (expiring signed links) with stable
+ * `/api/notion-image` URLs. External images are left unchanged.
+ */
+function rewriteExpiringNotionImageUrls(
+  blocks: BlockWithChildren[],
+): BlockWithChildren[] {
+  return blocks.map((block) => {
+    let next: BlockWithChildren = block;
+
+    if (block.type === "image") {
+      const image = block.image;
+      if (image.type === "file") {
+        next = {
+          ...block,
+          image: {
+            ...image,
+            file: {
+              ...image.file,
+              url: buildNotionImageProxyUrl({
+                resource: "block",
+                id: block.id,
+                v: block.last_edited_time,
+              }),
+            },
+          },
+        };
+      }
+    }
+
+    if (next.children?.length) {
+      next = {
+        ...next,
+        children: rewriteExpiringNotionImageUrls(next.children),
+      };
+    }
+
+    return next;
+  });
+}
+
+/** Fresh upstream URL for a page cover or image block (Notion signed URL). */
+export async function resolveNotionImageUpstream(
+  resource: NotionImageResource,
+  id: string,
+): Promise<{ url: string }> {
+  if (resource === "cover") {
+    const page = await api.pages.retrieve({ page_id: id });
+    if (!isFullPage(page) || !page.cover) {
+      throw new Error(`Cover not found for page ${id}`);
+    }
+    const url =
+      page.cover.type === "file"
+        ? page.cover.file.url
+        : page.cover.external.url;
+    return { url };
+  }
+
+  const block = await api.blocks.retrieve({ block_id: id });
+  if (!isFullBlock(block) || block.type !== "image") {
+    throw new Error(`Image block not found: ${id}`);
+  }
+  const url =
+    block.image.type === "file"
+      ? block.image.file.url
+      : block.image.external.url;
+  return { url };
+}
+
 async function fetchBlocksRecursive(
   pageId: string,
   depth: number,
@@ -356,7 +429,9 @@ async function fetchBlocksRecursive(
     },
   );
 
-  return formatBlockWithChildren(blocksWithChildren);
+  return formatBlockWithChildren(
+    rewriteExpiringNotionImageUrls(blocksWithChildren),
+  );
 }
 
 const fetchPageBlocksCached = unstable_cache(

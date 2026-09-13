@@ -1,4 +1,8 @@
 import type { BlockWithChildren } from "@/services/notion";
+import {
+  buildNotionImageProxyUrl,
+  toAbsoluteAssetUrl,
+} from "@/lib/notion-image";
 import type { RichTextItemResponse } from "@notionhq/client/build/src/api-endpoints";
 
 type RichTextLike = Pick<
@@ -164,10 +168,21 @@ function renderBlock(block: BlockWithChildren): string {
             caption?: RichTextLike[];
           }
         | undefined;
-      const url =
+      let url =
         imagePayload?.type === "external"
           ? imagePayload.external?.url
           : imagePayload?.file?.url;
+
+      // Prefer stable proxy URLs for Notion-hosted files (signed URLs expire).
+      if (imagePayload?.type === "file" && block.id) {
+        url = buildNotionImageProxyUrl({
+          resource: "block",
+          id: block.id,
+          v: block.last_edited_time,
+        });
+      }
+
+      url = toAbsoluteAssetUrl(url);
       if (!url) return "";
       const caption = richTextToMarkdown(imagePayload?.caption);
       return caption ? `![${caption}](${url})` : `![](${url})`;

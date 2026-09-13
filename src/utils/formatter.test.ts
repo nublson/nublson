@@ -221,7 +221,7 @@ describe("formatPageMetadata", () => {
       cover: { type: "file", file: { url: "https://cdn.example.com/img.png" } },
     });
     expect(formatPageMetadata(page).thumbnail).toBe(
-      "https://cdn.example.com/img.png",
+      "/api/notion-image?resource=cover&id=page-1&v=2024-09-19T12%3A00%3A00.000Z",
     );
   });
 
@@ -321,7 +321,9 @@ describe("formatPostMetadata", () => {
       cover: { type: "file", file: { url: "https://cdn.example.com/img.png" } },
     });
     const [result] = formatPostMetadata([page]);
-    expect(result.thumbnail).toBe("https://cdn.example.com/img.png");
+    expect(result.thumbnail).toBe(
+      "/api/notion-image?resource=cover&id=page-1&v=2024-09-19T12%3A00%3A00.000Z",
+    );
   });
 
   it("sets thumbnail from an external cover", () => {
