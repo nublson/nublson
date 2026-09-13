@@ -393,7 +393,11 @@ export function PostReactions({
                 aria-label={`${views} views`}
               >
                 <Eye className="size-4 shrink-0" />
-                <Typography component="p" size="xs" className="text-foreground">
+                <Typography
+                  component="span"
+                  size="xs"
+                  className="text-foreground"
+                >
                   {formatCompactCount(views)}
                 </Typography>
               </div>
