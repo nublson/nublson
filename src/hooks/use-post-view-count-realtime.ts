@@ -20,6 +20,7 @@ export function usePostViewCountRealtime(
   postId: string,
   trackViews: boolean,
   onViewsChange: (views: number) => void,
+  onSubscribed?: () => void,
 ): void {
   useEffect(() => {
     if (!trackViews) return;
@@ -32,7 +33,7 @@ export function usePostViewCountRealtime(
       .on(
         "postgres_changes",
         {
-          event: "*",
+          event: "UPDATE",
           schema: "public",
           table: "post_view_counts",
           filter: `post_id=eq.${postId}`,
@@ -43,10 +44,14 @@ export function usePostViewCountRealtime(
           }
         },
       )
-      .subscribe();
+      .subscribe((status) => {
+        if (status === "SUBSCRIBED") {
+          onSubscribed?.();
+        }
+      });
 
     return () => {
       void supabase.removeChannel(channel);
     };
-  }, [postId, trackViews, onViewsChange]);
+  }, [postId, trackViews, onViewsChange, onSubscribed]);
 }

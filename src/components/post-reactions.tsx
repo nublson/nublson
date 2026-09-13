@@ -57,6 +57,22 @@ type PostReactionsProps = {
   initialViews?: number;
 };
 
+function viewRecordedStorageKey(postId: string): string {
+  return `view-recorded:${postId}`;
+}
+
+async function fetchViewCount(postId: string): Promise<number> {
+  const res = await fetch(`/api/views/${encodeURIComponent(postId)}`);
+  if (!res.ok) {
+    const body = (await res.json().catch(() => null)) as {
+      error?: string;
+    } | null;
+    throw new Error(body?.error ?? `Failed to load views (${res.status})`);
+  }
+  const data = (await res.json()) as { views: number };
+  return data.views;
+}
+
 async function recordView(postId: string, postSlug: string): Promise<number> {
   const res = await fetch(`/api/views/${encodeURIComponent(postId)}`, {
     method: "POST",
@@ -156,7 +172,14 @@ export function PostReactions({
   const [purlState, setPurlState] = useState<PurlState>("idle");
   const [purlError, setPurlError] = useState<string | null>(null);
   const purlResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const viewRecordedRef = useRef(false);
+  const syncViewCount = useCallback(async () => {
+    try {
+      const count = await fetchViewCount(postId);
+      setViews(count);
+    } catch {
+      // Keep the last known count if refresh fails.
+    }
+  }, [postId]);
 
   const refreshSummary = useCallback(async () => {
     try {
@@ -179,7 +202,16 @@ export function PostReactions({
     shouldSkipReactionsRefresh,
   );
 
-  usePostViewCountRealtime(postId, trackViews, setViews);
+  const handleViewCountSubscribed = useCallback(() => {
+    void syncViewCount();
+  }, [syncViewCount]);
+
+  usePostViewCountRealtime(
+    postId,
+    trackViews,
+    setViews,
+    handleViewCountSubscribed,
+  );
 
   useEffect(() => {
     if (initialData !== undefined) return;
@@ -201,21 +233,32 @@ export function PostReactions({
   }, [postId, initialData]);
 
   useEffect(() => {
-    if (!trackViews || viewRecordedRef.current) return;
-    viewRecordedRef.current = true;
+    if (!trackViews) return;
+
+    const storageKey = viewRecordedStorageKey(postId);
     let cancelled = false;
+
     (async () => {
       try {
-        const next = await recordView(postId, postSlug);
-        if (!cancelled) setViews(next);
+        if (!sessionStorage.getItem(storageKey)) {
+          const next = await recordView(postId, postSlug);
+          sessionStorage.setItem(storageKey, "1");
+          if (!cancelled) setViews(next);
+        }
       } catch {
-        if (!cancelled) setViews((prev) => prev);
+        // Another tab may have recorded already; fall through to sync.
+      } finally {
+        // Always reconcile with the server so the visiting user sees their
+        // own increment even if Realtime subscribed late or Strict Mode
+        // cancelled the POST response handler.
+        if (!cancelled) await syncViewCount();
       }
     })();
+
     return () => {
       cancelled = true;
     };
-  }, [trackViews, postId, postSlug]);
+  }, [trackViews, postId, postSlug, syncViewCount]);
 
   useEffect(() => {
     return () => {
