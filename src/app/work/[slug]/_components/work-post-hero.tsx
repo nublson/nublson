@@ -23,6 +23,7 @@ export function WorkPostHero({ metadata }: { metadata: PostMetadata }) {
       title={metadata.title}
       description={metadata.description}
       thumbnail={metadata.thumbnail}
+      blurDataURL={metadata.blurDataURL}
       size="small"
       bottom={
         metadata.path || metadata.source ? (
