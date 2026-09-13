@@ -15,6 +15,7 @@ const typographyVariants = cva("", {
         "text-base lg:text-lg leading-[1.6em] tracking-[-0.02em] text-muted-foreground",
       small:
         "text-sm lg:text-base leading-[1.6em] tracking-[-0.02em] text-muted-foreground",
+      xs: "text-xs lg:text-sm leading-[1.6em] tracking-[-0.02em] text-muted-foreground",
     },
   },
 });
@@ -31,7 +32,7 @@ type TypographyComponent =
   | "a"
   | "li";
 type TypographyVariant = "h1" | "h2" | "h3" | "h4";
-type TypographySize = "regular" | "small";
+type TypographySize = "regular" | "small" | "xs";
 
 interface BaseTypographyProps extends React.HTMLAttributes<HTMLElement> {
   component?: TypographyComponent;

@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { PostReactionSummary, ReactionType } from "@/services/reactions";
 import { formatCompactCount } from "@/utils/formatter";
-import { Check, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
+import { Check, Eye, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TooltipWrapper } from "./tooltip-wrapper";
+import { Typography } from "./typography";
+import { Separator } from "./ui/separator";
 
 type PurlState = "idle" | "saving" | "saved" | "error";
 
@@ -49,7 +51,25 @@ type PostReactionsProps = {
   postId: string;
   postSlug: string;
   initialData?: PostReactionSummary;
+  trackViews?: boolean;
+  initialViews?: number;
 };
+
+async function recordView(postId: string, postSlug: string): Promise<number> {
+  const res = await fetch(`/api/views/${encodeURIComponent(postId)}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ postSlug }),
+  });
+  if (!res.ok) {
+    const body = (await res.json().catch(() => null)) as {
+      error?: string;
+    } | null;
+    throw new Error(body?.error ?? `Failed to record view (${res.status})`);
+  }
+  const data = (await res.json()) as { views: number };
+  return data.views;
+}
 
 async function fetchSummary(postId: string): Promise<PostReactionSummary> {
   const res = await fetch(`/api/reactions/${encodeURIComponent(postId)}`);
@@ -120,17 +140,21 @@ export function PostReactions({
   postId,
   postSlug,
   initialData,
+  trackViews = false,
+  initialViews = 0,
 }: PostReactionsProps) {
   const [summary, setSummary] = useState<PostReactionSummary | null>(
     initialData ?? null,
   );
   const [loading, setLoading] = useState(!initialData);
   const [pending, setPending] = useState(false);
+  const [views, setViews] = useState(initialViews);
   const [shareCopied, setShareCopied] = useState(false);
   const shareResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [purlState, setPurlState] = useState<PurlState>("idle");
   const [purlError, setPurlError] = useState<string | null>(null);
   const purlResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const viewRecordedRef = useRef(false);
 
   useEffect(() => {
     if (initialData !== undefined) return;
@@ -150,6 +174,23 @@ export function PostReactions({
       cancelled = true;
     };
   }, [postId, initialData]);
+
+  useEffect(() => {
+    if (!trackViews || viewRecordedRef.current) return;
+    viewRecordedRef.current = true;
+    let cancelled = false;
+    (async () => {
+      try {
+        const next = await recordView(postId, postSlug);
+        if (!cancelled) setViews(next);
+      } catch {
+        if (!cancelled) setViews((prev) => prev);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [trackViews, postId, postSlug]);
 
   useEffect(() => {
     return () => {
@@ -276,6 +317,22 @@ export function PostReactions({
   return (
     <div className="sticky bottom-10 z-41 mx-auto w-fit rounded-full border border-border bg-background">
       <div className="flex items-center justify-center gap-2 px-2.5 py-2">
+        {trackViews ? (
+          <>
+            <TooltipWrapper content="Views">
+              <div
+                className="flex h-7 items-center gap-1 rounded-full border border-border px-2.5"
+                aria-label={`${views} views`}
+              >
+                <Eye className="size-4 shrink-0" />
+                <Typography component="p" size="xs" className="text-foreground">
+                  {formatCompactCount(views)}
+                </Typography>
+              </div>
+            </TooltipWrapper>
+            <Separator orientation="vertical" />
+          </>
+        ) : null}
         <TooltipWrapper content="Like">
           <Button
             type="button"
@@ -306,6 +363,7 @@ export function PostReactions({
             {dislikes ? ` ${formatCompactCount(dislikes)}` : ""}
           </Button>
         </TooltipWrapper>
+        <Separator orientation="vertical" />
         <TooltipWrapper
           content={
             purlState === "saved"

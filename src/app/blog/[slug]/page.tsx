@@ -77,7 +77,7 @@ export default async function BlogPostPage({
         <MorePosts params={params} />
       </Suspense>
       <Suspense fallback={<PostReactionsSkeleton />}>
-        <PostReactionsLoader params={params} />
+        <PostReactionsLoader params={params} media="Blog" />
       </Suspense>
     </>
   );
