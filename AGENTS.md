@@ -2,18 +2,22 @@
 
 - Prefers concise explanations after code fixes with explicit verification.
 - Often asks to commit immediately after confirming a change works.
+- Expects feature/fix work on a short-lived branch from `develop` before implementation, then commit/PR when asked.
 
 ## Learned Workspace Facts
 
 - Posts metadata includes Notion properties `Path` (url), `Source` (url), and `Category` (select).
 - Blog article pages expect `MorePosts` to exclude the current post and show the next three latest posts.
-- Repository workflow uses `develop` as the integration/default branch for feature PRs before promotion to `main`.
+- Repository workflow uses `develop` as the integration/default branch for feature PRs before promotion to `main`; a manual GitHub Actions `Release` workflow merges `develop` into `main`.
 - Content block renderers run as server components; avoid client-only hooks like `useEffect` unless explicitly making the component client-side.
 - Published date rendering should prefer Notion datetime values when present and fall back to formatter utilities.
 - Gears tools database (`NOTION_DATABASE_GEARS_ID`) has no `Media` property; query it with `getDatabasePages` omitting `media` and pass custom `sorts` and `filterProperties`.
 - `getDatabasePages(databaseId, media?, limit?, sorts?, filterProperties?)` defaults to `Publish Date` descending and blog/work filter properties when overrides are omitted.
 - Markdown negotiation serves blog and work posts: proxy rewrites to `/api/markdown/blog/[slug]` or `/api/markdown/work/[slug]` when `Accept: text/markdown` is present.
 - Agent discovery includes proxy `Link` headers, dynamic `/llms.txt`, `/agents.txt`, `/agents.json`, AI bot rules in `robots.ts`, and static `public/.well-known/*` plus `public/auth.md`.
+- Share/OG image fallbacks must be raster (e.g. `/apple-icon.png`), not SVG — Safari and many clients ignore SVG for link previews.
+- Blog/work `[slug]` pages should await Notion data in the async page so article HTML renders inside `<main>` for scrapers; avoid parent `loading.tsx` skeletons on slug routes.
+- Public blog view counts are lifetime unique visitors via Supabase (session cookie shared with reactions); blog-only UI; private daily uniques stay in Vercel Analytics.
 
 ## Cursor Cloud specific instructions
 

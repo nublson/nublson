@@ -16,6 +16,16 @@ pnpm test:watch     # Vitest watch mode
 pnpm test:coverage  # Coverage report
 ```
 
+Supabase (reactions, view counts): see [`supabase/README.md`](supabase/README.md). Common commands:
+
+```bash
+pnpm supabase:login      # one-time CLI auth
+pnpm supabase:link       # link to hosted project
+pnpm supabase:db:push    # apply migrations to remote
+pnpm supabase:start      # local stack (Docker)
+pnpm supabase:db:reset   # replay migrations locally
+```
+
 Run a single test file: `pnpm vitest run src/utils/formatter.test.ts`
 
 ## Architecture

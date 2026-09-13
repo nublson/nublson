@@ -44,12 +44,58 @@ export type Database = {
         };
         Relationships: [];
       };
+      post_view_counts: {
+        Row: {
+          post_id: string;
+          post_slug: string;
+          updated_at: string;
+          views: number;
+        };
+        Insert: {
+          post_id: string;
+          post_slug: string;
+          updated_at?: string;
+          views?: number;
+        };
+        Update: {
+          post_id?: string;
+          post_slug?: string;
+          updated_at?: string;
+          views?: number;
+        };
+        Relationships: [];
+      };
+      post_view_uniques: {
+        Row: {
+          created_at: string;
+          post_id: string;
+          session_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          post_id: string;
+          session_id: string;
+        };
+        Update: {
+          created_at?: string;
+          post_id?: string;
+          session_id?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      record_unique_view: {
+        Args: {
+          p_post_id: string;
+          p_post_slug: string;
+          p_session_id: string;
+        };
+        Returns: number;
+      };
     };
     Enums: {
       [_ in never]: never;
