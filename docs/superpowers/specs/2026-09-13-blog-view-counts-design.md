@@ -26,7 +26,7 @@ Work pages pass `trackViews={false}` and hide the chip.
 
 ## Data model
 
-Apply via Supabase CLI (see [`supabase/README.md`](../../../supabase/README.md)) — migration `20260313100000_post_view_counts.sql`:
+Apply via Supabase CLI (see [`supabase/README.md`](../../../supabase/README.md)) — migration `20260913100000_post_view_counts.sql`:
 
 - `post_view_uniques` — PK `(post_id, session_id)`
 - `post_view_counts` — PK `post_id`, columns `post_slug`, `views`, `updated_at`

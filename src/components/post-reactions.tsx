@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { PostReactionSummary, ReactionType } from "@/services/reactions";
 import { formatCompactCount } from "@/utils/formatter";
+import { usePostReactionsRealtime } from "@/hooks/use-post-reactions-realtime";
+import { usePostViewCountRealtime } from "@/hooks/use-post-view-count-realtime";
 import { Check, Eye, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TooltipWrapper } from "./tooltip-wrapper";
@@ -155,6 +157,29 @@ export function PostReactions({
   const [purlError, setPurlError] = useState<string | null>(null);
   const purlResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const viewRecordedRef = useRef(false);
+
+  const refreshSummary = useCallback(async () => {
+    try {
+      const data = await fetchSummary(postId);
+      setSummary(data);
+    } catch {
+      // Keep the last known counts if refresh fails.
+    }
+  }, [postId]);
+
+  const shouldSkipReactionsRefresh = useCallback(() => pending, [pending]);
+
+  const handleReactionsRefresh = useCallback(() => {
+    void refreshSummary();
+  }, [refreshSummary]);
+
+  usePostReactionsRealtime(
+    postId,
+    handleReactionsRefresh,
+    shouldSkipReactionsRefresh,
+  );
+
+  usePostViewCountRealtime(postId, trackViews, setViews);
 
   useEffect(() => {
     if (initialData !== undefined) return;

@@ -36,7 +36,23 @@ pnpm supabase:db:push
 
 Migrations are idempotent (`if not exists` / `create or replace`). Safe to re-run if you previously applied SQL manually in the dashboard.
 
-If the remote already has objects but no migration history, `db push` still applies and records the migration versions.
+### Troubleshooting `db push`
+
+**`Remote migration versions not found in local migrations directory`**
+
+The hosted project has migration history that is not in this repo (e.g. `20260512100133_create_post_reactions.sql` was applied before CLI setup). Ensure that baseline file exists locally — it is checked in here and matches the remote history.
+
+**`Found local migration files to be inserted before the last migration on remote database`**
+
+New migrations must use a version timestamp **after** the latest remote migration. Do not use dates earlier than `20260512100133`. If you hit this after renaming files, run:
+
+```bash
+pnpm exec supabase db push --yes
+```
+
+**Manual SQL before CLI**
+
+If you applied SQL in the dashboard first, either run `db push` (idempotent migrations) or mark versions with `supabase migration repair --status applied <version>`.
 
 ## Local development (optional)
 
@@ -49,7 +65,7 @@ pnpm supabase:db:reset # replay migrations + seed
 pnpm supabase:stop
 ```
 
-Point `.env` at local values from `supabase status` when testing reactions/views offline.
+Point `.env` at local values from `supabase status` when testing reactions/views offline. Live reaction and view count updates use Supabase Realtime and require `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in `.env`.
 
 ## Adding a new migration
 
@@ -73,5 +89,7 @@ pnpm supabase:db:diff -- your_change_name
 
 | File | Purpose |
 |------|---------|
-| `20260313000000_post_reactions.sql` | Likes/dislikes per session |
-| `20260313100000_post_view_counts.sql` | Lifetime unique blog view counts + `record_unique_view` RPC |
+| `20260512100133_create_post_reactions.sql` | Likes/dislikes per session (remote baseline) |
+| `20260913100000_post_view_counts.sql` | Lifetime unique blog view counts + `record_unique_view` RPC |
+| `20260913200000_post_view_counts_realtime.sql` | Realtime + public read policy for live view count updates |
+| `20260913210000_post_reactions_realtime.sql` | Realtime + public read policy for live like/dislike updates |

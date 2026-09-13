@@ -19,7 +19,7 @@
     "supabase:start": "supabase start",
     "supabase:stop": "supabase stop",
     "supabase:status": "supabase status",
-    "supabase:db:push": "supabase db push",
+    "supabase:db:push": "supabase db push --yes",
     "supabase:db:reset": "supabase db reset",
     "supabase:db:diff": "supabase db diff",
     "supabase:migration:new": "supabase migration new"
