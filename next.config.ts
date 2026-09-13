@@ -26,10 +26,11 @@ const nextConfig: NextConfig = {
     localPatterns: [
       {
         pathname: "/logo.svg",
+        search: "",
       },
       {
+        // Omit `search` so any query string is allowed (ids + cache-buster).
         pathname: "/api/notion-image",
-        search: "*",
       },
     ],
     remotePatterns: [
