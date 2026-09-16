@@ -1,13 +1,14 @@
+import { WorkBody } from "@/app/_components/work-body";
+import { WorkHero } from "@/app/_components/work-hero";
+import { WorkProjects } from "@/app/_components/work-projects";
 import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
-import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
 import { ProjectsSectionSkeleton } from "@/components/skeletons/projects-section-skeleton";
 import { Separator } from "@/components/ui/separator";
+import { getPageData } from "@/services/notion";
+import { formatPageMetadata } from "@/utils/formatter";
 import { metadataFromNotionPageId } from "@/utils/metadata";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { WorkBody } from "../../_components/work-body";
-import { WorkHero } from "../../_components/work-hero";
-import { WorkProjects } from "../../_components/work-projects";
 
 export const revalidate = 10;
 
@@ -17,12 +18,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function WorkPage() {
+export default async function WorkPage() {
+  const page = await getPageData(process.env.NOTION_PAGE_WORK_ID!);
+  const heroMetadata = formatPageMetadata(page);
+
   return (
     <section className="article-layout">
-      <Suspense fallback={<HeroSkeleton size="small" />}>
-        <WorkHero />
-      </Suspense>
+      <WorkHero metadata={heroMetadata} />
       <Suspense
         fallback={
           <ProjectsSectionSkeleton

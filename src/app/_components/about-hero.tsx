@@ -1,12 +1,9 @@
 import { JsonLd } from "@/components/json-ld";
 import social from "@/data/social.json";
 import Hero from "@/sections/hero";
-import { getPageData, withThumbnailBlur } from "@/services/notion";
-import { formatPageMetadata } from "@/utils/formatter";
+import type { PageMetadata } from "@/utils/formatter";
 
-export async function AboutHero() {
-  const page = await getPageData(process.env.NOTION_PAGE_ABOUT_ID!);
-  const pageMetadata = await withThumbnailBlur(formatPageMetadata(page));
+export function AboutHero({ metadata }: { metadata: PageMetadata }) {
   const sameAs = social.media
     .filter((item) => item.url.startsWith("https://"))
     .map((item) => item.url);
@@ -17,17 +14,17 @@ export async function AboutHero() {
         data={{
           "@context": "https://schema.org",
           "@type": "Person",
-          name: pageMetadata.title,
+          name: metadata.title,
           url: process.env.BASE_URL,
-          jobTitle: pageMetadata.role,
+          jobTitle: metadata.role,
           sameAs,
         }}
       />
       <Hero
-        title={pageMetadata.title}
-        description={pageMetadata.description}
-        thumbnail={pageMetadata.thumbnail}
-        blurDataURL={pageMetadata.blurDataURL}
+        title={metadata.title}
+        description={metadata.description}
+        thumbnail={metadata.thumbnail}
+        blurDataURL={metadata.blurDataURL}
         size="small"
       />
     </>
