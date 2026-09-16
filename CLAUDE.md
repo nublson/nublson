@@ -38,7 +38,7 @@ Run a single test file: `pnpm vitest run src/utils/formatter.test.ts`
 1. `src/services/notion.tsx` — Notion API queries, wrapped with React `cache()` for deduplication and `unstable_cache()` for server-side caching (`revalidate = 10`).
 2. `src/lib/map-pool.ts` — Limits concurrent Notion block-fetching to 10 requests to avoid rate limits. Max block nesting depth: 5.
 3. App route Server Components call service functions directly; no client-side data fetching.
-4. Suspense boundaries + skeleton components (`src/components/skeletons/`) handle streaming.
+4. **Hybrid SSR:** Index and slug `page.tsx` files are `async` and `await` non-list Notion content (hero + page/article blocks) so it lands in the initial HTML. Suspense + skeleton fallbacks (`src/components/skeletons/`) are used only for database lists and other deferred sections (posts, projects, gears items, reactions, more-posts). Avoid index `loading.tsx` — it would replace the whole page shell and hide awaited HTML from no-JS clients.
 
 **ISR:** `/api/revalidate` accepts a POST with `?secret=REVALIDATION_SECRET` and revalidates all blog/work paths on demand (triggered from Notion automations).
 
