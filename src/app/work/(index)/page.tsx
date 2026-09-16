@@ -1,10 +1,9 @@
 import { WorkBody } from "@/app/_components/work-body";
 import { WorkHero } from "@/app/_components/work-hero";
 import { WorkProjects } from "@/app/_components/work-projects";
-import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
 import { ProjectsSectionSkeleton } from "@/components/skeletons/projects-section-skeleton";
 import { Separator } from "@/components/ui/separator";
-import { getPageData } from "@/services/notion";
+import { getPageBlocks, getPageData } from "@/services/notion";
 import { formatPageMetadata } from "@/utils/formatter";
 import { metadataFromNotionPageId } from "@/utils/metadata";
 import type { Metadata } from "next";
@@ -19,7 +18,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function WorkPage() {
-  const page = await getPageData(process.env.NOTION_PAGE_WORK_ID!);
+  const pageId = process.env.NOTION_PAGE_WORK_ID!;
+  const [page, pageBlocks] = await Promise.all([
+    getPageData(pageId),
+    getPageBlocks(pageId),
+  ]);
   const heroMetadata = formatPageMetadata(page);
 
   return (
@@ -36,9 +39,7 @@ export default async function WorkPage() {
         <WorkProjects />
         <Separator className="w-full" />
       </Suspense>
-      <Suspense fallback={<ContentSectionSkeleton />}>
-        <WorkBody />
-      </Suspense>
+      <WorkBody blocks={pageBlocks} />
     </section>
   );
 }

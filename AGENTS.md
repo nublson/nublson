@@ -17,6 +17,7 @@
 - Agent discovery includes proxy `Link` headers, dynamic `/llms.txt`, `/agents.txt`, `/agents.json`, AI bot rules in `robots.ts`, and static `public/.well-known/*` plus `public/auth.md`.
 - Share/OG image fallbacks must be raster (e.g. `/apple-icon.png`), not SVG — Safari and many clients ignore SVG for link previews.
 - Blog/work `[slug]` pages should await Notion data in the async page so article HTML renders inside `<main>` for scrapers; avoid parent `loading.tsx` skeletons on slug routes.
+- Index/listing pages (`/`, `/about`, `/work`, `/blog`, `/gears`, and similar): await in the page all non-list content (hero metadata + Notion page body/blocks) so it is in the initial HTML without JS. Use Suspense only for database lists (posts, projects, gears items, etc.) with skeleton fallbacks. Same rationale as slug pages — no-JS clients and scrapers get a readable page; lists may still stream.
 - Public blog view counts are lifetime unique visitors via Supabase (session cookie shared with reactions); blog-only UI; private daily uniques stay in Vercel Analytics.
 
 ## Cursor Cloud specific instructions
