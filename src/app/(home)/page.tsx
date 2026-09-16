@@ -1,12 +1,13 @@
-import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
+import { HomeHero } from "@/app/_components/home-hero";
+import { HomePosts } from "@/app/_components/home-posts";
+import { HomeProjects } from "@/app/_components/home-projects";
 import { PostsSectionSkeleton } from "@/components/skeletons/posts-section-skeleton";
 import { ProjectsSectionSkeleton } from "@/components/skeletons/projects-section-skeleton";
+import { getPageData } from "@/services/notion";
+import { formatPageMetadata } from "@/utils/formatter";
 import { metadataFromNotionPageId } from "@/utils/metadata";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { HomeHero } from "../_components/home-hero";
-import { HomePosts } from "../_components/home-posts";
-import { HomeProjects } from "../_components/home-projects";
 
 export const revalidate = 10;
 
@@ -17,12 +18,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function Home() {
+export default async function Home() {
+  const page = await getPageData(process.env.NOTION_PAGE_HOME_ID!);
+  const heroMetadata = formatPageMetadata(page);
+
   return (
     <section className="article-layout">
-      <Suspense fallback={<HeroSkeleton size="default" showBottomRow />}>
-        <HomeHero />
-      </Suspense>
+      <HomeHero metadata={heroMetadata} />
       <Suspense
         fallback={
           <ProjectsSectionSkeleton

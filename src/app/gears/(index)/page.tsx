@@ -2,8 +2,9 @@ import { GearsBody } from "@/app/_components/gears-body";
 import { GearsCategory } from "@/app/_components/gears-category";
 import { GearsHero } from "@/app/_components/gears-hero";
 import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
-import { HeroSkeleton } from "@/components/skeletons/hero-skeleton";
 import { ProjectsSectionSkeleton } from "@/components/skeletons/projects-section-skeleton";
+import { getPageData, withThumbnailBlur } from "@/services/notion";
+import { formatPageMetadata } from "@/utils/formatter";
 import { metadataFromNotionPageId } from "@/utils/metadata";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -16,12 +17,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function GearsPage() {
+export default async function GearsPage() {
+  const page = await getPageData(process.env.NOTION_PAGE_GEARS_ID!);
+  const heroMetadata = await withThumbnailBlur(formatPageMetadata(page));
+
   return (
     <section className="article-layout">
-      <Suspense fallback={<HeroSkeleton size="small" showThumbnail />}>
-        <GearsHero />
-      </Suspense>
+      <GearsHero metadata={heroMetadata} />
       <Suspense fallback={<ContentSectionSkeleton />}>
         <GearsBody />
       </Suspense>
