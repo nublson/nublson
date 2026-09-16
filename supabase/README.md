@@ -34,7 +34,7 @@ Push pending migrations to the linked remote database:
 pnpm supabase:db:push
 ```
 
-Migrations are idempotent (`if not exists` / `create or replace`). Safe to re-run if you previously applied SQL manually in the dashboard.
+Migrations are idempotent (`if not exists` / `create or replace` / `on conflict do nothing`). Safe to re-run if you previously applied SQL manually in the dashboard.
 
 ### Troubleshooting `db push`
 
@@ -93,3 +93,4 @@ pnpm supabase:db:diff -- your_change_name
 | `20260913100000_post_view_counts.sql` | Lifetime unique blog view counts + `record_unique_view` RPC |
 | `20260913200000_post_view_counts_realtime.sql` | Realtime + public read policy for live view count updates |
 | `20260913210000_post_reactions_realtime.sql` | Realtime + public read policy for live like/dislike updates |
+| `20260916120000_backfill_views_from_reactions.sql` | Seed `post_view_uniques` from historical reactors; rebuild `post_view_counts` |
