@@ -1,11 +1,13 @@
 import { AboutContent } from "@/app/_components/about-content";
 import { AboutHero } from "@/app/_components/about-hero";
-import { ContentSectionSkeleton } from "@/components/skeletons/content-section-skeleton";
-import { getPageData, withThumbnailBlur } from "@/services/notion";
+import {
+  getPageBlocks,
+  getPageData,
+  withThumbnailBlur,
+} from "@/services/notion";
 import { formatPageMetadata } from "@/utils/formatter";
 import { metadataFromNotionPageId } from "@/utils/metadata";
 import type { Metadata } from "next";
-import { Suspense } from "react";
 
 export const revalidate = 10;
 
@@ -16,15 +18,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const page = await getPageData(process.env.NOTION_PAGE_ABOUT_ID!);
+  const pageId = process.env.NOTION_PAGE_ABOUT_ID!;
+  const [page, pageBlocks] = await Promise.all([
+    getPageData(pageId),
+    getPageBlocks(pageId),
+  ]);
   const heroMetadata = await withThumbnailBlur(formatPageMetadata(page));
 
   return (
     <section className="article-layout">
       <AboutHero metadata={heroMetadata} />
-      <Suspense fallback={<ContentSectionSkeleton />}>
-        <AboutContent />
-      </Suspense>
+      <AboutContent blocks={pageBlocks} />
     </section>
   );
 }
