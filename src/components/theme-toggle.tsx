@@ -21,7 +21,7 @@ export function ThemeToggle() {
       <Button
         variant="ghost"
         size="icon"
-        className="hidden lg:block"
+        className="relative"
         disabled
         aria-hidden
       >
@@ -39,7 +39,7 @@ export function ThemeToggle() {
       type="button"
       variant="ghost"
       size="icon"
-      className="relative hidden lg:block cursor-pointer"
+      className="relative cursor-pointer"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >

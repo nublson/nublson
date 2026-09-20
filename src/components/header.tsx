@@ -64,7 +64,7 @@ export const Header = () => {
 
         <Separator
           orientation="vertical"
-          className="h-5 data-vertical:self-center hidden lg:block"
+          className="h-5 data-vertical:self-center"
         />
         <ThemeToggle />
       </div>
