@@ -382,7 +382,11 @@ export function PostReactions({
   }, []);
 
   if (loading || !summary) {
-    return <PostReactionsSkeleton aria-busy aria-label="Loading reactions" />;
+    return (
+      <PostReactionsSkeleton aria-busy="true">
+        <span className="sr-only">Loading reactions</span>
+      </PostReactionsSkeleton>
+    );
   }
 
   const { likes, dislikes, userReaction } = summary;
@@ -393,21 +397,19 @@ export function PostReactions({
         <div className="flex items-center justify-center gap-2 px-2.5 py-2">
           {trackViews ? (
             <>
-              <TooltipWrapper content="Views">
-                <div
-                  className="flex h-7 items-center gap-1 rounded-full border border-border px-2.5"
-                  aria-label={`${views} views`}
+            <TooltipWrapper content="Views">
+              <div className="flex h-7 items-center gap-1 rounded-full border border-border px-2.5">
+                <Eye className="size-4 shrink-0" aria-hidden />
+                <Typography
+                  component="span"
+                  size="xs"
+                  className="text-foreground"
                 >
-                  <Eye className="size-4 shrink-0" />
-                  <Typography
-                    component="span"
-                    size="xs"
-                    className="text-foreground"
-                  >
-                    {formatCompactCount(views)}
-                  </Typography>
-                </div>
-              </TooltipWrapper>
+                  {formatCompactCount(views)}
+                </Typography>
+                <span className="sr-only">{views} views</span>
+              </div>
+            </TooltipWrapper>
               <Separator orientation="vertical" />
             </>
           ) : null}

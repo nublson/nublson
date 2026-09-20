@@ -26,10 +26,10 @@ export function HomeHero({ metadata }: { metadata: PageMetadata }) {
         description={metadata.description}
         bottom={
           <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
-            <Typography className="line-clamp-1 break-all font-bold text-muted-foreground">
+            <Typography className="line-clamp-1 break-words font-bold text-muted-foreground">
               {metadata.role}
             </Typography>
-            <Typography className="line-clamp-1 break-all font-bold text-muted-foreground">
+            <Typography className="line-clamp-1 break-words font-bold text-muted-foreground">
               <span aria-hidden="true">📍</span> {metadata.location}
             </Typography>
           </div>

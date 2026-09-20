@@ -31,7 +31,10 @@ export const ParagraphBlock = withContentValidation((props: DropedProps) => {
     : (props.plainText ?? "");
 
   return (
-    <Typography data-testid="paragraph" className="w-full">
+    <Typography
+      data-testid="paragraph"
+      className="w-full max-w-[68ch] text-foreground"
+    >
       {content}
     </Typography>
   );
@@ -64,7 +67,7 @@ export const CodeBlock = withContentValidation((props: DropedProps) => (
 ));
 
 export const QuoteBlock = withContentValidation((props: DropedProps) => (
-  <blockquote className="w-full mt-6 border-l-2 pl-6 italic">
-    <Typography>{props.children}</Typography>
+  <blockquote className="mt-6 w-full max-w-[68ch] border-l-2 pl-6 italic">
+    <Typography className="text-foreground">{props.children}</Typography>
   </blockquote>
 ));

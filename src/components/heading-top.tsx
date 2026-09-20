@@ -33,7 +33,7 @@ export function HeadingTop({
         />
         <Typography
           size="small"
-          className="text-muted-foreground line-clamp-1 break-all"
+          className="text-muted-foreground line-clamp-1 break-words"
         >
           {title}
         </Typography>
