@@ -10,7 +10,7 @@ type DatabasePostJsonLdProps = {
   slug: string;
   metadata: PostMetadata;
   schemaType: "BlogPosting" | "CreativeWork";
-  routePrefix: "blog" | "work";
+  routePrefix: "writings" | "projects";
   titleProperty: TitleProperty;
   personProperty: PersonProperty;
   extraData?: (metadata: PostMetadata) => Record<string, unknown>;

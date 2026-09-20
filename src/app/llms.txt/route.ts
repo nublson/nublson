@@ -4,7 +4,7 @@ export const revalidate = 10;
 
 function formatSection(
   base: string,
-  pathPrefix: "/blog" | "/work",
+  pathPrefix: "/writings" | "/projects",
   posts: Awaited<ReturnType<typeof getAllPublishedPostsForFeed>>,
 ): string {
   if (posts.length === 0) return "";
@@ -31,11 +31,11 @@ export async function GET() {
     "# Nubelson Fernandes",
     "> Designer and developer sharing work, writing, and tools.",
     "",
-    "## Blog",
-    formatSection(base, "/blog", blogPosts),
+    "## Writing",
+    formatSection(base, "/writings", blogPosts),
     "",
-    "## Work",
-    formatSection(base, "/work", workPosts),
+    "## Projects",
+    formatSection(base, "/projects", workPosts),
   ];
 
   return new Response(`${sections.join("\n")}\n`, {

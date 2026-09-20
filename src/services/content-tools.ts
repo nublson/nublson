@@ -22,7 +22,7 @@ import {
 import { unstable_cache } from "next/cache";
 
 const MEDIA_BY_TYPE = { blog: "Blog", work: "Project" } as const;
-const PATH_BY_TYPE = { blog: "/blog", work: "/work" } as const;
+const PATH_BY_TYPE = { blog: "/writings", work: "/projects" } as const;
 
 export type PostType = keyof typeof MEDIA_BY_TYPE;
 

@@ -25,7 +25,7 @@ export default function ProjectsSection({
         {posts.map((post) => (
           <Link
             className="h-min"
-            href={`/work/${post.slug}`}
+            href={`/projects/${post.slug}`}
             key={post.id}
             aria-label={`${post.title} — view project`}
           >

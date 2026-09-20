@@ -12,9 +12,9 @@ export async function HomePosts() {
 
   return (
     <PostsSection
-      title="Latest Posts"
-      href="/blog"
-      id="blog"
+      title="Writing"
+      href="/writings"
+      id="writing"
       posts={blogPostMetadata}
     />
   );

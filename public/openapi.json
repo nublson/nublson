@@ -80,9 +80,9 @@
         }
       }
     },
-    "/blog/feed.xml": {
+    "/writings/feed.xml": {
       "get": {
-        "summary": "Blog RSS feed",
+        "summary": "Writing RSS feed",
         "responses": {
           "200": {
             "description": "RSS 2.0 feed",
@@ -93,9 +93,9 @@
         }
       }
     },
-    "/work/feed.xml": {
+    "/projects/feed.xml": {
       "get": {
-        "summary": "Work RSS feed",
+        "summary": "Projects RSS feed",
         "responses": {
           "200": {
             "description": "RSS 2.0 feed",

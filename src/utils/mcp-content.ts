@@ -26,7 +26,7 @@ export type Profile = {
 export function postToolItem(
   post: PostMetadata,
   baseUrl: string,
-  pathPrefix: "/blog" | "/work",
+  pathPrefix: "/writings" | "/projects",
 ): PostToolItem {
   return {
     title: post.title,

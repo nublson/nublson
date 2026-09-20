@@ -31,7 +31,8 @@ export async function POST(request: NextRequest) {
   }
 
   if (body.type && body.slug) {
-    const path = body.type === "blog" ? `/blog/${body.slug}` : `/work/${body.slug}`;
+    const path =
+      body.type === "blog" ? `/writings/${body.slug}` : `/projects/${body.slug}`;
     revalidatePath(path, "page");
   } else {
     revalidateTag("notion-blocks", "default");

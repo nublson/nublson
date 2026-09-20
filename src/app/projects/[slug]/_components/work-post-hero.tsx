@@ -16,7 +16,7 @@ export function WorkPostHero({ metadata }: { metadata: PostMetadata }) {
           title={metadata.title}
           date={dateLabel}
           dateTime={dateTime}
-          postsPath="/work"
+          postsPath="/projects"
           postType="Projects"
         />
       }

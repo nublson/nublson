@@ -15,9 +15,9 @@ function withDiscoveryHeaders(
   const origin = request.nextUrl.origin;
   const linkHeader = [
     `<${origin}/sitemap.xml>; rel="sitemap"`,
-    `<${origin}/feed.xml>; rel="alternate"; type="application/rss+xml"; title="Blog & work"`,
-    `<${origin}/blog/feed.xml>; rel="alternate"; type="application/rss+xml"; title="Blog"`,
-    `<${origin}/work/feed.xml>; rel="alternate"; type="application/rss+xml"; title="Work"`,
+    `<${origin}/feed.xml>; rel="alternate"; type="application/rss+xml"; title="Writing & projects"`,
+    `<${origin}/writings/feed.xml>; rel="alternate"; type="application/rss+xml"; title="Writing"`,
+    `<${origin}/projects/feed.xml>; rel="alternate"; type="application/rss+xml"; title="Projects"`,
     `<${origin}/llms.txt>; rel="help"; type="text/plain"; title="LLMs overview"`,
     `<${origin}/agents.txt>; rel="agent-policy"; type="text/plain"; title="Agent capabilities"`,
     `<${origin}/agents.json>; rel="agent-policy"; type="application/json"; title="Agent capabilities"`,
@@ -30,19 +30,28 @@ function withDiscoveryHeaders(
 const PAGE_MARKDOWN_PATHS: Record<string, string> = {
   "/": "home",
   "/about": "about",
-  "/blog": "blog",
-  "/work": "work",
+  "/writings": "blog",
+  "/projects": "work",
   "/gears": "gears",
 };
 
-const POST_PATH_PATTERN = /^\/(blog|work)\/([^/]+)$/;
+/** Public URL segment → Notion/API content type used by /api/markdown/* */
+const POST_TYPE_BY_PATH = {
+  writings: "blog",
+  projects: "work",
+} as const;
+
+const POST_PATH_PATTERN = /^\/(writings|projects)\/([^/]+)$/;
 
 function markdownRewritePath(pathname: string): string | null {
   const page = PAGE_MARKDOWN_PATHS[pathname];
   if (page) return `/api/markdown/pages/${page}`;
 
   const postMatch = pathname.match(POST_PATH_PATTERN);
-  if (postMatch) return `/api/markdown/${postMatch[1]}/${postMatch[2]}`;
+  if (postMatch) {
+    const segment = postMatch[1] as keyof typeof POST_TYPE_BY_PATH;
+    return `/api/markdown/${POST_TYPE_BY_PATH[segment]}/${postMatch[2]}`;
+  }
 
   return null;
 }

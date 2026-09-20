@@ -135,8 +135,7 @@ The palette is **achromatic**: no brand hue; emphasis comes from weight and size
 - **Prose measure:** Long-form Notion blocks cap at **`max-w-[68ch]`** (~60–75 characters) so article line length stays readable without shrinking chrome.
 - **Horizontal padding:** **`px-5`** (20px) on small screens so text never touches the viewport edge.
 - **Vertical rhythm:** Section stacks use **~60px** gaps (`gap-[60px]` on main, hero sections) so blocks breathe; within sections, use **16–24px** between related elements.
-- **Header:** Logo, primary nav, social icons, theme toggle — single horizontal row with vertical separators at **all breakpoints**; keep density **compact** so content owns the fold.
-
+- **Header:** Logo and theme toggle only — one horizontal row, theme trailing. Primary routes live in the footer. Keep density **compact** so content owns the fold.
 ## Elevation & Depth
 
 This system avoids heavy drop shadows. Depth is communicated through:
