@@ -73,11 +73,11 @@ export default async function WorkPostPage({
         <WorkPostHero metadata={await withThumbnailBlur(found.metadata)} />
         <WorkPostBody blocks={pageBlocks} />
       </article>
-      <Suspense fallback={<NavigationProjectsSkeleton />}>
-        <NavigationProjects params={params} />
-      </Suspense>
       <Suspense fallback={<PostReactionsSkeleton />}>
         <PostReactionsLoader params={params} media="Project" />
+      </Suspense>
+      <Suspense fallback={<NavigationProjectsSkeleton />}>
+        <NavigationProjects params={params} />
       </Suspense>
     </>
   );

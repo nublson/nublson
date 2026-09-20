@@ -74,11 +74,11 @@ export default async function BlogPostPage({
         <BlogPostHero metadata={await withThumbnailBlur(found.metadata)} />
         <BlogPostBody blocks={pageBlocks} />
       </article>
-      <Suspense fallback={<PostsSectionSkeleton rowCount={4} />}>
-        <MorePosts params={params} />
-      </Suspense>
       <Suspense fallback={<PostReactionsSkeleton />}>
         <PostReactionsLoader params={params} media="Blog" />
+      </Suspense>
+      <Suspense fallback={<PostsSectionSkeleton rowCount={4} />}>
+        <MorePosts params={params} />
       </Suspense>
     </>
   );
