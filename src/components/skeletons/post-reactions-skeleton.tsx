@@ -4,6 +4,7 @@ import type { ComponentProps } from "react";
 
 export function PostReactionsSkeleton({
   className,
+  children,
   ...props
 }: ComponentProps<"div">) {
   return (
@@ -14,6 +15,7 @@ export function PostReactionsSkeleton({
       )}
       {...props}
     >
+      {children}
       <div className="flex items-center justify-center gap-2 px-2.5 py-2">
         {Array.from({ length: 4 }).map((_, i) => (
           <Skeleton key={i} className="size-7 rounded-full" />

@@ -13,12 +13,12 @@ export const LIST_BLOCK_VARIANT: Record<
 > = {
   bullet: {
     tag: "ul",
-    className: "list-content list-disc",
+    className: "list-content list-disc max-w-[68ch]",
     testId: "bulleted-list-item",
   },
   numbered: {
     tag: "ol",
-    className: "list-content list-decimal",
+    className: "list-content list-decimal max-w-[68ch]",
     testId: "numbered-list-item",
   },
 };

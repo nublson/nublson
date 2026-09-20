@@ -20,7 +20,7 @@ export function PostItem({ separator = true, post }: PostItemProps) {
               dateTime={post.published_date}
               className={typographyVariants({
                 size: "small",
-                className: "text-muted-foreground w-20 line-clamp-1 break-all",
+                className: "text-muted-foreground w-20 line-clamp-1 break-words",
               })}
             >
               {formatPostDate(post.published_date)}

@@ -47,6 +47,7 @@ export const Header = () => {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="inline-flex size-10 items-center justify-center"
               >
                 {item.icon === "RiInstagramLine" && (
                   <RiInstagramLine size={iconSize} className={iconStyle} />

@@ -10,6 +10,7 @@ colors:
   on-primary: "#fafafa"
   muted-surface: "#f7f7f7"
   border: "#ebebeb"
+  ring: "#737373"
   destructive: "#dc2626"
 typography:
   display-xl:
@@ -28,7 +29,13 @@ typography:
     fontFamily: Geist Sans
     fontSize: 2rem
     fontWeight: 600
-    lineHeight: 1.6em
+    lineHeight: 1.25em
+    letterSpacing: "-0.02em"
+  title-sm:
+    fontFamily: Geist Sans
+    fontSize: 1.3125rem
+    fontWeight: 600
+    lineHeight: 1.3em
     letterSpacing: "-0.02em"
   body-lg:
     fontFamily: Geist Sans
@@ -83,7 +90,7 @@ components:
     rounded: "{rounded.lg}"
     padding: 10px
   card-content:
-    backgroundColor: "{colors.neutral}"
+    backgroundColor: "{colors.muted-surface}"
     textColor: "{colors.primary}"
     rounded: "{rounded.lg}"
 ---
@@ -103,10 +110,11 @@ The palette is **achromatic**: no brand hue; emphasis comes from weight and size
 - **Primary (`#252525`):** Main ink — headlines, default button fills, and strong emphasis in light mode. Maps to semantic `--primary` / `--foreground` patterns in code.
 - **Secondary (`#8e8e8e`):** Supporting text — metadata, captions, secondary navigation. Maps to **muted** foreground usage.
 - **Tertiary (`#b5b5b5`):** De-emphasized chrome — dividers, inactive hints, subtle borders when a heavier border is too loud.
-- **Neutral (`#ffffff`):** Page canvas and card surfaces in light mode (`--background`, `--card`).
+- **Neutral (`#ffffff`):** Page canvas in light mode (`--background`).
 - **On-primary (`#fafafa`):** Text and icons on primary-colored surfaces (e.g. filled buttons).
-- **Muted surface (`#f7f7f7`):** Hover and subtle fills (`--muted`, `--secondary` family).
+- **Muted surface (`#f7f7f7`):** Card surfaces, hover fills, and subtle chrome (`--card`, `--muted`, `--secondary` family). Cards must not share the page background value, or callouts and table headers disappear.
 - **Border (`#ebebeb`):** Hairline structure (`--border`, `--input`).
+- **Ring (`#737373` / `oklch(0.6 0 0)`):** Focus indicators — at least 3:1 against the page background. Focus rings use the solid token (no 50% alpha).
 - **Destructive (`#dc2626`):** Errors and dangerous actions only — never for decoration.
 
 **Dark mode:** Background approaches deep neutral charcoal; foreground and primary **swap roles** so primary surfaces read as light-on-dark. Never introduce a saturated accent color for CTAs — interaction states use **opacity**, **muted fills**, and **focus rings**, not new hues.
@@ -116,17 +124,18 @@ The palette is **achromatic**: no brand hue; emphasis comes from weight and size
 **Geist Sans** is the single voice for UI and editorial content; **Geist Mono** is optional for code snippets or technical labels.
 
 - **Display (`display-xl` / `display-lg`):** Hero names and major section titles — tight negative tracking, semibold, large responsive jumps (mobile vs. desktop). Implemented via `Typography` variants `h1`–`h2` in `src/components/typography.tsx`.
-- **Title (`title-md`):** Subheads and list titles (`h3`–`h4` variants).
+- **Title (`title-md` / `title-sm`):** Subheads and list titles (`h3`–`h4` variants) with unitless line-heights around **1.25–1.3** so headings read tighter than body copy.
 - **Body (`body-lg` / `body-md` / `body-sm`):** Default reading text uses **`body-md`**; intros and comfortable long-form can step up to **`body-lg`**. Metadata and compact UI use **`body-sm`**.
 
-**Rules:** Prefer **`text-muted-foreground`** for secondary copy instead of lowering opacity on body text. Do not mix third-party display fonts — consistency matters more than novelty.
+**Rules:** Article prose (Notion paragraphs, lists, quotes) uses **`text-foreground`**. Prefer **`text-muted-foreground`** for secondary copy (metadata, captions, nav) instead of lowering opacity on body text. Do not mix third-party display fonts — consistency matters more than novelty.
 
 ## Layout
 
-- **Content width:** Primary column is **`max-width: 840px`**, centered — the `.wrapper` class in `globals.css`. This keeps line length readable for articles and case studies.
+- **Chrome width:** Primary shell column is **`max-width: 840px`**, centered — the `.wrapper` class in `globals.css`. Header, footer, and section grids stay on this width.
+- **Prose measure:** Long-form Notion blocks cap at **`max-w-[68ch]`** (~60–75 characters) so article line length stays readable without shrinking chrome.
 - **Horizontal padding:** **`px-5`** (20px) on small screens so text never touches the viewport edge.
 - **Vertical rhythm:** Section stacks use **~60px** gaps (`gap-[60px]` on main, hero sections) so blocks breathe; within sections, use **16–24px** between related elements.
-- **Header:** Logo, primary nav, social icons, theme toggle — single horizontal row with vertical separators; keep density **compact** so content owns the fold.
+- **Header:** Logo, primary nav, social icons, theme toggle — single horizontal row with vertical separators at **all breakpoints**; keep density **compact** so content owns the fold.
 
 ## Elevation & Depth
 

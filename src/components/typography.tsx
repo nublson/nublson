@@ -7,8 +7,8 @@ const typographyVariants = cva("", {
     variant: {
       h1: "text-[50px] lg:text-[100px] leading-[1.2em] tracking-[-0.05em] text-accent-foreground font-semibold",
       h2: "text-[48px] lg:text-[80px] leading-[1.2em] tracking-[-0.03em] text-accent-foreground font-semibold",
-      h3: "text-[24px] lg:text-[32px] leading-[1.6em] tracking-[-0.02em] text-accent-foreground font-semibold",
-      h4: "text-[19px] lg:text-[21px] leading-[33.6px] tracking-[-0.42px] text-accent-foreground font-semibold",
+      h3: "text-[24px] lg:text-[32px] leading-[1.25] tracking-[-0.02em] text-accent-foreground font-semibold",
+      h4: "text-[19px] lg:text-[21px] leading-[1.3] tracking-[-0.02em] text-accent-foreground font-semibold",
     },
     size: {
       regular:
