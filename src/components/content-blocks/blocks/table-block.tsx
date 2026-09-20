@@ -11,7 +11,12 @@ export const TableBlock = withContentValidation((props: DropedProps) => {
     "border px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right";
 
   return (
-    <div className="w-full overflow-y-auto">
+    <div
+      className="w-full overflow-x-auto"
+      tabIndex={0}
+      role="region"
+      aria-label="Table"
+    >
       <table className="w-full">
         {headerRow != null && (
           <thead>

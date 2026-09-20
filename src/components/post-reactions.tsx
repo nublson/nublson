@@ -331,22 +331,27 @@ export function PostReactions({
       clearTimeout(timeout);
       if (res.status === 402) {
         nextState = "error";
-        nextError = "Link limit reached";
+        nextError =
+          "Purl link limit reached. Remove a saved link to add more.";
       } else if (!res.ok) {
         const body = (await res.json().catch(() => null)) as {
           error?: string;
         } | null;
         nextState = "error";
-        nextError = body?.error ?? "Something went wrong";
+        nextError =
+          body?.error ??
+          "Couldn't save to Purl. Check your connection and try again.";
       }
     } catch (e) {
       clearTimeout(timeout);
       if (e instanceof Error && e.name === "AbortError") {
         nextState = "error";
-        nextError = "Request timed out";
+        nextError =
+          "Couldn't save to Purl. The request timed out — try again.";
       } else {
         nextState = "error";
-        nextError = "Something went wrong";
+        nextError =
+          "Couldn't save to Purl. Check your connection and try again.";
       }
     }
     setPurlState(nextState);
@@ -383,106 +388,115 @@ export function PostReactions({
   const { likes, dislikes, userReaction } = summary;
 
   return (
-    <div className="sticky bottom-10 z-41 mx-auto w-fit rounded-full border border-border bg-background">
-      <div className="flex items-center justify-center gap-2 px-2.5 py-2">
-        {trackViews ? (
-          <>
-            <TooltipWrapper content="Views">
-              <div
-                className="flex h-7 items-center gap-1 rounded-full border border-border px-2.5"
-                aria-label={`${views} views`}
-              >
-                <Eye className="size-4 shrink-0" />
-                <Typography
-                  component="span"
-                  size="xs"
-                  className="text-foreground"
+    <div className="sticky bottom-10 z-41 mx-auto flex w-fit flex-col items-center gap-2">
+      <div className="rounded-full border border-border bg-background">
+        <div className="flex items-center justify-center gap-2 px-2.5 py-2">
+          {trackViews ? (
+            <>
+              <TooltipWrapper content="Views">
+                <div
+                  className="flex h-7 items-center gap-1 rounded-full border border-border px-2.5"
+                  aria-label={`${views} views`}
                 >
-                  {formatCompactCount(views)}
-                </Typography>
-              </div>
-            </TooltipWrapper>
-            <Separator orientation="vertical" />
-          </>
-        ) : null}
-        <TooltipWrapper content="Like">
-          <Button
-            type="button"
-            variant={userReaction === "like" ? "default" : "outline"}
-            size={likes ? "sm" : "icon-sm"}
-            disabled={pending}
-            aria-pressed={userReaction === "like"}
-            aria-label="Like"
-            className={cn("rounded-full")}
-            onClick={() => void applyReaction("like")}
-          >
-            <ThumbsUp className="size-4 shrink-0" />
-            {likes ? ` ${formatCompactCount(likes)}` : ""}
-          </Button>
-        </TooltipWrapper>
-        <TooltipWrapper content="Dislike">
-          <Button
-            type="button"
-            variant={userReaction === "dislike" ? "default" : "outline"}
-            size={dislikes ? "sm" : "icon-sm"}
-            disabled={pending}
-            aria-pressed={userReaction === "dislike"}
-            aria-label="Dislike"
-            className={cn("rounded-full")}
-            onClick={() => void applyReaction("dislike")}
-          >
-            <ThumbsDown className="size-4 shrink-0" />
-            {dislikes ? ` ${formatCompactCount(dislikes)}` : ""}
-          </Button>
-        </TooltipWrapper>
-        <Separator orientation="vertical" />
-        <TooltipWrapper
-          content={
-            purlState === "saved"
-              ? "Saved!"
-              : purlState === "error"
-                ? (purlError ?? "Error")
-                : "Save with Purl"
-          }
-        >
-          <Button
-            type="button"
-            variant={purlState === "saved" ? "default" : "outline"}
-            size="icon-sm"
-            className="rounded-full"
-            disabled={purlState === "saving"}
-            aria-label={
+                  <Eye className="size-4 shrink-0" />
+                  <Typography
+                    component="span"
+                    size="xs"
+                    className="text-foreground"
+                  >
+                    {formatCompactCount(views)}
+                  </Typography>
+                </div>
+              </TooltipWrapper>
+              <Separator orientation="vertical" />
+            </>
+          ) : null}
+          <TooltipWrapper content="Like">
+            <Button
+              type="button"
+              variant={userReaction === "like" ? "default" : "outline"}
+              size={likes ? "sm" : "icon-sm"}
+              disabled={pending}
+              aria-pressed={userReaction === "like"}
+              aria-label="Like"
+              className={cn("rounded-full")}
+              onClick={() => void applyReaction("like")}
+            >
+              <ThumbsUp className="size-4 shrink-0" />
+              {likes ? ` ${formatCompactCount(likes)}` : ""}
+            </Button>
+          </TooltipWrapper>
+          <TooltipWrapper content="Dislike">
+            <Button
+              type="button"
+              variant={userReaction === "dislike" ? "default" : "outline"}
+              size={dislikes ? "sm" : "icon-sm"}
+              disabled={pending}
+              aria-pressed={userReaction === "dislike"}
+              aria-label="Dislike"
+              className={cn("rounded-full")}
+              onClick={() => void applyReaction("dislike")}
+            >
+              <ThumbsDown className="size-4 shrink-0" />
+              {dislikes ? ` ${formatCompactCount(dislikes)}` : ""}
+            </Button>
+          </TooltipWrapper>
+          <Separator orientation="vertical" />
+          <TooltipWrapper
+            content={
               purlState === "saved"
-                ? "Saved on Purl"
+                ? "Saved!"
                 : purlState === "error"
-                  ? (purlError ?? "Error saving with Purl")
-                  : "Save on Purl"
+                  ? (purlError ?? "Error")
+                  : "Save with Purl"
             }
-            onClick={() => void handleSaveToPurl()}
           >
-            {purlState === "saved" ? (
-              <Check className="size-4" />
-            ) : (
-              <PurlLogo className="size-4 shrink-0" />
-            )}
-          </Button>
-        </TooltipWrapper>
-        <TooltipWrapper content={shareCopied ? "Copied!" : "Share"}>
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-sm"
-            className="rounded-full"
-            onClick={() => void handleShare()}
-            aria-label={shareCopied ? "Link copied" : "Share link"}
-          >
-            {shareCopied ? (
-              <Check className="size-4" />
-            ) : (
-              <Share2 className="size-4" />
-            )}
-          </Button>
-        </TooltipWrapper>
+            <Button
+              type="button"
+              variant={purlState === "saved" ? "default" : "outline"}
+              size="icon-sm"
+              className="rounded-full"
+              disabled={purlState === "saving"}
+              aria-label={
+                purlState === "saved"
+                  ? "Saved on Purl"
+                  : purlState === "error"
+                    ? (purlError ?? "Error saving with Purl")
+                    : "Save on Purl"
+              }
+              onClick={() => void handleSaveToPurl()}
+            >
+              {purlState === "saved" ? (
+                <Check className="size-4" />
+              ) : (
+                <PurlLogo className="size-4 shrink-0" />
+              )}
+            </Button>
+          </TooltipWrapper>
+          <TooltipWrapper content={shareCopied ? "Copied!" : "Share"}>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon-sm"
+              className="rounded-full"
+              onClick={() => void handleShare()}
+              aria-label={shareCopied ? "Link copied" : "Share link"}
+            >
+              {shareCopied ? (
+                <Check className="size-4" />
+              ) : (
+                <Share2 className="size-4" />
+              )}
+            </Button>
+          </TooltipWrapper>
+        </div>
+      </div>
+      <div role="status" aria-live="polite" className="min-h-5 px-2 text-center">
+        {purlError ? (
+          <Typography size="xs" className="text-destructive">
+            {purlError}
+          </Typography>
+        ) : null}
       </div>
     </div>
   );
