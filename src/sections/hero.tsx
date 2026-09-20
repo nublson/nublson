@@ -31,7 +31,7 @@ export default function HeroSection({
       {thumbnail && (
         <CoverImage
           src={thumbnail}
-          alt={title}
+          alt=""
           blurDataURL={blurDataURL}
           priority
           className="aspect-video"

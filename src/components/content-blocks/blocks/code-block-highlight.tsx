@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import {
   oneLight,
@@ -14,21 +14,39 @@ export type CodeBlockHighlightProps = {
   code: string;
 };
 
+function subscribeToHtmlClass(onStoreChange: () => void) {
+  const observer = new MutationObserver(onStoreChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+  return () => observer.disconnect();
+}
+
+function getHtmlIsDark() {
+  return document.documentElement.classList.contains("dark");
+}
+
+function getServerIsDark() {
+  return false;
+}
+
 export function CodeBlockHighlight({
   language,
   code,
 }: CodeBlockHighlightProps) {
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    queueMicrotask(() => {
-      setMounted(true);
-    });
-  }, []);
+  const documentIsDark = useSyncExternalStore(
+    subscribeToHtmlClass,
+    getHtmlIsDark,
+    getServerIsDark,
+  );
+  const isDark =
+    resolvedTheme === "dark" ||
+    (resolvedTheme !== "light" && documentIsDark);
 
   const prismLanguage = normalizeLanguage(language);
-  const style = mounted && resolvedTheme === "dark" ? vscDarkPlus : oneLight;
+  const style = isDark ? vscDarkPlus : oneLight;
 
   return (
     <div className="w-full max-w-full overflow-x-auto rounded-md border border-border">

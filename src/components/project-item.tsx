@@ -15,7 +15,7 @@ export function ProjectItem({ post }: ProjectItemProps) {
         {post.thumbnail && (
           <CoverImage
             src={post.thumbnail}
-            alt={post.title}
+            alt=""
             blurDataURL={post.blurDataURL}
             width={640}
             height={480}
@@ -29,7 +29,7 @@ export function ProjectItem({ post }: ProjectItemProps) {
         <ItemTitle className="w-full flex items-center justify-between gap-2">
           <Typography
             component="h3"
-            className="max-w-[85%] text-accent-foreground line-clamp-1 break-all"
+            className="max-w-[85%] text-accent-foreground line-clamp-1 break-words"
           >
             {post.title}
           </Typography>
