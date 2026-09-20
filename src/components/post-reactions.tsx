@@ -457,7 +457,7 @@ export function PostReactions({
               type="button"
               variant={purlState === "saved" ? "default" : "outline"}
               size="icon-sm"
-              className="rounded-full"
+              className={cn("rounded-full", purlError ? "border-destructive!" : "")}
               disabled={purlState === "saving"}
               aria-label={
                 purlState === "saved"
@@ -493,7 +493,7 @@ export function PostReactions({
           </TooltipWrapper>
         </div>
       </div>
-      <div role="status" aria-live="polite" className="min-h-5 px-2 text-center">
+      <div role="status" aria-live="polite" className="min-h-5 px-2 text-center sr-only">
         {purlError ? (
           <Typography size="xs" className="text-destructive">
             {purlError}
