@@ -31,7 +31,7 @@ function isMarkdownPage(value: string): value is MarkdownPage {
 function toPostLinks(
   posts: PostMetadata[],
   base: string,
-  pathPrefix: "/blog" | "/work",
+  pathPrefix: "/writings" | "/projects",
 ): MarkdownPostLink[] {
   return posts.map((post) => ({
     title: post.title,
@@ -82,12 +82,12 @@ async function buildPageMarkdown(
         hero,
         sections: [
           {
-            heading: "Latest Projects",
-            posts: toPostLinks(formatPostMetadata(projectPages), base, "/work"),
+            heading: "Projects",
+            posts: toPostLinks(formatPostMetadata(projectPages), base, "/projects"),
           },
           {
-            heading: "Latest Posts",
-            posts: toPostLinks(formatPostMetadata(blogPages), base, "/blog"),
+            heading: "Writing",
+            posts: toPostLinks(formatPostMetadata(blogPages), base, "/writings"),
           },
         ],
       });
@@ -106,8 +106,8 @@ async function buildPageMarkdown(
         hero,
         sections: [
           {
-            heading: "Latest Posts",
-            posts: toPostLinks(formatPostMetadata(blogPages), base, "/blog"),
+            heading: "Writing",
+            posts: toPostLinks(formatPostMetadata(blogPages), base, "/writings"),
           },
         ],
       });
@@ -124,8 +124,8 @@ async function buildPageMarkdown(
         body,
         sections: [
           {
-            heading: "Latest Projects",
-            posts: toPostLinks(formatPostMetadata(projectPages), base, "/work"),
+            heading: "Projects",
+            posts: toPostLinks(formatPostMetadata(projectPages), base, "/projects"),
           },
         ],
       });

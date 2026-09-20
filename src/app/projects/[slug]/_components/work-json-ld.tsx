@@ -13,7 +13,7 @@ export function WorkJsonLd({
       slug={slug}
       metadata={metadata}
       schemaType="CreativeWork"
-      routePrefix="work"
+      routePrefix="projects"
       titleProperty="name"
       personProperty="creator"
     />

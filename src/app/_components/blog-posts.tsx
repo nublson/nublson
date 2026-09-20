@@ -11,6 +11,6 @@ export async function BlogPosts() {
   const blogPostMetadata = formatPostMetadata(blogPages);
 
   return (
-    <PostsSection title="Latest Posts" id="blog" posts={blogPostMetadata} />
+    <PostsSection title="Writing" id="writing" posts={blogPostMetadata} />
   );
 }

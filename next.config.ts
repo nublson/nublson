@@ -12,6 +12,30 @@ const CORS_DISCOVERY_PATHS = [
 
 const nextConfig: NextConfig = {
   /* config options here */
+  async redirects() {
+    return [
+      {
+        source: "/blog",
+        destination: "/writings",
+        permanent: true,
+      },
+      {
+        source: "/blog/:path*",
+        destination: "/writings/:path*",
+        permanent: true,
+      },
+      {
+        source: "/work",
+        destination: "/projects",
+        permanent: true,
+      },
+      {
+        source: "/work/:path*",
+        destination: "/projects/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     // Static agent-discovery files must be readable by browser-embedded
     // agents cross-origin (the dynamic agents.txt/agents.json routes

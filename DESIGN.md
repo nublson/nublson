@@ -126,7 +126,7 @@ The palette is **achromatic**: no brand hue; emphasis comes from weight and size
 - **Content width:** Primary column is **`max-width: 840px`**, centered — the `.wrapper` class in `globals.css`. This keeps line length readable for articles and case studies.
 - **Horizontal padding:** **`px-5`** (20px) on small screens so text never touches the viewport edge.
 - **Vertical rhythm:** Section stacks use **~60px** gaps (`gap-[60px]` on main, hero sections) so blocks breathe; within sections, use **16–24px** between related elements.
-- **Header:** Logo, primary nav, social icons, theme toggle — single horizontal row with vertical separators; keep density **compact** so content owns the fold.
+- **Header:** Logo and theme toggle only — one horizontal row, theme trailing. Primary routes live in the footer. Keep density **compact** so content owns the fold.
 
 ## Elevation & Depth
 

@@ -4,8 +4,8 @@ import { getWebmcpTools, type ModelContextTool } from "./webmcp-tools";
 const LLMS_TXT = [
   "# Nubelson Fernandes",
   "## Blog",
-  "- [Design Systems](https://nublson.com/blog/design-systems): Tokens and components.",
-  "- [Next.js Caching](https://nublson.com/blog/nextjs-caching): ISR deep dive.",
+  "- [Design Systems](https://nublson.com/writings/design-systems): Tokens and components.",
+  "- [Next.js Caching](https://nublson.com/writings/nextjs-caching): ISR deep dive.",
 ].join("\n");
 
 function okResponse(body: string): Response {
@@ -48,7 +48,7 @@ describe("getWebmcpTools", () => {
     ).execute({ query: "CACHING" });
 
     expect(result.content[0]?.text).toBe(
-      "- [Next.js Caching](https://nublson.com/blog/nextjs-caching): ISR deep dive.",
+      "- [Next.js Caching](https://nublson.com/writings/nextjs-caching): ISR deep dive.",
     );
   });
 

@@ -16,14 +16,14 @@ export async function GET() {
   ]);
 
   const items: RssFeedItem[] = [
-    ...rssItemsFromPosts(base, "/blog", blogPosts),
-    ...rssItemsFromPosts(base, "/work", workPosts),
+    ...rssItemsFromPosts(base, "/writings", blogPosts),
+    ...rssItemsFromPosts(base, "/projects", workPosts),
   ].sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
 
   const origin = base.replace(/\/$/, "");
   const selfUrl = `${origin}/feed.xml`;
   const xml = buildRssDocument({
-    title: "Nubelson Fernandes — Blog & Work",
+    title: "Nubelson Fernandes — Writing & Projects",
     link: origin,
     description: "Latest writing and projects from Nubelson Fernandes.",
     selfUrl,

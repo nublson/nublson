@@ -35,13 +35,13 @@ describe("postToolItem", () => {
         category: "Design",
       }),
       "https://nublson.com",
-      "/blog",
+      "/writings",
     );
 
     expect(item).toEqual({
       title: "Hello",
       slug: "hello",
-      url: "https://nublson.com/blog/hello",
+      url: "https://nublson.com/writings/hello",
       description: "Intro.",
       publishedDate: "2025-09-19",
       category: "Design",
@@ -52,13 +52,13 @@ describe("postToolItem", () => {
     const item = postToolItem(
       post({ title: "Bare", slug: "bare" }),
       "https://nublson.com",
-      "/work",
+      "/projects",
     );
 
     expect(item).toEqual({
       title: "Bare",
       slug: "bare",
-      url: "https://nublson.com/work/bare",
+      url: "https://nublson.com/projects/bare",
       description: undefined,
       publishedDate: undefined,
       category: undefined,

@@ -32,9 +32,9 @@ export const metadata: Metadata = {
   alternates: {
     types: {
       "application/rss+xml": [
-        { url: "/feed.xml", title: "Blog & work" },
-        { url: "/blog/feed.xml", title: "Blog" },
-        { url: "/work/feed.xml", title: "Work" },
+        { url: "/feed.xml", title: "Writing & projects" },
+        { url: "/writings/feed.xml", title: "Writing" },
+        { url: "/projects/feed.xml", title: "Projects" },
       ],
     },
   },

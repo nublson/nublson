@@ -21,7 +21,7 @@ export default function PostsSection({
       <div className="w-full flex flex-col items-start justify-start gap-3">
         {posts.map((post, index) => (
           <Link
-            href={`/blog/${post.slug}`}
+            href={`/writings/${post.slug}`}
             key={post.id}
             className="w-full"
             aria-label={`${post.title} — read post`}

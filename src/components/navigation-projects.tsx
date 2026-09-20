@@ -31,7 +31,7 @@ export async function NavigationProjects({
     <div className="w-full flex items-center justify-between">
       {prev ? (
         <Link
-          href={`/work/${prev.slug}`}
+          href={`/projects/${prev.slug}`}
           className="link flex items-center justify-start gap-1"
           aria-label={`Previous project: ${prev.title}`}
         >
@@ -43,7 +43,7 @@ export async function NavigationProjects({
       )}
       {next ? (
         <Link
-          href={`/work/${next.slug}`}
+          href={`/projects/${next.slug}`}
           className="link flex items-center justify-end gap-1"
           aria-label={`Next project: ${next.title}`}
         >

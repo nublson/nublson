@@ -44,7 +44,7 @@ export async function generateMetadata({
       thumbnail: found.metadata.thumbnail,
     },
     {
-      canonical: `/blog/${slug}`,
+      canonical: `/writings/${slug}`,
       openGraphType: "article",
       publishedTime: found.metadata.published_date,
       section: found.metadata.category,

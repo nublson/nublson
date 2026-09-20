@@ -19,7 +19,7 @@ function pubDateForPost(post: PostMetadata): Date {
 /** Map Notion post metadata to RSS items (absolute links). */
 export function rssItemsFromPosts(
   baseUrl: string,
-  pathPrefix: "/blog" | "/work",
+  pathPrefix: "/writings" | "/projects",
   posts: PostMetadata[],
 ): RssFeedItem[] {
   const base = baseUrl.replace(/\/$/, "");

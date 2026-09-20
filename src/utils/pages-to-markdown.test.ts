@@ -44,17 +44,17 @@ describe("pageToMarkdown", () => {
       hero: { title: "Blog", description: "Writing." },
       sections: [
         {
-          heading: "Latest Posts",
+          heading: "Writing",
           posts: [
             {
               title: "Hello World",
-              url: "https://nublson.com/blog/hello-world",
+              url: "https://nublson.com/writings/hello-world",
               description: "An intro.",
               publishedDate: "2025-09-19T00:00:00Z",
             },
             {
               title: "No Extras",
-              url: "https://nublson.com/blog/no-extras",
+              url: "https://nublson.com/writings/no-extras",
             },
           ],
         },
@@ -62,9 +62,9 @@ describe("pageToMarkdown", () => {
     });
 
     expect(markdown).toBe(
-      "# Blog\n\n> Writing.\n\n## Latest Posts\n\n" +
-        "- [Hello World](https://nublson.com/blog/hello-world) (2025-09-19): An intro.\n" +
-        "- [No Extras](https://nublson.com/blog/no-extras)\n",
+      "# Blog\n\n> Writing.\n\n## Writing\n\n" +
+        "- [Hello World](https://nublson.com/writings/hello-world) (2025-09-19): An intro.\n" +
+        "- [No Extras](https://nublson.com/writings/no-extras)\n",
     );
   });
 

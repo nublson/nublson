@@ -14,8 +14,8 @@ export async function WorkProjects() {
 
   return (
     <ProjectsSection
-      title="Latest Projects"
-      id="work"
+      title="Projects"
+      id="projects"
       posts={projectPostMetadata}
       className="grid auto-rows-fr grid-cols-[repeat(auto-fill,minmax(300px,1fr))] justify-center gap-5"
     />

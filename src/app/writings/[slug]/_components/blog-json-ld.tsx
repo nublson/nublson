@@ -13,7 +13,7 @@ export function BlogJsonLd({
       slug={slug}
       metadata={metadata}
       schemaType="BlogPosting"
-      routePrefix="blog"
+      routePrefix="writings"
       titleProperty="headline"
       personProperty="author"
       extraData={(meta) => ({

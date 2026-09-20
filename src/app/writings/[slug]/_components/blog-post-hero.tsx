@@ -13,7 +13,7 @@ export function BlogPostHero({ metadata }: { metadata: PostMetadata }) {
           title={metadata.title}
           date={dateLabel}
           dateTime={metadata.published_date}
-          postsPath="/blog"
+          postsPath="/writings"
         />
       }
       title={metadata.title}

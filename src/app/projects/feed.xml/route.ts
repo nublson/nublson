@@ -7,13 +7,13 @@ export async function GET() {
   const base = process.env.BASE_URL!;
   const origin = base.replace(/\/$/, "");
   const databaseId = process.env.NOTION_DATABASE_CONTENT_ID!;
-  const posts = await getAllPublishedPostsForFeed(databaseId, "Blog");
+  const posts = await getAllPublishedPostsForFeed(databaseId, "Project");
   const xml = buildRssDocument({
-    title: "Nubelson Fernandes — Blog",
-    link: `${origin}/blog`,
-    description: "Writing and notes from Nubelson Fernandes.",
-    selfUrl: `${origin}/blog/feed.xml`,
-    items: rssItemsFromPosts(base, "/blog", posts),
+    title: "Nubelson Fernandes — Projects",
+    link: `${origin}/projects`,
+    description: "Selected projects and case studies.",
+    selfUrl: `${origin}/projects/feed.xml`,
+    items: rssItemsFromPosts(base, "/projects", posts),
   });
 
   return new Response(xml, {

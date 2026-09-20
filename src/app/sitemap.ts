@@ -42,11 +42,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: aboutLastModified ?? new Date(),
     },
     {
-      path: "/blog",
+      path: "/writings",
       lastModified: maxLastModified(blogDates),
     },
     {
-      path: "/work",
+      path: "/projects",
       lastModified: maxLastModified(workDates),
     },
   ].map(({ path, lastModified }) => ({
@@ -58,7 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogRoutes = blogEntries.map(
     ({ slug, lastModified }: PublishedSitemapEntry) => ({
-      url: `${base}/blog/${slug}`,
+      url: `${base}/writings/${slug}`,
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.6,
@@ -67,7 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const workRoutes = workEntries.map(
     ({ slug, lastModified }: PublishedSitemapEntry) => ({
-      url: `${base}/work/${slug}`,
+      url: `${base}/projects/${slug}`,
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.6,

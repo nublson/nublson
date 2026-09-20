@@ -16,8 +16,8 @@ describe("proxy markdown negotiation", () => {
   it.each([
     ["/", "home"],
     ["/about", "about"],
-    ["/blog", "blog"],
-    ["/work", "work"],
+    ["/writings", "blog"],
+    ["/projects", "work"],
     ["/gears", "gears"],
   ])("rewrites %s to pages/%s for text/markdown", (path, page) => {
     const response = proxy(request(path, "text/markdown"));
@@ -26,15 +26,15 @@ describe("proxy markdown negotiation", () => {
     );
   });
 
-  it("rewrites blog post paths to the post markdown route", () => {
-    const response = proxy(request("/blog/my-post", "text/markdown"));
+  it("rewrites writings post paths to the blog markdown route", () => {
+    const response = proxy(request("/writings/my-post", "text/markdown"));
     expect(rewriteTarget(response)).toBe(
       "https://nublson.com/api/markdown/blog/my-post",
     );
   });
 
-  it("rewrites work post paths to the post markdown route", () => {
-    const response = proxy(request("/work/my-project", "text/markdown"));
+  it("rewrites projects post paths to the work markdown route", () => {
+    const response = proxy(request("/projects/my-project", "text/markdown"));
     expect(rewriteTarget(response)).toBe(
       "https://nublson.com/api/markdown/work/my-project",
     );
@@ -63,7 +63,7 @@ describe("proxy markdown negotiation", () => {
   });
 
   it("sets Vary: Accept on post paths", () => {
-    const response = proxy(request("/blog/my-post", "text/html"));
+    const response = proxy(request("/writings/my-post", "text/html"));
     expect(response.headers.get("vary")).toBe("Accept");
   });
 
