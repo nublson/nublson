@@ -3,11 +3,11 @@
 import { Persona, type PersonaState } from "@/components/ai-elements/persona";
 import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-skeleton";
 import { Button } from "@/components/ui/button";
+import { usePostReactionsRealtime } from "@/hooks/use-post-reactions-realtime";
+import { usePostViewCountRealtime } from "@/hooks/use-post-view-count-realtime";
 import { cn } from "@/lib/utils";
 import type { PostReactionSummary, ReactionType } from "@/services/reactions";
 import { formatCompactCount } from "@/utils/formatter";
-import { usePostReactionsRealtime } from "@/hooks/use-post-reactions-realtime";
-import { usePostViewCountRealtime } from "@/hooks/use-post-view-count-realtime";
 import { Check, Eye, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import type { SyntheticEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -391,10 +391,13 @@ export function PostReactions({
 
   // A failed play() fires "error" immediately followed by "pause" — without
   // this guard, "pause" would overwrite the error status right after it's set.
-  const handleAudioPause = useCallback((event: SyntheticEvent<HTMLAudioElement>) => {
-    if (event.currentTarget.error) return;
-    setAudioStatus("paused");
-  }, []);
+  const handleAudioPause = useCallback(
+    (event: SyntheticEvent<HTMLAudioElement>) => {
+      if (event.currentTarget.error) return;
+      setAudioStatus("paused");
+    },
+    [],
+  );
 
   const handleToggleAudio = useCallback(() => {
     const audio = audioRef.current;
@@ -501,7 +504,7 @@ export function PostReactions({
                 >
                   <Persona
                     state={AUDIO_STATUS_TO_PERSONA_STATE[audioStatus]}
-                    variant="opal"
+                    variant="obsidian"
                     className="size-6"
                   />
                 </Button>
