@@ -94,3 +94,4 @@ pnpm supabase:db:diff -- your_change_name
 | `20260913200000_post_view_counts_realtime.sql` | Realtime + public read policy for live view count updates |
 | `20260913210000_post_reactions_realtime.sql` | Realtime + public read policy for live like/dislike updates |
 | `20260916120000_backfill_views_from_reactions.sql` | Seed `post_view_uniques` from historical reactors; rebuild `post_view_counts` |
+| `20260922120000_create_post_audio.sql` | Speech mode: `post_audio` table + public `post-audio` storage bucket for generated narration MP3s |

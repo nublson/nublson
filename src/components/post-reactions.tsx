@@ -1,13 +1,16 @@
 "use client";
 
+import { Persona, type PersonaState } from "@/components/ai-elements/persona";
 import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-skeleton";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { usePostReactionsRealtime } from "@/hooks/use-post-reactions-realtime";
+import { usePostViewCountRealtime } from "@/hooks/use-post-view-count-realtime";
 import { cn } from "@/lib/utils";
 import type { PostReactionSummary, ReactionType } from "@/services/reactions";
 import { formatCompactCount } from "@/utils/formatter";
-import { usePostReactionsRealtime } from "@/hooks/use-post-reactions-realtime";
-import { usePostViewCountRealtime } from "@/hooks/use-post-view-count-realtime";
 import { Check, Eye, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
+import type { SyntheticEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TooltipWrapper } from "./tooltip-wrapper";
 import { Typography } from "./typography";
@@ -55,6 +58,25 @@ type PostReactionsProps = {
   initialData?: PostReactionSummary;
   trackViews?: boolean;
   initialViews?: number;
+  enableAudio?: boolean;
+};
+
+type AudioStatus = "idle" | "loading" | "playing" | "paused" | "error";
+
+const AUDIO_STATUS_TO_PERSONA_STATE: Record<AudioStatus, PersonaState> = {
+  idle: "idle",
+  loading: "thinking",
+  playing: "speaking",
+  paused: "idle",
+  error: "idle",
+};
+
+const AUDIO_STATUS_LABEL: Record<AudioStatus, string> = {
+  idle: "Listen to this post",
+  loading: "Generating narration…",
+  playing: "Pause narration",
+  paused: "Listen to this post",
+  error: "Couldn't load the audio — try again",
 };
 
 function viewRecordedStorageKey(postId: string): string {
@@ -160,6 +182,7 @@ export function PostReactions({
   initialData,
   trackViews = false,
   initialViews = 0,
+  enableAudio = false,
 }: PostReactionsProps) {
   const [summary, setSummary] = useState<PostReactionSummary | null>(
     initialData ?? null,
@@ -172,6 +195,9 @@ export function PostReactions({
   const [purlState, setPurlState] = useState<PurlState>("idle");
   const [purlError, setPurlError] = useState<string | null>(null);
   const purlResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [audioStatus, setAudioStatus] = useState<AudioStatus>("idle");
+  const [personaReady, setPersonaReady] = useState(false);
   const syncViewCount = useCallback(async () => {
     try {
       const count = await fetchViewCount(postId);
@@ -331,8 +357,7 @@ export function PostReactions({
       clearTimeout(timeout);
       if (res.status === 402) {
         nextState = "error";
-        nextError =
-          "Purl link limit reached. Remove a saved link to add more.";
+        nextError = "Purl link limit reached. Remove a saved link to add more.";
       } else if (!res.ok) {
         const body = (await res.json().catch(() => null)) as {
           error?: string;
@@ -346,8 +371,7 @@ export function PostReactions({
       clearTimeout(timeout);
       if (e instanceof Error && e.name === "AbortError") {
         nextState = "error";
-        nextError =
-          "Couldn't save to Purl. The request timed out — try again.";
+        nextError = "Couldn't save to Purl. The request timed out — try again.";
       } else {
         nextState = "error";
         nextError =
@@ -367,6 +391,26 @@ export function PostReactions({
     );
   }, [purlState]);
 
+  // A failed play() fires "error" immediately followed by "pause" — without
+  // this guard, "pause" would overwrite the error status right after it's set.
+  const handleAudioPause = useCallback(
+    (event: SyntheticEvent<HTMLAudioElement>) => {
+      if (event.currentTarget.error) return;
+      setAudioStatus("paused");
+    },
+    [],
+  );
+
+  const handleToggleAudio = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio || audioStatus === "loading") return;
+    if (audio.paused) {
+      void audio.play().catch(() => setAudioStatus("error"));
+    } else {
+      audio.pause();
+    }
+  }, [audioStatus]);
+
   const handleShare = useCallback(async () => {
     await shareUrl(window.location.href, {
       title: document.title || "Check out this post",
@@ -383,7 +427,11 @@ export function PostReactions({
 
   if (loading || !summary) {
     return (
-      <PostReactionsSkeleton aria-busy="true">
+      <PostReactionsSkeleton
+        aria-busy="true"
+        trackViews={trackViews}
+        enableAudio={enableAudio}
+      >
         <span className="sr-only">Loading reactions</span>
       </PostReactionsSkeleton>
     );
@@ -397,19 +445,19 @@ export function PostReactions({
         <div className="flex items-center justify-center gap-2 px-2.5 py-2">
           {trackViews ? (
             <>
-            <TooltipWrapper content="Views">
-              <div className="flex h-7 items-center gap-1 rounded-full border border-border px-2.5">
-                <Eye className="size-4 shrink-0" aria-hidden />
-                <Typography
-                  component="span"
-                  size="xs"
-                  className="text-foreground"
-                >
-                  {formatCompactCount(views)}
-                </Typography>
-                <span className="sr-only">{views} views</span>
-              </div>
-            </TooltipWrapper>
+              <TooltipWrapper content="Views">
+                <div className="flex h-7 items-center gap-1 rounded-full border border-border px-2.5">
+                  <Eye className="size-4 shrink-0" aria-hidden />
+                  <Typography
+                    component="span"
+                    size="xs"
+                    className="text-foreground"
+                  >
+                    {formatCompactCount(views)}
+                  </Typography>
+                  <span className="sr-only">{views} views</span>
+                </div>
+              </TooltipWrapper>
               <Separator orientation="vertical" />
             </>
           ) : null}
@@ -444,6 +492,52 @@ export function PostReactions({
             </Button>
           </TooltipWrapper>
           <Separator orientation="vertical" />
+          {enableAudio ? (
+            <>
+              <TooltipWrapper content={AUDIO_STATUS_LABEL[audioStatus]}>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  onClick={handleToggleAudio}
+                  disabled={audioStatus === "loading"}
+                  aria-pressed={audioStatus === "playing"}
+                  aria-label={AUDIO_STATUS_LABEL[audioStatus]}
+                  className={cn(
+                    "rounded-full p-0",
+                    audioStatus === "error" ? "ring-2 ring-destructive" : "",
+                  )}
+                >
+                  <span className="relative inline-flex size-6">
+                    <Persona
+                      state={AUDIO_STATUS_TO_PERSONA_STATE[audioStatus]}
+                      variant="obsidian"
+                      className={cn(
+                        "size-6",
+                        personaReady ? "opacity-100" : "opacity-0",
+                      )}
+                      onReady={() => setPersonaReady(true)}
+                    />
+                    {!personaReady ? (
+                      <Skeleton className="absolute inset-0 size-6 rounded-full" />
+                    ) : null}
+                  </span>
+                </Button>
+              </TooltipWrapper>
+              <audio
+                ref={audioRef}
+                src={`/api/audio/${postSlug}`}
+                preload="none"
+                className="sr-only"
+                onPlay={() => setAudioStatus("loading")}
+                onPlaying={() => setAudioStatus("playing")}
+                onPause={handleAudioPause}
+                onEnded={() => setAudioStatus("idle")}
+                onError={() => setAudioStatus("error")}
+              />
+              <Separator orientation="vertical" />
+            </>
+          ) : null}
           <TooltipWrapper
             content={
               purlState === "saved"
@@ -457,7 +551,10 @@ export function PostReactions({
               type="button"
               variant={purlState === "saved" ? "default" : "outline"}
               size="icon-sm"
-              className={cn("rounded-full", purlError ? "border-destructive!" : "")}
+              className={cn(
+                "rounded-full",
+                purlError ? "border-destructive!" : "",
+              )}
               disabled={purlState === "saving"}
               aria-label={
                 purlState === "saved"
@@ -493,7 +590,11 @@ export function PostReactions({
           </TooltipWrapper>
         </div>
       </div>
-      <div role="status" aria-live="polite" className="min-h-5 px-2 text-center sr-only">
+      <div
+        role="status"
+        aria-live="polite"
+        className="min-h-5 px-2 text-center sr-only"
+      >
         {purlError ? (
           <Typography size="xs" className="text-destructive">
             {purlError}

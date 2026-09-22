@@ -74,7 +74,7 @@ export default async function BlogPostPage({
         <BlogPostHero metadata={await withThumbnailBlur(found.metadata)} />
         <BlogPostBody blocks={pageBlocks} />
       </article>
-      <Suspense fallback={<PostReactionsSkeleton />}>
+      <Suspense fallback={<PostReactionsSkeleton trackViews enableAudio />}>
         <PostReactionsLoader params={params} media="Blog" />
       </Suspense>
       <Suspense fallback={<PostsSectionSkeleton rowCount={4} />}>
