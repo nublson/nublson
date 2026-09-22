@@ -3,6 +3,7 @@
 import { Persona, type PersonaState } from "@/components/ai-elements/persona";
 import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-skeleton";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { usePostReactionsRealtime } from "@/hooks/use-post-reactions-realtime";
 import { usePostViewCountRealtime } from "@/hooks/use-post-view-count-realtime";
 import { cn } from "@/lib/utils";
@@ -196,6 +197,7 @@ export function PostReactions({
   const purlResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [audioStatus, setAudioStatus] = useState<AudioStatus>("idle");
+  const [personaReady, setPersonaReady] = useState(false);
   const syncViewCount = useCallback(async () => {
     try {
       const count = await fetchViewCount(postId);
@@ -425,7 +427,11 @@ export function PostReactions({
 
   if (loading || !summary) {
     return (
-      <PostReactionsSkeleton aria-busy="true">
+      <PostReactionsSkeleton
+        aria-busy="true"
+        trackViews={trackViews}
+        enableAudio={enableAudio}
+      >
         <span className="sr-only">Loading reactions</span>
       </PostReactionsSkeleton>
     );
@@ -502,11 +508,20 @@ export function PostReactions({
                     audioStatus === "error" ? "ring-2 ring-destructive" : "",
                   )}
                 >
-                  <Persona
-                    state={AUDIO_STATUS_TO_PERSONA_STATE[audioStatus]}
-                    variant="obsidian"
-                    className="size-6"
-                  />
+                  <span className="relative inline-flex size-6">
+                    <Persona
+                      state={AUDIO_STATUS_TO_PERSONA_STATE[audioStatus]}
+                      variant="obsidian"
+                      className={cn(
+                        "size-6",
+                        personaReady ? "opacity-100" : "opacity-0",
+                      )}
+                      onReady={() => setPersonaReady(true)}
+                    />
+                    {!personaReady ? (
+                      <Skeleton className="absolute inset-0 size-6 rounded-full" />
+                    ) : null}
+                  </span>
                 </Button>
               </TooltipWrapper>
               <audio
