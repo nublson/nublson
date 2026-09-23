@@ -44,18 +44,62 @@ function publicAudioUrl(audioPath: string, contentHash: string): string {
 
 type CachedAudio = { audio_path: string; content_hash: string };
 
-async function getCachedAudio(postId: string): Promise<CachedAudio | null> {
-  const { data, error } = await supabase
+/**
+ * Resolves cached narration by public slug first (UNIQUE + storage path), then
+ * falls back to Notion post_id. When a slug hit has a drifted post_id (e.g.
+ * duplicate Notion pages / env DB mismatch), repairs the row in place so the
+ * primary key stays aligned without breaking UNIQUE(post_slug).
+ */
+export async function getCachedAudio(
+  postId: string,
+  postSlug: string,
+): Promise<CachedAudio | null> {
+  const { data: bySlug, error: slugError } = await supabase
+    .from("post_audio")
+    .select("post_id, audio_path, content_hash")
+    .eq("post_slug", postSlug)
+    .maybeSingle();
+
+  if (slugError) {
+    throw new Error(`Failed to fetch post audio: ${slugError.message}`);
+  }
+
+  if (bySlug) {
+    if (bySlug.post_id !== postId) {
+      const { error: repairError } = await supabase
+        .from("post_audio")
+        .update({
+          post_id: postId,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("post_slug", postSlug)
+        .eq("post_id", bySlug.post_id);
+
+      if (repairError) {
+        console.error(
+          `[speech-mode] failed to repair post_id for slug "${postSlug}" (${bySlug.post_id} → ${postId}):`,
+          repairError,
+        );
+      }
+    }
+
+    return {
+      audio_path: bySlug.audio_path,
+      content_hash: bySlug.content_hash,
+    };
+  }
+
+  const { data: byId, error: idError } = await supabase
     .from("post_audio")
     .select("audio_path, content_hash")
     .eq("post_id", postId)
     .maybeSingle();
 
-  if (error) {
-    throw new Error(`Failed to fetch post audio: ${error.message}`);
+  if (idError) {
+    throw new Error(`Failed to fetch post audio: ${idError.message}`);
   }
 
-  return data;
+  return byId;
 }
 
 /**
@@ -92,7 +136,8 @@ async function requestSpeech(text: string): Promise<Response> {
   return response;
 }
 
-async function cacheAudioBuffer(
+/** Uploads narration bytes and upserts the cache row keyed by post_slug. */
+export async function cacheAudioBuffer(
   postId: string,
   postSlug: string,
   contentHash: string,
@@ -111,6 +156,9 @@ async function cacheAudioBuffer(
     throw new Error(`Failed to upload post audio: ${uploadError.message}`);
   }
 
+  // Conflict on post_slug (not post_id): Notion page ids can drift across
+  // duplicate titles / data sources while the public slug stays stable. A
+  // post_id-only upsert left UNIQUE(post_slug) rows stranded and broke caching.
   const { error: upsertError } = await supabase.from("post_audio").upsert(
     {
       post_id: postId,
@@ -121,7 +169,7 @@ async function cacheAudioBuffer(
       model: TTS_MODEL,
       updated_at: new Date().toISOString(),
     },
-    { onConflict: "post_id" },
+    { onConflict: "post_slug" },
   );
 
   if (upsertError) {
@@ -212,7 +260,7 @@ export async function getOrGenerateAudio(
   postSlug: string,
   metadata: PostMetadata,
 ): Promise<AudioResult> {
-  const cached = await getCachedAudio(postId);
+  const cached = await getCachedAudio(postId, postSlug);
 
   if (cached) {
     scheduleRevalidation(postId, postSlug, metadata, cached.content_hash);
