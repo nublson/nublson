@@ -1,0 +1,131 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+  push:
+    branches:
+      - develop
+      - main
+  workflow_call:
+
+concurrency:
+  group: pr-checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup:
+    name: 🔧 Setup & Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node + pnpm
+        uses: ./.github/actions/setup-pnpm
+
+      - name: ✅ Validate lockfile & toolchain
+        run: |
+          node --version
+          pnpm --version
+          test -f pnpm-lock.yaml
+          echo "Lockfile and toolchain OK"
+
+  lint:
+    name: 🧹 Lint
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node + pnpm
+        uses: ./.github/actions/setup-pnpm
+
+      - name: 🧹 Run ESLint
+        run: pnpm lint
+
+  type-check:
+    name: 🔎 Type Check
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node + pnpm
+        uses: ./.github/actions/setup-pnpm
+
+      - name: 🔎 Run TypeScript
+        run: pnpm type-check
+
+  test:
+    name: 🧪 Test
+    runs-on: ubuntu-latest
+    needs: [lint, type-check]
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node + pnpm
+        uses: ./.github/actions/setup-pnpm
+
+      - name: 🧪 Run Vitest
+        run: pnpm test
+
+  build:
+    name: 🏗️ Build
+    runs-on: ubuntu-latest
+    needs: [lint, type-check]
+    env:
+      # Next layout requires a valid absolute URL at module load.
+      BASE_URL: ${{ secrets.BASE_URL || 'https://nublson.com' }}
+      NOTION_ACCESS_TOKEN: ${{ secrets.NOTION_ACCESS_TOKEN }}
+      NOTION_DATABASE_CONTENT_ID: ${{ secrets.NOTION_DATABASE_CONTENT_ID }}
+      NOTION_DATABASE_GEARS_ID: ${{ secrets.NOTION_DATABASE_GEARS_ID }}
+      NOTION_PAGE_HOME_ID: ${{ secrets.NOTION_PAGE_HOME_ID }}
+      NOTION_PAGE_ABOUT_ID: ${{ secrets.NOTION_PAGE_ABOUT_ID }}
+      NOTION_PAGE_WORK_ID: ${{ secrets.NOTION_PAGE_WORK_ID }}
+      NOTION_PAGE_BLOG_ID: ${{ secrets.NOTION_PAGE_BLOG_ID }}
+      NOTION_PAGE_GEARS_ID: ${{ secrets.NOTION_PAGE_GEARS_ID }}
+      REVALIDATION_SECRET: ${{ secrets.REVALIDATION_SECRET }}
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node + pnpm
+        uses: ./.github/actions/setup-pnpm
+
+      - name: 🔐 Check required build secrets
+        run: |
+          missing=0
+          for key in \
+            NOTION_ACCESS_TOKEN \
+            NOTION_DATABASE_CONTENT_ID \
+            NOTION_DATABASE_GEARS_ID \
+            NOTION_PAGE_HOME_ID \
+            NOTION_PAGE_ABOUT_ID \
+            NOTION_PAGE_WORK_ID \
+            NOTION_PAGE_BLOG_ID \
+            NOTION_PAGE_GEARS_ID \
+            NEXT_PUBLIC_SUPABASE_URL \
+            SUPABASE_SERVICE_ROLE_KEY
+          do
+            if [ -z "${!key}" ]; then
+              echo "::error title=Missing secret::$key is required for pnpm build (generateStaticParams + module-load clients)"
+              missing=1
+            fi
+          done
+          if [ "$missing" -ne 0 ]; then
+            echo "::notice::Add the secrets listed above under Settings → Secrets and variables → Actions (mirror Vercel env)."
+            exit 1
+          fi
+          echo "Required build secrets present"
+
+      - name: 🏗️ Production build
+        run: pnpm build
