@@ -3,8 +3,6 @@ import { getPageBlocks, type BlockWithChildren } from "@/services/notion";
 import { blocksToMarkdown } from "@/utils/blocks-to-markdown";
 import type { PostMetadata } from "@/utils/formatter";
 import { markdownToPlainText } from "@/utils/markdown-to-plain-text";
-import { openai } from "@ai-sdk/openai";
-import { generateSpeech } from "ai";
 import { createHash } from "crypto";
 import { after } from "next/server";
 
@@ -14,6 +12,10 @@ const TTS_VOICE = "cedar";
 const TTS_INSTRUCTIONS = `Voice affect: Warm, confident, and conversational — like a knowledgeable friend explaining something they find genuinely interesting, not a formal narrator reading a script.
 
 Tone: Friendly and engaging, with light enthusiasm for the subject matter. Approachable and human, never stiff or robotic.`;
+
+export type AudioResult =
+  | { type: "redirect"; url: string }
+  | { type: "stream"; body: ReadableStream<Uint8Array> };
 
 function buildNarrationText(
   metadata: PostMetadata,
@@ -48,30 +50,50 @@ async function getCachedAudio(postId: string): Promise<CachedAudio | null> {
   return data;
 }
 
-/** Fetches the post body from Notion, generates narration, and caches it. */
-async function synthesizeAndCache(
-  postId: string,
-  postSlug: string,
-  metadata: PostMetadata,
-): Promise<{ audioPath: string; contentHash: string }> {
-  const blocks = await getPageBlocks(postId);
-  const narrationText = buildNarrationText(metadata, blocks);
-  const contentHash = hashText(narrationText);
-
-  const { audio } = await generateSpeech({
-    model: openai.speech(TTS_MODEL),
-    text: narrationText,
-    voice: TTS_VOICE,
-    outputFormat: "mp3",
-    instructions: TTS_INSTRUCTIONS,
-    speed: 1,
+/**
+ * Calls OpenAI's speech endpoint directly (bypassing the AI SDK's
+ * generateSpeech, which buffers the full response before returning) so the
+ * response body can be streamed to a live listener as audio is generated.
+ */
+async function requestSpeech(text: string): Promise<Response> {
+  const response = await fetch("https://api.openai.com/v1/audio/speech", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: TTS_MODEL,
+      voice: TTS_VOICE,
+      input: text,
+      instructions: TTS_INSTRUCTIONS,
+      response_format: "mp3",
+      stream_format: "audio",
+      speed: 1,
+    }),
   });
 
+  if (!response.ok || !response.body) {
+    const errorBody = await response.text().catch(() => "");
+    throw new Error(
+      `OpenAI speech request failed (${response.status}): ${errorBody.slice(0, 500)}`,
+    );
+  }
+
+  return response;
+}
+
+async function cacheAudioBuffer(
+  postId: string,
+  postSlug: string,
+  contentHash: string,
+  audioBuffer: Buffer,
+): Promise<void> {
   const audioPath = `${postSlug}.mp3`;
 
   const { error: uploadError } = await supabase.storage
     .from(AUDIO_BUCKET)
-    .upload(audioPath, Buffer.from(audio.uint8Array), {
+    .upload(audioPath, audioBuffer, {
       contentType: "audio/mpeg",
       upsert: true,
     });
@@ -96,8 +118,48 @@ async function synthesizeAndCache(
   if (upsertError) {
     throw new Error(`Failed to record post audio: ${upsertError.message}`);
   }
+}
 
-  return { audioPath, contentHash };
+/** Generates and caches narration with no live listener (background use only). */
+async function regenerateAndCache(
+  postId: string,
+  postSlug: string,
+  narrationText: string,
+  contentHash: string,
+): Promise<void> {
+  const response = await requestSpeech(narrationText);
+  const audioBuffer = Buffer.from(await response.arrayBuffer());
+  await cacheAudioBuffer(postId, postSlug, contentHash, audioBuffer);
+}
+
+/**
+ * Streams narration to a live listener as OpenAI generates it, so playback
+ * can start well before the full file exists — while caching the complete
+ * file in the background once the stream finishes, for instant playback on
+ * every future request.
+ */
+async function streamAndCache(
+  postId: string,
+  postSlug: string,
+  narrationText: string,
+  contentHash: string,
+): Promise<ReadableStream<Uint8Array>> {
+  const response = await requestSpeech(narrationText);
+  const [clientStream, cacheStream] = response.body!.tee();
+
+  after(async () => {
+    try {
+      const audioBuffer = Buffer.from(await new Response(cacheStream).arrayBuffer());
+      await cacheAudioBuffer(postId, postSlug, contentHash, audioBuffer);
+    } catch (err) {
+      console.error(
+        `[speech-mode] failed to cache streamed audio for post ${postId} (${postSlug}):`,
+        err,
+      );
+    }
+  });
+
+  return clientStream;
 }
 
 /**
@@ -118,7 +180,7 @@ function scheduleRevalidation(
       const freshHash = hashText(narrationText);
       if (freshHash === currentContentHash) return;
 
-      await synthesizeAndCache(postId, postSlug, metadata);
+      await regenerateAndCache(postId, postSlug, narrationText, freshHash);
     } catch (err) {
       console.error(
         `[speech-mode] background revalidation failed for post ${postId} (${postSlug}):`,
@@ -129,28 +191,32 @@ function scheduleRevalidation(
 }
 
 /**
- * Returns the public MP3 URL for a post's narration. A cached audio serves
- * immediately, with freshness checked against Notion in the background so a
- * slow or unavailable Notion API never blocks or breaks playback. Only a
- * post with no cached audio yet pays for a synchronous Notion fetch + TTS
- * generation.
+ * Resolves a post's narration audio. A cached post redirects to its public
+ * URL immediately, with freshness checked against Notion in the background
+ * so a slow or unavailable Notion API never blocks or breaks playback. A
+ * post with no cached audio yet streams narration live as OpenAI generates
+ * it, caching the complete file in the background for instant playback next
+ * time.
  */
-export async function getOrGenerateAudioUrl(
+export async function getOrGenerateAudio(
   postId: string,
   postSlug: string,
   metadata: PostMetadata,
-): Promise<string> {
+): Promise<AudioResult> {
   const cached = await getCachedAudio(postId);
 
   if (cached) {
     scheduleRevalidation(postId, postSlug, metadata, cached.content_hash);
-    return publicAudioUrl(cached.audio_path, cached.content_hash);
+    return {
+      type: "redirect",
+      url: publicAudioUrl(cached.audio_path, cached.content_hash),
+    };
   }
 
-  const { audioPath, contentHash } = await synthesizeAndCache(
-    postId,
-    postSlug,
-    metadata,
-  );
-  return publicAudioUrl(audioPath, contentHash);
+  const blocks = await getPageBlocks(postId);
+  const narrationText = buildNarrationText(metadata, blocks);
+  const contentHash = hashText(narrationText);
+
+  const body = await streamAndCache(postId, postSlug, narrationText, contentHash);
+  return { type: "stream", body };
 }
