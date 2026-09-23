@@ -32,7 +32,7 @@ export function PostItem({ separator = true, post }: PostItemProps) {
               {post.title}
             </Typography>
           </div>
-          <SquareArrowOutUpRight className="size-4 text-accent-foreground hidden md:group-hover/item:block" />
+          <SquareArrowOutUpRight className="hidden size-4 shrink-0 -translate-x-0.5 translate-y-0.5 text-accent-foreground opacity-0 transition-[opacity,translate] duration-150 ease-(--ease-out) group-hover/item:translate-0 group-hover/item:opacity-100 md:block" />
         </ItemTitle>
         <Separator
           className={cn(
