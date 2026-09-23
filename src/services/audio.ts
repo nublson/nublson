@@ -6,6 +6,7 @@ import { markdownToPlainText } from "@/utils/markdown-to-plain-text";
 import { openai } from "@ai-sdk/openai";
 import { generateSpeech } from "ai";
 import { createHash } from "crypto";
+import { after } from "next/server";
 
 const AUDIO_BUCKET = "post-audio";
 const TTS_MODEL = "gpt-4o-mini-tts";
@@ -31,32 +32,31 @@ function publicAudioUrl(audioPath: string, contentHash: string): string {
   return `${data.publicUrl}?v=${contentHash.slice(0, 12)}`;
 }
 
-/**
- * Returns the public MP3 URL for a post's narration, generating and caching
- * it in Supabase Storage first if it's missing or the post content changed.
- */
-export async function getOrGenerateAudioUrl(
-  postId: string,
-  postSlug: string,
-  metadata: PostMetadata,
-): Promise<string> {
-  const blocks = await getPageBlocks(postId);
-  const narrationText = buildNarrationText(metadata, blocks);
-  const contentHash = hashText(narrationText);
+type CachedAudio = { audio_path: string; content_hash: string };
 
-  const { data: existing, error: fetchError } = await supabase
+async function getCachedAudio(postId: string): Promise<CachedAudio | null> {
+  const { data, error } = await supabase
     .from("post_audio")
     .select("audio_path, content_hash")
     .eq("post_id", postId)
     .maybeSingle();
 
-  if (fetchError) {
-    throw new Error(`Failed to fetch post audio: ${fetchError.message}`);
+  if (error) {
+    throw new Error(`Failed to fetch post audio: ${error.message}`);
   }
 
-  if (existing && existing.content_hash === contentHash) {
-    return publicAudioUrl(existing.audio_path, contentHash);
-  }
+  return data;
+}
+
+/** Fetches the post body from Notion, generates narration, and caches it. */
+async function synthesizeAndCache(
+  postId: string,
+  postSlug: string,
+  metadata: PostMetadata,
+): Promise<{ audioPath: string; contentHash: string }> {
+  const blocks = await getPageBlocks(postId);
+  const narrationText = buildNarrationText(metadata, blocks);
+  const contentHash = hashText(narrationText);
 
   const { audio } = await generateSpeech({
     model: openai.speech(TTS_MODEL),
@@ -97,5 +97,60 @@ export async function getOrGenerateAudioUrl(
     throw new Error(`Failed to record post audio: ${upsertError.message}`);
   }
 
+  return { audioPath, contentHash };
+}
+
+/**
+ * Regenerates a post's narration in the background if its content changed,
+ * without blocking the response. Notion flakiness here must never break
+ * playback of audio that's already cached and correct.
+ */
+function scheduleRevalidation(
+  postId: string,
+  postSlug: string,
+  metadata: PostMetadata,
+  currentContentHash: string,
+): void {
+  after(async () => {
+    try {
+      const blocks = await getPageBlocks(postId);
+      const narrationText = buildNarrationText(metadata, blocks);
+      const freshHash = hashText(narrationText);
+      if (freshHash === currentContentHash) return;
+
+      await synthesizeAndCache(postId, postSlug, metadata);
+    } catch (err) {
+      console.error(
+        `[speech-mode] background revalidation failed for post ${postId} (${postSlug}):`,
+        err,
+      );
+    }
+  });
+}
+
+/**
+ * Returns the public MP3 URL for a post's narration. A cached audio serves
+ * immediately, with freshness checked against Notion in the background so a
+ * slow or unavailable Notion API never blocks or breaks playback. Only a
+ * post with no cached audio yet pays for a synchronous Notion fetch + TTS
+ * generation.
+ */
+export async function getOrGenerateAudioUrl(
+  postId: string,
+  postSlug: string,
+  metadata: PostMetadata,
+): Promise<string> {
+  const cached = await getCachedAudio(postId);
+
+  if (cached) {
+    scheduleRevalidation(postId, postSlug, metadata, cached.content_hash);
+    return publicAudioUrl(cached.audio_path, cached.content_hash);
+  }
+
+  const { audioPath, contentHash } = await synthesizeAndCache(
+    postId,
+    postSlug,
+    metadata,
+  );
   return publicAudioUrl(audioPath, contentHash);
 }

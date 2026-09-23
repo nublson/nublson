@@ -2,6 +2,10 @@ import { getOrGenerateAudioUrl } from "@/services/audio";
 import { getDatabasePageBySlug } from "@/services/notion";
 import { NextResponse } from "next/server";
 
+// A post's first-ever narration is a synchronous Notion fetch + TTS
+// generation, which can take longer than the platform's default timeout.
+export const maxDuration = 60;
+
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ slug: string }> },
@@ -26,6 +30,7 @@ export async function GET(
     );
     return NextResponse.redirect(audioUrl);
   } catch (err) {
+    console.error(`[speech-mode] audio generation failed for "${slug}":`, err);
     const message = err instanceof Error ? err.message : "Internal server error";
     return NextResponse.json({ message }, { status: 500 });
   }

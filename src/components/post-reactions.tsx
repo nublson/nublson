@@ -73,10 +73,10 @@ const AUDIO_STATUS_TO_PERSONA_STATE: Record<AudioStatus, PersonaState> = {
 
 const AUDIO_STATUS_LABEL: Record<AudioStatus, string> = {
   idle: "Listen to this post",
-  loading: "Generating narration…",
+  loading: "Generating narration — first listen can take up to a minute",
   playing: "Pause narration",
   paused: "Listen to this post",
-  error: "Couldn't load the audio — try again",
+  error: "Couldn't load the audio — tap to try again",
 };
 
 function viewRecordedStorageKey(postId: string): string {
@@ -598,6 +598,11 @@ export function PostReactions({
         {purlError ? (
           <Typography size="xs" className="text-destructive">
             {purlError}
+          </Typography>
+        ) : null}
+        {enableAudio && audioStatus === "error" ? (
+          <Typography size="xs" className="text-destructive">
+            {AUDIO_STATUS_LABEL.error}
           </Typography>
         ) : null}
       </div>
