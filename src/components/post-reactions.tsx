@@ -176,6 +176,44 @@ async function shareUrl(
   }
 }
 
+const ICON_SWAP_LAYER =
+  "absolute inset-0 transition-[opacity,scale,filter] duration-200 ease-(--ease-out)";
+
+/**
+ * Cross-fades between two icons. Both stay mounted so a quick toggle back
+ * retargets the transition instead of snapping.
+ */
+function IconSwap({
+  active,
+  from,
+  to,
+}: {
+  active: boolean;
+  from: React.ReactNode;
+  to: React.ReactNode;
+}) {
+  return (
+    <span className="relative inline-flex size-4 shrink-0" aria-hidden>
+      <span
+        className={cn(
+          ICON_SWAP_LAYER,
+          active ? "scale-80 opacity-0 blur-[2px]" : "scale-100 opacity-100",
+        )}
+      >
+        {from}
+      </span>
+      <span
+        className={cn(
+          ICON_SWAP_LAYER,
+          active ? "scale-100 opacity-100" : "scale-80 opacity-0 blur-[2px]",
+        )}
+      >
+        {to}
+      </span>
+    </span>
+  );
+}
+
 export function PostReactions({
   postId,
   postSlug,
@@ -513,14 +551,19 @@ export function PostReactions({
                       state={AUDIO_STATUS_TO_PERSONA_STATE[audioStatus]}
                       variant="obsidian"
                       className={cn(
-                        "size-6",
+                        "size-6 transition-opacity duration-200 ease-(--ease-out)",
                         personaReady ? "opacity-100" : "opacity-0",
                       )}
                       onReady={() => setPersonaReady(true)}
                     />
-                    {!personaReady ? (
-                      <Skeleton className="absolute inset-0 size-6 rounded-full" />
-                    ) : null}
+                    {/* Stays mounted so it can fade out under the persona. */}
+                    <Skeleton
+                      aria-hidden
+                      className={cn(
+                        "pointer-events-none absolute inset-0 size-6 rounded-full transition-opacity duration-200 ease-(--ease-out)",
+                        personaReady && "animate-none opacity-0",
+                      )}
+                    />
                   </span>
                 </Button>
               </TooltipWrapper>
@@ -565,11 +608,11 @@ export function PostReactions({
               }
               onClick={() => void handleSaveToPurl()}
             >
-              {purlState === "saved" ? (
-                <Check className="size-4" />
-              ) : (
-                <PurlLogo className="size-4 shrink-0" />
-              )}
+              <IconSwap
+                active={purlState === "saved"}
+                from={<PurlLogo className="size-4 shrink-0" />}
+                to={<Check className="size-4" />}
+              />
             </Button>
           </TooltipWrapper>
           <TooltipWrapper content={shareCopied ? "Copied!" : "Share"}>
@@ -581,11 +624,11 @@ export function PostReactions({
               onClick={() => void handleShare()}
               aria-label={shareCopied ? "Link copied" : "Share link"}
             >
-              {shareCopied ? (
-                <Check className="size-4" />
-              ) : (
-                <Share2 className="size-4" />
-              )}
+              <IconSwap
+                active={shareCopied}
+                from={<Share2 className="size-4" />}
+                to={<Check className="size-4" />}
+              />
             </Button>
           </TooltipWrapper>
         </div>
