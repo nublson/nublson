@@ -4,100 +4,71 @@ on:
   workflow_dispatch:
 
 jobs:
+  validate:
+    name: ✅ PR Checks
+    uses: ./.github/workflows/pr-checks.yml
+    secrets: inherit
+
   merge-develop:
-    name: Merge develop into main
+    name: 🚀 Merge develop → main
     runs-on: ubuntu-latest
+    needs: validate
     permissions:
       contents: write
 
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Configure Git
+      - name: ⚙️ Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Fetch latest changes
+      - name: 🔄 Fetch latest changes
         run: |
           git fetch origin main
           git fetch origin develop
 
-      - name: Checkout main branch
+      - name: 🌿 Checkout main branch
         run: git checkout main
 
-      - name: Merge develop into main
-        run: git merge origin/develop --no-edit
+      - name: 🔀 Merge develop into main
+        run: |
+          if git merge-base origin/main origin/develop >/dev/null 2>&1; then
+            git merge origin/develop --no-edit
+          else
+            echo "::notice title=Unrelated histories::main and develop share no merge base; merging with --allow-unrelated-histories (one-time for divergent roots)."
+            git merge origin/develop --no-edit --allow-unrelated-histories
+          fi
         env:
           GIT_MERGE_AUTOEDIT: no
 
-      - name: Push merge to main
+      - name: 📤 Push merge to main
         run: git push origin main
 
-  validate-build:
-    name: Lint, Type-check & Test
+  deploy-gate:
+    name: 🛡️ Publish deploy gate
     runs-on: ubuntu-latest
     needs: merge-develop
     permissions:
       contents: read
       statuses: write
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout main
         uses: actions/checkout@v4
         with:
           ref: main
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-store
-        shell: bash
-        run: echo "STORE_PATH=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
-
-      - name: Cache pnpm store
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
-          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-store-${{ runner.os }}-
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Type-check
-        run: pnpm type-check
-
-      - name: Test
-        run: pnpm test
-
-      - name: Publish deploy gate status for Vercel
-        if: always()
+      - name: ✅ Publish release/build-validation for Vercel
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           SHA=$(git rev-parse HEAD)
-          if [ "${{ job.status }}" = "success" ]; then
-            STATE=success
-          else
-            STATE=failure
-          fi
           gh api --method POST "repos/${{ github.repository }}/statuses/${SHA}" \
-            -f "state=${STATE}" \
+            -f "state=success" \
             -f context="release/build-validation" \
-            -f description="Release workflow: lint, type-check & tests"
+            -f description="Release: PR Checks passed; develop merged to main"
