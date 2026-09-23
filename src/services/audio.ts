@@ -3,16 +3,27 @@ import { getPageBlocks, type BlockWithChildren } from "@/services/notion";
 import { blocksToMarkdown } from "@/utils/blocks-to-markdown";
 import type { PostMetadata } from "@/utils/formatter";
 import { markdownToPlainText } from "@/utils/markdown-to-plain-text";
-import { openai } from "@ai-sdk/openai";
-import { generateSpeech } from "ai";
 import { createHash } from "crypto";
+import { after } from "next/server";
 
+const OPENAI_SPEECH_URL =
+  process.env.OPENAI_SPEECH_URL ?? "https://api.openai.com/v1/audio/speech";
 const AUDIO_BUCKET = "post-audio";
 const TTS_MODEL = "gpt-4o-mini-tts";
 const TTS_VOICE = "cedar";
+// Ogg Opus: smaller files than MP3 at equivalent speech quality, and a
+// native fit for HTTP-chunked streaming. Safari/iOS only gained native Ogg
+// Opus playback in Safari 18.4 (macOS Sequoia 15.4, iOS/iPadOS 18.4);
+// older Safari versions have no Ogg container support and won't play it.
+const AUDIO_FORMAT = "opus";
+const AUDIO_CONTENT_TYPE = "audio/ogg; codecs=opus";
 const TTS_INSTRUCTIONS = `Voice affect: Warm, confident, and conversational — like a knowledgeable friend explaining something they find genuinely interesting, not a formal narrator reading a script.
 
 Tone: Friendly and engaging, with light enthusiasm for the subject matter. Approachable and human, never stiff or robotic.`;
+
+export type AudioResult =
+  | { type: "redirect"; url: string }
+  | { type: "stream"; body: ReadableStream<Uint8Array>; contentType: string };
 
 function buildNarrationText(
   metadata: PostMetadata,
@@ -31,48 +42,68 @@ function publicAudioUrl(audioPath: string, contentHash: string): string {
   return `${data.publicUrl}?v=${contentHash.slice(0, 12)}`;
 }
 
-/**
- * Returns the public MP3 URL for a post's narration, generating and caching
- * it in Supabase Storage first if it's missing or the post content changed.
- */
-export async function getOrGenerateAudioUrl(
-  postId: string,
-  postSlug: string,
-  metadata: PostMetadata,
-): Promise<string> {
-  const blocks = await getPageBlocks(postId);
-  const narrationText = buildNarrationText(metadata, blocks);
-  const contentHash = hashText(narrationText);
+type CachedAudio = { audio_path: string; content_hash: string };
 
-  const { data: existing, error: fetchError } = await supabase
+async function getCachedAudio(postId: string): Promise<CachedAudio | null> {
+  const { data, error } = await supabase
     .from("post_audio")
     .select("audio_path, content_hash")
     .eq("post_id", postId)
     .maybeSingle();
 
-  if (fetchError) {
-    throw new Error(`Failed to fetch post audio: ${fetchError.message}`);
+  if (error) {
+    throw new Error(`Failed to fetch post audio: ${error.message}`);
   }
 
-  if (existing && existing.content_hash === contentHash) {
-    return publicAudioUrl(existing.audio_path, contentHash);
-  }
+  return data;
+}
 
-  const { audio } = await generateSpeech({
-    model: openai.speech(TTS_MODEL),
-    text: narrationText,
-    voice: TTS_VOICE,
-    outputFormat: "mp3",
-    instructions: TTS_INSTRUCTIONS,
-    speed: 1,
+/**
+ * Calls OpenAI's speech endpoint directly (bypassing the AI SDK's
+ * generateSpeech, which buffers the full response before returning). Callers
+ * decide whether to stream the response live or fully buffer it — this just
+ * returns the raw Response so either is possible.
+ */
+async function requestSpeech(text: string): Promise<Response> {
+  const response = await fetch(OPENAI_SPEECH_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: TTS_MODEL,
+      voice: TTS_VOICE,
+      input: text,
+      instructions: TTS_INSTRUCTIONS,
+      response_format: AUDIO_FORMAT,
+      stream_format: "audio",
+      speed: 1,
+    }),
   });
 
-  const audioPath = `${postSlug}.mp3`;
+  if (!response.ok || !response.body) {
+    const errorBody = await response.text().catch(() => "");
+    throw new Error(
+      `OpenAI speech request failed (${response.status}): ${errorBody.slice(0, 500)}`,
+    );
+  }
+
+  return response;
+}
+
+async function cacheAudioBuffer(
+  postId: string,
+  postSlug: string,
+  contentHash: string,
+  audioBuffer: Buffer,
+): Promise<void> {
+  const audioPath = `${postSlug}.${AUDIO_FORMAT}`;
 
   const { error: uploadError } = await supabase.storage
     .from(AUDIO_BUCKET)
-    .upload(audioPath, Buffer.from(audio.uint8Array), {
-      contentType: "audio/mpeg",
+    .upload(audioPath, audioBuffer, {
+      contentType: AUDIO_CONTENT_TYPE,
       upsert: true,
     });
 
@@ -96,6 +127,105 @@ export async function getOrGenerateAudioUrl(
   if (upsertError) {
     throw new Error(`Failed to record post audio: ${upsertError.message}`);
   }
+}
 
-  return publicAudioUrl(audioPath, contentHash);
+/** Generates and caches narration with no live listener (background use only). */
+async function regenerateAndCache(
+  postId: string,
+  postSlug: string,
+  narrationText: string,
+  contentHash: string,
+): Promise<void> {
+  const response = await requestSpeech(narrationText);
+  const audioBuffer = Buffer.from(await response.arrayBuffer());
+  await cacheAudioBuffer(postId, postSlug, contentHash, audioBuffer);
+}
+
+/**
+ * Streams narration to a live listener as OpenAI generates it, so playback
+ * can start well before the full file exists — while caching the complete
+ * file in the background once the stream finishes, for instant playback on
+ * every future request.
+ */
+async function streamAndCache(
+  postId: string,
+  postSlug: string,
+  narrationText: string,
+  contentHash: string,
+): Promise<ReadableStream<Uint8Array>> {
+  const response = await requestSpeech(narrationText);
+  const [clientStream, cacheStream] = response.body!.tee();
+
+  after(async () => {
+    try {
+      const audioBuffer = Buffer.from(await new Response(cacheStream).arrayBuffer());
+      await cacheAudioBuffer(postId, postSlug, contentHash, audioBuffer);
+    } catch (err) {
+      console.error(
+        `[speech-mode] failed to cache streamed audio for post ${postId} (${postSlug}):`,
+        err,
+      );
+    }
+  });
+
+  return clientStream;
+}
+
+/**
+ * Regenerates a post's narration in the background if its content changed,
+ * without blocking the response. Notion flakiness here must never break
+ * playback of audio that's already cached and correct.
+ */
+function scheduleRevalidation(
+  postId: string,
+  postSlug: string,
+  metadata: PostMetadata,
+  currentContentHash: string,
+): void {
+  after(async () => {
+    try {
+      const blocks = await getPageBlocks(postId);
+      const narrationText = buildNarrationText(metadata, blocks);
+      const freshHash = hashText(narrationText);
+      if (freshHash === currentContentHash) return;
+
+      await regenerateAndCache(postId, postSlug, narrationText, freshHash);
+    } catch (err) {
+      console.error(
+        `[speech-mode] background revalidation failed for post ${postId} (${postSlug}):`,
+        err,
+      );
+    }
+  });
+}
+
+/**
+ * Resolves a post's narration audio. A cached post redirects to its public
+ * URL immediately, with freshness checked against Notion in the background
+ * so a slow or unavailable Notion API never blocks or breaks playback. A
+ * post with no cached audio yet streams narration live as OpenAI generates
+ * it, caching the complete file in the background for instant playback next
+ * time.
+ */
+export async function getOrGenerateAudio(
+  postId: string,
+  postSlug: string,
+  metadata: PostMetadata,
+): Promise<AudioResult> {
+  const cached = await getCachedAudio(postId);
+
+  if (cached) {
+    scheduleRevalidation(postId, postSlug, metadata, cached.content_hash);
+    return {
+      type: "redirect",
+      url: publicAudioUrl(cached.audio_path, cached.content_hash),
+    };
+  }
+
+  const blocks = await getPageBlocks(postId);
+  const narrationText = buildNarrationText(metadata, blocks);
+  const contentHash = hashText(narrationText);
+
+  const body = await streamAndCache(postId, postSlug, narrationText, contentHash);
+  return { type: "stream", body, contentType: AUDIO_CONTENT_TYPE };
 }
