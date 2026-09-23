@@ -34,7 +34,7 @@ export function ProjectItem({ post }: ProjectItemProps) {
             {post.title}
           </Typography>
 
-          <SquareArrowOutUpRight className="size-4 text-accent-foreground hidden group-hover/item:block" />
+          <SquareArrowOutUpRight className="size-4 shrink-0 -translate-x-0.5 translate-y-0.5 text-accent-foreground opacity-0 transition-[opacity,translate] duration-150 ease-(--ease-out) group-hover/item:translate-0 group-hover/item:opacity-100" />
         </ItemTitle>
         <Typography
           size="small"

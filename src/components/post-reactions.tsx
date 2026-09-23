@@ -227,6 +227,10 @@ export function PostReactions({
   );
   const [loading, setLoading] = useState(!initialData);
   const [pending, setPending] = useState(false);
+  // Reaction whose icon should pop; set only from a click, never on load.
+  const [poppedReaction, setPoppedReaction] = useState<ReactionType | null>(
+    null,
+  );
   const [views, setViews] = useState(initialViews);
   const [shareCopied, setShareCopied] = useState(false);
   const shareResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -365,6 +369,7 @@ export function PostReactions({
         userReaction: nextUser,
       };
       setSummary(optimistic);
+      setPoppedReaction(nextUser);
       setPending(true);
       try {
         const data = await postSummary(postId, postSlug, nextUser);
@@ -507,10 +512,16 @@ export function PostReactions({
               disabled={pending}
               aria-pressed={userReaction === "like"}
               aria-label="Like"
-              className={cn("rounded-full")}
+              className="rounded-full"
               onClick={() => void applyReaction("like")}
             >
-              <ThumbsUp className="size-4 shrink-0" />
+              <ThumbsUp
+                className={cn(
+                  "size-4 shrink-0",
+                  poppedReaction === "like" && "animate-reaction-pop",
+                )}
+                onAnimationEnd={() => setPoppedReaction(null)}
+              />
               {likes ? ` ${formatCompactCount(likes)}` : ""}
             </Button>
           </TooltipWrapper>
@@ -522,10 +533,16 @@ export function PostReactions({
               disabled={pending}
               aria-pressed={userReaction === "dislike"}
               aria-label="Dislike"
-              className={cn("rounded-full")}
+              className="rounded-full"
               onClick={() => void applyReaction("dislike")}
             >
-              <ThumbsDown className="size-4 shrink-0" />
+              <ThumbsDown
+                className={cn(
+                  "size-4 shrink-0",
+                  poppedReaction === "dislike" && "animate-reaction-pop",
+                )}
+                onAnimationEnd={() => setPoppedReaction(null)}
+              />
               {dislikes ? ` ${formatCompactCount(dislikes)}` : ""}
             </Button>
           </TooltipWrapper>
