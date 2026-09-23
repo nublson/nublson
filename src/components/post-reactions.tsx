@@ -73,7 +73,7 @@ const AUDIO_STATUS_TO_PERSONA_STATE: Record<AudioStatus, PersonaState> = {
 
 const AUDIO_STATUS_LABEL: Record<AudioStatus, string> = {
   idle: "Listen to this post",
-  loading: "Generating narration — first listen can take up to a minute",
+  loading: "Generating narration…",
   playing: "Pause narration",
   paused: "Listen to this post",
   error: "Couldn't load the audio — tap to try again",

@@ -6,14 +6,16 @@ import { markdownToPlainText } from "@/utils/markdown-to-plain-text";
 import { createHash } from "crypto";
 import { after } from "next/server";
 
+const OPENAI_SPEECH_URL =
+  process.env.OPENAI_SPEECH_URL ?? "https://api.openai.com/v1/audio/speech";
 const AUDIO_BUCKET = "post-audio";
 const TTS_MODEL = "gpt-4o-mini-tts";
 const TTS_VOICE = "cedar";
 // Ogg Opus: smaller files than MP3 at equivalent speech quality, and a
-// native fit for HTTP-chunked streaming. Safari/iOS has no native Ogg
-// container support, so playback there will fail until a fallback exists.
+// native fit for HTTP-chunked streaming. Safari/iOS only gained native Ogg
+// Opus playback in Safari 18.4 (macOS Sequoia 15.4, iOS/iPadOS 18.4);
+// older Safari versions have no Ogg container support and won't play it.
 const AUDIO_FORMAT = "opus";
-const AUDIO_EXTENSION = "opus";
 const AUDIO_CONTENT_TYPE = "audio/ogg; codecs=opus";
 const TTS_INSTRUCTIONS = `Voice affect: Warm, confident, and conversational — like a knowledgeable friend explaining something they find genuinely interesting, not a formal narrator reading a script.
 
@@ -58,11 +60,12 @@ async function getCachedAudio(postId: string): Promise<CachedAudio | null> {
 
 /**
  * Calls OpenAI's speech endpoint directly (bypassing the AI SDK's
- * generateSpeech, which buffers the full response before returning) so the
- * response body can be streamed to a live listener as audio is generated.
+ * generateSpeech, which buffers the full response before returning). Callers
+ * decide whether to stream the response live or fully buffer it — this just
+ * returns the raw Response so either is possible.
  */
 async function requestSpeech(text: string): Promise<Response> {
-  const response = await fetch("https://api.openai.com/v1/audio/speech", {
+  const response = await fetch(OPENAI_SPEECH_URL, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
@@ -95,7 +98,7 @@ async function cacheAudioBuffer(
   contentHash: string,
   audioBuffer: Buffer,
 ): Promise<void> {
-  const audioPath = `${postSlug}.${AUDIO_EXTENSION}`;
+  const audioPath = `${postSlug}.${AUDIO_FORMAT}`;
 
   const { error: uploadError } = await supabase.storage
     .from(AUDIO_BUCKET)
