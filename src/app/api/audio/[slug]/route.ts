@@ -31,7 +31,7 @@ export async function GET(
 
     return new Response(result.body, {
       headers: {
-        "Content-Type": "audio/mpeg",
+        "Content-Type": result.contentType,
         "Cache-Control": "no-store",
       },
     });

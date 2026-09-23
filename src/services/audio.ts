@@ -9,13 +9,19 @@ import { after } from "next/server";
 const AUDIO_BUCKET = "post-audio";
 const TTS_MODEL = "gpt-4o-mini-tts";
 const TTS_VOICE = "cedar";
+// Ogg Opus: smaller files than MP3 at equivalent speech quality, and a
+// native fit for HTTP-chunked streaming. Safari/iOS has no native Ogg
+// container support, so playback there will fail until a fallback exists.
+const AUDIO_FORMAT = "opus";
+const AUDIO_EXTENSION = "opus";
+const AUDIO_CONTENT_TYPE = "audio/ogg; codecs=opus";
 const TTS_INSTRUCTIONS = `Voice affect: Warm, confident, and conversational — like a knowledgeable friend explaining something they find genuinely interesting, not a formal narrator reading a script.
 
 Tone: Friendly and engaging, with light enthusiasm for the subject matter. Approachable and human, never stiff or robotic.`;
 
 export type AudioResult =
   | { type: "redirect"; url: string }
-  | { type: "stream"; body: ReadableStream<Uint8Array> };
+  | { type: "stream"; body: ReadableStream<Uint8Array>; contentType: string };
 
 function buildNarrationText(
   metadata: PostMetadata,
@@ -67,7 +73,7 @@ async function requestSpeech(text: string): Promise<Response> {
       voice: TTS_VOICE,
       input: text,
       instructions: TTS_INSTRUCTIONS,
-      response_format: "mp3",
+      response_format: AUDIO_FORMAT,
       stream_format: "audio",
       speed: 1,
     }),
@@ -89,12 +95,12 @@ async function cacheAudioBuffer(
   contentHash: string,
   audioBuffer: Buffer,
 ): Promise<void> {
-  const audioPath = `${postSlug}.mp3`;
+  const audioPath = `${postSlug}.${AUDIO_EXTENSION}`;
 
   const { error: uploadError } = await supabase.storage
     .from(AUDIO_BUCKET)
     .upload(audioPath, audioBuffer, {
-      contentType: "audio/mpeg",
+      contentType: AUDIO_CONTENT_TYPE,
       upsert: true,
     });
 
@@ -218,5 +224,5 @@ export async function getOrGenerateAudio(
   const contentHash = hashText(narrationText);
 
   const body = await streamAndCache(postId, postSlug, narrationText, contentHash);
-  return { type: "stream", body };
+  return { type: "stream", body, contentType: AUDIO_CONTENT_TYPE };
 }
