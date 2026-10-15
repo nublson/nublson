@@ -1,4 +1,5 @@
 import type { PostMetadata } from "@/utils/formatter";
+import { projectPublicUrl } from "@/utils/project-links";
 
 export type RssFeedItem = {
   title: string;
@@ -25,7 +26,10 @@ export function rssItemsFromPosts(
   const base = baseUrl.replace(/\/$/, "");
   return posts.map((post) => ({
     title: post.title,
-    link: `${base}${pathPrefix}/${post.slug}`,
+    link:
+      pathPrefix === "/projects"
+        ? projectPublicUrl(base, post)
+        : `${base}${pathPrefix}/${post.slug}`,
     description: post.description.trim() || post.title,
     pubDate: pubDateForPost(post),
   }));

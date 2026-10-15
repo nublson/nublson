@@ -1,4 +1,5 @@
 import { getAllPublishedPostsForFeed } from "@/services/notion";
+import { projectPublicUrl } from "@/utils/project-links";
 
 export const revalidate = 10;
 
@@ -10,7 +11,10 @@ function formatSection(
   if (posts.length === 0) return "";
 
   const lines = posts.map((post) => {
-    const url = `${base}${pathPrefix}/${post.slug}`;
+    const url =
+      pathPrefix === "/projects"
+        ? projectPublicUrl(base, post)
+        : `${base}${pathPrefix}/${post.slug}`;
     const description = post.description ? `: ${post.description}` : "";
     return `- [${post.title}](${url})${description}`;
   });

@@ -2,7 +2,10 @@ import { cn } from "@/lib/utils";
 import type { PostMetadata } from "@/utils/formatter";
 import Image from "next/image";
 
-/** 20px tile: Notion page icon, else a crop of the cover, else the first letter. */
+/**
+ * 20px tile: Notion page icon, else a crop of the cover, else the first letter.
+ * Every kind renders in the same 14px box so no icon looks bigger than its tile.
+ */
 export function ProjectIcon({
   post,
   className,
@@ -12,7 +15,10 @@ export function ProjectIcon({
 }) {
   if (post.icon?.type === "emoji") {
     return (
-      <span aria-hidden className={cn("tile text-xs leading-none", className)}>
+      <span
+        aria-hidden
+        className={cn("tile text-[13px] leading-none", className)}
+      >
         {post.icon.value}
       </span>
     );
@@ -25,10 +31,10 @@ export function ProjectIcon({
         <Image
           src={src}
           alt=""
-          width={40}
-          height={40}
+          width={28}
+          height={28}
           unoptimized
-          className="size-full object-cover"
+          className="size-3.5 rounded-[3px] object-cover"
         />
       </span>
     );
