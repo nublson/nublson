@@ -23,6 +23,7 @@ export function AboutHero({ metadata }: { metadata: PageMetadata }) {
       <Hero
         title={metadata.title}
         description={metadata.description}
+        descriptionRichText={metadata.descriptionRichText}
       />
     </>
   );

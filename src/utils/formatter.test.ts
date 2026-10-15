@@ -205,6 +205,48 @@ describe("formatBlockWithChildren", () => {
 // ---------------------------------------------------------------------------
 
 describe("formatPageMetadata", () => {
+  it("joins every rich text segment of the description, not just the first", () => {
+    const page = makePage({
+      properties: {
+        Name: { type: "title", title: [{ plain_text: "Home" }] },
+        description: {
+          type: "rich_text",
+          rich_text: [
+            { plain_text: "Find me on ", href: null },
+            { plain_text: "GitHub", href: "https://github.com/nublson" },
+            { plain_text: ".", href: null },
+          ],
+        },
+      },
+    });
+    const result = formatPageMetadata(page);
+    expect(result.description).toBe("Find me on GitHub.");
+    expect(result.descriptionRichText).toHaveLength(3);
+    expect(result.descriptionRichText[1].href).toBe("https://github.com/nublson");
+  });
+
+  it("collapses paragraph breaks into single spaces in the plain description", () => {
+    const page = makePage({
+      properties: {
+        Name: { type: "title", title: [{ plain_text: "Home" }] },
+        description: {
+          type: "rich_text",
+          rich_text: [{ plain_text: "I build software.\n\nFind me on GitHub.", href: null }],
+        },
+      },
+    });
+    expect(formatPageMetadata(page).description).toBe(
+      "I build software. Find me on GitHub.",
+    );
+  });
+
+  it("returns an empty rich text list when there is no description", () => {
+    const page = makePage({
+      properties: { Name: { type: "title", title: [{ plain_text: "Home" }] } },
+    });
+    expect(formatPageMetadata(page).descriptionRichText).toEqual([]);
+  });
+
   it("extracts id, title and generates a slug", () => {
     const page = makePage();
     const result = formatPageMetadata(page);

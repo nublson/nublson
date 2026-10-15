@@ -13,6 +13,7 @@ import {
   TableBlock,
   VideoBlock,
 } from "@/components/content-blocks";
+import { notionLinkAttributes } from "@/components/content-blocks/link-attributes";
 import { BlockWithChildren } from "@/services/notion";
 import { blockEnum, NotionBlock, Render } from "@9gustin/react-notion-render";
 
@@ -29,37 +30,7 @@ export default function ContentSection({ blocks }: ContentSectionProps) {
       <Render
         blocks={blocks as NotionBlock[]}
         simpleTitles
-        linkAttributes={(link) => {
-          const isRootRelativePath =
-            link.startsWith("/") && !link.startsWith("//");
-          const isHashLink = link.startsWith("#");
-          const baseUrl = process.env.BASE_URL;
-          const baseOrigin = baseUrl != null ? new URL(baseUrl).origin : null;
-          const isSameOriginAbsoluteLink = (() => {
-            if (baseOrigin == null) {
-              return false;
-            }
-            try {
-              return new URL(link).origin === baseOrigin;
-            } catch {
-              return false;
-            }
-          })();
-
-          const isInternalLink =
-            isRootRelativePath || isHashLink || isSameOriginAbsoluteLink;
-
-          if (isInternalLink) {
-            return {
-              target: "_self",
-            };
-          }
-
-          return {
-            target: "_blank",
-            rel: "noopener noreferrer",
-          };
-        }}
+        linkAttributes={notionLinkAttributes}
         blockComponentsMapper={{
           [blockEnum.IMAGE]: ImageBlock,
           [blockEnum.HEADING1]: Heading1Block,

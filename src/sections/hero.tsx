@@ -1,10 +1,14 @@
 import { CoverImage } from "@/components/cover-image";
+import { RichDescription } from "@/components/rich-description";
 import { Typography } from "@/components/typography";
 import { cn } from "@/lib/utils";
+import type { RichTextItemResponse } from "@notionhq/client";
 
 interface HeroSectionProps {
   title: string;
   description?: string;
+  /** Notion rich text; when present it replaces the plain description. */
+  descriptionRichText?: RichTextItemResponse[];
   thumbnail?: string;
   blurDataURL?: string;
   top?: React.ReactNode;
@@ -16,6 +20,7 @@ interface HeroSectionProps {
 export default function HeroSection({
   title,
   description,
+  descriptionRichText,
   thumbnail,
   blurDataURL,
   top,
@@ -40,13 +45,23 @@ export default function HeroSection({
         </Typography>
         {bottom}
       </div>
-      {description && (
-        <Typography
-          size={isArticle ? "article" : "regular"}
-          className="max-w-[60ch] text-pretty"
-        >
-          {description}
-        </Typography>
+      {descriptionRichText && descriptionRichText.length > 0 ? (
+        <div className="flex max-w-[60ch] flex-col gap-3.5">
+          <RichDescription
+            items={descriptionRichText}
+            size={isArticle ? "article" : "regular"}
+            className="text-pretty"
+          />
+        </div>
+      ) : (
+        description && (
+          <Typography
+            size={isArticle ? "article" : "regular"}
+            className="max-w-[60ch] text-pretty"
+          >
+            {description}
+          </Typography>
+        )
       )}
       {children}
       {isArticle && thumbnail && (

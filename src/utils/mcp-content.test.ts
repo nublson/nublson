@@ -130,6 +130,7 @@ describe("profileFromHero", () => {
     title: "Nubelson Fernandes",
     slug: "nubelson-fernandes",
     description: "Designer and developer.",
+    descriptionRichText: [],
     modified_date: undefined,
     role: "Product Designer",
     location: "Lisbon, Portugal",

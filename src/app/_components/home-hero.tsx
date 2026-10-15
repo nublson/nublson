@@ -1,5 +1,4 @@
 import { JsonLd } from "@/components/json-ld";
-import { SocialLinks } from "@/components/social-links";
 import { Typography } from "@/components/typography";
 import social from "@/data/social.json";
 import Hero from "@/sections/hero";
@@ -25,14 +24,13 @@ export function HomeHero({ metadata }: { metadata: PageMetadata }) {
       <Hero
         title={metadata.title}
         description={metadata.description}
+        descriptionRichText={metadata.descriptionRichText}
         bottom={
           <Typography className="text-subtle-foreground">
             {[metadata.role, metadata.location].filter(Boolean).join(" · ")}
           </Typography>
         }
-      >
-        <SocialLinks />
-      </Hero>
+      />
     </>
   );
 }

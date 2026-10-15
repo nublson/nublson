@@ -1,6 +1,10 @@
 import { buildNotionImageProxyUrl } from "@/lib/notion-image";
 import { BlockWithChildren } from "@/services/notion";
-import { BlockObjectResponse, PageObjectResponse } from "@notionhq/client";
+import {
+  BlockObjectResponse,
+  PageObjectResponse,
+  RichTextItemResponse,
+} from "@notionhq/client";
 import slugify from "slugify";
 
 /** File covers expire; proxy them. External covers stay as-is. */
@@ -61,7 +65,10 @@ export type PageMetadata = {
   id: string;
   title: string;
   slug: string;
+  /** Plain text of the whole description, for metadata and feeds. */
   description: string;
+  /** The description as Notion rich text, for rendering links and emphasis. */
+  descriptionRichText: RichTextItemResponse[];
   modified_date: string | undefined;
   thumbnail?: string;
   /** Set by `withThumbnailBlur`, not by the formatter; see `@/services/notion`. */
@@ -77,16 +84,22 @@ export const formatPageMetadata = (page: PageObjectResponse): PageMetadata => {
       : "";
 
   const thumbnail = formatCoverThumbnail(page);
+  const descriptionRichText =
+    page.properties.description?.type === "rich_text"
+      ? page.properties.description.rich_text
+      : [];
 
   return {
     id: page.id,
     title,
     slug: slugifyText(title),
     thumbnail,
-    description:
-      page.properties.description?.type === "rich_text"
-        ? (page.properties.description.rich_text[0]?.plain_text ?? "")
-        : "",
+    description: descriptionRichText
+      .map((t) => t.plain_text)
+      .join("")
+      .replace(/\s+/g, " ")
+      .trim(),
+    descriptionRichText,
     modified_date:
       page.properties.modified_date?.type === "last_edited_time"
         ? page.properties.modified_date.last_edited_time

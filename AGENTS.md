@@ -18,6 +18,7 @@
 - Share/OG image fallbacks must be raster (e.g. `/apple-icon.png`), not SVG — Safari and many clients ignore SVG for link previews.
 - Blog/work `[slug]` pages should await Notion data in the async page so article HTML renders inside `<main>` for scrapers; avoid parent `loading.tsx` skeletons on slug routes.
 - Index/listing pages (`/`, `/about`, `/projects`, `/writings`, `/gears`, and similar): await in the page all non-list content (hero metadata + Notion page body/blocks) so it is in the initial HTML without JS. Where the list is the page's main content (`/projects`, `/writings`, `/gears`), await the list too, fetched in parallel with the page via `Promise.all` — its length is unknown, so no skeleton can match it and the swap shifts the layout. Use Suspense with skeletons only for secondary lists of known length (Home's 3 projects and 4 posts, "More posts", the reactions row), and build those skeletons from the real rows' line boxes so the swap is shift-free.
+- Index page descriptions (the Notion `description` property on Home, About, Writing, Projects, Gear pages) render as rich text via `RichDescription`: links (with profile favicons), emphasis, and blank-line paragraphs. Metadata uses the joined plain text with whitespace collapsed. Edit copy like Home's "Find me on…" line in Notion, not in code.
 - Public blog view counts are lifetime unique visitors via Supabase (session cookie shared with reactions); blog-only UI; private daily uniques stay in Vercel Analytics.
 
 ## Cursor Cloud specific instructions
