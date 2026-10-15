@@ -32,7 +32,7 @@ RSS, agent discovery, reactions, view counts, speech mode and Purl save keep wor
 | `--background` | `#fafafa` | `#111111` |
 | `--foreground` | `#171717` | `#ededed` |
 | secondary text (`--muted-foreground` becomes body gray) | `#525252` | `#a1a1a1` |
-| tertiary text (labels, dates, descriptions) | `#a3a3a3` | `#707070` |
+| tertiary text (labels, dates, descriptions) | `#717171` (oklch 0.55, 4.65:1) | `#8c8c8c` (oklch 0.64, 5.61:1) |
 | `--border` (hairlines) | `#ebebeb` | `#222222` |
 | tile fill / tile ring | `#f0f0f0` / `#e5e5e5` | `#1a1a1a` / `#2a2a2a` |
 | row hover fill | `#f2f2f2` | `#1a1a1a` |
