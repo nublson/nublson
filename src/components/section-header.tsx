@@ -1,5 +1,14 @@
 import Link from "next/link";
 
+/**
+ * Screen readers hear a link name out of context, so "All" is named for where
+ * it goes ("View all posts"), not for the section ("View all More posts").
+ */
+const VIEW_ALL_LABELS: Record<string, string> = {
+  "/writings": "View all posts",
+  "/projects": "View all projects",
+};
+
 interface SectionHeaderProps {
   title: string;
   href?: string;
@@ -16,7 +25,7 @@ export function SectionHeader({ title, href, titleId }: SectionHeaderProps) {
       {href && (
         <Link
           href={href}
-          aria-label={`View all ${title}`}
+          aria-label={VIEW_ALL_LABELS[href] ?? `View all ${title.toLowerCase()}`}
           className="text-sm text-subtle-foreground transition-colors duration-150 ease-(--ease-out) hover:text-foreground"
         >
           All

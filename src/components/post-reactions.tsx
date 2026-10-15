@@ -12,13 +12,15 @@ import {
 import { takeResult, type PurlResult } from "@/lib/purl/storage";
 import { cn } from "@/lib/utils";
 import type { PostReactionSummary, ReactionType } from "@/services/reactions";
-import { formatCompactCount } from "@/utils/formatter";
+import { formatCompactCount, formatViewCount } from "@/utils/formatter";
 import { Check, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TooltipWrapper } from "./tooltip-wrapper";
 import { Typography } from "./typography";
 
 type PurlState = "idle" | "saving" | "saved" | "error";
+
+const PURL_FALLBACK_ERROR = "Couldn't save to Purl";
 
 function PurlLogo({ className }: { className?: string }) {
   return (
@@ -438,8 +440,10 @@ export function PostReactions({
       <div className="flex w-full flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
         {trackViews ? (
           <Typography component="span" className="text-subtle-foreground tabular-nums">
-            <span aria-hidden>{formatCompactCount(views)} views</span>
-            <span className="sr-only">{views} views</span>
+            <span aria-hidden>{formatViewCount(views)}</span>
+            <span className="sr-only">
+              {views.toLocaleString("en-US")} {views === 1 ? "view" : "views"}
+            </span>
           </Typography>
         ) : (
           <span />
@@ -492,10 +496,10 @@ export function PostReactions({
           <TooltipWrapper
             content={
               purlState === "saved"
-                ? "Saved!"
+                ? "Saved to Purl"
                 : purlState === "error"
-                  ? (purlError ?? "Error")
-                  : "Save with Purl"
+                  ? (purlError ?? PURL_FALLBACK_ERROR)
+                  : "Save to Purl"
             }
           >
             <Button
@@ -510,10 +514,10 @@ export function PostReactions({
               disabled={purlState === "saving"}
               aria-label={
                 purlState === "saved"
-                  ? "Saved on Purl"
+                  ? "Saved to Purl"
                   : purlState === "error"
-                    ? (purlError ?? "Error saving with Purl")
-                    : "Save on Purl"
+                    ? (purlError ?? PURL_FALLBACK_ERROR)
+                    : "Save to Purl"
               }
               onClick={() => void handleSaveToPurl()}
             >
@@ -524,7 +528,7 @@ export function PostReactions({
               />
             </Button>
           </TooltipWrapper>
-          <TooltipWrapper content={shareCopied ? "Copied!" : "Share"}>
+          <TooltipWrapper content={shareCopied ? "Link copied" : "Share"}>
             <Button
               type="button"
               variant="ghost"

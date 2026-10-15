@@ -5,6 +5,7 @@ import { SkipLink } from "@/components/skip-link";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { WebmcpProvider } from "@/components/webmcp-provider";
 import { TWITTER_CREATOR_HANDLE } from "@/utils/share-metadata";
+import { SITE_DESCRIPTION } from "@/utils/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     template: "%s | Nubelson Fernandes",
     default: "Nubelson Fernandes",
   },
-  description: "Designer and developer sharing work, writing, and tools.",
+  description: SITE_DESCRIPTION,
   alternates: {
     types: {
       "application/rss+xml": [

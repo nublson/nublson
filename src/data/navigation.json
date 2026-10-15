@@ -1,9 +1,21 @@
 {
   "header": [],
   "footer": [
-    { "label": "About", "path": "/about" },
-    { "label": "Gears", "path": "/gears" },
-    { "label": "Agents", "path": "/agents.txt" },
-    { "label": "RSS", "path": "/feed.xml" }
+    {
+      "label": "About",
+      "path": "/about"
+    },
+    {
+      "label": "Gears",
+      "path": "/gears"
+    },
+    {
+      "label": "For AI agents",
+      "path": "/agents.txt"
+    },
+    {
+      "label": "RSS",
+      "path": "/feed.xml"
+    }
   ]
 }

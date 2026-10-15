@@ -293,6 +293,14 @@ export function formatCompactCount(value: number): string {
   return withSuffix(1_000_000, "M");
 }
 
+const VIEW_PLURAL = new Intl.PluralRules("en-US");
+
+/** "1 view", "20 views", "1.2K views" — a whole phrase, never assembled around a bare number. */
+export function formatViewCount(views: number): string {
+  const noun = VIEW_PLURAL.select(views) === "one" ? "view" : "views";
+  return `${formatCompactCount(views)} ${noun}`;
+}
+
 export const formatBlockWithChildren = (
   blocks: BlockWithChildren[],
 ): BlockWithChildren[] => {

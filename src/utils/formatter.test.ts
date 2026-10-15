@@ -5,6 +5,7 @@ import {
   formatPostDate,
   formatPostDateFull,
   formatCompactCount,
+  formatViewCount,
   getListBlockItems,
   formatBlockWithChildren,
   formatPageMetadata,
@@ -507,5 +508,17 @@ describe("formatPageIcon", () => {
       makePage({ icon: { type: "emoji", emoji: "🪶" } }),
     ]);
     expect(post.icon).toEqual({ type: "emoji", value: "🪶" });
+  });
+});
+
+describe("formatViewCount", () => {
+  it("uses the singular for one view", () => {
+    expect(formatViewCount(1)).toBe("1 view");
+  });
+
+  it("uses the plural otherwise, compacting large counts", () => {
+    expect(formatViewCount(0)).toBe("0 views");
+    expect(formatViewCount(20)).toBe("20 views");
+    expect(formatViewCount(1200)).toBe("1.2K views");
   });
 });

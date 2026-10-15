@@ -1,5 +1,6 @@
 import { getAllPublishedPostsForFeed } from "@/services/notion";
 import { projectPublicUrl } from "@/utils/project-links";
+import { SITE_DESCRIPTION } from "@/utils/site";
 
 export const revalidate = 10;
 
@@ -33,7 +34,7 @@ export async function GET() {
 
   const sections = [
     "# Nubelson Fernandes",
-    "> Designer and developer sharing work, writing, and tools.",
+    `> ${SITE_DESCRIPTION}`,
     "",
     "## Writing",
     formatSection(base, "/writings", blogPosts),
