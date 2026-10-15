@@ -1,3 +1,5 @@
+import { FaviconLink } from "@/components/favicon-link";
+import { findSocialProfile } from "@/utils/social-profiles";
 import React from "react";
 import type {
   ListTextPartLike,
@@ -124,11 +126,26 @@ export function renderRichTextNode(
     return null;
   }
 
+  const profile = findSocialProfile(link);
+  if (profile) {
+    return (
+      <FaviconLink
+        key={key}
+        href={link}
+        label={profile.label}
+        target={resolvedLinkAttributes?.target ?? "_blank"}
+        rel={resolvedLinkAttributes?.rel ?? "noopener noreferrer"}
+      >
+        {styledText}
+      </FaviconLink>
+    );
+  }
+
   return (
     <a
       key={key}
       href={link}
-      className="underline underline-offset-2 text-muted-foreground hover:text-accent-foreground transition-all duration-300"
+      className="text-foreground underline decoration-input underline-offset-[3px] transition-colors duration-150 ease-(--ease-out) hover:decoration-foreground"
       target={resolvedLinkAttributes?.target ?? "_blank"}
       rel={resolvedLinkAttributes?.rel}
       aria-label={rawText}
