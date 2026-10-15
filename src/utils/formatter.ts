@@ -61,6 +61,21 @@ export const slugifyText = (text: string) => {
   });
 };
 
+/** A rich text property as Notion items, plus all segments as one clean line. */
+function richTextProperty(
+  page: PageObjectResponse,
+  name: string,
+): { items: RichTextItemResponse[]; plain: string } {
+  const property = page.properties[name];
+  const items = property?.type === "rich_text" ? property.rich_text : [];
+  const plain = items
+    .map((t) => t.plain_text)
+    .join("")
+    .replace(/\s+/g, " ")
+    .trim();
+  return { items, plain };
+}
+
 export type PageMetadata = {
   id: string;
   title: string;
@@ -84,21 +99,17 @@ export const formatPageMetadata = (page: PageObjectResponse): PageMetadata => {
       : "";
 
   const thumbnail = formatCoverThumbnail(page);
-  const descriptionRichText =
-    page.properties.description?.type === "rich_text"
-      ? page.properties.description.rich_text
-      : [];
+  const { items: descriptionRichText, plain: description } = richTextProperty(
+    page,
+    "description",
+  );
 
   return {
     id: page.id,
     title,
     slug: slugifyText(title),
     thumbnail,
-    description: descriptionRichText
-      .map((t) => t.plain_text)
-      .join("")
-      .replace(/\s+/g, " ")
-      .trim(),
+    description,
     descriptionRichText,
     modified_date:
       page.properties.modified_date?.type === "last_edited_time"
@@ -123,7 +134,10 @@ export type PostMetadata = {
   /** Set by `withThumbnailBlur`, not by the formatter; see `@/services/notion`. */
   blurDataURL?: string;
   icon?: PostIcon;
+  /** Plain text of the whole description, for rows, feeds and metadata. */
   description: string;
+  /** The description as Notion rich text, for the article lede. */
+  descriptionRichText: RichTextItemResponse[];
   published_date: string;
   updated_date: string;
   path: string;
@@ -143,10 +157,8 @@ export const formatPostMetadata = (
 
     const thumbnail = formatCoverThumbnail(page);
 
-    const description =
-      page.properties.Description.type === "rich_text"
-        ? (page.properties.Description.rich_text[0]?.plain_text ?? "")
-        : "";
+    const { items: descriptionRichText, plain: description } =
+      richTextProperty(page, "Description");
 
     const published_date =
       page.properties["Publish Date"]?.type === "date"
@@ -182,6 +194,7 @@ export const formatPostMetadata = (
       thumbnail,
       icon: formatPageIcon(page),
       description,
+      descriptionRichText,
       published_date,
       updated_date,
       path,

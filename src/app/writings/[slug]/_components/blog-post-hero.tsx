@@ -26,6 +26,7 @@ export function BlogPostHero({
         />
       }
       description={metadata.description}
+      descriptionRichText={metadata.descriptionRichText}
       thumbnail={metadata.thumbnail}
       blurDataURL={metadata.blurDataURL}
     />

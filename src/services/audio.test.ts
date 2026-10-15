@@ -73,6 +73,7 @@ const sampleMetadata = {
   title: "Hello",
   slug: "hello",
   description: "",
+  descriptionRichText: [],
   published_date: "2026-01-01",
   updated_date: "2026-01-01",
   path: "",

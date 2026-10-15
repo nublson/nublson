@@ -14,6 +14,7 @@ function post(overrides: Partial<PostMetadata>): PostMetadata {
     title: "",
     slug: "",
     description: "",
+    descriptionRichText: [],
     published_date: "",
     updated_date: "",
     path: "",

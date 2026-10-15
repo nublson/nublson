@@ -358,6 +358,26 @@ describe("formatPageMetadata", () => {
 // ---------------------------------------------------------------------------
 
 describe("formatPostMetadata", () => {
+  it("keeps the description's rich text and joins every segment as plain text", () => {
+    const [post] = formatPostMetadata([
+      makePage({
+        properties: {
+          Name: { type: "title", title: [{ plain_text: "Post" }] },
+          Description: {
+            type: "rich_text",
+            rich_text: [
+              { plain_text: "Read it on ", href: null },
+              { plain_text: "Substack", href: "https://nublson.substack.com" },
+              { plain_text: ".", href: null },
+            ],
+          },
+        },
+      }),
+    ]);
+    expect(post.description).toBe("Read it on Substack.");
+    expect(post.descriptionRichText).toHaveLength(3);
+  });
+
   it("returns an empty array for empty input", () => {
     expect(formatPostMetadata([])).toEqual([]);
   });
