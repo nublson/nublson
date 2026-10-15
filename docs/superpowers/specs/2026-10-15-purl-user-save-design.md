@@ -67,7 +67,7 @@ Each unit is browser-only, pure where possible, and independently testable.
   mode degrades to "not connected":
   - `localStorage` key `purl:tokens` → `{ accessToken, refreshToken?, expiresAt }`
   - `sessionStorage` key `purl:pending` → `{ state, verifier, returnPath, url }`
-  - `sessionStorage` key `purl:result` → `"saved" | "limit" | "error:<message>"`
+  - `sessionStorage` key `purl:result` → JSON `{ status: "saved" } | { status: "limit" } | { status: "error", message }`
     (one-shot, consumed on read)
 - `oauth.ts` — `startConnect(url)` (builds pending record, redirects tab),
   `completeConnect(searchParams)` (validates `state`, exchanges code),
@@ -87,8 +87,13 @@ Each unit is browser-only, pure where possible, and independently testable.
    `/purl/callback?code=…&state=…` (or `?error=access_denied`).
 3. `/purl/callback` (client page, `noindex`, shows a short "Connecting to
    Purl…" state):
-   - read and delete `purl:pending`; missing or `state` mismatch → write
-     `purl:result = error:…`, redirect to `/`.
+   - read and delete `purl:pending`.
+     - **Missing** (callback reloaded or opened directly): go to `/` silently
+       and write **no** `purl:result`. `/` renders no `PostReactions`, so a
+       stored result would go unread and surface later as a stale error on an
+       unrelated post.
+     - **`state` mismatch**: write `purl:result = error`, redirect to the
+       stored `returnPath`.
    - `error` param (denied) → write `purl:result = error:Purl access was not
      allowed.`, redirect to `returnPath`.
    - exchange code (`grant_type=authorization_code`, `code_verifier`,
@@ -125,7 +130,8 @@ Each unit is browser-only, pure where possible, and independently testable.
 | `403` + `LIMIT_REACHED` | button error: "Purl link limit reached. Remove a saved link to add more." |
 | Network failure / 15 s timeout | existing messages |
 | Consent denied | back on post, error "Purl access was not allowed." |
-| Invalid `state` or lost `purl:pending` | home page, error toast via `purl:result` |
+| Invalid `state` | back on the post, error via `purl:result` |
+| Lost `purl:pending` (reloaded callback) | home page, silently, no result stored |
 | Storage unavailable | treated as not connected; connect can still run but the callback cannot finish, so show the error rather than loop |
 
 ### Security notes
