@@ -1,6 +1,5 @@
 import { AboutContent } from "@/app/_components/about-content";
 import { AboutHero } from "@/app/_components/about-hero";
-import { ElsewhereList } from "@/components/social-links";
 import { getPageBlocks, getPageData } from "@/services/notion";
 import { formatPageMetadata } from "@/utils/formatter";
 import { metadataFromNotionPageId } from "@/utils/metadata";
@@ -26,7 +25,6 @@ export default async function AboutPage() {
     <section className="article-layout">
       <AboutHero metadata={heroMetadata} />
       <AboutContent blocks={pageBlocks} />
-      <ElsewhereList />
     </section>
   );
 }

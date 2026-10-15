@@ -1,7 +1,6 @@
-import { SectionWrapper } from "@/components/section-wrapper";
-import { socialHandle, socialProfiles } from "@/utils/social-profiles";
+import { socialProfiles } from "@/utils/social-profiles";
 import { Fragment } from "react";
-import { FaviconLink, SocialIcon } from "./favicon-link";
+import { FaviconLink } from "./favicon-link";
 import { Typography } from "./typography";
 
 /** "Find me on [GitHub], [YouTube] and [Instagram]." */
@@ -18,32 +17,5 @@ export function SocialLinks() {
       ))}
       .
     </Typography>
-  );
-}
-
-export function ElsewhereList() {
-  return (
-    <SectionWrapper title="Elsewhere" id="elsewhere">
-      <ul className="-mx-2.5 flex flex-col gap-1">
-        {socialProfiles.map((profile) => (
-          <li key={profile.label}>
-            <a
-              href={profile.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="press flex items-baseline justify-between gap-4 rounded-lg px-2.5 py-2 hover:bg-muted"
-            >
-              <span className="flex items-center gap-2 text-foreground">
-                <SocialIcon label={profile.label} />
-                {profile.label}
-              </span>
-              <span className="text-subtle-foreground">
-                {socialHandle(profile.url)}
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </SectionWrapper>
   );
 }

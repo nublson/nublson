@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  findSocialProfile,
-  socialHandle,
-  socialProfiles,
-} from "./social-profiles";
+import { findSocialProfile, socialProfiles } from "./social-profiles";
 
 describe("findSocialProfile", () => {
   it("matches a profile by hostname", () => {
@@ -19,16 +15,16 @@ describe("findSocialProfile", () => {
     );
   });
 
+  it("recognises Substack links without adding Substack to the Home profiles", () => {
+    expect(findSocialProfile("https://nublson.substack.com/p/hello")?.label).toBe(
+      "Substack",
+    );
+    expect(socialProfiles.map((p) => p.label)).not.toContain("Substack");
+  });
+
   it("returns null for unknown or malformed URLs", () => {
     expect(findSocialProfile("https://example.com")).toBeNull();
     expect(findSocialProfile("not a url")).toBeNull();
-  });
-});
-
-describe("socialHandle", () => {
-  it("returns the last path segment as an @handle", () => {
-    expect(socialHandle("https://www.youtube.com/@nublson")).toBe("@nublson");
-    expect(socialHandle("https://github.com/nublson")).toBe("@nublson");
   });
 });
 

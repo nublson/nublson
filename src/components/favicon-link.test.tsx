@@ -12,6 +12,17 @@ describe("FaviconLink", () => {
   });
 });
 
+describe("FaviconLink icons", () => {
+  it("renders the Substack mark for Substack links", () => {
+    render(
+      <FaviconLink href="https://nublson.substack.com" label="Substack" />,
+    );
+    expect(
+      screen.getByRole("link", { name: "Substack" }).querySelector("svg"),
+    ).not.toBeNull();
+  });
+});
+
 describe("FaviconLink wrapping", () => {
   it("lets long custom link text wrap so it can't overflow narrow screens", () => {
     render(

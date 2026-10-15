@@ -6,6 +6,14 @@ export const socialProfiles: SocialProfile[] = social.media.map(
   ({ label, url }) => ({ label, url }),
 );
 
+/**
+ * Profiles that get a favicon wherever they're linked (About, articles) but
+ * stay out of Home's "Find me on…" line.
+ */
+const linkOnlyProfiles: SocialProfile[] = [
+  { label: "Substack", url: "https://nublson.substack.com" },
+];
+
 function hostOf(url: string): string | null {
   try {
     return new URL(url).hostname.toLowerCase().replace(/^www\./, "");
@@ -18,11 +26,9 @@ function hostOf(url: string): string | null {
 export function findSocialProfile(url: string): SocialProfile | null {
   const host = hostOf(url);
   if (!host) return null;
-  return socialProfiles.find((profile) => hostOf(profile.url) === host) ?? null;
-}
-
-/** "@nublson" from a profile URL. */
-export function socialHandle(url: string): string {
-  const segment = new URL(url).pathname.split("/").filter(Boolean).pop() ?? "";
-  return `@${segment.replace(/^@/, "")}`;
+  return (
+    [...socialProfiles, ...linkOnlyProfiles].find(
+      (profile) => hostOf(profile.url) === host,
+    ) ?? null
+  );
 }
