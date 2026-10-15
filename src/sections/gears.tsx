@@ -1,6 +1,5 @@
 import { ProjectItem } from "@/components/project-item";
 import { SectionWrapper } from "@/components/section-wrapper";
-import { cn } from "@/lib/utils";
 import { PostMetadata } from "@/utils/formatter";
 
 interface GearsSectionProps {
@@ -8,7 +7,6 @@ interface GearsSectionProps {
   href?: string;
   id: string;
   posts: PostMetadata[];
-  className?: string;
 }
 
 export default function GearsSection({
@@ -16,22 +14,24 @@ export default function GearsSection({
   href,
   id,
   posts,
-  className,
 }: GearsSectionProps) {
   return (
     <SectionWrapper title={title} path={href} id={id}>
-      <div className={cn("w-full", className)}>
+      <ul className="-mx-2.5 flex flex-col gap-1">
         {posts.map((post) => (
-          <a
-            className="h-min"
-            href={post.path}
-            key={post.id}
-            aria-label={`${post.title} — view gear item`}
-          >
-            <ProjectItem post={post} />
-          </a>
+          <li key={post.id}>
+            <a
+              href={post.path}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-lg"
+              aria-label={`${post.title} — view gear item`}
+            >
+              <ProjectItem post={post} />
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
     </SectionWrapper>
   );
 }

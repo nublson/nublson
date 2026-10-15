@@ -1,50 +1,29 @@
-import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
 
 interface ProjectsSectionSkeletonProps {
-  cardCount?: number;
-  gridClassName: string;
+  rowCount?: number;
   showViewAll?: boolean;
 }
 
 export function ProjectsSectionSkeleton({
-  cardCount = 3,
-  gridClassName,
+  rowCount = 3,
   showViewAll = false,
 }: ProjectsSectionSkeletonProps) {
   return (
-    <section className="flex w-full flex-col items-center justify-start gap-8 pb-5">
-      <div className="flex w-full flex-col items-start justify-start gap-2">
-        <div className="flex w-full items-center justify-between">
-          <Skeleton className="h-8 w-40 rounded-lg" />
-          {showViewAll && <Skeleton className="h-4 w-16 rounded-md" />}
-        </div>
-        <Separator />
+    <section aria-hidden className="flex w-full flex-col gap-3.5">
+      <div className="flex w-full items-center justify-between">
+        <Skeleton className="h-4 w-16 rounded" />
+        {showViewAll && <Skeleton className="h-4 w-6 rounded" />}
       </div>
-
-      <div
-        className={cn(
-          "grid w-full auto-rows-fr justify-center gap-5",
-          gridClassName,
-        )}
-      >
-        {Array.from({ length: cardCount }).map((_, i) => (
-          <ProjectCardSkeleton key={i} />
+      <div className="flex flex-col gap-1">
+        {Array.from({ length: rowCount }).map((_, i) => (
+          <div key={i} className="grid grid-cols-[20px_1fr] gap-x-3 py-2">
+            <Skeleton className="size-5 rounded-[5px]" />
+            <Skeleton className="h-4 w-24 rounded" />
+            <Skeleton className="col-start-2 mt-1.5 h-4 w-[min(100%,320px)] rounded" />
+          </div>
         ))}
       </div>
     </section>
-  );
-}
-
-function ProjectCardSkeleton() {
-  return (
-    <div className="flex w-full flex-col items-start gap-2.5">
-      <Skeleton className="aspect-4/3 w-full rounded-lg" />
-      <div className="flex w-full flex-col gap-2">
-        <Skeleton className="h-5 w-4/5 rounded-md" />
-        <Skeleton className="h-4 w-full max-w-[240px] rounded-md" />
-      </div>
-    </div>
   );
 }

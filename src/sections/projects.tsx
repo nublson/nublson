@@ -1,6 +1,5 @@
 import { ProjectItem } from "@/components/project-item";
 import { SectionWrapper } from "@/components/section-wrapper";
-import { cn } from "@/lib/utils";
 import { PostMetadata } from "@/utils/formatter";
 import Link from "next/link";
 
@@ -9,7 +8,6 @@ interface ProjectsSectionProps {
   href?: string;
   id: string;
   posts: PostMetadata[];
-  className?: string;
 }
 
 export default function ProjectsSection({
@@ -17,22 +15,22 @@ export default function ProjectsSection({
   href,
   id,
   posts,
-  className,
 }: ProjectsSectionProps) {
   return (
     <SectionWrapper title={title} path={href} id={id}>
-      <div className={cn("w-full", className)}>
+      <ul className="-mx-2.5 flex flex-col gap-1">
         {posts.map((post) => (
-          <Link
-            className="h-min"
-            href={`/projects/${post.slug}`}
-            key={post.id}
-            aria-label={`${post.title} — view project`}
-          >
-            <ProjectItem post={post} />
-          </Link>
+          <li key={post.id}>
+            <Link
+              href={`/projects/${post.slug}`}
+              className="block rounded-lg"
+              aria-label={`${post.title} — view project`}
+            >
+              <ProjectItem post={post} />
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </SectionWrapper>
   );
 }

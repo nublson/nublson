@@ -27,11 +27,7 @@ export default async function Home() {
       <HomeHero metadata={heroMetadata} />
       <Suspense
         fallback={
-          <ProjectsSectionSkeleton
-            cardCount={3}
-            gridClassName="grid-cols-[repeat(auto-fill,minmax(240px,1fr))]"
-            showViewAll
-          />
+          <ProjectsSectionSkeleton rowCount={3} showViewAll />
         }
       >
         <HomeProjects />

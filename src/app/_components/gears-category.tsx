@@ -32,14 +32,13 @@ export async function GearsCategory() {
   const uniqueCategories = [...new Set(categories)];
 
   return (
-    <div className="w-full flex flex-col items-start justify-start gap-[60px]">
+    <div className="w-full flex flex-col items-stretch justify-start gap-14">
       {uniqueCategories.map((category) => (
         <GearsSection
           key={category}
           title={category}
           id={category}
           posts={gearsPostMetadata.filter((post) => post.category === category)}
-          className="grid auto-rows-fr grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4"
         />
       ))}
     </div>

@@ -34,10 +34,7 @@ export default async function GearsPage() {
       <GearsBody blocks={pageBlocks} />
       <Suspense
         fallback={
-          <ProjectsSectionSkeleton
-            cardCount={12}
-            gridClassName="grid auto-rows-fr grid-cols-2 gap-5 md:grid-cols-3"
-          />
+          <ProjectsSectionSkeleton rowCount={8} />
         }
       >
         <GearsCategory />
