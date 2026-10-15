@@ -31,7 +31,7 @@ export function ElsewhereList() {
               href={profile.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-baseline justify-between gap-4 rounded-lg px-2.5 py-2 transition-colors duration-150 ease-(--ease-out) hover:bg-muted"
+              className="press flex items-baseline justify-between gap-4 rounded-lg px-2.5 py-2 hover:bg-muted"
             >
               <span className="flex items-center gap-2 text-foreground">
                 <SocialIcon label={profile.label} />

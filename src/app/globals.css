@@ -246,3 +246,73 @@ body {
 .article-layout > :nth-child(4) { animation-delay: 180ms; }
 .article-layout > :nth-child(5) { animation-delay: 240ms; }
 .article-layout > :nth-child(n + 6) { animation-delay: 300ms; }
+
+/*
+ * Streamed sections (Suspense content) replace their skeleton as a new node,
+ * so they fade in once, opacity only, instead of replaying the page entrance.
+ * Skeletons don't animate at all; a nested streamed section rides its parent.
+ */
+@keyframes stream-in {
+  from {
+    opacity: 0;
+  }
+}
+
+[data-stream],
+.article-layout > [data-stream] {
+  animation: stream-in 200ms var(--ease-out) both;
+}
+[data-stream] [data-stream],
+.article-layout > [data-skeleton] {
+  animation: none;
+}
+
+/* Press feedback on full-width rows: 0.98, not 0.96, so a wide row doesn't jump. */
+.press {
+  transition:
+    scale 160ms var(--ease-out),
+    background-color 150ms var(--ease-out),
+    color 150ms var(--ease-out);
+}
+.press:active {
+  scale: 0.98;
+}
+
+/* Directional nudges: the arrow moves the way the link goes. */
+.nudge-back,
+.nudge-out {
+  display: inline-block;
+  transition:
+    translate 150ms var(--ease-out),
+    color 150ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a:hover .nudge-back {
+    translate: -2px 0;
+  }
+  a:hover .nudge-out {
+    translate: 1px -1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .press:active {
+    scale: none;
+  }
+  a:hover .nudge-back,
+  a:hover .nudge-out {
+    translate: none;
+  }
+}
+
+/* Covers fade in over their blur placeholder; never hidden without scripting. */
+@media (scripting: enabled) {
+  .fade-in-image {
+    opacity: 0;
+    transition: opacity 300ms var(--ease-out);
+  }
+  .fade-in-image[data-loaded] {
+    opacity: 1;
+  }
+}

@@ -24,7 +24,7 @@ export default function GearsSection({
               href={post.path}
               target="_blank"
               rel="noopener noreferrer"
-              className="block rounded-lg"
+              className="press block rounded-lg"
               aria-label={`${post.title} — view gear item`}
             >
               <ProjectItem post={post} />

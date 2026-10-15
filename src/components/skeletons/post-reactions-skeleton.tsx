@@ -18,7 +18,11 @@ export function PostReactionsSkeleton({
   ...props
 }: PostReactionsSkeletonProps) {
   return (
-    <div className={cn("flex w-full flex-col gap-2", className)} {...props}>
+    <div
+      data-skeleton
+      className={cn("flex w-full flex-col gap-2", className)}
+      {...props}
+    >
       {children}
       <div className="flex w-full items-center justify-between gap-3 border-t border-border pt-4">
         {trackViews ? <Skeleton className="h-4 w-16 rounded" /> : <span />}

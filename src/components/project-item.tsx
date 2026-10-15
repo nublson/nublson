@@ -25,7 +25,7 @@ export function ProjectItem({
           <ArrowUpRight
             aria-hidden
             strokeWidth={1.5}
-            className="size-3.5 shrink-0 text-subtle-foreground transition-colors duration-150 ease-(--ease-out) group-hover/row:text-foreground"
+            className="nudge-out size-3.5 shrink-0 text-subtle-foreground group-hover/row:text-foreground"
           />
         )}
       </span>

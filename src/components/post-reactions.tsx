@@ -434,7 +434,7 @@ export function PostReactions({
   const { likes, dislikes, userReaction } = summary;
 
   return (
-    <div className="flex w-full flex-col gap-2">
+    <div data-stream className="flex w-full flex-col gap-2">
       <div className="flex w-full flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
         {trackViews ? (
           <Typography component="span" className="text-subtle-foreground tabular-nums">

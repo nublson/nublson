@@ -30,7 +30,7 @@ function PostRows({
           <Link
             href={`/writings/${post.slug}`}
             aria-label={`${post.title} — read post`}
-            className="group/row flex items-baseline justify-between gap-4 py-2.5"
+            className="press group/row flex items-baseline justify-between gap-4 py-2.5"
           >
             <span className="min-w-0 text-foreground transition-colors duration-150 ease-(--ease-out) group-hover/list:text-subtle-foreground group-hover/row:text-foreground!">
               {post.title}

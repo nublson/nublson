@@ -4,7 +4,10 @@ import type { ReactNode } from "react";
 export function BackLink({ href, label }: { href: string; label: string }) {
   return (
     <Link href={href} className="link inline-flex w-fit items-center gap-1.5">
-      <span aria-hidden>←</span> {label}
+      <span aria-hidden className="nudge-back">
+        ←
+      </span>{" "}
+      {label}
     </Link>
   );
 }

@@ -28,7 +28,7 @@ export default function ProjectsSection({
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block rounded-lg"
+                  className="press block rounded-lg"
                 >
                   <ProjectItem post={post} clampDescription external />
                   <span className="sr-only"> (opens in a new tab)</span>

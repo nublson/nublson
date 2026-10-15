@@ -12,7 +12,11 @@ export function PostsSectionSkeleton({
   groupByYear = false,
 }: PostsSectionSkeletonProps) {
   return (
-    <section aria-hidden className="flex w-full flex-col gap-3.5">
+    <section
+      aria-hidden
+      data-skeleton
+      className="flex w-full flex-col gap-3.5"
+    >
       <div className="flex w-full items-center justify-between">
         <Skeleton className="h-4 w-16 rounded" />
         {showViewAll && <Skeleton className="h-4 w-6 rounded" />}

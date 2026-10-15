@@ -32,7 +32,10 @@ export async function GearsCategory() {
   const uniqueCategories = [...new Set(categories)];
 
   return (
-    <div className="w-full flex flex-col items-stretch justify-start gap-14">
+    <div
+      data-stream
+      className="w-full flex flex-col items-stretch justify-start gap-14"
+    >
       {uniqueCategories.map((category) => (
         <GearsSection
           key={category}

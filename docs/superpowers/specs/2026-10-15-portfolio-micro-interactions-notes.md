@@ -2,7 +2,7 @@
 
 Date: 2026-10-15
 Source: `find-animation-opportunities` sweep of the rebuilt UI (branch `claude/portfolio-visual-rebuild-e0e863`).
-Status: input for the micro-interactions follow-up (spec Open item 2). Nothing here is implemented yet.
+Status: implemented on 2026-10-15 (rows 1–4, adapted: row 3 also nudges the project ↗; row 1 also stops skeletons replaying the entrance), plus a theme toggle swap to the contextual icon recipe (scale 0.25→1, blur 4px→0, opacity, `cubic-bezier(0.2, 0, 0, 1)`, 200ms).
 
 Existing motion vocabulary to extend: `--ease-out: cubic-bezier(0.23, 1, 0.32, 1)` in `src/app/globals.css`, 150ms color/background hovers, the `page-enter` stagger on `.article-layout`, and the reactions pill's own transitions.
 
