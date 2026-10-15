@@ -77,7 +77,7 @@ export default async function BlogPostPage({
       <Suspense fallback={<PostReactionsSkeleton trackViews enableAudio />}>
         <PostReactionsLoader params={params} media="Blog" />
       </Suspense>
-      <Suspense fallback={<PostsSectionSkeleton rowCount={4} />}>
+      <Suspense fallback={<PostsSectionSkeleton rowCount={3} showViewAll />}>
         <MorePosts params={params} />
       </Suspense>
     </>

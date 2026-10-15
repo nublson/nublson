@@ -22,7 +22,7 @@ export default async function BlogPage() {
   return (
     <section className="article-layout">
       <BlogHero metadata={heroMetadata} />
-      <Suspense fallback={<PostsSectionSkeleton rowCount={6} />}>
+      <Suspense fallback={<PostsSectionSkeleton rowCount={6} groupByYear />}>
         <BlogPosts />
       </Suspense>
     </section>
