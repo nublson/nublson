@@ -46,7 +46,7 @@ a new `--subtle-foreground` covers the tertiary gray.
 - Display: Newsreader via `next/font/google`, weight 500. Used only for the name on Home, page
   titles (20px / 26px) and article titles (28px / 34px, 24px on phones).
 - Article body: 15px / 26px, max about 64ch. In-body `h2` is 15px sans, weight 600.
-- Geist is removed. `Typography` variants are rewritten to this scale (`h1` article title, `h2` page
+- Geist Sans is removed (Geist Mono stays for code). `Typography` variants are rewritten to this scale (`h1` article title, `h2` page
   title, `h3` in-body heading, `regular` 14px, `small` 13px for meta).
 
 ### Layout
@@ -74,7 +74,7 @@ a new `--subtle-foreground` covers the tertiary gray.
 | `PostList` (replaces `PostItem` rows) | One row style for every list of posts: title left, date right in tertiary gray, hairlines between rows and above/below the list, hovering a row dims its siblings. `groupByYear` prop: on the Writing index posts are grouped with the year in a 64px left column and dates as `dd/mm`. On Home "Writing" and article "More posts" there is no year column (it would hold one value and push titles off the section's left edge); dates show `dd/mm` for the current year and `dd/mm/yy` otherwise. |
 | Projects / Gears index | Full list of `ProjectItem` rows. Gears grouped by category with muted labels. |
 | About | Serif page title, Notion body as prose, "Elsewhere" list with favicon rows. |
-| Article (`/writings/[slug]`, `/projects/[slug]`) | "← Writing" (or "← Projects") back link, serif title, meta line (date · category · read time), description as lede, cover image (10px radius, inset ring), body, footer row with view count left and reactions right, then **More posts** (three latest, excluding current) as a `PostList`. |
+| Article (`/writings/[slug]`, `/projects/[slug]`) | "← Writing" (or "← Projects") back link, serif title, meta line (date · category), description as lede, cover image (10px radius, inset ring), body, the existing floating reactions pill (views, like/dislike, listen, Purl, share) restyled through tokens only, then **More posts** (three latest, excluding current) as a `PostList`. |
 | Content blocks | Re-pointed to the new type scale; headings smaller, paragraphs 15px, callouts use tile fill. |
 | Skeletons | Rebuilt to match the new row shapes. |
 
@@ -105,9 +105,10 @@ agent files, reactions API, views API, speech/audio API, Purl OAuth flow.
 
 ## Open items (decide before or during implementation)
 
-1. **Listen to post (speech mode) and Save with Purl placement.** Both exist today. Their position in
-   the new article layout is to be discussed. Until decided, they render in the article footer row
-   next to reactions, restyled as ghost buttons in the new style.
+1. **Reactions, views, Listen to post and Save with Purl placement.** All five live today in one
+   sticky floating pill (`src/components/post-reactions.tsx`). Where they go in the new article layout
+   is to be discussed (the mockup's footer row is one option). Until decided, the pill keeps its
+   current position and behavior and only picks up the new color tokens.
 2. **Micro-interactions pass.** A follow-up focused on design engineering details (press states,
    copy feedback, link hover affordances, theme toggle transition). Not part of this rebuild.
 
