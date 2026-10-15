@@ -17,7 +17,7 @@ export function ProjectItem({
   external = false,
 }: ProjectItemProps) {
   return (
-    <span className="group/row grid grid-cols-[20px_1fr] items-center gap-x-3 rounded-lg px-2.5 py-2 transition-colors duration-150 ease-(--ease-out) hover:bg-muted">
+    <span className="group/row grid grid-cols-[16px_1fr] items-center gap-x-3 rounded-lg px-2.5 py-2 transition-colors duration-150 ease-(--ease-out) hover:bg-muted">
       <ProjectIcon post={post} />
       <span className="flex min-w-0 items-center gap-1 font-medium text-foreground">
         {post.title}

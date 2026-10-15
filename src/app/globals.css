@@ -225,11 +225,6 @@ body {
   @apply text-subtle-foreground transition-colors duration-150 ease-(--ease-out) hover:text-foreground;
 }
 
-/* Small square tile for project icons. */
-.tile {
-  @apply grid size-5 shrink-0 place-items-center overflow-hidden rounded-[5px] bg-card shadow-[inset_0_0_0_1px_var(--image-outline)];
-}
-
 .article-layout {
   @apply w-full flex flex-col items-start justify-start gap-14 max-md:gap-12;
 }
