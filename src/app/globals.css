@@ -17,9 +17,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-newsreader);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -40,6 +40,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
@@ -60,28 +61,34 @@
 
 body {
   font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: -0.006em;
+  font-feature-settings: "cv11", "ss01";
 }
 
 :root {
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(0.97 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.205 0 0);
+  --card: oklch(0.955 0 0);
+  --card-foreground: oklch(0.205 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.205 0 0);
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: oklch(0.961 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --muted: oklch(0.961 0 0);
+  --muted-foreground: oklch(0.439 0 0);
+  --subtle-foreground: oklch(0.55 0 0);    /* 4.65:1 on background */
+  --accent: oklch(0.961 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
+  --border: oklch(0.94 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.6 0 0);
+  --ring: oklch(0.556 0 0);                /* focus ring, 4.5:1 on background */
+  --image-outline: oklch(0 0 0 / 0.1);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -99,24 +106,26 @@ body {
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
+  --background: oklch(0.178 0 0);
+  --foreground: oklch(0.946 0 0);
+  --card: oklch(0.218 0 0);
+  --card-foreground: oklch(0.946 0 0);
+  --popover: oklch(0.218 0 0);
+  --popover-foreground: oklch(0.946 0 0);
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.218 0 0);
+  --secondary-foreground: oklch(0.946 0 0);
+  --muted: oklch(0.218 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --subtle-foreground: oklch(0.64 0 0);    /* 5.61:1 on background */
+  --accent: oklch(0.218 0 0);
+  --accent-foreground: oklch(0.946 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --border: oklch(0.248 0 0);
+  --input: oklch(0.27 0 0);
+  --ring: oklch(0.7 0 0);
+  --image-outline: oklch(1 0 0 / 0.1);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -201,24 +210,109 @@ body {
 }
 
 .wrapper {
-  @apply w-full max-w-[840px] mx-auto px-5;
+  @apply w-full max-w-[672px] mx-auto px-4;
 }
 
 .thumbnail {
-  @apply w-full h-auto object-cover rounded-lg;
+  @apply w-full h-auto object-cover rounded-[10px];
 }
 
 .list-content {
-  @apply w-full my-6 pl-6 [&>li]:mt-2;
+  @apply w-full pl-5 [&>li]:mt-1.5;
 }
 
 .link {
-  @apply text-muted-foreground hover:text-accent-foreground transition-colors duration-300;
-  &:hover {
-    @apply text-accent-foreground;
-  }
+  @apply text-subtle-foreground transition-colors duration-150 ease-(--ease-out) hover:text-foreground;
 }
 
 .article-layout {
-  @apply w-full flex flex-col items-start justify-start gap-10 lg:gap-[60px];
+  @apply w-full flex flex-col items-start justify-start gap-14 max-md:gap-12;
+}
+
+/* Entrance: top-level page blocks rise in, 60ms apart. CSS only, so it runs without JS. */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(2px);
+  }
+}
+
+.article-layout > * {
+  animation: page-enter 500ms var(--ease-out) both;
+}
+.article-layout > :nth-child(2) { animation-delay: 60ms; }
+.article-layout > :nth-child(3) { animation-delay: 120ms; }
+.article-layout > :nth-child(4) { animation-delay: 180ms; }
+.article-layout > :nth-child(5) { animation-delay: 240ms; }
+.article-layout > :nth-child(n + 6) { animation-delay: 300ms; }
+
+/*
+ * Streamed sections (Suspense content) replace their skeleton as a new node,
+ * so they fade in once, opacity only, instead of replaying the page entrance.
+ * Skeletons don't animate at all; a nested streamed section rides its parent.
+ */
+@keyframes stream-in {
+  from {
+    opacity: 0;
+  }
+}
+
+[data-stream],
+.article-layout > [data-stream] {
+  animation: stream-in 200ms var(--ease-out) both;
+}
+[data-stream] [data-stream],
+.article-layout > [data-skeleton] {
+  animation: none;
+}
+
+/* Press feedback on full-width rows: 0.98, not 0.96, so a wide row doesn't jump. */
+.press {
+  transition:
+    scale 160ms var(--ease-out),
+    background-color 150ms var(--ease-out),
+    color 150ms var(--ease-out);
+}
+.press:active {
+  scale: 0.98;
+}
+
+/* Directional nudges: the arrow moves the way the link goes. */
+.nudge-back,
+.nudge-out {
+  display: inline-block;
+  transition:
+    translate 150ms var(--ease-out),
+    color 150ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a:hover .nudge-back {
+    translate: -2px 0;
+  }
+  a:hover .nudge-out {
+    translate: 1px -1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .press:active {
+    scale: none;
+  }
+  a:hover .nudge-back,
+  a:hover .nudge-out {
+    translate: none;
+  }
+}
+
+/* Covers fade in over their blur placeholder; never hidden without scripting. */
+@media (scripting: enabled) {
+  .fade-in-image {
+    opacity: 0;
+    transition: opacity 300ms var(--ease-out);
+  }
+  .fade-in-image[data-loaded] {
+    opacity: 1;
+  }
 }

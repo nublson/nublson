@@ -1,4 +1,6 @@
 import { getAllPublishedPostsForFeed } from "@/services/notion";
+import { projectPublicUrl } from "@/utils/project-links";
+import { SITE_DESCRIPTION } from "@/utils/site";
 
 export const revalidate = 10;
 
@@ -10,7 +12,10 @@ function formatSection(
   if (posts.length === 0) return "";
 
   const lines = posts.map((post) => {
-    const url = `${base}${pathPrefix}/${post.slug}`;
+    const url =
+      pathPrefix === "/projects"
+        ? projectPublicUrl(base, post)
+        : `${base}${pathPrefix}/${post.slug}`;
     const description = post.description ? `: ${post.description}` : "";
     return `- [${post.title}](${url})${description}`;
   });
@@ -29,7 +34,7 @@ export async function GET() {
 
   const sections = [
     "# Nubelson Fernandes",
-    "> Designer and developer sharing work, writing, and tools.",
+    `> ${SITE_DESCRIPTION}`,
     "",
     "## Writing",
     formatSection(base, "/writings", blogPosts),

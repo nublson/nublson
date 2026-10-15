@@ -5,10 +5,15 @@ import {
   formatPostDate,
   formatPostDateFull,
   formatCompactCount,
+  formatViewCount,
   getListBlockItems,
   formatBlockWithChildren,
   formatPageMetadata,
   formatPostMetadata,
+  formatPostDayMonth,
+  formatPostDateCompact,
+  groupPostsByYear,
+  formatPageIcon,
 } from "./formatter";
 
 // ---------------------------------------------------------------------------
@@ -75,6 +80,16 @@ describe("formatPostDateFull", () => {
     expect(result).toMatch(/19/);
     expect(result).toMatch(/Sep/);
     expect(result).toMatch(/2024/);
+  });
+
+  it("uses the calendar day written in the Notion string, ignoring timezone", () => {
+    expect(formatPostDateFull("2026-01-01T00:30:00.000+01:00")).toBe(
+      "Jan 1, 2026",
+    );
+  });
+
+  it("returns an empty string for an empty date instead of Invalid Date", () => {
+    expect(formatPostDateFull("")).toBe("");
   });
 });
 
@@ -190,6 +205,48 @@ describe("formatBlockWithChildren", () => {
 // ---------------------------------------------------------------------------
 
 describe("formatPageMetadata", () => {
+  it("joins every rich text segment of the description, not just the first", () => {
+    const page = makePage({
+      properties: {
+        Name: { type: "title", title: [{ plain_text: "Home" }] },
+        description: {
+          type: "rich_text",
+          rich_text: [
+            { plain_text: "Find me on ", href: null },
+            { plain_text: "GitHub", href: "https://github.com/nublson" },
+            { plain_text: ".", href: null },
+          ],
+        },
+      },
+    });
+    const result = formatPageMetadata(page);
+    expect(result.description).toBe("Find me on GitHub.");
+    expect(result.descriptionRichText).toHaveLength(3);
+    expect(result.descriptionRichText[1].href).toBe("https://github.com/nublson");
+  });
+
+  it("collapses paragraph breaks into single spaces in the plain description", () => {
+    const page = makePage({
+      properties: {
+        Name: { type: "title", title: [{ plain_text: "Home" }] },
+        description: {
+          type: "rich_text",
+          rich_text: [{ plain_text: "I build software.\n\nFind me on GitHub.", href: null }],
+        },
+      },
+    });
+    expect(formatPageMetadata(page).description).toBe(
+      "I build software. Find me on GitHub.",
+    );
+  });
+
+  it("returns an empty rich text list when there is no description", () => {
+    const page = makePage({
+      properties: { Name: { type: "title", title: [{ plain_text: "Home" }] } },
+    });
+    expect(formatPageMetadata(page).descriptionRichText).toEqual([]);
+  });
+
   it("extracts id, title and generates a slug", () => {
     const page = makePage();
     const result = formatPageMetadata(page);
@@ -301,6 +358,26 @@ describe("formatPageMetadata", () => {
 // ---------------------------------------------------------------------------
 
 describe("formatPostMetadata", () => {
+  it("keeps the description's rich text and joins every segment as plain text", () => {
+    const [post] = formatPostMetadata([
+      makePage({
+        properties: {
+          Name: { type: "title", title: [{ plain_text: "Post" }] },
+          Description: {
+            type: "rich_text",
+            rich_text: [
+              { plain_text: "Read it on ", href: null },
+              { plain_text: "Substack", href: "https://nublson.substack.com" },
+              { plain_text: ".", href: null },
+            ],
+          },
+        },
+      }),
+    ]);
+    expect(post.description).toBe("Read it on Substack.");
+    expect(post.descriptionRichText).toHaveLength(3);
+  });
+
   it("returns an empty array for empty input", () => {
     expect(formatPostMetadata([])).toEqual([]);
   });
@@ -375,5 +452,135 @@ describe("formatPostMetadata", () => {
     expect(results).toHaveLength(2);
     expect(results[0].title).toBe("Alpha");
     expect(results[1].title).toBe("Beta");
+  });
+});
+
+describe("formatPostDayMonth", () => {
+  it("formats a plain date as dd/mm", () => {
+    expect(formatPostDayMonth("2026-06-25")).toBe("25/06");
+  });
+
+  it("uses the calendar day written in the Notion string, ignoring timezone", () => {
+    expect(formatPostDayMonth("2026-01-01T00:30:00.000+01:00")).toBe("01/01");
+  });
+
+  it("returns an empty string for an empty or invalid date", () => {
+    expect(formatPostDayMonth("")).toBe("");
+    expect(formatPostDayMonth("not a date")).toBe("");
+  });
+});
+
+describe("formatPostDateCompact", () => {
+  it("omits the year for the current year", () => {
+    expect(formatPostDateCompact("2026-06-25T15:20:00.000+01:00", 2026)).toBe(
+      "25/06",
+    );
+  });
+
+  it("adds a two-digit year for other years", () => {
+    expect(formatPostDateCompact("2025-12-12", 2026)).toBe("12/12/25");
+  });
+
+  it("returns an empty string for an empty date", () => {
+    expect(formatPostDateCompact("", 2026)).toBe("");
+  });
+});
+
+describe("groupPostsByYear", () => {
+  const post = (id: string, published_date: string) =>
+    ({ id, published_date }) as unknown as Parameters<
+      typeof groupPostsByYear
+    >[0][number];
+
+  it("groups posts by year and keeps input order", () => {
+    const groups = groupPostsByYear([
+      post("a", "2026-06-25"),
+      post("b", "2026-05-28"),
+      post("c", "2025-12-12"),
+    ]);
+    expect(groups.map((g) => g.year)).toEqual(["2026", "2025"]);
+    expect(groups[0].posts.map((p) => p.id)).toEqual(["a", "b"]);
+    expect(groups[1].posts.map((p) => p.id)).toEqual(["c"]);
+  });
+
+  it("puts undated posts in a group with an empty year", () => {
+    const groups = groupPostsByYear([post("a", "2026-06-25"), post("b", "")]);
+    expect(groups.map((g) => g.year)).toEqual(["2026", ""]);
+  });
+
+  it("returns no groups for no posts", () => {
+    expect(groupPostsByYear([])).toEqual([]);
+  });
+});
+
+describe("formatPageIcon", () => {
+  it("returns an emoji icon", () => {
+    expect(
+      formatPageIcon(makePage({ icon: { type: "emoji", emoji: "🪶" } })),
+    ).toEqual({ type: "emoji", value: "🪶" });
+  });
+
+  it("uses external icon URLs directly", () => {
+    expect(
+      formatPageIcon(
+        makePage({
+          icon: { type: "external", external: { url: "https://x.dev/i.png" } },
+        }),
+      ),
+    ).toEqual({ type: "image", src: "https://x.dev/i.png" });
+  });
+
+  it("proxies uploaded file icons because Notion file URLs expire", () => {
+    expect(
+      formatPageIcon(
+        makePage({
+          icon: { type: "file", file: { url: "https://s3/x", expiry_time: "" } },
+        }),
+      ),
+    ).toEqual({
+      type: "image",
+      src: "/api/notion-image?resource=icon&id=page-1&v=2024-09-19T12%3A00%3A00.000Z",
+    });
+  });
+
+  it("proxies custom emoji icons", () => {
+    expect(
+      formatPageIcon(
+        makePage({
+          icon: {
+            type: "custom_emoji",
+            custom_emoji: { id: "e", name: "purl", url: "https://s3/e.png" },
+          },
+        }),
+      )?.type,
+    ).toBe("image");
+  });
+
+  it("returns undefined for Notion built-in icons and missing icons", () => {
+    expect(
+      formatPageIcon(
+        makePage({ icon: { type: "icon", icon: { name: "x", color: "gray" } } }),
+      ),
+    ).toBeUndefined();
+    expect(formatPageIcon(makePage({ icon: null }))).toBeUndefined();
+  });
+
+  it("is included in formatPostMetadata", () => {
+    const [post] = formatPostMetadata([
+      makePage({ icon: { type: "emoji", emoji: "🪶" } }),
+    ]);
+    expect(post.icon).toEqual({ type: "emoji", value: "🪶" });
+  });
+});
+
+describe("formatViewCount", () => {
+  it("uses the singular for one view", () => {
+    expect(formatViewCount(1)).toBe("1 view");
+  });
+
+  it("uses the plural otherwise, compacting large counts", () => {
+    expect(formatViewCount(0)).toBe("0 views");
+    expect(formatViewCount(20)).toBe("20 views");
+    expect(formatViewCount(1200)).toBe("1.2K views");
   });
 });

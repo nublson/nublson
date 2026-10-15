@@ -5,17 +5,16 @@ import * as React from "react";
 const typographyVariants = cva("", {
   variants: {
     variant: {
-      h1: "text-[50px] lg:text-[100px] leading-[1.2em] tracking-[-0.05em] text-accent-foreground font-semibold",
-      h2: "text-[48px] lg:text-[80px] leading-[1.2em] tracking-[-0.03em] text-accent-foreground font-semibold",
-      h3: "text-[24px] lg:text-[32px] leading-[1.25] tracking-[-0.02em] text-accent-foreground font-semibold",
-      h4: "text-[19px] lg:text-[21px] leading-[1.3] tracking-[-0.02em] text-accent-foreground font-semibold",
+      h1: "font-heading text-2xl leading-[30px] md:text-[28px] md:leading-[34px] font-medium tracking-[-0.015em] text-foreground text-balance",
+      h2: "font-heading text-xl leading-[26px] font-medium tracking-[-0.01em] text-foreground text-balance",
+      h3: "text-[15px] leading-[26px] font-semibold tracking-[-0.01em] text-foreground",
+      h4: "text-sm leading-[22px] font-semibold text-foreground",
     },
     size: {
-      regular:
-        "text-base lg:text-lg leading-[1.6em] tracking-[-0.02em] text-muted-foreground",
-      small:
-        "text-sm lg:text-base leading-[1.6em] tracking-[-0.02em] text-muted-foreground",
-      xs: "text-xs lg:text-sm leading-[1.6em] tracking-[-0.02em] text-muted-foreground",
+      regular: "text-sm leading-[22px] text-muted-foreground",
+      article: "text-[15px] leading-[26px] text-muted-foreground",
+      small: "text-[13px] leading-5 text-subtle-foreground",
+      xs: "text-xs leading-4 text-subtle-foreground",
     },
   },
 });
@@ -32,7 +31,7 @@ type TypographyComponent =
   | "a"
   | "li";
 type TypographyVariant = "h1" | "h2" | "h3" | "h4";
-type TypographySize = "regular" | "small" | "xs";
+type TypographySize = "regular" | "article" | "small" | "xs";
 
 interface BaseTypographyProps extends React.HTMLAttributes<HTMLElement> {
   component?: TypographyComponent;

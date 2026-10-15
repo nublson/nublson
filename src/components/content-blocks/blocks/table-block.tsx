@@ -17,14 +17,14 @@ export const TableBlock = withContentValidation((props: DropedProps) => {
       role="region"
       aria-label="Table"
     >
-      <table className="w-full">
+      <table className="w-full text-sm">
         {headerRow != null && (
           <thead>
             <tr className="m-0 border-t p-0">
               {headerRow.map((cell, index) => (
                 <th
                   key={`header-cell-${index}`}
-                  className={`${cellClassName} font-bold text-accent-foreground bg-card`}
+                  className={`${cellClassName} font-bold text-foreground bg-card`}
                 >
                   {cell}
                 </th>

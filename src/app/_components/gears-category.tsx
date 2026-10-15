@@ -1,8 +1,8 @@
 import GearsSection from "@/sections/gears";
 import { getDatabasePages, withThumbnailBlurs } from "@/services/notion";
-import { formatPostMetadata } from "@/utils/formatter";
+import { formatPostMetadata, type PostMetadata } from "@/utils/formatter";
 
-export async function GearsCategory() {
+export async function getGears(): Promise<PostMetadata[]> {
   const gearsPages = await getDatabasePages(
     process.env.NOTION_DATABASE_GEARS_ID!,
     undefined,
@@ -24,22 +24,25 @@ export async function GearsCategory() {
     ["title", "Description", "Category", "Path"],
   );
 
-  const gearsPostMetadata = await withThumbnailBlurs(
-    formatPostMetadata(gearsPages),
-  );
+  return withThumbnailBlurs(formatPostMetadata(gearsPages));
+}
+
+export function GearsCategory({ posts: gearsPostMetadata }: { posts: PostMetadata[] }) {
 
   const categories = gearsPostMetadata.map((post) => post.category);
   const uniqueCategories = [...new Set(categories)];
 
   return (
-    <div className="w-full flex flex-col items-start justify-start gap-[60px]">
+    <div
+      data-stream
+      className="w-full flex flex-col items-stretch justify-start gap-14"
+    >
       {uniqueCategories.map((category) => (
         <GearsSection
           key={category}
           title={category}
           id={category}
           posts={gearsPostMetadata.filter((post) => post.category === category)}
-          className="grid auto-rows-fr grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4"
         />
       ))}
     </div>

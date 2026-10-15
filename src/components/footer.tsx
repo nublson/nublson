@@ -1,24 +1,19 @@
 import navigation from "@/data/navigation.json";
 import { NavigationList } from "./navigation-list";
-import { Typography } from "./typography";
-import { Separator } from "./ui/separator";
 
+/**
+ * Links first, then the copyright: stacked on phones, where the two don't
+ * fit on one line, and side by side (copyright on the left) from 480px.
+ */
 export const Footer = () => {
-  const footerNavigation = navigation.footer;
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="wrapper flex flex-col items-center justify-start gap-5 pb-5 mt-10 lg:mt-[60px]">
-      <Separator />
-      <div className="w-full flex flex-col lg:flex-row items-center lg:items-start justify-between gap-2.5">
-        <Typography size="small">
-          © Nubelson Fernandes | {currentYear}
-        </Typography>
-
-        <nav aria-label="Footer navigation">
-          <NavigationList items={footerNavigation} className="font-normal" />
-        </nav>
-      </div>
+    <footer className="wrapper mt-16 flex flex-col gap-3 pb-10 text-sm text-subtle-foreground min-[480px]:flex-row-reverse min-[480px]:items-center min-[480px]:justify-between min-[480px]:gap-4">
+      <nav aria-label="Footer navigation">
+        <NavigationList items={navigation.footer} />
+      </nav>
+      <span>© {currentYear} Nubelson Fernandes</span>
     </footer>
   );
 };

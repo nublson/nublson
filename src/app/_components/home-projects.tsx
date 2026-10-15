@@ -18,7 +18,6 @@ export async function HomeProjects() {
       href="/projects"
       id="projects"
       posts={projectPostMetadata}
-      className="grid auto-rows-fr grid-cols-[repeat(auto-fill,minmax(240px,1fr))] justify-center gap-5"
     />
   );
 }

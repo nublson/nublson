@@ -65,14 +65,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
-  const workRoutes = workEntries.map(
-    ({ slug, lastModified }: PublishedSitemapEntry) => ({
-      url: `${base}/projects/${slug}`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }),
-  );
-
-  return [...staticRoutes, ...blogRoutes, ...workRoutes];
+  // Projects have no pages of their own; their rows on /projects link out.
+  return [...staticRoutes, ...blogRoutes];
 }

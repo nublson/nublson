@@ -1,6 +1,6 @@
 /** Stable local proxy for Notion-hosted file URLs (signed S3 links expire ~1h). */
 
-export type NotionImageResource = "cover" | "block";
+export type NotionImageResource = "cover" | "block" | "icon";
 
 export const NOTION_IMAGE_API_PATH = "/api/notion-image";
 
@@ -15,7 +15,7 @@ export function isNotionId(value: string): boolean {
 export function isNotionImageResource(
   value: string,
 ): value is NotionImageResource {
-  return value === "cover" || value === "block";
+  return value === "cover" || value === "block" || value === "icon";
 }
 
 /**

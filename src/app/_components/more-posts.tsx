@@ -19,7 +19,12 @@ export async function MorePosts({
 
   return (
     blogPostMetadata.length > 0 && (
-      <PostsSection title="More Posts" id="blog" posts={blogPostMetadata} />
+      <PostsSection
+        title="More posts"
+        href="/writings"
+        id="blog"
+        posts={blogPostMetadata}
+      />
     )
   );
 }

@@ -6,12 +6,16 @@
       "path": "/about"
     },
     {
-      "label": "Gears",
+      "label": "Gear",
       "path": "/gears"
     },
     {
-      "label": "Agents",
+      "label": "For AI agents",
       "path": "/agents.txt"
+    },
+    {
+      "label": "RSS",
+      "path": "/feed.xml"
     }
   ]
 }

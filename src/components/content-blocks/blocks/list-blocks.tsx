@@ -28,7 +28,7 @@ function ListBlockView(props: DropedProps & { variant: ListBlockVariant }) {
   return (
     <Tag className={className} data-testid={testId}>
       {items.map((item, i) => (
-        <Typography component="li" key={i} className="w-full text-foreground">
+        <Typography component="li" key={i} size="article" className="w-full">
           {item}
         </Typography>
       ))}

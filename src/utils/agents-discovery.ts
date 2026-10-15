@@ -1,3 +1,5 @@
+import { SITE_DESCRIPTION } from "./site";
+
 const AGENTS_TXT_STANDARD = "https://agents-txt.com";
 const AGENTS_JSON_SCHEMA =
   "https://agents-txt.com/schema/agents-json/v1.0.json";
@@ -21,7 +23,7 @@ export function getAgentsDiscovery(baseUrl: string): AgentsDiscovery {
     baseUrl: base,
     site: {
       name: "Nubelson Fernandes",
-      description: "Designer and developer sharing work, writing, and tools.",
+      description: SITE_DESCRIPTION,
     },
     mcpCardUrl: `${base}/.well-known/mcp/server-card.json`,
     mcpEndpointUrl: `${base}/api/mcp`,

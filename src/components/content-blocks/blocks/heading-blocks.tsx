@@ -3,19 +3,19 @@ import type { DropedProps } from "@9gustin/react-notion-render/dist/hoc/withCont
 import { Typography } from "../../typography";
 
 export const Heading1Block = withContentValidation((props: DropedProps) => (
-  <Typography component="h1" variant="h2" className="w-full mt-15!">
+  <Typography component="h2" variant="h3" className="w-full mt-10!">
     {props.children}
   </Typography>
 ));
 
 export const Heading2Block = withContentValidation((props: DropedProps) => (
-  <Typography component="h2" variant="h3" className="w-full mt-10! pb-2">
+  <Typography component="h2" variant="h3" className="w-full mt-8!">
     {props.children}
   </Typography>
 ));
 
 export const Heading3Block = withContentValidation((props: DropedProps) => (
-  <Typography component="h3" variant="h4" className="w-full mt-8!">
+  <Typography component="h3" variant="h4" className="w-full mt-6!">
     {props.children}
   </Typography>
 ));

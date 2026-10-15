@@ -390,6 +390,23 @@ export async function resolveNotionImageUpstream(
     return { url };
   }
 
+  if (resource === "icon") {
+    const page = await api.pages.retrieve({ page_id: id });
+    if (!isFullPage(page) || !page.icon) {
+      throw new Error(`Icon not found for page ${id}`);
+    }
+    switch (page.icon.type) {
+      case "file":
+        return { url: page.icon.file.url };
+      case "external":
+        return { url: page.icon.external.url };
+      case "custom_emoji":
+        return { url: page.icon.custom_emoji.url };
+      default:
+        throw new Error(`Icon for page ${id} has no image`);
+    }
+  }
+
   const block = await api.blocks.retrieve({ block_id: id });
   if (!isFullBlock(block) || block.type !== "image") {
     throw new Error(`Image block not found: ${id}`);

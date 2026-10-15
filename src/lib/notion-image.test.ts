@@ -21,9 +21,10 @@ describe("isNotionId", () => {
 });
 
 describe("isNotionImageResource", () => {
-  it("accepts cover and block only", () => {
+  it("accepts cover, block and icon only", () => {
     expect(isNotionImageResource("cover")).toBe(true);
     expect(isNotionImageResource("block")).toBe(true);
+    expect(isNotionImageResource("icon")).toBe(true);
     expect(isNotionImageResource("file")).toBe(false);
   });
 });

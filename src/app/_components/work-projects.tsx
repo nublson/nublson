@@ -1,23 +1,16 @@
 import ProjectsSection from "@/sections/projects";
 import { getDatabasePages, withThumbnailBlurs } from "@/services/notion";
-import { formatPostMetadata } from "@/utils/formatter";
+import { formatPostMetadata, type PostMetadata } from "@/utils/formatter";
 
-export async function WorkProjects() {
+export async function getWorkProjects(): Promise<PostMetadata[]> {
   const projectPages = await getDatabasePages(
     process.env.NOTION_DATABASE_CONTENT_ID!,
     "Project",
     20,
   );
-  const projectPostMetadata = await withThumbnailBlurs(
-    formatPostMetadata(projectPages),
-  );
+  return withThumbnailBlurs(formatPostMetadata(projectPages));
+}
 
-  return (
-    <ProjectsSection
-      title="Projects"
-      id="projects"
-      posts={projectPostMetadata}
-      className="grid auto-rows-fr grid-cols-[repeat(auto-fill,minmax(300px,1fr))] justify-center gap-5"
-    />
-  );
+export function WorkProjects({ posts }: { posts: PostMetadata[] }) {
+  return <ProjectsSection title="All projects" id="projects" posts={posts} />;
 }

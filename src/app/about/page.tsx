@@ -1,10 +1,6 @@
 import { AboutContent } from "@/app/_components/about-content";
 import { AboutHero } from "@/app/_components/about-hero";
-import {
-  getPageBlocks,
-  getPageData,
-  withThumbnailBlur,
-} from "@/services/notion";
+import { getPageBlocks, getPageData } from "@/services/notion";
 import { formatPageMetadata } from "@/utils/formatter";
 import { metadataFromNotionPageId } from "@/utils/metadata";
 import type { Metadata } from "next";
@@ -23,7 +19,7 @@ export default async function AboutPage() {
     getPageData(pageId),
     getPageBlocks(pageId),
   ]);
-  const heroMetadata = await withThumbnailBlur(formatPageMetadata(page));
+  const heroMetadata = formatPageMetadata(page);
 
   return (
     <section className="article-layout">

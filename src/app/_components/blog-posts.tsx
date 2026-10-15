@@ -1,16 +1,18 @@
 import PostsSection from "@/sections/posts";
 import { getDatabasePages } from "@/services/notion";
-import { formatPostMetadata } from "@/utils/formatter";
+import { formatPostMetadata, type PostMetadata } from "@/utils/formatter";
 
-export async function BlogPosts() {
+export async function getBlogPosts(): Promise<PostMetadata[]> {
   const blogPages = await getDatabasePages(
     process.env.NOTION_DATABASE_CONTENT_ID!,
     "Blog",
     20,
   );
-  const blogPostMetadata = formatPostMetadata(blogPages);
+  return formatPostMetadata(blogPages);
+}
 
+export function BlogPosts({ posts }: { posts: PostMetadata[] }) {
   return (
-    <PostsSection title="Writing" id="writing" posts={blogPostMetadata} />
+    <PostsSection title="All posts" id="writing" posts={posts} groupByYear />
   );
 }

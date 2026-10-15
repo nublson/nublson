@@ -1,9 +1,7 @@
 "use client";
 
-import { Persona, type PersonaState } from "@/components/ai-elements/persona";
 import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-skeleton";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { usePostReactionsRealtime } from "@/hooks/use-post-reactions-realtime";
 import { usePostViewCountRealtime } from "@/hooks/use-post-view-count-realtime";
 import {
@@ -14,15 +12,15 @@ import {
 import { takeResult, type PurlResult } from "@/lib/purl/storage";
 import { cn } from "@/lib/utils";
 import type { PostReactionSummary, ReactionType } from "@/services/reactions";
-import { formatCompactCount } from "@/utils/formatter";
-import { Check, Eye, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
-import type { SyntheticEvent } from "react";
+import { formatCompactCount, formatViewCount } from "@/utils/formatter";
+import { Check, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TooltipWrapper } from "./tooltip-wrapper";
 import { Typography } from "./typography";
-import { Separator } from "./ui/separator";
 
 type PurlState = "idle" | "saving" | "saved" | "error";
+
+const PURL_FALLBACK_ERROR = "Couldn't save to Purl";
 
 function PurlLogo({ className }: { className?: string }) {
   return (
@@ -64,25 +62,6 @@ type PostReactionsProps = {
   initialData?: PostReactionSummary;
   trackViews?: boolean;
   initialViews?: number;
-  enableAudio?: boolean;
-};
-
-type AudioStatus = "idle" | "loading" | "playing" | "paused" | "error";
-
-const AUDIO_STATUS_TO_PERSONA_STATE: Record<AudioStatus, PersonaState> = {
-  idle: "idle",
-  loading: "thinking",
-  playing: "speaking",
-  paused: "idle",
-  error: "idle",
-};
-
-const AUDIO_STATUS_LABEL: Record<AudioStatus, string> = {
-  idle: "Listen to this post",
-  loading: "Generating narration…",
-  playing: "Pause narration",
-  paused: "Listen to this post",
-  error: "Couldn't load the audio — tap to try again",
 };
 
 function viewRecordedStorageKey(postId: string): string {
@@ -182,6 +161,11 @@ async function shareUrl(
   }
 }
 
+/** Quiet outline pill for the end-of-article reactions row. */
+const REACTION_PILL =
+  "h-7 gap-1.5 rounded-full px-2.5 text-subtle-foreground tabular-nums shadow-[inset_0_0_0_1px_var(--input)] transition-[background-color,color,scale] duration-150 ease-(--ease-out) hover:bg-muted hover:text-foreground active:scale-[0.96] data-[size=icon-sm]:px-0";
+const REACTION_PILL_ON = "bg-muted text-foreground";
+
 const ICON_SWAP_LAYER =
   "absolute inset-0 transition-[opacity,scale,filter] duration-200 ease-(--ease-out)";
 
@@ -226,7 +210,6 @@ export function PostReactions({
   initialData,
   trackViews = false,
   initialViews = 0,
-  enableAudio = false,
 }: PostReactionsProps) {
   const [summary, setSummary] = useState<PostReactionSummary | null>(
     initialData ?? null,
@@ -243,9 +226,6 @@ export function PostReactions({
   const [purlState, setPurlState] = useState<PurlState>("idle");
   const [purlError, setPurlError] = useState<string | null>(null);
   const purlResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [audioStatus, setAudioStatus] = useState<AudioStatus>("idle");
-  const [personaReady, setPersonaReady] = useState(false);
   const syncViewCount = useCallback(async () => {
     try {
       const count = await fetchViewCount(postId);
@@ -431,26 +411,6 @@ export function PostReactions({
     return () => window.removeEventListener("pageshow", onPageShow);
   }, [showPurlOutcome]);
 
-  // A failed play() fires "error" immediately followed by "pause" — without
-  // this guard, "pause" would overwrite the error status right after it's set.
-  const handleAudioPause = useCallback(
-    (event: SyntheticEvent<HTMLAudioElement>) => {
-      if (event.currentTarget.error) return;
-      setAudioStatus("paused");
-    },
-    [],
-  );
-
-  const handleToggleAudio = useCallback(() => {
-    const audio = audioRef.current;
-    if (!audio || audioStatus === "loading") return;
-    if (audio.paused) {
-      void audio.play().catch(() => setAudioStatus("error"));
-    } else {
-      audio.pause();
-    }
-  }, [audioStatus]);
-
   const handleShare = useCallback(async () => {
     await shareUrl(window.location.href, {
       title: document.title || "Check out this post",
@@ -467,11 +427,7 @@ export function PostReactions({
 
   if (loading || !summary) {
     return (
-      <PostReactionsSkeleton
-        aria-busy="true"
-        trackViews={trackViews}
-        enableAudio={enableAudio}
-      >
+      <PostReactionsSkeleton aria-busy="true" trackViews={trackViews}>
         <span className="sr-only">Loading reactions</span>
       </PostReactionsSkeleton>
     );
@@ -480,188 +436,118 @@ export function PostReactions({
   const { likes, dislikes, userReaction } = summary;
 
   return (
-    <div className="sticky bottom-10 z-41 mx-auto flex w-fit flex-col items-center gap-2">
-      <div className="rounded-full border border-border bg-background">
-        <div className="flex items-center justify-center gap-2 px-2.5 py-2">
-          {trackViews ? (
-            <>
-              <TooltipWrapper content="Views">
-                <div className="flex h-7 items-center gap-1 rounded-full border border-border px-2.5">
-                  <Eye className="size-4 shrink-0" aria-hidden />
-                  <Typography
-                    component="span"
-                    size="xs"
-                    className="text-foreground"
-                  >
-                    {formatCompactCount(views)}
-                  </Typography>
-                  <span className="sr-only">{views} views</span>
-                </div>
-              </TooltipWrapper>
-              <Separator orientation="vertical" />
-            </>
-          ) : null}
+    <div data-stream className="flex w-full flex-col gap-2">
+      <div className="flex w-full flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+        {trackViews ? (
+          <Typography component="span" className="text-subtle-foreground tabular-nums">
+            <span aria-hidden>{formatViewCount(views)}</span>
+            <span className="sr-only">
+              {views.toLocaleString("en-US")} {views === 1 ? "view" : "views"}
+            </span>
+          </Typography>
+        ) : (
+          <span />
+        )}
+        <div className="flex items-center gap-1.5">
           <TooltipWrapper content="Like">
             <Button
               type="button"
-              variant={userReaction === "like" ? "default" : "outline"}
+              variant="ghost"
               size={likes ? "sm" : "icon-sm"}
               disabled={pending}
               aria-pressed={userReaction === "like"}
               aria-label="Like"
-              className="rounded-full"
+              className={cn(REACTION_PILL, userReaction === "like" && REACTION_PILL_ON)}
               onClick={() => void applyReaction("like")}
             >
               <ThumbsUp
+                strokeWidth={1.5}
                 className={cn(
                   "size-4 shrink-0",
                   poppedReaction === "like" && "animate-reaction-pop",
                 )}
                 onAnimationEnd={() => setPoppedReaction(null)}
               />
-              {likes ? ` ${formatCompactCount(likes)}` : ""}
+              {likes ? formatCompactCount(likes) : ""}
             </Button>
           </TooltipWrapper>
           <TooltipWrapper content="Dislike">
             <Button
               type="button"
-              variant={userReaction === "dislike" ? "default" : "outline"}
+              variant="ghost"
               size={dislikes ? "sm" : "icon-sm"}
               disabled={pending}
               aria-pressed={userReaction === "dislike"}
               aria-label="Dislike"
-              className="rounded-full"
+              className={cn(REACTION_PILL, userReaction === "dislike" && REACTION_PILL_ON)}
               onClick={() => void applyReaction("dislike")}
             >
               <ThumbsDown
+                strokeWidth={1.5}
                 className={cn(
                   "size-4 shrink-0",
                   poppedReaction === "dislike" && "animate-reaction-pop",
                 )}
                 onAnimationEnd={() => setPoppedReaction(null)}
               />
-              {dislikes ? ` ${formatCompactCount(dislikes)}` : ""}
+              {dislikes ? formatCompactCount(dislikes) : ""}
             </Button>
           </TooltipWrapper>
-          <Separator orientation="vertical" />
-          {enableAudio ? (
-            <>
-              <TooltipWrapper content={AUDIO_STATUS_LABEL[audioStatus]}>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-sm"
-                  onClick={handleToggleAudio}
-                  disabled={audioStatus === "loading"}
-                  aria-pressed={audioStatus === "playing"}
-                  aria-label={AUDIO_STATUS_LABEL[audioStatus]}
-                  className={cn(
-                    "rounded-full p-0",
-                    audioStatus === "error" ? "ring-2 ring-destructive" : "",
-                  )}
-                >
-                  <span className="relative inline-flex size-6">
-                    <Persona
-                      state={AUDIO_STATUS_TO_PERSONA_STATE[audioStatus]}
-                      variant="obsidian"
-                      className={cn(
-                        "size-6 transition-opacity duration-200 ease-(--ease-out)",
-                        personaReady ? "opacity-100" : "opacity-0",
-                      )}
-                      onReady={() => setPersonaReady(true)}
-                    />
-                    {/* Stays mounted so it can fade out under the persona. */}
-                    <Skeleton
-                      aria-hidden
-                      className={cn(
-                        "pointer-events-none absolute inset-0 size-6 rounded-full transition-opacity duration-200 ease-(--ease-out)",
-                        personaReady && "animate-none opacity-0",
-                      )}
-                    />
-                  </span>
-                </Button>
-              </TooltipWrapper>
-              <audio
-                ref={audioRef}
-                src={`/api/audio/${postSlug}`}
-                preload="none"
-                className="sr-only"
-                onPlay={() => setAudioStatus("loading")}
-                onPlaying={() => setAudioStatus("playing")}
-                onPause={handleAudioPause}
-                onEnded={() => setAudioStatus("idle")}
-                onError={() => setAudioStatus("error")}
-              />
-              <Separator orientation="vertical" />
-            </>
-          ) : null}
           <TooltipWrapper
             content={
               purlState === "saved"
-                ? "Saved!"
+                ? "Saved to Purl"
                 : purlState === "error"
-                  ? (purlError ?? "Error")
-                  : "Save with Purl"
+                  ? (purlError ?? PURL_FALLBACK_ERROR)
+                  : "Save to Purl"
             }
           >
             <Button
               type="button"
-              variant={purlState === "saved" ? "default" : "outline"}
+              variant="ghost"
               size="icon-sm"
               className={cn(
-                "rounded-full",
-                purlError ? "border-destructive!" : "",
+                REACTION_PILL,
+                purlState === "saved" && REACTION_PILL_ON,
+                purlError && "shadow-[inset_0_0_0_1px_var(--destructive)]",
               )}
               disabled={purlState === "saving"}
               aria-label={
                 purlState === "saved"
-                  ? "Saved on Purl"
+                  ? "Saved to Purl"
                   : purlState === "error"
-                    ? (purlError ?? "Error saving with Purl")
-                    : "Save on Purl"
+                    ? (purlError ?? PURL_FALLBACK_ERROR)
+                    : "Save to Purl"
               }
               onClick={() => void handleSaveToPurl()}
             >
               <IconSwap
                 active={purlState === "saved"}
                 from={<PurlLogo className="size-4 shrink-0" />}
-                to={<Check className="size-4" />}
+                to={<Check strokeWidth={1.5} className="size-4" />}
               />
             </Button>
           </TooltipWrapper>
-          <TooltipWrapper content={shareCopied ? "Copied!" : "Share"}>
+          <TooltipWrapper content={shareCopied ? "Link copied" : "Share"}>
             <Button
               type="button"
-              variant="outline"
+              variant="ghost"
               size="icon-sm"
-              className="rounded-full"
+              className={REACTION_PILL}
               onClick={() => void handleShare()}
               aria-label={shareCopied ? "Link copied" : "Share link"}
             >
               <IconSwap
                 active={shareCopied}
-                from={<Share2 className="size-4" />}
-                to={<Check className="size-4" />}
+                from={<Share2 strokeWidth={1.5} className="size-4" />}
+                to={<Check strokeWidth={1.5} className="size-4" />}
               />
             </Button>
           </TooltipWrapper>
         </div>
       </div>
-      <div
-        role="status"
-        aria-live="polite"
-        className="min-h-5 px-2 text-center sr-only"
-      >
-        {purlError ? (
-          <Typography size="xs" className="text-destructive">
-            {purlError}
-          </Typography>
-        ) : null}
-        {enableAudio && audioStatus === "error" ? (
-          <Typography size="xs" className="text-destructive">
-            {AUDIO_STATUS_LABEL.error}
-          </Typography>
-        ) : null}
+      <div role="status" aria-live="polite" className="sr-only">
+        {purlError ?? ""}
       </div>
     </div>
   );

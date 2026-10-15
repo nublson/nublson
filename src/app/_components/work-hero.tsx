@@ -6,7 +6,7 @@ export function WorkHero({ metadata }: { metadata: PageMetadata }) {
     <Hero
       title={metadata.title}
       description={metadata.description}
-      size="small"
+      descriptionRichText={metadata.descriptionRichText}
     />
   );
 }

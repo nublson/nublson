@@ -24,15 +24,11 @@ export function HomeHero({ metadata }: { metadata: PageMetadata }) {
       <Hero
         title={metadata.title}
         description={metadata.description}
+        descriptionRichText={metadata.descriptionRichText}
         bottom={
-          <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
-            <Typography className="line-clamp-1 break-words font-bold text-muted-foreground">
-              {metadata.role}
-            </Typography>
-            <Typography className="line-clamp-1 break-words font-bold text-muted-foreground">
-              <span aria-hidden="true">📍</span> {metadata.location}
-            </Typography>
-          </div>
+          <Typography className="text-subtle-foreground">
+            {[metadata.role, metadata.location].filter(Boolean).join(" · ")}
+          </Typography>
         }
       />
     </>

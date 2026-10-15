@@ -1,57 +1,14 @@
-import { PostReactionsLoader } from "@/app/_components/post-reactions-loader";
-import { NavigationProjects } from "@/components/navigation-projects";
-import { NavigationProjectsSkeleton } from "@/components/skeletons/navigation-projects-skeleton";
-import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-skeleton";
-import {
-  getAllPublishedSlugsForStaticParams,
-  getDatabasePageBySlug,
-  getPageBlocks,
-  withThumbnailBlur,
-} from "@/services/notion";
-import { buildShareMetadata } from "@/utils/share-metadata";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { Suspense } from "react";
-import { WorkJsonLd } from "./_components/work-json-ld";
-import { WorkPostBody } from "./_components/work-post-body";
-import { WorkPostHero } from "./_components/work-post-hero";
+import { getDatabasePageBySlug } from "@/services/notion";
+import { projectHref } from "@/utils/project-links";
+import { permanentRedirect } from "next/navigation";
 
 export const revalidate = 10;
 
-export async function generateStaticParams() {
-  const databaseId = process.env.NOTION_DATABASE_CONTENT_ID!;
-  return getAllPublishedSlugsForStaticParams(databaseId, "Project");
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const found = await getDatabasePageBySlug(
-    process.env.NOTION_DATABASE_CONTENT_ID!,
-    "Project",
-    slug,
-  );
-  if (!found) {
-    return { title: "Project not found" };
-  }
-  return buildShareMetadata(
-    {
-      title: found.metadata.title,
-      description: found.metadata.description,
-      thumbnail: found.metadata.thumbnail,
-    },
-    {
-      canonical: `/projects/${slug}`,
-      openGraphType: "article",
-      publishedTime: found.metadata.published_date,
-    },
-  );
-}
-
-export default async function WorkPostPage({
+/**
+ * Projects no longer have pages of their own. Old links and search results
+ * land on the project itself, or on the projects list when it has no link.
+ */
+export default async function ProjectRedirect({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -62,23 +19,5 @@ export default async function WorkPostPage({
     "Project",
     slug,
   );
-  if (!found) notFound();
-
-  const pageBlocks = await getPageBlocks(found.page.id);
-
-  return (
-    <>
-      <WorkJsonLd slug={slug} metadata={found.metadata} />
-      <article className="article-layout">
-        <WorkPostHero metadata={await withThumbnailBlur(found.metadata)} />
-        <WorkPostBody blocks={pageBlocks} />
-      </article>
-      <Suspense fallback={<PostReactionsSkeleton />}>
-        <PostReactionsLoader params={params} media="Project" />
-      </Suspense>
-      <Suspense fallback={<NavigationProjectsSkeleton />}>
-        <NavigationProjects params={params} />
-      </Suspense>
-    </>
-  );
+  permanentRedirect((found && projectHref(found.metadata)) ?? "/projects");
 }

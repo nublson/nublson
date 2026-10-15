@@ -5,16 +5,24 @@ import { SkipLink } from "@/components/skip-link";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { WebmcpProvider } from "@/components/webmcp-provider";
 import { TWITTER_CREATOR_HANDLE } from "@/utils/share-metadata";
+import { SITE_DESCRIPTION } from "@/utils/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Inter, Newsreader } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  style: ["normal", "italic"],
+});
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  axes: ["opsz"],
 });
 
 const geistMono = Geist_Mono({
@@ -28,7 +36,7 @@ export const metadata: Metadata = {
     template: "%s | Nubelson Fernandes",
     default: "Nubelson Fernandes",
   },
-  description: "Designer and developer sharing work, writing, and tools.",
+  description: SITE_DESCRIPTION,
   alternates: {
     types: {
       "application/rss+xml": [
@@ -59,7 +67,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${newsreader.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -90,7 +98,7 @@ export default function RootLayout({
             <main
               id="main-content"
               tabIndex={-1}
-              className="flex-1 wrapper flex flex-col items-start justify-start gap-10 lg:gap-[60px] outline-none"
+              className="flex-1 wrapper flex flex-col items-start justify-start gap-14 max-md:gap-12 outline-none"
             >
               {children}
             </main>

@@ -4,6 +4,7 @@ import {
   buildAgentsTxt,
   getAgentsDiscovery,
 } from "./agents-discovery";
+import { SITE_DESCRIPTION } from "./site";
 
 describe("agents-discovery", () => {
   const discovery = getAgentsDiscovery("https://nublson.com");
@@ -31,7 +32,7 @@ describe("agents-discovery", () => {
     expect(json.site).toEqual({
       name: "Nubelson Fernandes",
       url: "https://nublson.com",
-      description: "Designer and developer sharing work, writing, and tools.",
+      description: SITE_DESCRIPTION,
     });
     expect(json.mcp).toHaveLength(1);
     expect(json.mcp[0]).toMatchObject({

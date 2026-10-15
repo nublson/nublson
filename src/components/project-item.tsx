@@ -1,48 +1,43 @@
-import { Typography } from "@/components/typography";
-import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item";
-import { PostMetadata } from "@/utils/formatter";
-import { SquareArrowOutUpRight } from "lucide-react";
-import { CoverImage } from "./cover-image";
+import { cn } from "@/lib/utils";
+import type { PostMetadata } from "@/utils/formatter";
+import { ArrowUpRight } from "lucide-react";
+import { ProjectIcon } from "./project-icon";
 
 interface ProjectItemProps {
   post: PostMetadata;
+  /** One line with the full text in a tooltip (project rows). */
+  clampDescription?: boolean;
+  /** Marks a row that opens another site. */
+  external?: boolean;
 }
 
-export function ProjectItem({ post }: ProjectItemProps) {
+export function ProjectItem({
+  post,
+  clampDescription = false,
+  external = false,
+}: ProjectItemProps) {
   return (
-    <Item className="flex flex-col items-start justify-start gap-2.5 p-0 w-full">
-      <ItemMedia variant="image" className="w-full h-auto">
-        {post.thumbnail && (
-          <CoverImage
-            src={post.thumbnail}
-            alt=""
-            blurDataURL={post.blurDataURL}
-            width={640}
-            height={480}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
-            loading="lazy"
-            className="aspect-4/3 h-full w-full object-cover"
+    <span className="group/row grid grid-cols-[16px_1fr] items-center gap-x-3 rounded-lg px-2.5 py-2 transition-colors duration-150 ease-(--ease-out) hover:bg-muted">
+      <ProjectIcon post={post} />
+      <span className="flex min-w-0 items-center gap-1 font-medium text-foreground">
+        {post.title}
+        {external && (
+          <ArrowUpRight
+            aria-hidden
+            strokeWidth={1.5}
+            className="nudge-out size-3.5 shrink-0 text-subtle-foreground group-hover/row:text-foreground"
           />
         )}
-      </ItemMedia>
-      <ItemContent className="w-full">
-        <ItemTitle className="w-full flex items-center justify-between gap-2">
-          <Typography
-            component="h3"
-            className="max-w-[85%] text-accent-foreground line-clamp-1 break-words"
-          >
-            {post.title}
-          </Typography>
-
-          <SquareArrowOutUpRight className="size-4 shrink-0 -translate-x-0.5 translate-y-0.5 text-accent-foreground opacity-0 transition-[opacity,translate] duration-150 ease-(--ease-out) group-hover/item:translate-0 group-hover/item:opacity-100" />
-        </ItemTitle>
-        <Typography
-          size="small"
-          className="text-muted-foreground group-hover/item:text-accent-foreground transition-colors duration-300 line-clamp-2 break-words"
-        >
-          {post.description}
-        </Typography>
-      </ItemContent>
-    </Item>
+      </span>
+      <span
+        title={clampDescription ? post.description : undefined}
+        className={cn(
+          "col-start-2 min-w-0 text-pretty text-subtle-foreground transition-colors duration-150 ease-(--ease-out) group-hover/row:text-muted-foreground",
+          clampDescription && "line-clamp-1",
+        )}
+      >
+        {post.description}
+      </span>
+    </span>
   );
 }
