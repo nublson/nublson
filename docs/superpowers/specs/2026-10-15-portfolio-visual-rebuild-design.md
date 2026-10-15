@@ -1,7 +1,7 @@
 # Portfolio visual rebuild
 
 Date: 2026-10-15
-Status: Approved direction (mockup v3), pending spec review
+Status: Approved direction (mockup v4), pending spec review
 Mockup: https://claude.ai/artifact/PeTjoxQ2hoVqGzZLcxDWz3
 
 ## Goal
@@ -19,7 +19,7 @@ RSS, agent discovery, reactions, view counts, speech mode and Purl save keep wor
 - Hierarchy from weight and gray, not size. Almost everything is 14px.
 - Small muted section labels with a quiet "All" link on the right.
 - Lists, not cards. Projects are icon + title + one-line description; writing is title + date,
-  grouped by year, in the same style everywhere it appears.
+  in the same row style everywhere; only the full archive adds a year column.
 - Neutral colors, no accent color.
 - Motion is a detail: a short staggered entrance and color-only hovers.
 
@@ -71,7 +71,7 @@ a new `--subtle-foreground` covers the tertiary gray.
 | `HomeHero` / `Hero` | Name in serif 20px, "role · location" in tertiary gray, bio in secondary gray. No 100px headline, no 📍 emoji. |
 | `SectionHeader` / `SectionWrapper` | Muted 14px label left, "All" link right. No separator, no large heading. |
 | `ProjectItem` | Row grid `20px 1fr`: 20px icon tile (5px radius, inset 1px ring), title weight 500, description one line in tertiary gray below. Row gets hover fill with 8px radius and -10px side bleed. No cover image. |
-| `PostList` (replaces `PostItem` rows) | One style for every list of posts (Home "Writing", Writing index, article "More posts"): posts grouped by year, year in a 64px left column, title left and `dd/mm` date right in tertiary gray, hairlines between rows and groups. Hovering a row dims its siblings. |
+| `PostList` (replaces `PostItem` rows) | One row style for every list of posts: title left, date right in tertiary gray, hairlines between rows and above/below the list, hovering a row dims its siblings. `groupByYear` prop: on the Writing index posts are grouped with the year in a 64px left column and dates as `dd/mm`. On Home "Writing" and article "More posts" there is no year column (it would hold one value and push titles off the section's left edge); dates show `dd/mm` for the current year and `dd/mm/yy` otherwise. |
 | Projects / Gears index | Full list of `ProjectItem` rows. Gears grouped by category with muted labels. |
 | About | Serif page title, Notion body as prose, "Elsewhere" list with favicon rows. |
 | Article (`/writings/[slug]`, `/projects/[slug]`) | "← Writing" (or "← Projects") back link, serif title, meta line (date · category · read time), description as lede, cover image (10px radius, inset ring), body, footer row with view count left and reactions right, then **More posts** (three latest, excluding current) as a `PostList`. |
