@@ -20,7 +20,7 @@ export const VideoBlock = withContentValidation((props: DropedProps) => {
   if (!embedUrl) {
     return (
       <div
-        className="flex aspect-video w-full items-center justify-center rounded-md border border-border bg-muted px-4 text-center text-sm text-muted-foreground"
+        className="flex aspect-video w-full items-center justify-center rounded-[10px] bg-card shadow-[inset_0_0_0_1px_var(--input)] px-4 text-center text-sm text-muted-foreground"
         role="note"
       >
         <Typography size="small" className="text-muted-foreground">

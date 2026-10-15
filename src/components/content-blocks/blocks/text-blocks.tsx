@@ -33,7 +33,8 @@ export const ParagraphBlock = withContentValidation((props: DropedProps) => {
   return (
     <Typography
       data-testid="paragraph"
-      className="w-full max-w-[68ch] text-foreground"
+      size="article"
+      className="w-full max-w-[64ch]"
     >
       {content}
     </Typography>
@@ -44,14 +45,14 @@ export const CalloutBlock = withContentValidation((props: DropedProps) => {
   const emoji = getCalloutEmoji(props.config?.block);
 
   return (
-    <div className="w-full p-3 rounded-md bg-card flex items-start justify-start">
+    <div className="w-full rounded-lg bg-card p-3 shadow-[inset_0_0_0_1px_var(--input)] flex items-start justify-start">
       {emoji !== "" && (
         <Typography component="span" className="py-1.5">
           {emoji}
         </Typography>
       )}
       <div className="p-1.5">
-        <Typography className="w-full text-accent-foreground">
+        <Typography size="article" className="w-full text-foreground">
           {props.children}
         </Typography>
       </div>
@@ -67,7 +68,9 @@ export const CodeBlock = withContentValidation((props: DropedProps) => (
 ));
 
 export const QuoteBlock = withContentValidation((props: DropedProps) => (
-  <blockquote className="mt-6 w-full max-w-[68ch] border-l-2 pl-6 italic">
-    <Typography className="text-foreground">{props.children}</Typography>
+  <blockquote className="w-full max-w-[64ch] border-l-2 border-input pl-4">
+    <Typography size="article" className="text-foreground">
+      {props.children}
+    </Typography>
   </blockquote>
 ));
