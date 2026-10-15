@@ -3,6 +3,9 @@ import { refreshTokens, startConnect } from "./oauth";
 import { clearTokens, getTokens, type PurlTokens } from "./storage";
 
 const REQUEST_TIMEOUT_MS = 15_000;
+export const PURL_LIMIT_MESSAGE =
+  "Purl link limit reached. Remove a saved link to add more.";
+
 const LIMIT_REACHED_CODE = "LIMIT_REACHED";
 
 const CONNECTION_MESSAGE =

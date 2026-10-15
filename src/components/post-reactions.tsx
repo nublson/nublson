@@ -6,6 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePostReactionsRealtime } from "@/hooks/use-post-reactions-realtime";
 import { usePostViewCountRealtime } from "@/hooks/use-post-view-count-realtime";
+import {
+  PURL_LIMIT_MESSAGE,
+  saveToPurl,
+  type PurlSaveOutcome,
+} from "@/lib/purl/client";
+import { takeResult, type PurlResult } from "@/lib/purl/storage";
 import { cn } from "@/lib/utils";
 import type { PostReactionSummary, ReactionType } from "@/services/reactions";
 import { formatCompactCount } from "@/utils/formatter";
@@ -383,46 +389,17 @@ export function PostReactions({
     [summary, pending, postId, postSlug],
   );
 
-  const handleSaveToPurl = useCallback(async () => {
-    if (purlState === "saving") return;
-    setPurlState("saving");
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15_000);
-    let nextState: PurlState = "saved";
-    let nextError: string | null = null;
-    try {
-      const res = await fetch("/api/purl/links", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: window.location.href }),
-        signal: controller.signal,
-      });
-      clearTimeout(timeout);
-      if (res.status === 402) {
-        nextState = "error";
-        nextError = "Purl link limit reached. Remove a saved link to add more.";
-      } else if (!res.ok) {
-        const body = (await res.json().catch(() => null)) as {
-          error?: string;
-        } | null;
-        nextState = "error";
-        nextError =
-          body?.error ??
-          "Couldn't save to Purl. Check your connection and try again.";
-      }
-    } catch (e) {
-      clearTimeout(timeout);
-      if (e instanceof Error && e.name === "AbortError") {
-        nextState = "error";
-        nextError = "Couldn't save to Purl. The request timed out — try again.";
-      } else {
-        nextState = "error";
-        nextError =
-          "Couldn't save to Purl. Check your connection and try again.";
-      }
-    }
-    setPurlState(nextState);
-    setPurlError(nextError);
+  const showPurlOutcome = useCallback((outcome: PurlSaveOutcome | PurlResult) => {
+    if (outcome.status === "redirecting") return;
+    const failed = outcome.status === "limit" || outcome.status === "error";
+    setPurlState(failed ? "error" : "saved");
+    setPurlError(
+      outcome.status === "limit"
+        ? PURL_LIMIT_MESSAGE
+        : outcome.status === "error"
+          ? outcome.message
+          : null,
+    );
     if (purlResetRef.current) clearTimeout(purlResetRef.current);
     purlResetRef.current = setTimeout(
       () => {
@@ -430,9 +407,29 @@ export function PostReactions({
         setPurlError(null);
         purlResetRef.current = null;
       },
-      nextState === "saved" ? 3000 : 4000,
+      failed ? 4000 : 3000,
     );
-  }, [purlState]);
+  }, []);
+
+  const handleSaveToPurl = useCallback(async () => {
+    if (purlState === "saving") return;
+    setPurlState("saving");
+    showPurlOutcome(await saveToPurl(window.location.href));
+  }, [purlState, showPurlOutcome]);
+
+  // Returning from Purl's connect flow: show how the pending save went. A page
+  // restored from the back/forward cache must not stay stuck on "saving".
+  useEffect(() => {
+    const result = takeResult();
+    // Deferred: the result is read once (synchronously) but applied outside
+    // the effect body, which the react-hooks lint rule forbids for setState.
+    if (result) queueMicrotask(() => showPurlOutcome(result));
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) setPurlState("idle");
+    };
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
+  }, [showPurlOutcome]);
 
   // A failed play() fires "error" immediately followed by "pause" — without
   // this guard, "pause" would overwrite the error status right after it's set.
