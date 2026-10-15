@@ -23,7 +23,7 @@ export function WorkPostHero({ metadata }: { metadata: PostMetadata }) {
               rel="noopener noreferrer"
               className="link inline-flex items-center gap-1.5"
             >
-              <ExternalLink className="size-3.5" aria-hidden /> Live demo
+              <ExternalLink className="size-3.5" strokeWidth={1.5} aria-hidden /> Live demo
             </a>
           )}
           {metadata.source && (
@@ -33,7 +33,7 @@ export function WorkPostHero({ metadata }: { metadata: PostMetadata }) {
               rel="noopener noreferrer"
               className="link inline-flex items-center gap-1.5"
             >
-              <Code className="size-3.5" aria-hidden /> Source code
+              <Code className="size-3.5" strokeWidth={1.5} aria-hidden /> Source code
             </a>
           )}
         </div>

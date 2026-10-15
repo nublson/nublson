@@ -43,14 +43,14 @@ export default function HeroSection({
       {description && (
         <Typography
           size={isArticle ? "article" : "regular"}
-          className="max-w-[60ch]"
+          className="max-w-[60ch] text-pretty"
         >
           {description}
         </Typography>
       )}
       {children}
       {isArticle && thumbnail && (
-        <div className="relative w-full overflow-hidden rounded-[10px] after:pointer-events-none after:absolute after:inset-0 after:rounded-[10px] after:shadow-[inset_0_0_0_1px_var(--input)]">
+        <div className="relative w-full overflow-hidden rounded-[10px] after:pointer-events-none after:absolute after:inset-0 after:rounded-[10px] after:shadow-[inset_0_0_0_1px_var(--image-outline)]">
           <CoverImage
             src={thumbnail}
             alt=""

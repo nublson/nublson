@@ -87,7 +87,8 @@ body {
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.94 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.556 0 0);                /* focus ring, 4.5:1 on background */
+  --image-outline: oklch(0 0 0 / 0.1);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -123,7 +124,8 @@ body {
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(0.248 0 0);
   --input: oklch(0.27 0 0);
-  --ring: oklch(0.553 0 0);
+  --ring: oklch(0.7 0 0);
+  --image-outline: oklch(1 0 0 / 0.1);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -225,7 +227,7 @@ body {
 
 /* Small square tile for project icons. */
 .tile {
-  @apply grid size-5 shrink-0 place-items-center overflow-hidden rounded-[5px] bg-card shadow-[inset_0_0_0_1px_var(--input)];
+  @apply grid size-5 shrink-0 place-items-center overflow-hidden rounded-[5px] bg-card shadow-[inset_0_0_0_1px_var(--image-outline)];
 }
 
 .article-layout {

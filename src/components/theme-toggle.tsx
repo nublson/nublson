@@ -32,7 +32,7 @@ export function ThemeToggle() {
 
   const isDark = resolvedTheme === "dark";
   const icon =
-    "absolute left-1/2 top-1/2 size-[15px] -translate-x-1/2 -translate-y-1/2 transition-all";
+    "absolute left-1/2 top-1/2 size-[15px] -translate-x-1/2 -translate-y-1/2 transition-[opacity,scale,rotate]";
 
   return (
     <Button
