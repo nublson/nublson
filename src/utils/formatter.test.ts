@@ -12,6 +12,7 @@ import {
   formatPostDayMonth,
   formatPostDateCompact,
   groupPostsByYear,
+  formatPageIcon,
 } from "./formatter";
 
 // ---------------------------------------------------------------------------
@@ -436,5 +437,65 @@ describe("groupPostsByYear", () => {
 
   it("returns no groups for no posts", () => {
     expect(groupPostsByYear([])).toEqual([]);
+  });
+});
+
+describe("formatPageIcon", () => {
+  it("returns an emoji icon", () => {
+    expect(
+      formatPageIcon(makePage({ icon: { type: "emoji", emoji: "🪶" } })),
+    ).toEqual({ type: "emoji", value: "🪶" });
+  });
+
+  it("uses external icon URLs directly", () => {
+    expect(
+      formatPageIcon(
+        makePage({
+          icon: { type: "external", external: { url: "https://x.dev/i.png" } },
+        }),
+      ),
+    ).toEqual({ type: "image", src: "https://x.dev/i.png" });
+  });
+
+  it("proxies uploaded file icons because Notion file URLs expire", () => {
+    expect(
+      formatPageIcon(
+        makePage({
+          icon: { type: "file", file: { url: "https://s3/x", expiry_time: "" } },
+        }),
+      ),
+    ).toEqual({
+      type: "image",
+      src: "/api/notion-image?resource=icon&id=page-1&v=2024-09-19T12%3A00%3A00.000Z",
+    });
+  });
+
+  it("proxies custom emoji icons", () => {
+    expect(
+      formatPageIcon(
+        makePage({
+          icon: {
+            type: "custom_emoji",
+            custom_emoji: { id: "e", name: "purl", url: "https://s3/e.png" },
+          },
+        }),
+      )?.type,
+    ).toBe("image");
+  });
+
+  it("returns undefined for Notion built-in icons and missing icons", () => {
+    expect(
+      formatPageIcon(
+        makePage({ icon: { type: "icon", icon: { name: "x", color: "gray" } } }),
+      ),
+    ).toBeUndefined();
+    expect(formatPageIcon(makePage({ icon: null }))).toBeUndefined();
+  });
+
+  it("is included in formatPostMetadata", () => {
+    const [post] = formatPostMetadata([
+      makePage({ icon: { type: "emoji", emoji: "🪶" } }),
+    ]);
+    expect(post.icon).toEqual({ type: "emoji", value: "🪶" });
   });
 });

@@ -22,6 +22,34 @@ function formatCoverThumbnail(
   return undefined;
 }
 
+export type PostIcon =
+  | { type: "emoji"; value: string }
+  | { type: "image"; src: string };
+
+/** Notion page icon. Uploaded files and custom emoji go through the proxy because their URLs expire. */
+export function formatPageIcon(page: PageObjectResponse): PostIcon | undefined {
+  const icon = page.icon;
+  if (!icon) return undefined;
+  switch (icon.type) {
+    case "emoji":
+      return { type: "emoji", value: icon.emoji };
+    case "external":
+      return { type: "image", src: icon.external.url };
+    case "file":
+    case "custom_emoji":
+      return {
+        type: "image",
+        src: buildNotionImageProxyUrl({
+          resource: "icon",
+          id: page.id,
+          v: page.last_edited_time,
+        }),
+      };
+    default:
+      return undefined;
+  }
+}
+
 export const slugifyText = (text: string) => {
   return slugify(text, {
     remove: /[*+~.,()'"?!:@]/g,
@@ -81,6 +109,7 @@ export type PostMetadata = {
   thumbnail?: string;
   /** Set by `withThumbnailBlur`, not by the formatter; see `@/services/notion`. */
   blurDataURL?: string;
+  icon?: PostIcon;
   description: string;
   published_date: string;
   updated_date: string;
@@ -138,6 +167,7 @@ export const formatPostMetadata = (
       title,
       slug: slugifyText(title),
       thumbnail,
+      icon: formatPageIcon(page),
       description,
       published_date,
       updated_date,
