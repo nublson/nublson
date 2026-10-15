@@ -1,8 +1,7 @@
 import { HomeHero } from "@/app/_components/home-hero";
 import { HomePosts } from "@/app/_components/home-posts";
-import { HomeProjects } from "@/app/_components/home-projects";
+import { getHomeProjects, HomeProjects } from "@/app/_components/home-projects";
 import { PostsSectionSkeleton } from "@/components/skeletons/posts-section-skeleton";
-import { ProjectsSectionSkeleton } from "@/components/skeletons/projects-section-skeleton";
 import { getPageData } from "@/services/notion";
 import { formatPageMetadata } from "@/utils/formatter";
 import { metadataFromNotionPageId } from "@/utils/metadata";
@@ -19,19 +18,18 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const page = await getPageData(process.env.NOTION_PAGE_HOME_ID!);
+  // Projects are awaited with the page: their count changes, so no skeleton
+  // could match it. The writing list (always 4) keeps its exact skeleton.
+  const [page, projects] = await Promise.all([
+    getPageData(process.env.NOTION_PAGE_HOME_ID!),
+    getHomeProjects(),
+  ]);
   const heroMetadata = formatPageMetadata(page);
 
   return (
     <section className="article-layout">
       <HomeHero metadata={heroMetadata} />
-      <Suspense
-        fallback={
-          <ProjectsSectionSkeleton rowCount={3} showViewAll />
-        }
-      >
-        <HomeProjects />
-      </Suspense>
+      <HomeProjects posts={projects} />
       <Suspense fallback={<PostsSectionSkeleton rowCount={4} showViewAll />}>
         <HomePosts />
       </Suspense>

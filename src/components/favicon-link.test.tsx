@@ -23,6 +23,15 @@ describe("FaviconLink icons", () => {
   });
 });
 
+describe("FaviconLink Purl", () => {
+  it("renders the Purl pearl for Purl links", () => {
+    render(<FaviconLink href="https://purl.live" label="Purl" />);
+    expect(
+      screen.getByRole("link", { name: "Purl" }).querySelector("svg"),
+    ).not.toBeNull();
+  });
+});
+
 describe("FaviconLink wrapping", () => {
   it("lets long custom link text wrap so it can't overflow narrow screens", () => {
     render(

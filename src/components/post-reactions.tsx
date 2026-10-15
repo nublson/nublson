@@ -1,5 +1,6 @@
 "use client";
 
+import { PurlLogo } from "@/components/purl-logo";
 import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-skeleton";
 import { Button } from "@/components/ui/button";
 import { usePostReactionsRealtime } from "@/hooks/use-post-reactions-realtime";
@@ -21,40 +22,6 @@ import { Typography } from "./typography";
 type PurlState = "idle" | "saving" | "saved" | "error";
 
 const PURL_FALLBACK_ERROR = "Couldn't save to Purl";
-
-function PurlLogo({ className }: { className?: string }) {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-hidden
-    >
-      <g clipPath="url(#purl-clip)">
-        <circle cx="16" cy="16" r="16" fill="url(#purl-grad)" />
-      </g>
-      <defs>
-        <radialGradient
-          id="purl-grad"
-          cx="0"
-          cy="0"
-          r="1"
-          gradientUnits="userSpaceOnUse"
-          gradientTransform="translate(6) scale(28.5 26.4348)"
-        >
-          <stop offset="0.457935" stopColor="white" />
-          <stop offset="1" stopColor="#EAE0C8" />
-        </radialGradient>
-        <clipPath id="purl-clip">
-          <rect width="32" height="32" fill="white" />
-        </clipPath>
-      </defs>
-    </svg>
-  );
-}
 
 type PostReactionsProps = {
   postId: string;

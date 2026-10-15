@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { RiGithubFill, RiInstagramLine, RiYoutubeFill } from "@remixicon/react";
 import type { AnchorHTMLAttributes, ReactNode, SVGProps } from "react";
+import { PurlLogo } from "./purl-logo";
 
 /** Substack's mark (Remix Icon has none). */
 function SubstackMark(props: SVGProps<SVGSVGElement>) {
@@ -11,7 +12,10 @@ function SubstackMark(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-type IconComponent = typeof RiGithubFill | typeof SubstackMark;
+type IconComponent =
+  | typeof RiGithubFill
+  | typeof SubstackMark
+  | typeof PurlLogo;
 
 const SOCIAL_ICONS: Record<string, { Icon: IconComponent; className: string }> =
   {
@@ -19,6 +23,7 @@ const SOCIAL_ICONS: Record<string, { Icon: IconComponent; className: string }> =
     YouTube: { Icon: RiYoutubeFill, className: "text-[#ff0033]" },
     Instagram: { Icon: RiInstagramLine, className: "text-[#e1306c]" },
     Substack: { Icon: SubstackMark, className: "text-[#ff6719]" },
+    Purl: { Icon: PurlLogo, className: "" },
   };
 
 export function SocialIcon({
