@@ -12,6 +12,9 @@ export const socialProfiles: SocialProfile[] = social.media.map(
  */
 const linkOnlyProfiles: SocialProfile[] = [
   { label: "Substack", url: "https://nublson.substack.com" },
+  { label: "Purl", url: "https://purl.live" },
+  // Purl's previous address, still linked from older posts.
+  { label: "Purl", url: "https://purl.nublson.com" },
 ];
 
 function hostOf(url: string): string | null {

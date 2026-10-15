@@ -22,6 +22,12 @@ describe("findSocialProfile", () => {
     expect(socialProfiles.map((p) => p.label)).not.toContain("Substack");
   });
 
+  it("recognises Purl at its new and old addresses", () => {
+    expect(findSocialProfile("https://purl.live")?.label).toBe("Purl");
+    expect(findSocialProfile("https://purl.nublson.com/")?.label).toBe("Purl");
+    expect(socialProfiles.map((p) => p.label)).not.toContain("Purl");
+  });
+
   it("returns null for unknown or malformed URLs", () => {
     expect(findSocialProfile("https://example.com")).toBeNull();
     expect(findSocialProfile("not a url")).toBeNull();
