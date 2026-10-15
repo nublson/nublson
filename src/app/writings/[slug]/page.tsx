@@ -71,10 +71,13 @@ export default async function BlogPostPage({
     <>
       <BlogJsonLd slug={slug} metadata={found.metadata} />
       <article className="article-layout">
-        <BlogPostHero metadata={await withThumbnailBlur(found.metadata)} />
+        <BlogPostHero
+          metadata={await withThumbnailBlur(found.metadata)}
+          slug={slug}
+        />
         <BlogPostBody blocks={pageBlocks} />
       </article>
-      <Suspense fallback={<PostReactionsSkeleton trackViews enableAudio />}>
+      <Suspense fallback={<PostReactionsSkeleton trackViews />}>
         <PostReactionsLoader params={params} media="Blog" />
       </Suspense>
       <Suspense fallback={<PostsSectionSkeleton rowCount={3} showViewAll />}>

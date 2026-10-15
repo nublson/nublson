@@ -38,7 +38,6 @@ export async function PostReactionsLoader({
       initialData={initialData}
       trackViews={trackViews}
       initialViews={initialViews}
-      enableAudio={media === "Blog"}
     />
   );
 }

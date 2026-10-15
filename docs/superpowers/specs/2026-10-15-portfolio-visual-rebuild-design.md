@@ -120,3 +120,12 @@ agent files, reactions API, views API, speech/audio API, Purl OAuth flow.
 - `pnpm lint`, `pnpm type-check`, `pnpm test`.
 - Browser check of `/`, `/projects`, `/writings`, one article, one project, `/about`, `/gears`, 404,
   in light, dark and 375px width, with and without JS.
+
+## Revision: round 2 (2026-10-15)
+
+Decided after reviewing the built rebuild:
+
+- **Projects have no pages.** Rows open the live site (`Path`), else the source (`Source`), in a new tab with a ↗ mark; a project with neither renders as a plain row. Descriptions are one line, with the full text in a tooltip. Old `/projects/<slug>` URLs permanently redirect to the same destination (or `/projects`). RSS, `llms.txt` and the sitemap no longer point at project pages; Markdown versions and agent tools still serve project content.
+- **Project icons** render images and emoji in the same 14px box inside the 20px tile, centered on the title line.
+- **Reactions placement (closes Open item 1).** Listen sits in the article meta line (`date · category · Listen`). The floating pill is replaced by an end-of-article row: views on the left; like, dislike, Save to Purl and share on the right as outline pills.
+- **Gears** is unchanged.
