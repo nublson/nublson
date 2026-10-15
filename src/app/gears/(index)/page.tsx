@@ -2,11 +2,7 @@ import { GearsBody } from "@/app/_components/gears-body";
 import { GearsCategory } from "@/app/_components/gears-category";
 import { GearsHero } from "@/app/_components/gears-hero";
 import { ProjectsSectionSkeleton } from "@/components/skeletons/projects-section-skeleton";
-import {
-  getPageBlocks,
-  getPageData,
-  withThumbnailBlur,
-} from "@/services/notion";
+import { getPageBlocks, getPageData } from "@/services/notion";
 import { formatPageMetadata } from "@/utils/formatter";
 import { metadataFromNotionPageId } from "@/utils/metadata";
 import type { Metadata } from "next";
@@ -26,7 +22,7 @@ export default async function GearsPage() {
     getPageData(pageId),
     getPageBlocks(pageId),
   ]);
-  const heroMetadata = await withThumbnailBlur(formatPageMetadata(page));
+  const heroMetadata = formatPageMetadata(page);
 
   return (
     <section className="article-layout">

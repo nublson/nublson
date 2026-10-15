@@ -1,4 +1,5 @@
 import { JsonLd } from "@/components/json-ld";
+import { SocialLinks } from "@/components/social-links";
 import { Typography } from "@/components/typography";
 import social from "@/data/social.json";
 import Hero from "@/sections/hero";
@@ -25,16 +26,13 @@ export function HomeHero({ metadata }: { metadata: PageMetadata }) {
         title={metadata.title}
         description={metadata.description}
         bottom={
-          <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
-            <Typography className="line-clamp-1 break-words font-bold text-muted-foreground">
-              {metadata.role}
-            </Typography>
-            <Typography className="line-clamp-1 break-words font-bold text-muted-foreground">
-              <span aria-hidden="true">📍</span> {metadata.location}
-            </Typography>
-          </div>
+          <Typography className="text-subtle-foreground">
+            {[metadata.role, metadata.location].filter(Boolean).join(" · ")}
+          </Typography>
         }
-      />
+      >
+        <SocialLinks />
+      </Hero>
     </>
   );
 }

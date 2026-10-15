@@ -1,6 +1,6 @@
 import { CoverImage } from "@/components/cover-image";
-import { HeadingPage } from "@/components/heading-page";
 import { Typography } from "@/components/typography";
+import { cn } from "@/lib/utils";
 
 interface HeroSectionProps {
   title: string;
@@ -9,7 +9,8 @@ interface HeroSectionProps {
   blurDataURL?: string;
   top?: React.ReactNode;
   bottom?: React.ReactNode;
-  size?: "small" | "default";
+  children?: React.ReactNode;
+  variant?: "page" | "article";
 }
 
 export default function HeroSection({
@@ -19,23 +20,46 @@ export default function HeroSection({
   blurDataURL,
   top,
   bottom,
-  size = "default",
+  children,
+  variant = "page",
 }: HeroSectionProps) {
-  return (
-    <header className="w-full pt-21 md:pt-26 lg:pt-31 pb-5 flex flex-col items-start justify-start gap-10 lg:gap-[60px]">
-      <HeadingPage title={title} top={top} bottom={bottom} size={size} />
-      {description && (
-        <Typography className="text-muted-foreground">{description}</Typography>
-      )}
+  const isArticle = variant === "article";
 
-      {thumbnail && (
-        <CoverImage
-          src={thumbnail}
-          alt=""
-          blurDataURL={blurDataURL}
-          priority
-          className="aspect-video"
-        />
+  return (
+    <header
+      className={cn("flex w-full flex-col", isArticle ? "gap-8" : "gap-5")}
+    >
+      {top}
+      <div className={cn("flex flex-col", isArticle ? "gap-3" : "gap-0")}>
+        <Typography
+          component="h1"
+          variant={isArticle ? "h1" : "h2"}
+          className="break-words"
+        >
+          {title}
+        </Typography>
+        {bottom}
+      </div>
+      {description && (
+        <Typography
+          size={isArticle ? "article" : "regular"}
+          className="max-w-[60ch]"
+        >
+          {description}
+        </Typography>
+      )}
+      {children}
+      {isArticle && thumbnail && (
+        <div className="relative w-full overflow-hidden rounded-[10px] after:pointer-events-none after:absolute after:inset-0 after:rounded-[10px] after:shadow-[inset_0_0_0_1px_var(--input)]">
+          <CoverImage
+            src={thumbnail}
+            alt=""
+            blurDataURL={blurDataURL}
+            priority
+            sizes="(max-width: 672px) 100vw, 640px"
+            className="aspect-video"
+          />
+        </div>
       )}
     </header>
   );

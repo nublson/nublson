@@ -24,7 +24,7 @@ export function WorkPostHero({ metadata }: { metadata: PostMetadata }) {
       description={metadata.description}
       thumbnail={metadata.thumbnail}
       blurDataURL={metadata.blurDataURL}
-      size="small"
+      variant="article"
       bottom={
         metadata.path || metadata.source ? (
           <div className="w-full flex items-center justify-between gap-2">
