@@ -28,7 +28,8 @@ export default function PurlCallbackPage() {
           new URLSearchParams(window.location.search),
         );
         returnPath = connected.returnPath;
-        const outcome = await saveToPurl(connected.url);
+        // Never start another connect redirect from the callback itself.
+        const outcome = await saveToPurl(connected.url, { connect: false });
         result =
           outcome.status === "saved" || outcome.status === "limit"
             ? { status: outcome.status }
@@ -40,7 +41,15 @@ export default function PurlCallbackPage() {
                     : SAVE_FAILED_MESSAGE,
               };
       } catch (e) {
-        if (e instanceof PurlConnectError) returnPath = e.returnPath;
+        if (e instanceof PurlConnectError) {
+          returnPath = e.returnPath;
+          // A reloaded callback has no pending flow: go home without leaving
+          // an error to surface later on an unrelated post.
+          if (e.quiet) {
+            router.replace(returnPath);
+            return;
+          }
+        }
         result = {
           status: "error",
           message: e instanceof Error ? e.message : SAVE_FAILED_MESSAGE,

@@ -35,8 +35,8 @@ export class PurlRequestError extends Error {
   }
 }
 
-async function renewTokens(): Promise<PurlTokens> {
-  const tokens = await refreshTokens();
+async function renewTokens(signal?: AbortSignal): Promise<PurlTokens> {
+  const tokens = await refreshTokens(signal);
   if (!tokens) {
     clearTokens();
     throw new PurlNotConnectedError();
@@ -77,11 +77,11 @@ export async function saveLink(
 ): Promise<"saved" | "limit"> {
   let tokens = getTokens();
   if (!tokens) throw new PurlNotConnectedError();
-  if (tokens.expiresAt <= Date.now()) tokens = await renewTokens();
+  if (tokens.expiresAt <= Date.now()) tokens = await renewTokens(signal);
 
   let res = await postSave(url, tokens.accessToken, signal);
   if (res.status === 401) {
-    tokens = await renewTokens();
+    tokens = await renewTokens(signal);
     res = await postSave(url, tokens.accessToken, signal);
     if (res.status === 401) {
       clearTokens();
@@ -102,14 +102,23 @@ export async function saveLink(
   );
 }
 
-/** One save attempt shaped for the button: never throws. */
-export async function saveToPurl(url: string): Promise<PurlSaveOutcome> {
+/**
+ * One save attempt shaped for the button: never throws. Pass `connect: false`
+ * where redirecting to Purl again would be wrong (the OAuth callback itself).
+ */
+export async function saveToPurl(
+  url: string,
+  options: { connect?: boolean } = {},
+): Promise<PurlSaveOutcome> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   try {
     return { status: await saveLink(url, controller.signal) };
   } catch (e) {
     if (e instanceof PurlNotConnectedError) {
+      if (options.connect === false) {
+        return { status: "error", message: CONNECT_UNAVAILABLE_MESSAGE };
+      }
       return (await startConnect(url))
         ? { status: "redirecting" }
         : { status: "error", message: CONNECT_UNAVAILABLE_MESSAGE };

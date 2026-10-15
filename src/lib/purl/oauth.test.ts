@@ -3,6 +3,7 @@ import {
   buildAuthorizeUrl,
   completeConnect,
   PurlConnectError,
+  PurlTransientError,
   refreshTokens,
   safeReturnPath,
   startConnect,
@@ -59,7 +60,14 @@ describe("safeReturnPath", () => {
     expect(safeReturnPath("/blog/a?x=1")).toBe("/blog/a?x=1");
   });
 
-  it.each(["//evil.com", "https://evil.com/x", "", undefined])(
+  it.each([
+    "//evil.com",
+    "https://evil.com/x",
+    "/\\evil.com",
+    "/\t/evil.com",
+    "",
+    undefined,
+  ])(
     "falls back to / for %s",
     (value) => {
       expect(safeReturnPath(value)).toBe("/");
@@ -165,7 +173,7 @@ describe("completeConnect", () => {
   it("fails safely when the pending record is already consumed", async () => {
     await expect(
       completeConnect(new URLSearchParams({ code: "c1", state: "st" })),
-    ).rejects.toMatchObject({ returnPath: "/" });
+    ).rejects.toMatchObject({ returnPath: "/", quiet: true });
   });
 
   it("never returns an off-site path from a tampered pending record", async () => {
@@ -225,6 +233,33 @@ describe("refreshTokens", () => {
     );
     await expect(refreshTokens()).resolves.toBeNull();
     expect(getTokens()?.accessToken).toBe("old");
+  });
+
+  it("throws a transient error, keeping the tokens, when the network fails", async () => {
+    setTokens({ accessToken: "old", refreshToken: "ref", expiresAt: 1 });
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("offline")));
+    await expect(refreshTokens()).rejects.toBeInstanceOf(PurlTransientError);
+    expect(getTokens()?.refreshToken).toBe("ref");
+  });
+
+  it("throws a transient error on a server error", async () => {
+    setTokens({ accessToken: "old", refreshToken: "ref", expiresAt: 1 });
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({ ok: false, status: 503, json: async () => ({}) }),
+    );
+    await expect(refreshTokens()).rejects.toBeInstanceOf(PurlTransientError);
+  });
+
+  it("forwards the abort signal to the token request", async () => {
+    setTokens({ accessToken: "old", refreshToken: "ref", expiresAt: 1 });
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(tokenResponse({ access_token: "new", expires_in: 60 }));
+    vi.stubGlobal("fetch", fetchMock);
+    const controller = new AbortController();
+    await refreshTokens(controller.signal);
+    expect(fetchMock.mock.calls[0][1].signal).toBe(controller.signal);
   });
 
   it("returns null without a refresh token", async () => {

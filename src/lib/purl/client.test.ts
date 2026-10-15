@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { PurlNotConnectedError, saveLink, saveToPurl } from "./client";
-import { refreshTokens, startConnect } from "./oauth";
+import { PurlTransientError, refreshTokens, startConnect } from "./oauth";
 import { getTokens, setTokens } from "./storage";
 
 vi.mock("./oauth", async (importOriginal) => ({
@@ -207,6 +207,38 @@ describe("saveToPurl", () => {
       status: "error",
       message: "Couldn't save to Purl. The request timed out — try again.",
     });
+  });
+
+  it("keeps the tokens and reports a connection error when refresh hits a transient failure", async () => {
+    setTokens({ accessToken: "old", refreshToken: "r", expiresAt: 1 });
+    vi.mocked(refreshTokens).mockRejectedValue(new PurlTransientError());
+    vi.stubGlobal("fetch", vi.fn());
+
+    await expect(saveToPurl(URL_TO_SAVE)).resolves.toEqual({
+      status: "error",
+      message: "Couldn't save to Purl. Check your connection and try again.",
+    });
+    expect(startConnect).not.toHaveBeenCalled();
+    expect(getTokens()).not.toBeNull();
+  });
+
+  it("passes the timeout signal to the token refresh", async () => {
+    setTokens({ accessToken: "old", refreshToken: "r", expiresAt: 1 });
+    vi.mocked(refreshTokens).mockResolvedValue({
+      accessToken: "fresh",
+      expiresAt: future(),
+    });
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(response(201)));
+
+    await saveToPurl(URL_TO_SAVE);
+
+    expect(refreshTokens).toHaveBeenCalledWith(expect.any(AbortSignal));
+  });
+
+  it("does not start another connect flow when told not to", async () => {
+    const outcome = await saveToPurl(URL_TO_SAVE, { connect: false });
+    expect(outcome.status).toBe("error");
+    expect(startConnect).not.toHaveBeenCalled();
   });
 
   it("reports an error instead of looping when storage is unavailable", async () => {

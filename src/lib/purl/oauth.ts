@@ -16,17 +16,31 @@ const EXPIRY_SKEW_MS = 30_000;
 
 export class PurlConnectError extends Error {
   readonly returnPath: string;
+  /** True when there is nothing worth telling the visitor (e.g. a reloaded callback). */
+  readonly quiet: boolean;
 
-  constructor(message: string, returnPath: string) {
+  constructor(message: string, returnPath: string, quiet = false) {
     super(message);
     this.name = "PurlConnectError";
     this.returnPath = returnPath;
+    this.quiet = quiet;
+  }
+}
+
+/** The token endpoint was unreachable or failing; the visitor's tokens are still good. */
+export class PurlTransientError extends Error {
+  constructor() {
+    super("Purl is unreachable");
+    this.name = "PurlTransientError";
   }
 }
 
 /** Only same-site relative paths are allowed as a post-connect destination. */
 export function safeReturnPath(path: string | undefined): string {
+  // Backslashes and control characters are normalised to "/" by URL parsers
+  // (so "/\\evil.com" and "/\t/evil.com" resolve off-site), so reject them.
   if (!path || !path.startsWith("/") || path.startsWith("//")) return "/";
+  if (/[\\\u0000-\u001f]/.test(path)) return "/";
   return path;
 }
 
@@ -66,8 +80,13 @@ type TokenResponse = {
   expires_in?: unknown;
 };
 
+/**
+ * Resolves `null` when Purl rejects the request (bad or revoked grant) and
+ * throws `PurlTransientError` when it could not be reached or is failing.
+ */
 async function requestTokens(
   params: Record<string, string>,
+  signal?: AbortSignal,
 ): Promise<PurlTokens | null> {
   const { tokenUrl, clientId } = getPurlConfig();
   if (!clientId) return null;
@@ -76,7 +95,9 @@ async function requestTokens(
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({ ...params, client_id: clientId }).toString(),
+      signal,
     });
+    if (res.status >= 500 || res.status === 429) throw new PurlTransientError();
     if (!res.ok) return null;
     const body = (await res.json()) as TokenResponse;
     if (typeof body.access_token !== "string") return null;
@@ -88,7 +109,10 @@ async function requestTokens(
         typeof body.refresh_token === "string" ? body.refresh_token : undefined,
       expiresAt: Date.now() + expiresIn * 1000 - EXPIRY_SKEW_MS,
     };
-  } catch {
+  } catch (e) {
+    if (e instanceof PurlTransientError) throw e;
+    if ((e as { name?: string } | null)?.name === "AbortError") throw e;
+    if (e instanceof TypeError) throw new PurlTransientError();
     return null;
   }
 }
@@ -97,7 +121,7 @@ export async function completeConnect(
   params: URLSearchParams,
 ): Promise<{ returnPath: string; url: string }> {
   const pending = takePending();
-  if (!pending) throw new PurlConnectError(CONNECT_FAILED_MESSAGE, "/");
+  if (!pending) throw new PurlConnectError(CONNECT_FAILED_MESSAGE, "/", true);
   const returnPath = safeReturnPath(pending.returnPath);
 
   if (params.get("state") !== pending.state) {
@@ -114,25 +138,33 @@ export async function completeConnect(
   const code = params.get("code");
   if (!code) throw new PurlConnectError(CONNECT_FAILED_MESSAGE, returnPath);
 
-  const tokens = await requestTokens({
-    grant_type: "authorization_code",
-    code,
-    code_verifier: pending.verifier,
-    redirect_uri: getPurlConfig().redirectUri,
-  });
+  let tokens: PurlTokens | null = null;
+  try {
+    tokens = await requestTokens({
+      grant_type: "authorization_code",
+      code,
+      code_verifier: pending.verifier,
+      redirect_uri: getPurlConfig().redirectUri,
+    });
+  } catch {
+    // Unreachable or failing token endpoint: same outcome as a rejected code.
+  }
   if (!tokens || !setTokens(tokens)) {
     throw new PurlConnectError(CONNECT_FAILED_MESSAGE, returnPath);
   }
   return { returnPath, url: pending.url };
 }
 
-export async function refreshTokens(): Promise<PurlTokens | null> {
+/** `null` when the refresh grant is rejected; throws `PurlTransientError` on network/5xx. */
+export async function refreshTokens(
+  signal?: AbortSignal,
+): Promise<PurlTokens | null> {
   const current = getTokens();
   if (!current?.refreshToken) return null;
-  const next = await requestTokens({
-    grant_type: "refresh_token",
-    refresh_token: current.refreshToken,
-  });
+  const next = await requestTokens(
+    { grant_type: "refresh_token", refresh_token: current.refreshToken },
+    signal,
+  );
   if (!next) return null;
   const tokens = {
     ...next,
