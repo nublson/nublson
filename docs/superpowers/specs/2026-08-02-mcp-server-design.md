@@ -16,7 +16,7 @@ Agents can connect to `https://nublson.com/api/mcp` (MCP Streamable HTTP transpo
 
 ### Route: `src/app/api/[transport]/route.ts`
 
-`createMcpHandler(initialize, serverOptions, { basePath: "/api" })` exported as `GET` and `POST`. The live endpoint is `/api/mcp`. Existing static `/api/*` routes (markdown, reactions, revalidate, purl) take precedence over the dynamic `[transport]` segment. SSE transport is not supported (requires Redis); Streamable HTTP is the default modern transport.
+`createMcpHandler(initialize, serverOptions, { basePath: "/api" })` exported as `GET` and `POST`. The live endpoint is `/api/mcp`. Existing static `/api/*` routes (markdown, reactions, revalidate) take precedence over the dynamic `[transport]` segment. SSE transport is not supported (requires Redis); Streamable HTTP is the default modern transport.
 
 Server identity: name `nublson.com`, version `1.0.0`.
 
