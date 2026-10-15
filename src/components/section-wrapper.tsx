@@ -23,7 +23,7 @@ export function SectionWrapper({
       id={id}
       aria-labelledby={headingId}
       className={cn(
-        "flex w-full flex-col items-center justify-start gap-8 pb-5",
+        "flex w-full flex-col items-stretch justify-start gap-3.5",
         className,
       )}
     >

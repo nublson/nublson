@@ -20,8 +20,8 @@ export function ThemeToggle() {
     return (
       <Button
         variant="ghost"
-        size="icon"
-        className="relative"
+        size="icon-sm"
+        className="relative text-subtle-foreground"
         disabled
         aria-hidden
       >
@@ -32,14 +32,14 @@ export function ThemeToggle() {
 
   const isDark = resolvedTheme === "dark";
   const icon =
-    "absolute left-1/2 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 transition-all";
+    "absolute left-1/2 top-1/2 size-[15px] -translate-x-1/2 -translate-y-1/2 transition-all";
 
   return (
     <Button
       type="button"
       variant="ghost"
-      size="icon"
-      className="relative cursor-pointer"
+      size="icon-sm"
+      className="relative cursor-pointer text-subtle-foreground hover:text-foreground"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >

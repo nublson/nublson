@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { Typography } from "./typography";
-import { Separator } from "./ui/separator";
 
 interface SectionHeaderProps {
   title: string;
@@ -11,23 +9,19 @@ interface SectionHeaderProps {
 
 export function SectionHeader({ title, href, titleId }: SectionHeaderProps) {
   return (
-    <div className="w-full flex flex-col items-start justify-start gap-2">
-      <div className="w-full flex items-center justify-between">
-        <Typography component="h2" variant="h3" id={titleId}>
-          {title}
-        </Typography>
-        {href && (
-          <Typography
-            size="small"
-            className="link underline-offset-4 hover:underline"
-          >
-            <Link aria-label={`View all ${title}`} href={href}>
-              View all
-            </Link>
-          </Typography>
-        )}
-      </div>
-      <Separator />
+    <div className="flex w-full items-baseline justify-between gap-4">
+      <h2 id={titleId} className="text-sm font-normal text-subtle-foreground">
+        {title}
+      </h2>
+      {href && (
+        <Link
+          href={href}
+          aria-label={`View all ${title}`}
+          className="text-sm text-subtle-foreground transition-colors duration-150 ease-(--ease-out) hover:text-foreground"
+        >
+          All
+        </Link>
+      )}
     </div>
   );
 }
