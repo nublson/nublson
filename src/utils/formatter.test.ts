@@ -9,6 +9,9 @@ import {
   formatBlockWithChildren,
   formatPageMetadata,
   formatPostMetadata,
+  formatPostDayMonth,
+  formatPostDateCompact,
+  groupPostsByYear,
 } from "./formatter";
 
 // ---------------------------------------------------------------------------
@@ -375,5 +378,63 @@ describe("formatPostMetadata", () => {
     expect(results).toHaveLength(2);
     expect(results[0].title).toBe("Alpha");
     expect(results[1].title).toBe("Beta");
+  });
+});
+
+describe("formatPostDayMonth", () => {
+  it("formats a plain date as dd/mm", () => {
+    expect(formatPostDayMonth("2026-06-25")).toBe("25/06");
+  });
+
+  it("uses the calendar day written in the Notion string, ignoring timezone", () => {
+    expect(formatPostDayMonth("2026-01-01T00:30:00.000+01:00")).toBe("01/01");
+  });
+
+  it("returns an empty string for an empty or invalid date", () => {
+    expect(formatPostDayMonth("")).toBe("");
+    expect(formatPostDayMonth("not a date")).toBe("");
+  });
+});
+
+describe("formatPostDateCompact", () => {
+  it("omits the year for the current year", () => {
+    expect(formatPostDateCompact("2026-06-25T15:20:00.000+01:00", 2026)).toBe(
+      "25/06",
+    );
+  });
+
+  it("adds a two-digit year for other years", () => {
+    expect(formatPostDateCompact("2025-12-12", 2026)).toBe("12/12/25");
+  });
+
+  it("returns an empty string for an empty date", () => {
+    expect(formatPostDateCompact("", 2026)).toBe("");
+  });
+});
+
+describe("groupPostsByYear", () => {
+  const post = (id: string, published_date: string) =>
+    ({ id, published_date }) as unknown as Parameters<
+      typeof groupPostsByYear
+    >[0][number];
+
+  it("groups posts by year and keeps input order", () => {
+    const groups = groupPostsByYear([
+      post("a", "2026-06-25"),
+      post("b", "2026-05-28"),
+      post("c", "2025-12-12"),
+    ]);
+    expect(groups.map((g) => g.year)).toEqual(["2026", "2025"]);
+    expect(groups[0].posts.map((p) => p.id)).toEqual(["a", "b"]);
+    expect(groups[1].posts.map((p) => p.id)).toEqual(["c"]);
+  });
+
+  it("puts undated posts in a group with an empty year", () => {
+    const groups = groupPostsByYear([post("a", "2026-06-25"), post("b", "")]);
+    expect(groups.map((g) => g.year)).toEqual(["2026", ""]);
+  });
+
+  it("returns no groups for no posts", () => {
+    expect(groupPostsByYear([])).toEqual([]);
   });
 });

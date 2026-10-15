@@ -178,6 +178,50 @@ export const formatPostDateFull = (date: string) => {
 };
 
 /**
+ * Calendar date parts read straight from the Notion string, so the
+ * visitor's timezone can never move a post to another day.
+ */
+function notionDateParts(
+  date: string,
+): { year: string; month: string; day: string } | null {
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(date);
+  return match ? { year: match[1], month: match[2], day: match[3] } : null;
+}
+
+/** e.g. "25/06" — archive rows, where the year is shown in its own column */
+export const formatPostDayMonth = (date: string): string => {
+  const parts = notionDateParts(date);
+  return parts ? `${parts.day}/${parts.month}` : "";
+};
+
+/** e.g. "25/06" this year, "12/12/25" otherwise — short post lists */
+export const formatPostDateCompact = (
+  date: string,
+  currentYear: number = new Date().getFullYear(),
+): string => {
+  const parts = notionDateParts(date);
+  if (!parts) return "";
+  const dayMonth = `${parts.day}/${parts.month}`;
+  return Number(parts.year) === currentYear
+    ? dayMonth
+    : `${dayMonth}/${parts.year.slice(2)}`;
+};
+
+export type PostYearGroup = { year: string; posts: PostMetadata[] };
+
+/** Groups already-sorted posts by publish year; undated posts get `year: ""`. */
+export function groupPostsByYear(posts: PostMetadata[]): PostYearGroup[] {
+  const groups: PostYearGroup[] = [];
+  for (const post of posts) {
+    const year = notionDateParts(post.published_date)?.year ?? "";
+    const group = groups.find((g) => g.year === year);
+    if (group) group.posts.push(post);
+    else groups.push({ year, posts: [post] });
+  }
+  return groups;
+}
+
+/**
  * Compacts a non-negative count for UI (e.g. reactions).
  * Examples: `999` → `"999"`, `1000` → `"1K"`, `10300` → `"10.3K"`, `999_999` → `"1M"`.
  */
