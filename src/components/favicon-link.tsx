@@ -53,7 +53,9 @@ export function FaviconLink({
       rel="noopener noreferrer"
       {...props}
       className={cn(
-        "font-medium whitespace-nowrap text-foreground transition-opacity duration-150 ease-(--ease-out) hover:opacity-70",
+        "font-medium text-foreground transition-opacity duration-150 ease-(--ease-out) hover:opacity-70",
+        // A bare label stays on one line; longer link text from Notion must wrap.
+        !children && "whitespace-nowrap",
         className,
       )}
     >

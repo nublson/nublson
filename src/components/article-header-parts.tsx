@@ -19,15 +19,13 @@ export function ArticleMeta({
 }) {
   return (
     <p className="flex flex-wrap items-center gap-2 text-subtle-foreground tabular-nums">
-      <time dateTime={dateTime}>{date}</time>
-      {category && (
-        <>
-          <span aria-hidden className="opacity-60">
-            ·
-          </span>
-          <span>{category}</span>
-        </>
+      {date && <time dateTime={dateTime}>{date}</time>}
+      {date && category && (
+        <span aria-hidden className="opacity-60">
+          ·
+        </span>
       )}
+      {category && <span>{category}</span>}
     </p>
   );
 }

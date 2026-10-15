@@ -199,12 +199,25 @@ export const formatDateTimeIso = (date: string) => {
 };
 
 /** e.g. "Sep 19, 2025" — for article / project detail headers */
-export const formatPostDateFull = (date: string) => {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+const MONTHS_SHORT = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+export const formatPostDateFull = (date: string): string => {
+  const parts = notionDateParts(date);
+  if (!parts) return "";
+  return `${MONTHS_SHORT[Number(parts.month) - 1]} ${Number(parts.day)}, ${parts.year}`;
 };
 
 /**

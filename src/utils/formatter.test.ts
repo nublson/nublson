@@ -80,6 +80,16 @@ describe("formatPostDateFull", () => {
     expect(result).toMatch(/Sep/);
     expect(result).toMatch(/2024/);
   });
+
+  it("uses the calendar day written in the Notion string, ignoring timezone", () => {
+    expect(formatPostDateFull("2026-01-01T00:30:00.000+01:00")).toBe(
+      "Jan 1, 2026",
+    );
+  });
+
+  it("returns an empty string for an empty date instead of Invalid Date", () => {
+    expect(formatPostDateFull("")).toBe("");
+  });
 });
 
 describe("formatCompactCount", () => {

@@ -12,6 +12,18 @@ describe("FaviconLink", () => {
   });
 });
 
+describe("FaviconLink wrapping", () => {
+  it("lets long custom link text wrap so it can't overflow narrow screens", () => {
+    render(
+      <FaviconLink href="https://youtube.com/watch?v=1" label="YouTube">
+        A very long video title that must wrap on a phone
+      </FaviconLink>,
+    );
+    const link = screen.getByRole("link", { name: /very long video title/ });
+    expect(link.className).not.toContain("whitespace-nowrap");
+  });
+});
+
 describe("renderRichTextNode favicons", () => {
   it("adds a favicon to links that point at a known profile", () => {
     render(
