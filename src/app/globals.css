@@ -267,6 +267,11 @@ body {
   animation: none;
 }
 
+/* Older posts on the Writing archive fade in when their <details> opens. */
+details[open] > .older-posts {
+  animation: stream-in 200ms var(--ease-out) both;
+}
+
 /* Press feedback on full-width rows: 0.98, not 0.96, so a wide row doesn't jump. */
 .press {
   transition:

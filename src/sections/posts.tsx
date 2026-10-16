@@ -8,6 +8,7 @@ interface PostsSectionProps {
   id: string;
   posts: PostMetadata[];
   groupByYear?: boolean;
+  collapseAfter?: number;
 }
 
 export default function PostsSection({
@@ -16,10 +17,15 @@ export default function PostsSection({
   id,
   posts,
   groupByYear = false,
+  collapseAfter,
 }: PostsSectionProps) {
   return (
     <SectionWrapper title={title} path={href} id={id}>
-      <PostList posts={posts} groupByYear={groupByYear} />
+      <PostList
+        posts={posts}
+        groupByYear={groupByYear}
+        collapseAfter={collapseAfter}
+      />
     </SectionWrapper>
   );
 }
