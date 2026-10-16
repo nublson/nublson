@@ -1,18 +1,26 @@
 import PostsSection from "@/sections/posts";
-import { getDatabasePages } from "@/services/notion";
-import { formatPostMetadata, type PostMetadata } from "@/utils/formatter";
+import { getAllPublishedPostsForFeed } from "@/services/notion";
+import type { PostMetadata } from "@/utils/formatter";
 
+/** Posts shown before the rest fold into "Show older posts". */
+const VISIBLE_POSTS = 10;
+
+/** Every published post, paging through Notion so nothing past 100 is dropped. */
 export async function getBlogPosts(): Promise<PostMetadata[]> {
-  const blogPages = await getDatabasePages(
+  return getAllPublishedPostsForFeed(
     process.env.NOTION_DATABASE_CONTENT_ID!,
     "Blog",
-    20,
   );
-  return formatPostMetadata(blogPages);
 }
 
 export function BlogPosts({ posts }: { posts: PostMetadata[] }) {
   return (
-    <PostsSection title="All posts" id="writing" posts={posts} groupByYear />
+    <PostsSection
+      title="All posts"
+      id="writing"
+      posts={posts}
+      groupByYear
+      collapseAfter={VISIBLE_POSTS}
+    />
   );
 }

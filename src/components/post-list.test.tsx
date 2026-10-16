@@ -45,4 +45,51 @@ describe("PostList", () => {
     const { container } = render(<PostList posts={[]} />);
     expect(container).toBeEmptyDOMElement();
   });
+
+  describe("collapseAfter", () => {
+    const many = (n: number) =>
+      Array.from({ length: n }, (_, i) =>
+        post(`p${i}`, `Post ${i}`, i < 12 ? "2026-06-01" : "2025-06-01"),
+      );
+
+    it("shows every post with no toggle at or under the limit", () => {
+      const { container } = render(
+        <PostList posts={many(10)} groupByYear collapseAfter={10} />,
+      );
+      expect(container.querySelector("details")).toBeNull();
+      expect(screen.getAllByRole("link")).toHaveLength(10);
+    });
+
+    it("tucks the older posts into a toggle above the limit, keeping them in the HTML", () => {
+      const { container } = render(
+        <PostList posts={many(14)} groupByYear collapseAfter={10} />,
+      );
+      const details = container.querySelector("details");
+      expect(details).not.toBeNull();
+      expect(details?.querySelector("[data-show]")?.textContent).toBe(
+        "Show 4 older posts",
+      );
+      expect(details?.querySelectorAll("a")).toHaveLength(4);
+      expect(screen.getAllByRole("link", { hidden: true })).toHaveLength(14);
+    });
+
+    it("doesn't repeat a year that continues past the limit", () => {
+      const { container } = render(
+        <PostList posts={many(14)} groupByYear collapseAfter={10} />,
+      );
+      const years = [...container.querySelectorAll("[data-year]")].map(
+        (el) => el.textContent,
+      );
+      expect(years).toEqual(["2026", "", "2025"]);
+    });
+
+    it("uses the singular for one older post", () => {
+      const { container } = render(
+        <PostList posts={many(11)} groupByYear collapseAfter={10} />,
+      );
+      expect(container.querySelector("[data-show]")?.textContent).toBe(
+        "Show 1 older post",
+      );
+    });
+  });
 });
