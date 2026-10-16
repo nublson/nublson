@@ -1,6 +1,5 @@
 import {
   fetchAllPostItems,
-  fetchGearGroupsCached,
   fetchPostMarkdownCached,
   fetchProfileCached,
 } from "@/services/content-tools";
@@ -58,17 +57,6 @@ const handler = createMcpHandler(
 
         return { content: [{ type: "text" as const, text: markdown }] };
       },
-    );
-
-    server.registerTool(
-      "list_gears",
-      {
-        title: "List gear",
-        description:
-          "List recommended tools and gear, grouped by category, with product links.",
-        inputSchema: z.object({}),
-      },
-      async () => jsonResult(await fetchGearGroupsCached()),
     );
 
     server.registerTool(

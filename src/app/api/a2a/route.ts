@@ -1,6 +1,5 @@
 import {
   fetchAllPostItems,
-  fetchGearGroupsCached,
   fetchPostMarkdownCached,
   fetchProfileCached,
 } from "@/services/content-tools";
@@ -9,7 +8,6 @@ import { handleA2ARequest, type A2AContentDeps } from "@/utils/a2a";
 const deps: A2AContentDeps = {
   listPosts: (type) => fetchAllPostItems(type),
   getPost: (type, slug) => fetchPostMarkdownCached(type, slug),
-  listGears: () => fetchGearGroupsCached(),
   getProfile: () => fetchProfileCached(),
 };
 

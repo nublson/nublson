@@ -62,11 +62,6 @@ const defaultPublishedPageSorts: PublishedPageSort[] = [
   },
 ];
 
-/** Gears are listed by category only (the gears page, MCP and markdown API). */
-export const GEARS_SORTS: PublishedPageSort[] = [
-  { property: "Category", direction: "ascending" },
-];
-
 const publishedBaseFilters = (media?: string) => {
   const filters = [
     {

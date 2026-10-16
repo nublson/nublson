@@ -4,9 +4,9 @@
     {
       "name": "nublson-content",
       "type": "skill-md",
-      "description": "Read writing, projects, gear recommendations and profile info from nublson.com as clean markdown or via its MCP server.",
+      "description": "Read writing, projects and profile info from nublson.com as clean markdown or via its MCP server.",
       "url": "https://nublson.com/.well-known/agent-skills/nublson-content/SKILL.md",
-      "digest": "sha256:6857229cc67755a59b75b9d48a83f8dc55c5a2ee1607d1f344519949a221f5bf"
+      "digest": "sha256:8f469fdd59fe5d37dd0ff68cfd0681ef151c8104fde03dd4b1f9a29d767471e6"
     }
   ]
 }

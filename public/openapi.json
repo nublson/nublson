@@ -43,7 +43,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": ["home", "about", "blog", "work", "gears"]
+              "enum": ["home", "about", "blog", "work"]
             }
           }
         ],
@@ -109,7 +109,7 @@
     "/api/mcp": {
       "post": {
         "summary": "MCP Streamable HTTP endpoint",
-        "description": "Model Context Protocol server (JSON-RPC over HTTP). Tools: list_posts, get_post, list_gears, get_profile, search_posts. See /.well-known/mcp/server-card.json.",
+        "description": "Model Context Protocol server (JSON-RPC over HTTP). Tools: list_posts, get_post, get_profile, search_posts. See /.well-known/mcp/server-card.json.",
         "responses": {
           "200": { "description": "JSON-RPC response (or SSE-framed stream)" }
         }

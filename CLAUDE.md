@@ -32,13 +32,13 @@ Run a single test file: `pnpm vitest run src/utils/formatter.test.ts`
 
 **Stack:** Next.js App Router · React 19 · TypeScript (strict) · Tailwind CSS v4 · shadcn/Radix UI · Notion as CMS
 
-**Content source:** All content (blog posts, work/projects, page hero sections) comes from Notion via `@notionhq/client`. The service layer lives entirely in `src/services/notion.tsx`. Data is filtered by `State === "Done"` and `Media === "Blog"` or `Media === "Project"` from a single Notion database (`NOTION_DATABASE_CONTENT_ID`). A second database (`NOTION_DATABASE_GEARS_ID`) stores tools/gear items.
+**Content source:** All content (blog posts, work/projects, page hero sections) comes from Notion via `@notionhq/client`. The service layer lives entirely in `src/services/notion.tsx`. Data is filtered by `State === "Done"` and `Media === "Blog"` or `Media === "Project"` from a single Notion database (`NOTION_DATABASE_CONTENT_ID`).
 
 **Data flow:**
 1. `src/services/notion.tsx` — Notion API queries, wrapped with React `cache()` for deduplication and `unstable_cache()` for server-side caching (`revalidate = 10`).
 2. `src/lib/map-pool.ts` — Limits concurrent Notion block-fetching to 10 requests to avoid rate limits. Max block nesting depth: 5.
 3. App route Server Components call service functions directly; no client-side data fetching.
-4. **Hybrid SSR:** Index and slug `page.tsx` files are `async` and `await` non-list Notion content (hero + page/article blocks) so it lands in the initial HTML. Lists whose length varies (`/projects`, `/writings`, `/gears`, Home's projects) are also awaited (in parallel with the page) because its length is unknown and a skeleton would shift. Suspense + skeleton fallbacks (`src/components/skeletons/`) are used only for secondary sections of known size (Home's posts, reactions, more-posts); those skeletons mirror the real rows' line boxes exactly. Avoid index `loading.tsx` — it would replace the whole page shell and hide awaited HTML from no-JS clients.
+4. **Hybrid SSR:** Index and slug `page.tsx` files are `async` and `await` non-list Notion content (hero + page/article blocks) so it lands in the initial HTML. Lists whose length varies (`/projects`, `/writings`, Home's projects) are also awaited (in parallel with the page) because its length is unknown and a skeleton would shift. Suspense + skeleton fallbacks (`src/components/skeletons/`) are used only for secondary sections of known size (Home's posts, reactions, more-posts); those skeletons mirror the real rows' line boxes exactly. Avoid index `loading.tsx` — it would replace the whole page shell and hide awaited HTML from no-JS clients.
 
 **ISR:** `/api/revalidate` accepts a POST with `?secret=REVALIDATION_SECRET` and revalidates all blog/work paths on demand (triggered from Notion automations).
 
@@ -67,7 +67,6 @@ Copy `.env.example` to `.env`. Required vars:
 | `BASE_URL` | Site origin URL |
 | `NOTION_ACCESS_TOKEN` | Notion integration token |
 | `NOTION_DATABASE_CONTENT_ID` | Blog + work posts database |
-| `NOTION_DATABASE_GEARS_ID` | Gears/tools database |
 | `NOTION_PAGE_HOME_ID` | Homepage hero Notion page |
 | `NOTION_PAGE_ABOUT_ID` | About page Notion page |
 | `NOTION_PAGE_WORK_ID` | Work section header page |

@@ -11,7 +11,7 @@ programmatically instead of inferring it from a 404.
 ## Audience
 
 Autonomous agents, MCP clients, and crawlers that want to read blog posts, work
-case studies, gear recommendations, or profile information from this site.
+case studies, or profile information from this site.
 
 ## Registration
 
