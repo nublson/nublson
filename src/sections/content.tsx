@@ -6,6 +6,9 @@ interface ContentSectionProps {
 }
 
 export default function ContentSection({ blocks }: ContentSectionProps) {
+  // A blank Notion page renders nothing, so it adds no empty gap to the layout.
+  if (blocks.length === 0) return null;
+
   return (
     <section
       id="content"
