@@ -1,48 +1,35 @@
-import { withContentValidation } from "@9gustin/react-notion-render";
-import type { DropedProps } from "@9gustin/react-notion-render/dist/hoc/withContentValidation";
-import React from "react";
 import { Typography } from "../../typography";
-import { mapParagraphChildren } from "../rich-text";
+import { RichText } from "../rich-text";
+import { hasText, plainText } from "../text-utils";
+import type { BlockProps } from "../types";
 import { CodeBlockHighlight } from "./code-block-highlight";
+import { NestedBlocks } from "./layout-blocks";
 
-type CalloutIconLike = {
-  emoji?: string;
-};
-
-type CalloutBlockLike = {
-  content?: {
-    icon?: CalloutIconLike;
-  };
-};
-
-function getCalloutEmoji(block: unknown): string {
-  if (block == null || typeof block !== "object") {
-    return "";
-  }
-
-  const calloutBlock = block as CalloutBlockLike;
-  return calloutBlock.content?.icon?.emoji ?? "";
-}
-
-export const ParagraphBlock = withContentValidation((props: DropedProps) => {
-  const hasChildren = React.Children.count(props.children) > 0;
-  const content = hasChildren
-    ? mapParagraphChildren(props.children, props.config?.linkAttributes)
-    : (props.plainText ?? "");
+export function ParagraphBlock({ block, children }: BlockProps<"paragraph">) {
+  const { rich_text } = block.paragraph;
+  const text = hasText(rich_text);
+  if (!text && !children) return null;
 
   return (
-    <Typography
-      data-testid="paragraph"
-      size="article"
-      className="w-full max-w-[64ch]"
-    >
-      {content}
-    </Typography>
+    <>
+      {text && (
+        <Typography
+          data-testid="paragraph"
+          size="article"
+          className="w-full max-w-[64ch]"
+        >
+          <RichText text={rich_text} />
+        </Typography>
+      )}
+      {children && <NestedBlocks>{children}</NestedBlocks>}
+    </>
   );
-});
+}
 
-export const CalloutBlock = withContentValidation((props: DropedProps) => {
-  const emoji = getCalloutEmoji(props.config?.block);
+export function CalloutBlock({ block, children }: BlockProps<"callout">) {
+  const { rich_text, icon } = block.callout;
+  if (!hasText(rich_text) && !children) return null;
+  const emoji = icon?.type === "emoji" ? icon.emoji : "";
 
   return (
     <div className="w-full rounded-lg bg-card p-3 shadow-[inset_0_0_0_1px_var(--input)] flex items-start justify-start">
@@ -51,26 +38,35 @@ export const CalloutBlock = withContentValidation((props: DropedProps) => {
           {emoji}
         </Typography>
       )}
-      <div className="p-1.5">
+      <div className="p-1.5 min-w-0 flex-1">
         <Typography size="article" className="w-full text-foreground">
-          {props.children}
+          <RichText text={rich_text} defaultColor="inherit" />
         </Typography>
+        {children && (
+          <NestedBlocks className="mt-[18px]">{children}</NestedBlocks>
+        )}
       </div>
     </div>
   );
-});
+}
 
-export const CodeBlock = withContentValidation((props: DropedProps) => (
-  <CodeBlockHighlight
-    language={props.language}
-    code={props.plainText ?? ""}
-  />
-));
+export function CodeBlock({ block }: BlockProps<"code">) {
+  const code = plainText(block.code.rich_text);
+  if (code.trim() === "") return null;
 
-export const QuoteBlock = withContentValidation((props: DropedProps) => (
-  <blockquote className="w-full max-w-[64ch] border-l-2 border-input pl-4">
-    <Typography size="article" className="text-foreground">
-      {props.children}
-    </Typography>
-  </blockquote>
-));
+  return <CodeBlockHighlight language={block.code.language} code={code} />;
+}
+
+export function QuoteBlock({ block, children }: BlockProps<"quote">) {
+  const { rich_text } = block.quote;
+  if (!hasText(rich_text) && !children) return null;
+
+  return (
+    <blockquote className="w-full max-w-[64ch] border-l-2 border-input pl-4">
+      <Typography size="article" className="text-foreground">
+        <RichText text={rich_text} defaultColor="inherit" />
+      </Typography>
+      {children && <NestedBlocks className="mt-[18px]">{children}</NestedBlocks>}
+    </blockquote>
+  );
+}

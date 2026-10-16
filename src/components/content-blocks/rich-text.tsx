@@ -1,21 +1,9 @@
 import { FaviconLink } from "@/components/favicon-link";
 import { findSocialProfile } from "@/utils/social-profiles";
 import React from "react";
-import type {
-  ListTextPartLike,
-  NotionRichTextElementProps,
-  RichTextAnnotationsLike,
-} from "./types";
-
-export function isNotionRichTextElementProps(
-  value: unknown,
-): value is NotionRichTextElementProps {
-  if (value == null || typeof value !== "object") {
-    return false;
-  }
-  const plain = (value as { plain_text?: unknown }).plain_text;
-  return typeof plain === "string";
-}
+import type { RichTextItemResponse } from "@notionhq/client";
+import { notionLinkAttributes } from "./link-attributes";
+import type { ListTextPartLike, RichTextAnnotationsLike } from "./types";
 
 const NOTION_COLOR_CLASSES: Record<string, string> = {
   default: "text-muted-foreground",
@@ -39,15 +27,26 @@ const NOTION_COLOR_CLASSES: Record<string, string> = {
   red_background: "bg-red-100 dark:bg-red-900",
 };
 
+/**
+ * `inherit` drops the muted default colour, for text whose container already
+ * sets one (headings, callouts, quotes, table cells).
+ */
+export type DefaultTextColor = "muted" | "inherit";
+
 export function applyTextDecorations(
   content: React.ReactNode,
   annotations?: RichTextAnnotationsLike,
+  defaultColor: DefaultTextColor = "muted",
 ): React.ReactNode {
   const colorKey = annotations?.color ?? "default";
+  const defaultClass =
+    defaultColor === "inherit" ? undefined : NOTION_COLOR_CLASSES.default;
   const colorClass =
     annotations?.code && colorKey === "default"
       ? "text-accent-foreground"
-      : (NOTION_COLOR_CLASSES[colorKey] ?? "text-muted-foreground");
+      : colorKey === "default"
+        ? defaultClass
+        : (NOTION_COLOR_CLASSES[colorKey] ?? defaultClass);
 
   type Wrap = (
     inner: React.ReactNode,
@@ -74,7 +73,7 @@ export function applyTextDecorations(
     ));
 
   if (wrappers.length === 0) {
-    return <span className={colorClass}>{content}</span>;
+    return colorClass ? <span className={colorClass}>{content}</span> : content;
   }
 
   let decorated = content;
@@ -102,6 +101,7 @@ export function renderRichTextNode(
   textLike: RichTextNodeInput,
   linkAttributes?: (url: string) => LinkAttributesLike,
   key?: string,
+  defaultColor?: DefaultTextColor,
 ): React.ReactNode {
   const { plain_text, text, href, annotations, children } = textLike;
   const rawText =
@@ -109,7 +109,7 @@ export function renderRichTextNode(
     text?.content ??
     (typeof children === "string" ? children : "");
   const link = href ?? text?.link?.url;
-  const styledText = applyTextDecorations(rawText, annotations);
+  const styledText = applyTextDecorations(rawText, annotations, defaultColor);
 
   if (link == null || link === "") {
     return key != null ? (
@@ -155,28 +155,24 @@ export function renderRichTextNode(
   );
 }
 
-export function mapParagraphChildren(
-  children: React.ReactNode,
-  linkAttributes?: (url: string) => LinkAttributesLike,
-): React.ReactNode[] {
-  return (
-    React.Children.map(children, (child) => {
-      if (!React.isValidElement(child)) {
-        return child;
-      }
-
-      const props = child.props as unknown;
-      if (!isNotionRichTextElementProps(props)) {
-        return child;
-      }
-
-      return renderRichTextNode(props, linkAttributes);
-    }) ?? []
-  );
-}
-
-export function mapListTextParts(parts: ListTextPartLike[]): React.ReactNode[] {
-  return parts.map((part, index) =>
-    renderRichTextNode(part, undefined, `list-part-${index}`),
+/** A Notion rich text array, with this site's link and colour styling. */
+export function RichText({
+  text,
+  defaultColor,
+}: {
+  text: RichTextItemResponse[];
+  defaultColor?: DefaultTextColor;
+}) {
+  return text.map((item, i) =>
+    renderRichTextNode(
+      {
+        plain_text: item.plain_text,
+        href: item.href ?? undefined,
+        annotations: item.annotations,
+      },
+      notionLinkAttributes,
+      String(i),
+      defaultColor,
+    ),
   );
 }

@@ -1,21 +1,34 @@
 import { Typography } from "@/components/typography";
-import { withContentValidation } from "@9gustin/react-notion-render";
-import type { DropedProps } from "@9gustin/react-notion-render/dist/hoc/withContentValidation";
 import { CoverImage } from "../../cover-image";
+import { renderRichTextNode } from "../rich-text";
+import { notionLinkAttributes } from "../link-attributes";
+import { plainText } from "../text-utils";
+import type { BlockProps } from "../types";
 import { toYouTubeEmbedUrl } from "../utils/to-youtube-embed-url";
 
-export const ImageBlock = withContentValidation((props: DropedProps) => {
-  const imageSrc = props.media?.src;
+type FilePayload =
+  | { type: "external"; external: { url: string } }
+  | { type: "file"; file: { url: string } }
+  | { type: string };
 
-  if (!imageSrc) {
-    return null;
-  }
+/** The URL of a Notion file payload (uploaded or external). */
+function fileUrl(payload: FilePayload): string | undefined {
+  if ("external" in payload) return payload.external.url;
+  if ("file" in payload) return payload.file.url;
+  return undefined;
+}
 
-  return <CoverImage src={imageSrc} alt={props.media?.alt ?? ""} />;
-});
+const FRAME_CLASS = "aspect-video w-full";
 
-export const VideoBlock = withContentValidation((props: DropedProps) => {
-  const embedUrl = toYouTubeEmbedUrl(props.media?.src);
+export function ImageBlock({ block }: BlockProps<"image">) {
+  const src = fileUrl(block.image);
+  if (!src) return null;
+
+  return <CoverImage src={src} alt={plainText(block.image.caption)} />;
+}
+
+export function VideoBlock({ block }: BlockProps<"video">) {
+  const embedUrl = toYouTubeEmbedUrl(fileUrl(block.video));
 
   if (!embedUrl) {
     return (
@@ -33,10 +46,42 @@ export const VideoBlock = withContentValidation((props: DropedProps) => {
   return (
     <iframe
       src={embedUrl}
-      title="Embedded video"
-      className="aspect-video w-full"
+      title={plainText(block.video.caption) || "Embedded video"}
+      className={FRAME_CLASS}
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowFullScreen
     />
   );
-});
+}
+
+export function EmbedBlock({ block }: BlockProps<"embed" | "pdf">) {
+  const payload = block.type === "embed" ? block.embed : block.pdf;
+  const src = "url" in payload ? payload.url : fileUrl(payload);
+  if (!src) return null;
+
+  return (
+    <iframe
+      src={src}
+      title={plainText(payload.caption) || "Embedded content"}
+      className={FRAME_CLASS}
+      loading="lazy"
+    />
+  );
+}
+
+/** Files and bookmarks: a plain link to the target. */
+export function LinkBlock({ block }: BlockProps<"file" | "bookmark">) {
+  const url =
+    block.type === "bookmark" ? block.bookmark.url : fileUrl(block.file);
+  if (!url) return null;
+  const label =
+    (block.type === "bookmark"
+      ? plainText(block.bookmark.caption)
+      : block.file.name || plainText(block.file.caption)) || url;
+
+  return (
+    <Typography size="article" className="w-full max-w-[64ch]">
+      {renderRichTextNode({ plain_text: label, href: url }, notionLinkAttributes)}
+    </Typography>
+  );
+}
