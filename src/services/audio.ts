@@ -25,12 +25,27 @@ export type AudioResult =
   | { type: "redirect"; url: string }
   | { type: "stream"; body: ReadableStream<Uint8Array>; contentType: string };
 
-function buildNarrationText(
-  metadata: PostMetadata,
+/** Ends a part with a full stop unless it already ends a sentence, so the voice pauses once. */
+function asSentence(text: string): string {
+  return /[.!?…:]["'’”)\]]*$/.test(text) ? text : `${text}.`;
+}
+
+/** What the listener hears: the title, the description (the article lede), then the body. */
+export function buildNarrationText(
+  metadata: Pick<PostMetadata, "title" | "description" | "descriptionRichText">,
   blocks: BlockWithChildren[],
 ): string {
+  // The rich text keeps the lede's paragraph breaks; the plain field collapses them.
+  const description =
+    metadata.descriptionRichText
+      .map((item) => item.plain_text)
+      .join("")
+      .trim() || metadata.description;
   const body = markdownToPlainText(blocksToMarkdown(blocks));
-  return [metadata.title, body].filter(Boolean).join(".\n\n");
+  return [metadata.title.trim(), description, body]
+    .filter(Boolean)
+    .map((part, i, parts) => (i < parts.length - 1 ? asSentence(part) : part))
+    .join("\n\n");
 }
 
 function hashText(text: string): string {
