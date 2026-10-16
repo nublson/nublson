@@ -1,6 +1,6 @@
 ---
 name: nublson-content
-description: Read writing, projects, gear recommendations and profile info from nublson.com as clean markdown or via its MCP server.
+description: Read writing, projects and profile info from nublson.com as clean markdown or via its MCP server.
 ---
 
 # Reading nublson.com content
@@ -13,14 +13,14 @@ Everything is public; no authentication is required anywhere.
 
 1. **Markdown negotiation (best for reading pages).** Request any page with
    `Accept: text/markdown` and the server returns markdown instead of HTML:
-   `/`, `/about`, `/writings`, `/projects`, `/gears`, `/writings/{slug}`, `/projects/{slug}`.
+   `/`, `/about`, `/writings`, `/projects`, `/writings/{slug}`, `/projects/{slug}`.
    Responses include an `x-markdown-tokens` size-estimate header.
 2. **Content index.** `https://nublson.com/llms.txt` lists every published
    writing post and project with absolute URLs and descriptions. Start
    here to find slugs.
 3. **MCP server (best for tools-capable agents).** Streamable HTTP endpoint
    at `https://nublson.com/api/mcp` with five read-only tools: `list_posts`,
-   `get_post`, `list_gears`, `get_profile`, `search_posts`. Server card:
+   `get_post`, `get_profile`, `search_posts`. Server card:
    `https://nublson.com/.well-known/mcp/server-card.json`.
 
 ## Direct API routes
@@ -28,7 +28,7 @@ Everything is public; no authentication is required anywhere.
 - `GET /api/markdown/blog/{slug}` and `GET /api/markdown/work/{slug}` —
   a post as markdown with YAML frontmatter (title, description, published,
   author, category).
-- `GET /api/markdown/pages/{home|about|blog|work|gears}` — static pages as
+- `GET /api/markdown/pages/{home|about|blog|work}` — static pages as
   markdown.
 - RSS: `/feed.xml` (combined), `/writings/feed.xml`, `/projects/feed.xml`.
 - OpenAPI description: `https://nublson.com/openapi.json`; API catalog:

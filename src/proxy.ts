@@ -32,7 +32,6 @@ const PAGE_MARKDOWN_PATHS: Record<string, string> = {
   "/about": "about",
   "/writings": "blog",
   "/projects": "work",
-  "/gears": "gears",
 };
 
 /** Public URL segment → Notion/API content type used by /api/markdown/* */
