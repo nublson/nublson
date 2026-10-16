@@ -1,4 +1,5 @@
 import {
+  GEARS_SORTS,
   getDatabasePages,
   getPageBlocks,
   getPageData,
@@ -139,11 +140,7 @@ async function buildPageMarkdown(
           process.env.NOTION_DATABASE_GEARS_ID!,
           undefined,
           50,
-          [
-            { property: "Category", direction: "ascending" },
-            { property: "State", direction: "descending" },
-            { property: "Updated", direction: "ascending" },
-          ],
+          GEARS_SORTS,
           ["title", "Description", "Category", "Path"],
         ),
       ]);

@@ -1,5 +1,9 @@
 import GearsSection from "@/sections/gears";
-import { getDatabasePages, withThumbnailBlurs } from "@/services/notion";
+import {
+  GEARS_SORTS,
+  getDatabasePages,
+  withThumbnailBlurs,
+} from "@/services/notion";
 import { formatPostMetadata, type PostMetadata } from "@/utils/formatter";
 
 export async function getGears(): Promise<PostMetadata[]> {
@@ -7,20 +11,7 @@ export async function getGears(): Promise<PostMetadata[]> {
     process.env.NOTION_DATABASE_GEARS_ID!,
     undefined,
     50,
-    [
-      {
-        property: "Category",
-        direction: "ascending",
-      },
-      {
-        property: "State",
-        direction: "descending",
-      },
-      {
-        property: "Updated",
-        direction: "ascending",
-      },
-    ],
+    GEARS_SORTS,
     ["title", "Description", "Category", "Path"],
   );
 

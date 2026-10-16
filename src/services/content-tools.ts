@@ -1,5 +1,6 @@
 import social from "@/data/social.json";
 import {
+  GEARS_SORTS,
   getDatabasePageBySlug,
   getDatabasePages,
   getPageBlocks,
@@ -88,11 +89,7 @@ export const fetchGearGroupsCached = unstable_cache(
       process.env.NOTION_DATABASE_GEARS_ID!,
       undefined,
       50,
-      [
-        { property: "Category", direction: "ascending" },
-        { property: "State", direction: "descending" },
-        { property: "Updated", direction: "ascending" },
-      ],
+      GEARS_SORTS,
       ["title", "Description", "Category", "Path"],
     );
     return groupGears(formatPostMetadata(pages));
