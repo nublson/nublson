@@ -10,6 +10,11 @@ vi.mock("./blocks/code-block-highlight", () => ({
   ),
 }));
 
+// Favicon lookups go to the network; tests get a fixed icon.
+vi.mock("@/services/favicon", () => ({
+  getFavicon: vi.fn(async () => "data:image/png;base64,AAAA"),
+}));
+
 vi.mock("../cover-image", () => ({
   CoverImage: ({ src, alt }: { src: string; alt: string }) => (
     // eslint-disable-next-line @next/next/no-img-element
@@ -214,7 +219,7 @@ describe("NotionBlocks", () => {
     );
   });
 
-  it("opens external links in a new tab and keeps profile icons", async () => {
+  it("opens external links in a new tab with their favicon, and keeps profile icons", async () => {
     const root = await dom([
       para(
         richText("docs", { href: "https://example.com" }),
@@ -224,6 +229,10 @@ describe("NotionBlocks", () => {
     const [docs, github] = [...root.querySelectorAll("a")];
     expect(docs?.getAttribute("target")).toBe("_blank");
     expect(docs?.className).toContain("underline");
+    expect(
+      docs?.querySelector('img[data-slot="site-favicon"]')?.getAttribute("src"),
+    ).toBe("data:image/png;base64,AAAA");
     expect(github?.querySelector("svg")).not.toBeNull();
+    expect(github?.querySelector('[data-slot="site-favicon"]')).toBeNull();
   });
 });
