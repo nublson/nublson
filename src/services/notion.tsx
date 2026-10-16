@@ -209,6 +209,9 @@ async function findViewId(
     for (const ref of list.results) {
       firstViewId ??= ref.id;
       const view = await viewsApi.views.retrieve({ view_id: ref.id });
+      console.info(
+        `[gears] view ${view.id}: ${"name" in view ? `"${view.name}"` : "(no name)"}, ${view.type}`,
+      );
       if ("name" in view && view.name.trim() === name) return view.id;
     }
     cursor = list.has_more ? (list.next_cursor ?? undefined) : undefined;
@@ -253,7 +256,9 @@ const fetchGearsOrderCached = unstable_cache(
   async (dataSourceId: string): Promise<string[] | null> => {
     const viewId = await findViewIdCached(dataSourceId, GEARS_VIEW_NAME);
     if (!viewId) return null;
-    return queryViewPageIds(viewId);
+    const ids = await queryViewPageIds(viewId);
+    console.info(`[gears] view ${viewId} returned ${ids.length} rows`);
+    return ids;
   },
   ["notion-gears-view-order"],
   { revalidate: 10 },
@@ -284,8 +289,10 @@ export const getGearsPages = cache(async (): Promise<PageObjectResponse[]> => {
 
   if (order === null) {
     console.warn("[gears] the gears database has no views; ordering by category");
+  } else if (order?.length === 0) {
+    console.warn("[gears] the gears view returned no rows; ordering by category");
   }
-  return order ? orderByIds(pages, order) : pages;
+  return order?.length ? orderByIds(pages, order) : pages;
 });
 
 export type PublishedSitemapEntry = {
