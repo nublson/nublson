@@ -3,6 +3,7 @@ import {
   generateBlurDataUrl,
 } from "@/lib/blur-placeholder";
 import { mapPool } from "@/lib/map-pool";
+import { orderByIds } from "@/lib/order-by-ids";
 import {
   buildNotionImageProxyUrl,
   parseNotionImageProxyUrl,
@@ -25,6 +26,12 @@ import { cache } from "react";
 
 const api = new Client({
   auth: process.env.NOTION_ACCESS_TOKEN,
+});
+
+/** The views API only exists from this version; the rest stays on the default. */
+const viewsApi = new Client({
+  auth: process.env.NOTION_ACCESS_TOKEN,
+  notionVersion: "2026-03-11",
 });
 
 /** Max concurrent child-block fetches per level (Notion rate limits). */
@@ -62,10 +69,21 @@ const defaultPublishedPageSorts: PublishedPageSort[] = [
   },
 ];
 
-/** Gears are listed by category only (the gears page, MCP and markdown API). */
+/**
+ * Fallback order for gears when the Notion view can't be read: grouped by
+ * category. The real order is the "Gears" view's; see {@link getGearsPages}.
+ */
 export const GEARS_SORTS: PublishedPageSort[] = [
   { property: "Category", direction: "ascending" },
 ];
+
+/**
+ * The Notion view whose order (manual drag order included) the site follows.
+ * Without a view of this name, the database's first view is used.
+ */
+const GEARS_VIEW_NAME = "Gears";
+
+const GEARS_FILTER_PROPERTIES = ["title", "Description", "Category", "Path"];
 
 const publishedBaseFilters = (media?: string) => {
   const filters = [
@@ -171,6 +189,104 @@ export const getDatabasePages = cache(
     );
   },
 );
+
+/**
+ * The id of the data source's view named `name`, else its first view (the
+ * one Notion opens by default), or null when it has no views.
+ */
+async function findViewId(
+  dataSourceId: string,
+  name: string,
+): Promise<string | null> {
+  let firstViewId: string | null = null;
+  let cursor: string | undefined;
+  do {
+    const list = await viewsApi.views.list({
+      data_source_id: dataSourceId,
+      start_cursor: cursor,
+      page_size: 100,
+    });
+    for (const ref of list.results) {
+      firstViewId ??= ref.id;
+      const view = await viewsApi.views.retrieve({ view_id: ref.id });
+      if ("name" in view && view.name.trim() === name) return view.id;
+    }
+    cursor = list.has_more ? (list.next_cursor ?? undefined) : undefined;
+  } while (cursor);
+  return firstViewId;
+}
+
+/** Views are renamed rarely; looking one up costs a call per view. */
+const findViewIdCached = unstable_cache(findViewId, ["notion-view-id"], {
+  revalidate: 3600,
+});
+
+/** Page ids in the view's order: its filter, then its sorts or manual order. */
+async function queryViewPageIds(viewId: string): Promise<string[]> {
+  const query = await viewsApi.views.queries.create({
+    view_id: viewId,
+    page_size: 100,
+  });
+  const ids = query.results.map((page) => page.id);
+
+  let cursor = query.has_more ? query.next_cursor : null;
+  while (cursor) {
+    const page = await viewsApi.views.queries.results({
+      view_id: viewId,
+      query_id: query.id,
+      start_cursor: cursor,
+      page_size: 100,
+    });
+    ids.push(...page.results.map((result) => result.id));
+    cursor = page.has_more ? page.next_cursor : null;
+  }
+
+  // Results are cached on Notion's side for 15 minutes; free them now.
+  await viewsApi.views.queries
+    .delete({ view_id: viewId, query_id: query.id })
+    .catch(() => undefined);
+
+  return ids;
+}
+
+const fetchGearsOrderCached = unstable_cache(
+  async (dataSourceId: string): Promise<string[] | null> => {
+    const viewId = await findViewIdCached(dataSourceId, GEARS_VIEW_NAME);
+    if (!viewId) return null;
+    return queryViewPageIds(viewId);
+  },
+  ["notion-gears-view-order"],
+  { revalidate: 10 },
+);
+
+/**
+ * Published gears in the order of the gears database's view (see
+ * {@link GEARS_VIEW_NAME}), so dragging cards there reorders the site. The
+ * view only decides order: which gears show is still `State = Done`. Falls
+ * back to {@link GEARS_SORTS} when the views API fails, so the page never
+ * breaks over ordering.
+ */
+export const getGearsPages = cache(async (): Promise<PageObjectResponse[]> => {
+  const dataSourceId = process.env.NOTION_DATABASE_GEARS_ID!;
+  const [pages, order] = await Promise.all([
+    getDatabasePages(
+      dataSourceId,
+      undefined,
+      50,
+      GEARS_SORTS,
+      GEARS_FILTER_PROPERTIES,
+    ),
+    fetchGearsOrderCached(dataSourceId).catch((error: unknown) => {
+      console.warn("[gears] could not read the Gears view's order:", error);
+      return undefined;
+    }),
+  ]);
+
+  if (order === null) {
+    console.warn("[gears] the gears database has no views; ordering by category");
+  }
+  return order ? orderByIds(pages, order) : pages;
+});
 
 export type PublishedSitemapEntry = {
   slug: string;

@@ -1,6 +1,6 @@
 import {
-  GEARS_SORTS,
   getDatabasePages,
+  getGearsPages,
   getPageBlocks,
   getPageData,
 } from "@/services/notion";
@@ -136,13 +136,7 @@ async function buildPageMarkdown(
       const [hero, body, gearPages] = await Promise.all([
         heroFor(pageId),
         bodyFor(pageId),
-        getDatabasePages(
-          process.env.NOTION_DATABASE_GEARS_ID!,
-          undefined,
-          50,
-          GEARS_SORTS,
-          ["title", "Description", "Category", "Path"],
-        ),
+        getGearsPages(),
       ]);
       return pageToMarkdown({
         hero,
