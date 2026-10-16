@@ -1,4 +1,5 @@
 import { FaviconLink } from "@/components/favicon-link";
+import { SiteFavicon } from "@/components/site-favicon";
 import { findSocialProfile } from "@/utils/social-profiles";
 import React from "react";
 import type {
@@ -150,6 +151,7 @@ export function renderRichTextNode(
       rel={resolvedLinkAttributes?.rel}
       aria-label={rawText}
     >
+      <SiteFavicon href={link} />
       {styledText}
     </a>
   );
