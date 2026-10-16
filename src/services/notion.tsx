@@ -10,7 +10,6 @@ import {
   type NotionImageResource,
 } from "@/lib/notion-image";
 import {
-  formatBlockWithChildren,
   formatPostMetadata,
   type PostMetadata,
 } from "@/utils/formatter";
@@ -553,9 +552,7 @@ async function fetchBlocksRecursive(
     },
   );
 
-  return formatBlockWithChildren(
-    rewriteExpiringNotionImageUrls(blocksWithChildren),
-  );
+  return rewriteExpiringNotionImageUrls(blocksWithChildren);
 }
 
 const fetchPageBlocksCached = unstable_cache(

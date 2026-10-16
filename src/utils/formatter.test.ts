@@ -6,8 +6,6 @@ import {
   formatPostDateFull,
   formatCompactCount,
   formatViewCount,
-  getListBlockItems,
-  formatBlockWithChildren,
   formatPageMetadata,
   formatPostMetadata,
   formatPostDayMonth,
@@ -124,85 +122,6 @@ describe("formatCompactCount", () => {
     expect(formatCompactCount(Number.NaN)).toBe("0");
   });
 });
-
-describe("getListBlockItems", () => {
-  it("extracts items from render-lib shape (items[])", () => {
-    const block = {
-      items: [
-        { content: { text: [{ plain_text: "First" }] } },
-        { content: { text: [{ plain_text: "Second" }] } },
-      ],
-    };
-    expect(getListBlockItems(block)).toEqual(["First", "Second"]);
-  });
-
-  it("joins multiple rich-text fragments per item", () => {
-    const block = {
-      items: [
-        {
-          content: {
-            text: [{ plain_text: "Framework:" }, { plain_text: " Next.js (App Router)" }],
-          },
-        },
-      ],
-    };
-    expect(getListBlockItems(block)).toEqual(["Framework: Next.js (App Router)"]);
-  });
-
-  it("extracts items from Notion API shape (bulleted_list_item)", () => {
-    const block = {
-      bulleted_list_item: {
-        rich_text: [{ plain_text: "Only item" }],
-      },
-    };
-    expect(getListBlockItems(block)).toEqual(["Only item"]);
-  });
-
-  it("returns empty array for an unrecognised block shape", () => {
-    expect(getListBlockItems({})).toEqual([]);
-  });
-
-  it("handles missing text gracefully", () => {
-    const block = {
-      items: [{ content: {} }],
-    };
-    expect(getListBlockItems(block)).toEqual([""]);
-  });
-});
-
-describe("formatBlockWithChildren", () => {
-  it("passes through blocks without children unchanged", () => {
-    const block = {
-      id: "1",
-      type: "paragraph",
-      has_children: false,
-    } as unknown as Parameters<typeof formatBlockWithChildren>[0][number];
-
-    const result = formatBlockWithChildren([block]);
-    expect(result[0]).toBe(block);
-  });
-
-  it("inlines children into the block type key", () => {
-    const child = { id: "child", type: "paragraph", has_children: false };
-    const block = {
-      id: "1",
-      type: "bulleted_list_item",
-      has_children: true,
-      children: [child],
-      bulleted_list_item: { rich_text: [] },
-    } as unknown as Parameters<typeof formatBlockWithChildren>[0][number];
-
-    const [result] = formatBlockWithChildren([block]);
-    const typed = result as unknown as {
-      bulleted_list_item: { rich_text: unknown[]; children: unknown[] };
-    };
-    expect(typed.bulleted_list_item).toHaveProperty("children", [child]);
-  });
-});
-
-// ---------------------------------------------------------------------------
-// formatPageMetadata
-// ---------------------------------------------------------------------------
 
 describe("formatPageMetadata", () => {
   it("joins every rich text segment of the description, not just the first", () => {

@@ -1,7 +1,19 @@
-import type { Text as NotionRichText } from "@9gustin/react-notion-render";
+import type { BlockWithChildren } from "@/services/notion";
 import type { ReactNode } from "react";
 
-export type ListBlockVariant = "bullet" | "numbered";
+export type NotionBlock = BlockWithChildren;
+
+/** A Notion block of one type, with its typed payload. */
+export type BlockOf<T extends NotionBlock["type"]> = Extract<
+  NotionBlock,
+  { type: T }
+>;
+
+export type BlockProps<T extends NotionBlock["type"]> = {
+  block: BlockOf<T>;
+  /** The block's nested blocks, rendered; undefined when it has none. */
+  children?: ReactNode;
+};
 
 export type RichTextAnnotationsLike = {
   bold?: boolean;
@@ -17,27 +29,4 @@ export type ListTextPartLike = {
   href?: string;
   annotations?: RichTextAnnotationsLike;
   text?: { content?: string; link?: { url?: string } | null };
-};
-
-export type ListItemLike = { content?: { text?: ListTextPartLike[] } };
-export type ListBlockLike = { items?: ListItemLike[] };
-
-export type NotionTextLike = { plain_text?: string };
-
-export type TableCellLike = NotionTextLike[] | { text?: NotionTextLike[] };
-
-export type TableRowLike =
-  | { cells?: TableCellLike[] }
-  | { content?: { cells?: TableCellLike[] } }
-  | { table_row?: { cells?: TableCellLike[] } };
-
-export type TableBlockLike = {
-  content?: {
-    hasColumnHeader?: boolean;
-  };
-  items?: TableRowLike[];
-};
-
-export type NotionRichTextElementProps = NotionRichText & {
-  children?: ReactNode;
 };
