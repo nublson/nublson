@@ -1,12 +1,19 @@
 import GearsSection from "@/sections/gears";
 import {
-  getGearsPages,
+  GEARS_SORTS,
+  getDatabasePages,
   withThumbnailBlurs,
 } from "@/services/notion";
 import { formatPostMetadata, type PostMetadata } from "@/utils/formatter";
 
 export async function getGears(): Promise<PostMetadata[]> {
-  const gearsPages = await getGearsPages();
+  const gearsPages = await getDatabasePages(
+    process.env.NOTION_DATABASE_GEARS_ID!,
+    undefined,
+    50,
+    GEARS_SORTS,
+    ["title", "Description", "Category", "Path"],
+  );
 
   return withThumbnailBlurs(formatPostMetadata(gearsPages));
 }

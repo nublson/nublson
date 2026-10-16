@@ -1,8 +1,8 @@
 import social from "@/data/social.json";
 import {
+  GEARS_SORTS,
   getDatabasePageBySlug,
   getDatabasePages,
-  getGearsPages,
   getPageBlocks,
   getPageData,
 } from "@/services/notion";
@@ -85,7 +85,13 @@ export const fetchPostMarkdownCached = unstable_cache(
 
 export const fetchGearGroupsCached = unstable_cache(
   async (): Promise<GearGroup[]> => {
-    const pages = await getGearsPages();
+    const pages = await getDatabasePages(
+      process.env.NOTION_DATABASE_GEARS_ID!,
+      undefined,
+      50,
+      GEARS_SORTS,
+      ["title", "Description", "Category", "Path"],
+    );
     return groupGears(formatPostMetadata(pages));
   },
   ["mcp-gears"],
