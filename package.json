@@ -25,7 +25,6 @@
     "supabase:migration:new": "supabase migration new"
   },
   "dependencies": {
-    "@9gustin/react-notion-render": "^3.11.4",
     "@modelcontextprotocol/server": "^2.0.0",
     "@notionhq/client": "^5.20.0",
     "@remixicon/react": "^4.9.0",

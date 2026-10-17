@@ -1,6 +1,5 @@
 import {
   searchPosts,
-  type GearGroup,
   type PostToolItem,
   type Profile,
 } from "@/utils/mcp-content";
@@ -54,7 +53,6 @@ export type A2AAgentCard = {
 export type A2AContentDeps = {
   listPosts(type?: "blog" | "work"): Promise<PostToolItem[]>;
   getPost(type: "blog" | "work", slug: string): Promise<string | null>;
-  listGears(): Promise<GearGroup[]>;
   getProfile(): Promise<Profile>;
 };
 
@@ -95,14 +93,6 @@ const SKILLS: A2ASkill[] = [
     examples: ["Find posts about design systems"],
   },
   {
-    id: "list_gears",
-    name: "List gear",
-    description:
-      "List recommended tools and gear, grouped by category, with product links.",
-    tags: ["gear", "tools"],
-    examples: ["What keyboard does Nubelson use?"],
-  },
-  {
     id: "get_profile",
     name: "Get profile",
     description:
@@ -118,7 +108,7 @@ export function buildAgentCard(baseUrl: string): A2AAgentCard {
   return {
     name: "nublson.com Content Agent",
     description:
-      "Answers questions about Nubelson Fernandes' blog posts, work case studies, gear recommendations and profile. Read-only and public.",
+      "Answers questions about Nubelson Fernandes' blog posts, work case studies and profile. Read-only and public.",
     supportedInterfaces: [
       {
         url: `${base}/api/a2a`,
@@ -210,10 +200,6 @@ async function runSkill(
         { text: `${matches.length} post(s) matched "${query}".` },
         { data: { skill, query, matches } },
       ];
-    }
-    case "list_gears": {
-      const gears = await deps.listGears();
-      return [{ text: `${gears.length} gear categories.` }, { data: { skill, gears } }];
     }
     case "get_profile": {
       const profile = await deps.getProfile();

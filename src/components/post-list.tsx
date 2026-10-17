@@ -5,6 +5,7 @@ import {
   formatPostDayMonth,
   groupPostsByYear,
   type PostMetadata,
+  type PostYearGroup,
 } from "@/utils/formatter";
 import Link from "next/link";
 
@@ -14,6 +15,11 @@ interface PostListProps {
   groupByYear?: boolean;
   /** For tests; defaults to this year. */
   currentYear?: number;
+  /**
+   * Archive only: past this many posts, the rest sit in a native
+   * `<details>` toggle. They stay in the HTML for scrapers and no-JS readers.
+   */
+  collapseAfter?: number;
 }
 
 function PostRows({
@@ -48,10 +54,35 @@ function PostRows({
   );
 }
 
+function YearGroups({
+  groups,
+  continuesYear = false,
+}: {
+  groups: PostYearGroup[];
+  /** The first group carries on a year already shown above, so its label is blank. */
+  continuesYear?: boolean;
+}) {
+  return groups.map((group, index) => (
+    <div
+      key={group.year || "undated"}
+      className={cn(
+        "grid grid-cols-[52px_1fr] md:grid-cols-[64px_1fr]",
+        index > 0 && "border-t border-border",
+      )}
+    >
+      <span data-year className="py-2.5 text-subtle-foreground tabular-nums">
+        {index === 0 && continuesYear ? "" : group.year || "—"}
+      </span>
+      <PostRows posts={group.posts} formatDate={formatPostDayMonth} />
+    </div>
+  ));
+}
+
 export function PostList({
   posts,
   groupByYear = false,
   currentYear,
+  collapseAfter,
 }: PostListProps) {
   if (posts.length === 0) return null;
 
@@ -66,22 +97,41 @@ export function PostList({
     );
   }
 
+  const limit =
+    collapseAfter != null && posts.length > collapseAfter
+      ? collapseAfter
+      : posts.length;
+  const shown = groupPostsByYear(posts.slice(0, limit));
+  const older = groupPostsByYear(posts.slice(limit));
+  const olderCount = posts.length - limit;
+
   return (
     <div className="w-full border-y border-border">
-      {groupPostsByYear(posts).map((group, index) => (
-        <div
-          key={group.year || "undated"}
-          className={cn(
-            "grid grid-cols-[52px_1fr] md:grid-cols-[64px_1fr]",
-            index > 0 && "border-t border-border",
-          )}
-        >
-          <span className="py-2.5 text-subtle-foreground tabular-nums">
-            {group.year || "—"}
-          </span>
-          <PostRows posts={group.posts} formatDate={formatPostDayMonth} />
-        </div>
-      ))}
+      <YearGroups groups={shown} />
+      {olderCount > 0 && (
+        <details className="group/older border-t border-border">
+          <summary className="press flex cursor-pointer list-none justify-between gap-4 py-2.5 text-subtle-foreground hover:text-foreground [&::-webkit-details-marker]:hidden">
+            <span data-show className="group-open/older:hidden">
+              {`Show ${olderCount} older ${olderCount === 1 ? "post" : "posts"}`}
+            </span>
+            <span className="hidden group-open/older:inline">
+              Hide older posts
+            </span>
+            <span
+              aria-hidden
+              className="transition-[rotate] duration-200 ease-(--ease-out) group-open/older:rotate-180"
+            >
+              ↓
+            </span>
+          </summary>
+          <div className="older-posts border-t border-border">
+            <YearGroups
+              groups={older}
+              continuesYear={shown.at(-1)?.year === older[0]?.year}
+            />
+          </div>
+        </details>
+      )}
     </div>
   );
 }

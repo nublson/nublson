@@ -10,7 +10,6 @@ import {
   type NotionImageResource,
 } from "@/lib/notion-image";
 import {
-  formatBlockWithChildren,
   formatPostMetadata,
   type PostMetadata,
 } from "@/utils/formatter";
@@ -61,11 +60,6 @@ const defaultPublishedPageSorts: PublishedPageSort[] = [
     property: "Publish Date",
     direction: "descending",
   },
-];
-
-/** Gears are listed by category only (the gears page, MCP and markdown API). */
-export const GEARS_SORTS: PublishedPageSort[] = [
-  { property: "Category", direction: "ascending" },
 ];
 
 const publishedBaseFilters = (media?: string) => {
@@ -564,9 +558,7 @@ async function fetchBlocksRecursive(
     },
   );
 
-  return formatBlockWithChildren(
-    rewriteExpiringNotionImageUrls(blocksWithChildren),
-  );
+  return rewriteExpiringNotionImageUrls(blocksWithChildren);
 }
 
 const fetchPageBlocksCached = unstable_cache(

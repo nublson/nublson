@@ -66,7 +66,13 @@ vi.mock("next/server", () => ({
   after: vi.fn(),
 }));
 
-import { cacheAudioBuffer, getCachedAudio, getOrGenerateAudio } from "./audio";
+import type { RichTextItemResponse } from "@notionhq/client";
+import {
+  buildNarrationText,
+  cacheAudioBuffer,
+  getCachedAudio,
+  getOrGenerateAudio,
+} from "./audio";
 
 const sampleMetadata = {
   id: "page-1",
@@ -241,5 +247,56 @@ describe("getOrGenerateAudio", () => {
       type: "redirect",
       url: "https://example.supabase.co/storage/v1/object/public/post-audio/hello.opus?v=abcdef012345",
     });
+  });
+});
+
+describe("buildNarrationText", () => {
+  const paragraph = (text: string) =>
+    ({
+      id: text,
+      type: "paragraph",
+      has_children: false,
+      paragraph: {
+        rich_text: [{ type: "text", plain_text: text, href: null }],
+      },
+    }) as never;
+  const richText = (text: string) =>
+    [{ type: "text", plain_text: text, href: null }] as RichTextItemResponse[];
+
+  it("reads the title, then the description, then the body", () => {
+    const text = buildNarrationText(
+      {
+        title: "The Midnight Idea Problem",
+        description: "Too many ideas. Not enough answers.",
+        descriptionRichText: richText("Too many ideas. Not enough answers."),
+      },
+      [paragraph("It started at midnight.")],
+    );
+
+    expect(text).toBe(
+      "The Midnight Idea Problem.\n\nToo many ideas. Not enough answers.\n\nIt started at midnight.",
+    );
+  });
+
+  it("keeps the description's paragraph breaks", () => {
+    const text = buildNarrationText(
+      {
+        title: "Title",
+        description: "First. Second.",
+        descriptionRichText: richText("First.\n\nSecond"),
+      },
+      [],
+    );
+
+    expect(text).toBe("Title.\n\nFirst.\n\nSecond");
+  });
+
+  it("skips a missing description", () => {
+    const text = buildNarrationText(
+      { title: "Title?", description: "", descriptionRichText: [] },
+      [paragraph("Body.")],
+    );
+
+    expect(text).toBe("Title?\n\nBody.");
   });
 });

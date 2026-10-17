@@ -1,5 +1,4 @@
 import {
-  GEARS_SORTS,
   getDatabasePages,
   getPageBlocks,
   getPageData,
@@ -15,13 +14,12 @@ import {
   estimateMarkdownTokens,
   pageToMarkdown,
   type MarkdownPostLink,
-  type MarkdownSection,
 } from "@/utils/pages-to-markdown";
 import { NextResponse } from "next/server";
 
 export const revalidate = 10;
 
-const PAGES = ["home", "about", "blog", "work", "gears"] as const;
+const PAGES = ["home", "about", "blog", "work"] as const;
 
 type MarkdownPage = (typeof PAGES)[number];
 
@@ -41,20 +39,6 @@ function toPostLinks(
     publishedDate: post.published_date
       ? formatDateTimeIso(post.published_date)
       : undefined,
-  }));
-}
-
-function gearSections(gears: PostMetadata[]): MarkdownSection[] {
-  const categories = [...new Set(gears.map((gear) => gear.category))];
-  return categories.map((category) => ({
-    heading: category || "Other",
-    posts: gears
-      .filter((gear) => gear.category === category)
-      .map((gear) => ({
-        title: gear.title,
-        url: gear.path || undefined,
-        description: gear.description || undefined,
-      })),
   }));
 }
 
@@ -129,25 +113,6 @@ async function buildPageMarkdown(
             posts: toPostLinks(formatPostMetadata(projectPages), base, "/projects"),
           },
         ],
-      });
-    }
-    case "gears": {
-      const pageId = process.env.NOTION_PAGE_GEARS_ID!;
-      const [hero, body, gearPages] = await Promise.all([
-        heroFor(pageId),
-        bodyFor(pageId),
-        getDatabasePages(
-          process.env.NOTION_DATABASE_GEARS_ID!,
-          undefined,
-          50,
-          GEARS_SORTS,
-          ["title", "Description", "Category", "Path"],
-        ),
-      ]);
-      return pageToMarkdown({
-        hero,
-        body,
-        sections: gearSections(formatPostMetadata(gearPages)),
       });
     }
   }

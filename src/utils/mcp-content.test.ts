@@ -1,7 +1,6 @@
 import type { PageMetadata, PostMetadata } from "@/utils/formatter";
 import { describe, expect, it } from "vitest";
 import {
-  groupGears,
   postToolItem,
   profileFromHero,
   searchPosts,
@@ -98,30 +97,6 @@ describe("searchPosts", () => {
 
   it("returns empty when nothing matches", () => {
     expect(searchPosts(items, "quantum")).toEqual([]);
-  });
-});
-
-describe("groupGears", () => {
-  it("groups by category preserving first-seen order", () => {
-    const groups = groupGears([
-      post({ title: "Keyboard", category: "Desk", path: "https://x.com/kb" }),
-      post({ title: "Camera", category: "Video", path: "https://x.com/cam" }),
-      post({ title: "Mic", category: "Video", path: "https://x.com/mic" }),
-    ]);
-
-    expect(groups.map((g) => g.category)).toEqual(["Desk", "Video"]);
-    expect(groups[1]?.items.map((i) => i.title)).toEqual(["Camera", "Mic"]);
-  });
-
-  it("falls back to Other and omits empty urls/descriptions", () => {
-    const groups = groupGears([post({ title: "Mystery" })]);
-
-    expect(groups).toEqual([
-      {
-        category: "Other",
-        items: [{ title: "Mystery", url: undefined, description: undefined }],
-      },
-    ]);
   });
 });
 

@@ -35,21 +35,20 @@ export function buildAiCatalog(baseUrl: string): AiCatalog {
         identifier: "urn:air:nublson.com:mcp:content",
         displayName: "nublson.com Content MCP Server",
         description:
-          "Read-only MCP server exposing blog posts, work case studies, gear recommendations and profile info over Streamable HTTP.",
+          "Read-only MCP server exposing blog posts, work case studies and profile info over Streamable HTTP.",
         type: "application/mcp-server-card+json",
         url: `${base}/.well-known/mcp/server-card.json`,
         tags: ["mcp", "content", "read-only"],
         representativeQueries: [
           "read Nubelson Fernandes' blog posts as markdown",
           "search nublson.com work case studies",
-          "what tools and gear does Nubelson Fernandes use",
         ],
       },
       {
         identifier: "urn:air:nublson.com:a2a:content-agent",
         displayName: "nublson.com Content Agent",
         description:
-          "A2A v1.0 agent card for the JSON-RPC endpoint at /api/a2a, answering questions about posts, case studies, gear and profile.",
+          "A2A v1.0 agent card for the JSON-RPC endpoint at /api/a2a, answering questions about posts, case studies and profile.",
         type: "application/a2a-agent-card+json",
         url: `${base}/.well-known/agent-card.json`,
         tags: ["a2a", "agent-card", "jsonrpc"],

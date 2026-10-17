@@ -1,7 +1,14 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { renderRichTextNode } from "./content-blocks/rich-text";
 import { FaviconLink } from "./favicon-link";
+
+// SiteFavicon is an async server component, which Testing Library can't render.
+vi.mock("./site-favicon", () => ({
+  SiteFavicon: ({ href }: { href: string }) => (
+    <span data-testid="site-favicon" data-href={href} />
+  ),
+}));
 
 describe("FaviconLink", () => {
   it("renders the icon before the label and opens in a new tab", () => {
@@ -59,7 +66,7 @@ describe("renderRichTextNode favicons", () => {
     ).not.toBeNull();
   });
 
-  it("keeps plain underlined links for other domains", () => {
+  it("keeps plain underlined links for other domains, with the site's favicon", () => {
     render(
       <p>
         {renderRichTextNode({
@@ -69,7 +76,11 @@ describe("renderRichTextNode favicons", () => {
       </p>,
     );
     const link = screen.getByRole("link", { name: "docs" });
-    expect(link.querySelector("svg")).toBeNull();
     expect(link.className).toContain("underline");
+    expect(link.firstElementChild).toBe(screen.getByTestId("site-favicon"));
+    expect(screen.getByTestId("site-favicon")).toHaveAttribute(
+      "data-href",
+      "https://example.com",
+    );
   });
 });

@@ -9,11 +9,6 @@ export type PostToolItem = {
   category?: string;
 };
 
-export type GearGroup = {
-  category: string;
-  items: { title: string; url?: string; description?: string }[];
-};
-
 export type Profile = {
   name: string;
   description?: string;
@@ -50,26 +45,6 @@ export function searchPosts(
       field?.toLowerCase().includes(needle),
     ),
   );
-}
-
-export function groupGears(gears: PostMetadata[]): GearGroup[] {
-  const groups: GearGroup[] = [];
-
-  for (const gear of gears) {
-    const category = gear.category || "Other";
-    let group = groups.find((g) => g.category === category);
-    if (!group) {
-      group = { category, items: [] };
-      groups.push(group);
-    }
-    group.items.push({
-      title: gear.title,
-      url: gear.path || undefined,
-      description: gear.description || undefined,
-    });
-  }
-
-  return groups;
 }
 
 export function profileFromHero(
