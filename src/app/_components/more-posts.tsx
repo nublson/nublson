@@ -1,30 +1,25 @@
 import PostsSection from "@/sections/posts";
 import { getDatabasePages } from "@/services/notion";
-import { formatPostMetadata } from "@/utils/formatter";
+import { formatPostMetadata, type PostMetadata } from "@/utils/formatter";
 
-export async function MorePosts({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+export async function getMorePosts(
+  currentTitle: string,
+): Promise<PostMetadata[]> {
   const blogPages = await getDatabasePages(
     process.env.NOTION_DATABASE_CONTENT_ID!,
     "Blog",
-    5,
+    3,
+    undefined,
+    undefined,
+    currentTitle,
   );
-  const blogPostMetadata = formatPostMetadata(blogPages)
-    .filter((post) => post.slug !== slug)
-    .slice(0, 3);
+  return formatPostMetadata(blogPages);
+}
+
+export function MorePosts({ posts }: { posts: PostMetadata[] }) {
+  if (posts.length === 0) return null;
 
   return (
-    blogPostMetadata.length > 0 && (
-      <PostsSection
-        title="More posts"
-        href="/writings"
-        id="blog"
-        posts={blogPostMetadata}
-      />
-    )
+    <PostsSection title="More posts" href="/writings" id="blog" posts={posts} />
   );
 }

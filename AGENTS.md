@@ -7,7 +7,7 @@
 ## Learned Workspace Facts
 
 - Posts metadata includes Notion properties `Path` (url), `Source` (url), and `Category` (select).
-- Blog article pages expect `MorePosts` to exclude the current post and show the next three latest posts.
+- Blog article pages show the three latest posts other than the current one: `getMorePosts` queries Notion for 3 rows with a `title does_not_equal` filter (via `getDatabasePages`' `excludeTitle`), so no over-fetch or slicing.
 - Repository workflow uses `develop` as the integration/default branch for feature PRs before promotion to `main`; a manual GitHub Actions `Release` workflow merges `develop` into `main`.
 - Content block renderers run as server components; avoid client-only hooks like `useEffect` unless explicitly making the component client-side.
 - Published date rendering should prefer Notion datetime values when present and fall back to formatter utilities.
@@ -16,7 +16,7 @@
 - Agent discovery includes proxy `Link` headers, dynamic `/llms.txt`, `/agents.txt`, `/agents.json`, AI bot rules in `robots.ts`, and static `public/.well-known/*` plus `public/auth.md`.
 - Share/OG image fallbacks must be raster (e.g. `/apple-icon.png`), not SVG — Safari and many clients ignore SVG for link previews.
 - Blog/work `[slug]` pages should await Notion data in the async page so article HTML renders inside `<main>` for scrapers; avoid parent `loading.tsx` skeletons on slug routes.
-- Index/listing pages (`/`, `/about`, `/projects`, `/writings`, and similar): await in the page all non-list content (hero metadata + Notion page body/blocks) so it is in the initial HTML without JS. Where a list's length varies (`/projects`, `/writings`, and Home's projects), await the list too, fetched in parallel with the page via `Promise.all` — its length is unknown, so no skeleton can match it and the swap shifts the layout. Use Suspense with skeletons only for secondary sections of known size (Home's 4 posts, "More posts", the reactions row), and build those skeletons from the real rows' line boxes so the swap is shift-free.
+- Index/listing pages (`/`, `/about`, `/projects`, `/writings`, and similar): await in the page all non-list content (hero metadata + Notion page body/blocks) so it is in the initial HTML without JS. Where a list's length varies (`/projects`, `/writings`, and Home's projects), await the list too, fetched in parallel with the page via `Promise.all` — its length is unknown, so no skeleton can match it and the swap shifts the layout. Home's 4 posts and "More posts" are awaited too, so they render without JS. Use Suspense with a skeleton only for the interactive reactions row, and build its skeleton from the real row's line boxes so the swap is shift-free.
 - Descriptions render as Notion rich text via `RichDescription` (links with profile favicons, emphasis, blank-line paragraphs): index pages' `description` property (Home, About, Writing, Projects) and the article lede from posts' `Description` property. Project rows, feeds and metadata use the joined plain text with whitespace collapsed. Edit copy like Home's "Find me on…" line in Notion, not in code.
 - Public blog view counts are lifetime unique visitors via Supabase (session cookie shared with reactions); blog-only UI; private daily uniques stay in Vercel Analytics.
 

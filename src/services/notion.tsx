@@ -139,11 +139,19 @@ const fetchDatabasePages = async (
   limit?: number,
   sorts?: PublishedPageSort[],
   filterProperties?: string[],
+  excludeTitle?: string,
 ) => {
   const pageSize = Math.min(limit ?? QUERY_PAGE_SIZE, QUERY_PAGE_SIZE);
   const { pages } = await queryPublishedPagesPage(
     databaseId,
-    { pageSize, sorts, filterProperties },
+    {
+      pageSize,
+      sorts,
+      filterProperties,
+      extraAnd: excludeTitle
+        ? [{ property: "title", title: { does_not_equal: excludeTitle } }]
+        : undefined,
+    },
     media,
   );
   return pages;
@@ -156,6 +164,8 @@ export const getDatabasePages = cache(
     limit?: number,
     sorts?: PublishedPageSort[],
     filterProperties?: string[],
+    /** Leave out the row with this title (e.g. the post being read). */
+    excludeTitle?: string,
   ) => {
     return fetchDatabasePages(
       databaseId,
@@ -163,6 +173,7 @@ export const getDatabasePages = cache(
       limit,
       sorts,
       filterProperties,
+      excludeTitle,
     );
   },
 );
