@@ -1,7 +1,6 @@
-import { MorePosts } from "@/app/_components/more-posts";
+import { getMorePosts, MorePosts } from "@/app/_components/more-posts";
 import { PostReactionsLoader } from "@/app/_components/post-reactions-loader";
 import { PostReactionsSkeleton } from "@/components/skeletons/post-reactions-skeleton";
-import { PostsSectionSkeleton } from "@/components/skeletons/posts-section-skeleton";
 import {
   getAllPublishedSlugsForStaticParams,
   getDatabasePageBySlug,
@@ -65,7 +64,10 @@ export default async function BlogPostPage({
   );
   if (!found) notFound();
 
-  const pageBlocks = await getPageBlocks(found.page.id);
+  const [pageBlocks, morePosts] = await Promise.all([
+    getPageBlocks(found.page.id),
+    getMorePosts(found.metadata.title),
+  ]);
 
   return (
     <>
@@ -80,9 +82,7 @@ export default async function BlogPostPage({
       <Suspense fallback={<PostReactionsSkeleton trackViews />}>
         <PostReactionsLoader params={params} media="Blog" />
       </Suspense>
-      <Suspense fallback={<PostsSectionSkeleton rowCount={3} showViewAll />}>
-        <MorePosts params={params} />
-      </Suspense>
+      <MorePosts posts={morePosts} />
     </>
   );
 }
