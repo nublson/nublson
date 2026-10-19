@@ -2,9 +2,22 @@ import { FaviconLink } from "@/components/favicon-link";
 import { SiteFavicon } from "@/components/site-favicon";
 import { findSocialProfile } from "@/utils/social-profiles";
 import React from "react";
-import type { RichTextItemResponse } from "@notionhq/client";
-import { notionLinkAttributes } from "./link-attributes";
-import type { ListTextPartLike, RichTextAnnotationsLike } from "./types";
+
+type RichTextAnnotationsLike = {
+  bold?: boolean;
+  italic?: boolean;
+  strikethrough?: boolean;
+  underline?: boolean;
+  code?: boolean;
+  color?: string;
+};
+
+type ListTextPartLike = {
+  plain_text?: string;
+  href?: string;
+  annotations?: RichTextAnnotationsLike;
+  text?: { content?: string; link?: { url?: string } | null };
+};
 
 const NOTION_COLOR_CLASSES: Record<string, string> = {
   default: "text-muted-foreground",
@@ -154,27 +167,5 @@ export function renderRichTextNode(
       <SiteFavicon href={link} />
       {styledText}
     </a>
-  );
-}
-
-/** A Notion rich text array, with this site's link and colour styling. */
-export function RichText({
-  text,
-  defaultColor,
-}: {
-  text: RichTextItemResponse[];
-  defaultColor?: DefaultTextColor;
-}) {
-  return text.map((item, i) =>
-    renderRichTextNode(
-      {
-        plain_text: item.plain_text,
-        href: item.href ?? undefined,
-        annotations: item.annotations,
-      },
-      notionLinkAttributes,
-      String(i),
-      defaultColor,
-    ),
   );
 }

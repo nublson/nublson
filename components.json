@@ -21,5 +21,7 @@
   },
   "menuColor": "default",
   "menuAccent": "subtle",
-  "registries": {}
+  "registries": {
+    "@notionic": "https://notionic.dev/r/{name}.json"
+  }
 }

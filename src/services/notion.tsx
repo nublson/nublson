@@ -14,13 +14,14 @@ import {
   type PostMetadata,
 } from "@/utils/formatter";
 import {
-  BlockObjectResponse,
   Client,
   isFullBlock,
   isFullPage,
   type PageObjectResponse,
 } from "@notionhq/client";
 import { unstable_cache } from "next/cache";
+import type { NotionBlock } from "notionic";
+import { fetchBlocks } from "notionic/fetch";
 import { cache } from "react";
 
 const api = new Client({
@@ -338,9 +339,8 @@ export const getDatabasePageBySlug = cache(
   },
 );
 
-export type BlockWithChildren = BlockObjectResponse & {
-  children?: BlockWithChildren[];
-};
+/** A block with its nested blocks, linked pages and bookmark previews. */
+export type BlockWithChildren = NotionBlock;
 
 /**
  * Replaces Notion `file` image URLs (expiring signed links) with stable
@@ -524,45 +524,14 @@ export async function withThumbnailBlurs<T extends ThumbnailBearing>(
   return mapPool(items, THUMBNAIL_BLUR_CONCURRENCY, withThumbnailBlur);
 }
 
-async function fetchBlocksRecursive(
-  pageId: string,
-  depth: number,
-): Promise<BlockWithChildren[]> {
-  const blocks: BlockObjectResponse[] = [];
-  let cursor: string | undefined = undefined;
-
-  do {
-    const response = await api.blocks.children.list({
-      block_id: pageId,
-      start_cursor: cursor,
-      page_size: 100,
-    });
-
-    blocks.push(...response.results.filter(isFullBlock));
-
-    cursor = response.has_more
-      ? (response.next_cursor ?? undefined)
-      : undefined;
-  } while (cursor);
-
-  const blocksWithChildren = await mapPool(
-    blocks,
-    PAGE_BLOCKS_FETCH_CONCURRENCY,
-    async (block) => {
-      if (!block.has_children || depth <= 0) return block;
-
-      return {
-        ...block,
-        children: await fetchBlocksRecursive(block.id, depth - 1),
-      };
-    },
-  );
-
-  return rewriteExpiringNotionImageUrls(blocksWithChildren);
-}
-
 const fetchPageBlocksCached = unstable_cache(
-  async (pageId: string) => fetchBlocksRecursive(pageId, MAX_BLOCK_DEPTH),
+  async (pageId: string) =>
+    rewriteExpiringNotionImageUrls(
+      await fetchBlocks(api, pageId, {
+        maxDepth: MAX_BLOCK_DEPTH,
+        concurrency: PAGE_BLOCKS_FETCH_CONCURRENCY,
+      }),
+    ),
   ["notion-page-blocks"],
   { tags: ["notion-blocks"], revalidate: 10 },
 );
