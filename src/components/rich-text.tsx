@@ -1,4 +1,5 @@
 import { FaviconLink } from "@/components/favicon-link";
+import { LinkPreview } from "@/components/link-preview";
 import { SiteFavicon } from "@/components/site-favicon";
 import { findSocialProfile } from "@/utils/social-profiles";
 import React from "react";
@@ -140,32 +141,60 @@ export function renderRichTextNode(
     return null;
   }
 
-  const profile = findSocialProfile(link);
+  return (
+    <TextLink
+      key={key}
+      href={link}
+      target={resolvedLinkAttributes?.target ?? "_blank"}
+      rel={resolvedLinkAttributes?.rel}
+    >
+      {styledText}
+    </TextLink>
+  );
+}
+
+/**
+ * A link in Notion text: social profiles with their icon, other sites with
+ * their favicon and a preview card on hover, and links to this site plain.
+ */
+export function TextLink({
+  href,
+  target,
+  rel,
+  children,
+}: {
+  href: string;
+  target?: React.HTMLAttributeAnchorTarget;
+  rel?: string;
+  children: React.ReactNode;
+}) {
+  const profile = findSocialProfile(href);
   if (profile) {
     return (
-      <FaviconLink
-        key={key}
-        href={link}
-        label={profile.label}
-        target={resolvedLinkAttributes?.target ?? "_blank"}
-        rel={resolvedLinkAttributes?.rel ?? "noopener noreferrer"}
-      >
-        {styledText}
-      </FaviconLink>
+      <LinkPreview href={href}>
+        <FaviconLink
+          href={href}
+          label={profile.label}
+          target={target}
+          rel={rel ?? "noopener noreferrer"}
+        >
+          {children}
+        </FaviconLink>
+      </LinkPreview>
     );
   }
 
   return (
-    <a
-      key={key}
-      href={link}
-      className="text-foreground underline decoration-input underline-offset-[3px] transition-colors duration-150 ease-(--ease-out) hover:decoration-foreground"
-      target={resolvedLinkAttributes?.target ?? "_blank"}
-      rel={resolvedLinkAttributes?.rel}
-      aria-label={rawText}
-    >
-      <SiteFavicon href={link} />
-      {styledText}
-    </a>
+    <LinkPreview href={href}>
+      <a
+        href={href}
+        className="text-foreground underline decoration-input underline-offset-[3px] transition-colors duration-150 ease-(--ease-out) hover:decoration-foreground"
+        target={target}
+        rel={rel}
+      >
+        <SiteFavicon href={href} />
+        {children}
+      </a>
+    </LinkPreview>
   );
 }

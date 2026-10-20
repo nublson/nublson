@@ -1,5 +1,6 @@
 import { NotionCode } from "@/components/notion-code";
 import { NotionImage } from "@/components/notion-image";
+import { NotionLink } from "@/components/notion-link";
 import { BlockWithChildren } from "@/services/notion";
 import { NotionRenderer } from "notionic";
 
@@ -7,7 +8,7 @@ interface ContentSectionProps {
   blocks: BlockWithChildren[];
 }
 
-const components = { code: NotionCode, image: NotionImage };
+const components = { code: NotionCode, image: NotionImage, link: NotionLink };
 
 /**
  * The site's article type on notionic's defaults: `Typography`'s article size

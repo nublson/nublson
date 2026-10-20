@@ -2,15 +2,19 @@ import type { RichTextItemResponse } from "@notionhq/client";
 import { render, screen } from "@testing-library/react";
 import type { NotionBlock } from "notionic";
 import { prerender } from "react-dom/static";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import ContentSection from "./content";
 
-const text = (content: string) =>
+vi.mock("@/services/favicon", () => ({
+  getFavicon: async () => "data:image/png;base64,AAAA",
+}));
+
+const text = (content: string, href: string | null = null) =>
   ({
     type: "text",
     plain_text: content,
-    href: null,
-    text: { content, link: null },
+    href,
+    text: { content, link: href ? { url: href } : null },
     annotations: {
       bold: false,
       italic: false,
@@ -73,5 +77,25 @@ describe("ContentSection", () => {
     const html = await new Response(prelude).text();
     expect(html).toContain("TypeScript");
     expect(html).toContain("--shiki-light");
+  });
+
+  it("gives links their favicon or profile icon", async () => {
+    const { prelude } = await prerender(
+      <ContentSection
+        blocks={[
+          block("p2", "paragraph", {
+            rich_text: [
+              text("notionic", "https://notionic.dev"),
+              text(" and "),
+              text("GitHub", "https://github.com/nublson"),
+            ],
+            color: "default",
+          }),
+        ]}
+      />,
+    );
+    const html = await new Response(prelude).text();
+    expect(html).toMatch(/<a href="https:\/\/notionic.dev"[^>]*target="_blank"[^>]*><img src="data:image\/png;base64,AAAA"/);
+    expect(html).toMatch(/<a href="https:\/\/github.com\/nublson"[^>]*><svg/);
   });
 });
