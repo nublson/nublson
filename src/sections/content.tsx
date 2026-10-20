@@ -1,6 +1,11 @@
 import { NotionCode } from "@/components/notion-code";
+import {
+  NotionEquation,
+  NotionInlineEquation,
+} from "@/components/notion-equation";
 import { NotionImage } from "@/components/notion-image";
 import { NotionLink } from "@/components/notion-link";
+import { withMermaid } from "@/components/notion-mermaid";
 import { BlockWithChildren } from "@/services/notion";
 import { NotionRenderer } from "notionic";
 
@@ -8,7 +13,13 @@ interface ContentSectionProps {
   blocks: BlockWithChildren[];
 }
 
-const components = { code: NotionCode, image: NotionImage, link: NotionLink };
+const components = {
+  code: withMermaid(NotionCode),
+  equation: NotionEquation,
+  inline_equation: NotionInlineEquation,
+  image: NotionImage,
+  link: NotionLink,
+};
 
 /**
  * The site's article type on notionic's defaults: `Typography`'s article size
