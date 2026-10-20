@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import type { PostMetadata } from "@/utils/formatter";
-import Image from "next/image";
+import { ProjectIconImage } from "./project-icon-image";
 
 /**
  * A project's icon in a 16px box: the Notion page icon, else a crop of the
@@ -28,23 +28,7 @@ export function ProjectIcon({
     );
   }
 
-  const src = post.icon?.type === "image" ? post.icon.src : post.thumbnail;
-  if (src) {
-    return (
-      <span aria-hidden className={cn(box, className)}>
-        <Image
-          src={src}
-          alt=""
-          width={28}
-          height={28}
-          unoptimized
-          className="size-3.5 rounded-[3px] object-cover"
-        />
-      </span>
-    );
-  }
-
-  return (
+  const monogram = (
     <span
       aria-hidden
       className={cn(
@@ -56,4 +40,15 @@ export function ProjectIcon({
       {post.title.charAt(0).toUpperCase()}
     </span>
   );
+
+  const src = post.icon?.type === "image" ? post.icon.src : post.thumbnail;
+  if (src) {
+    return (
+      <span aria-hidden className={cn(box, className)}>
+        <ProjectIconImage src={src} fallback={monogram} />
+      </span>
+    );
+  }
+
+  return monogram;
 }
