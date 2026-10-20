@@ -3,7 +3,6 @@ import {
   getPageBlocks,
   getPageData,
 } from "@/services/notion";
-import { blocksToMarkdown } from "@/utils/blocks-to-markdown";
 import {
   formatDateTimeIso,
   formatPageMetadata,
@@ -12,6 +11,7 @@ import {
 } from "@/utils/formatter";
 import {
   estimateMarkdownTokens,
+  notionBlocksToMarkdown,
   pageToMarkdown,
   type MarkdownPostLink,
 } from "@/utils/pages-to-markdown";
@@ -47,7 +47,7 @@ async function heroFor(pageId: string) {
 }
 
 async function bodyFor(pageId: string): Promise<string> {
-  return blocksToMarkdown(await getPageBlocks(pageId));
+  return notionBlocksToMarkdown(await getPageBlocks(pageId));
 }
 
 async function buildPageMarkdown(

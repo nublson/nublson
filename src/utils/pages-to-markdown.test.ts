@@ -1,8 +1,101 @@
-import { describe, expect, it } from "vitest";
+import type { BlockWithChildren } from "@/services/notion";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   estimateMarkdownTokens,
+  notionBlocksToMarkdown,
   pageToMarkdown,
+  postToMarkdown,
 } from "./pages-to-markdown";
+
+const PROXY_URL =
+  "/api/notion-image?resource=block&id=11111111-1111-1111-1111-111111111111";
+
+function text(content: string) {
+  return {
+    type: "text",
+    text: { content, link: null },
+    plain_text: content,
+    href: null,
+    annotations: {
+      bold: false,
+      italic: false,
+      strikethrough: false,
+      underline: false,
+      code: false,
+      color: "default",
+    },
+  };
+}
+
+function block(type: string, payload: object): BlockWithChildren {
+  return {
+    object: "block",
+    id: "11111111-1111-1111-1111-111111111111",
+    type,
+    has_children: false,
+    [type]: payload,
+  } as unknown as BlockWithChildren;
+}
+
+const BLOCKS = [
+  block("heading_1", { rich_text: [text("Intro")] }),
+  block("paragraph", { rich_text: [text("Hello.")] }),
+  block("image", { type: "file", file: { url: PROXY_URL }, caption: [] }),
+];
+
+beforeEach(() => {
+  vi.stubEnv("BASE_URL", "https://example.com/");
+});
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+});
+
+describe("notionBlocksToMarkdown", () => {
+  it("demotes heading 1 and makes proxied images absolute", () => {
+    expect(notionBlocksToMarkdown(BLOCKS)).toBe(
+      `## Intro\n\nHello.\n\n![](https://example.com${PROXY_URL})`,
+    );
+  });
+});
+
+describe("postToMarkdown", () => {
+  it("writes front matter, the title as #, then the body", () => {
+    const markdown = postToMarkdown({
+      title: "Hello: World",
+      description: "A post.",
+      publishedDate: "2026-01-01T00:00:00.000Z",
+      author: "Nubelson",
+      category: "Design",
+      blocks: BLOCKS.slice(0, 2),
+    });
+
+    expect(markdown).toBe(
+      "---\n" +
+        'title: "Hello: World"\n' +
+        "description: A post.\n" +
+        'published: "2026-01-01T00:00:00.000Z"\n' +
+        "author: Nubelson\n" +
+        "category: Design\n" +
+        "---\n\n" +
+        "# Hello: World\n\n## Intro\n\nHello.\n",
+    );
+  });
+
+  it("omits category and body when absent", () => {
+    const markdown = postToMarkdown({
+      title: "Empty",
+      description: "",
+      publishedDate: "2026",
+      author: "Nubelson",
+      blocks: [],
+    });
+
+    expect(markdown).toBe(
+      "---\ntitle: Empty\ndescription: \npublished: 2026\nauthor: Nubelson\n---\n\n# Empty\n",
+    );
+  });
+});
 
 describe("pageToMarkdown", () => {
   it("renders hero with title, description, role and location", () => {

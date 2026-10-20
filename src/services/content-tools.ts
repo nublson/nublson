@@ -5,7 +5,6 @@ import {
   getPageBlocks,
   getPageData,
 } from "@/services/notion";
-import { postToMarkdown } from "@/utils/blocks-to-markdown";
 import {
   formatDateTimeIso,
   formatPageMetadata,
@@ -17,6 +16,7 @@ import {
   type PostToolItem,
   type Profile,
 } from "@/utils/mcp-content";
+import { postToMarkdown } from "@/utils/pages-to-markdown";
 import { unstable_cache } from "next/cache";
 
 const MEDIA_BY_TYPE = { blog: "Blog", work: "Project" } as const;

@@ -1,8 +1,8 @@
 import { supabase } from "@/lib/supabase";
 import { getPageBlocks, type BlockWithChildren } from "@/services/notion";
-import { blocksToMarkdown } from "@/utils/blocks-to-markdown";
 import type { PostMetadata } from "@/utils/formatter";
 import { markdownToPlainText } from "@/utils/markdown-to-plain-text";
+import { notionBlocksToMarkdown } from "@/utils/pages-to-markdown";
 import { createHash } from "crypto";
 import { after } from "next/server";
 
@@ -41,7 +41,7 @@ export function buildNarrationText(
       .map((item) => item.plain_text)
       .join("")
       .trim() || metadata.description;
-  const body = markdownToPlainText(blocksToMarkdown(blocks));
+  const body = markdownToPlainText(notionBlocksToMarkdown(blocks));
   return [metadata.title.trim(), description, body]
     .filter(Boolean)
     .map((part, i, parts) => (i < parts.length - 1 ? asSentence(part) : part))
