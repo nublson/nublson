@@ -2,9 +2,11 @@ import {
   getDatabasePageBySlug,
   getPageBlocks,
 } from "@/services/notion";
-import { postToMarkdown } from "@/utils/blocks-to-markdown";
 import { formatDateTimeIso } from "@/utils/formatter";
-import { estimateMarkdownTokens } from "@/utils/pages-to-markdown";
+import {
+  estimateMarkdownTokens,
+  postToMarkdown,
+} from "@/utils/pages-to-markdown";
 import { NextResponse } from "next/server";
 
 export const revalidate = 10;

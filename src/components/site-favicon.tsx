@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { getFavicon } from "@/services/favicon";
 import { RiGlobalLine } from "@remixicon/react";
-import { notionLinkAttributes } from "./content-blocks/link-attributes";
+import { notionLinkAttributes } from "./link-attributes";
 
 /** Same box as `SocialIcon`, so profile and plain links line up. */
 const ICON_CLASS = "inline-block size-[13px] shrink-0 align-[-2px] mr-[5px]";

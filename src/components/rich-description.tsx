@@ -1,7 +1,7 @@
 import type { RichTextItemResponse } from "@notionhq/client";
 import type { ReactNode } from "react";
-import { notionLinkAttributes } from "./content-blocks/link-attributes";
-import { renderRichTextNode } from "./content-blocks/rich-text";
+import { notionLinkAttributes } from "./link-attributes";
+import { renderRichTextNode } from "./rich-text";
 import { Typography, type TypographySize } from "./typography";
 
 /**

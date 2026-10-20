@@ -257,7 +257,19 @@ describe("buildNarrationText", () => {
       type: "paragraph",
       has_children: false,
       paragraph: {
-        rich_text: [{ type: "text", plain_text: text, href: null }],
+        rich_text: [
+          {
+            type: "text",
+            plain_text: text,
+            href: null,
+            annotations: {
+              bold: false,
+              italic: false,
+              strikethrough: false,
+              code: false,
+            },
+          },
+        ],
       },
     }) as never;
   const richText = (text: string) =>

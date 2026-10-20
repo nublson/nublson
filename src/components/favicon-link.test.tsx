@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { renderRichTextNode } from "./content-blocks/rich-text";
+import { renderRichTextNode } from "./rich-text";
 import { FaviconLink } from "./favicon-link";
 
 // SiteFavicon is an async server component, which Testing Library can't render.

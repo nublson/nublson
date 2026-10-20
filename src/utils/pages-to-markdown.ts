@@ -1,3 +1,7 @@
+import { toAbsoluteAssetUrl } from "@/lib/notion-image";
+import type { BlockWithChildren } from "@/services/notion";
+import { blocksToMarkdown } from "notionic/markdown";
+
 export type MarkdownHero = {
   title: string;
   description: string;
@@ -49,6 +53,53 @@ export function pageToMarkdown({
   }
 
   return `${parts.join("\n\n")}\n`;
+}
+
+function escapeYamlValue(value: string): string {
+  if (/[:#{}[\],&*?|>!%@`"'\n]/.test(value) || value.trim() !== value) {
+    return JSON.stringify(value);
+  }
+  return value;
+}
+
+/**
+ * Notion page body as Markdown. Uploaded images already point to the
+ * `/api/notion-image` proxy (see `getPageBlocks`); they are made absolute here
+ * so the Markdown works off-site. Notion's heading 1 becomes `##`.
+ */
+export function notionBlocksToMarkdown(blocks: BlockWithChildren[]): string {
+  return blocksToMarkdown(blocks, {
+    transformFileUrl: ({ url }) => toAbsoluteAssetUrl(url) ?? url,
+  });
+}
+
+export function postToMarkdown({
+  title,
+  description,
+  publishedDate,
+  author,
+  category,
+  blocks,
+}: {
+  title: string;
+  description: string;
+  publishedDate: string;
+  author: string;
+  category?: string;
+  blocks: BlockWithChildren[];
+}): string {
+  const frontMatter = [
+    "---",
+    `title: ${escapeYamlValue(title)}`,
+    `description: ${escapeYamlValue(description)}`,
+    `published: ${escapeYamlValue(publishedDate)}`,
+    `author: ${escapeYamlValue(author)}`,
+    ...(category ? [`category: ${escapeYamlValue(category)}`] : []),
+    "---",
+  ].join("\n");
+
+  const body = notionBlocksToMarkdown(blocks);
+  return [frontMatter, `# ${title}`, body].filter(Boolean).join("\n\n") + "\n";
 }
 
 export function estimateMarkdownTokens(markdown: string): number {

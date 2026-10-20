@@ -5,6 +5,9 @@ export function markdownToPlainText(markdown: string): string {
   // Code fences: keep the code content, drop the fence/language markers.
   text = text.replace(/```[a-zA-Z0-9]*\n([\s\S]*?)```/g, "$1");
 
+  // Toggle markup (`<details>`/`<summary>`): keep the summary text.
+  text = text.replace(/<\/?(?:details|summary)>/g, "");
+
   // Images: nothing to narrate.
   text = text.replace(/!\[[^\]]*\]\([^)]*\)/g, "");
 

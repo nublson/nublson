@@ -39,6 +39,14 @@ describe("markdownToPlainText", () => {
     ).toBe("A , B\n1 , 2");
   });
 
+  it("keeps toggle summaries and contents but drops the markup", () => {
+    expect(
+      markdownToPlainText(
+        "<details>\n<summary>More</summary>\n\nHidden text.\n\n</details>",
+      ),
+    ).toBe("More\n\nHidden text.");
+  });
+
   it("drops horizontal rules and collapses excess blank lines", () => {
     expect(markdownToPlainText("one\n\n---\n\n\n\ntwo")).toBe("one\n\ntwo");
   });

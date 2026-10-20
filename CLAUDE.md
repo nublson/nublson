@@ -36,7 +36,7 @@ Run a single test file: `pnpm vitest run src/utils/formatter.test.ts`
 
 **Data flow:**
 1. `src/services/notion.tsx` — Notion API queries, wrapped with React `cache()` for deduplication and `unstable_cache()` for server-side caching (`revalidate = 10`).
-2. `src/lib/map-pool.ts` — Limits concurrent Notion block-fetching to 10 requests to avoid rate limits. Max block nesting depth: 5.
+2. `getPageBlocks` fetches page bodies with notionic's `fetchBlocks` (10 requests in flight per level, max nesting depth 5) and rewrites uploaded image URLs to the `/api/notion-image` proxy. `src/lib/map-pool.ts` bounds other concurrent work (thumbnail blurs).
 3. App route Server Components call service functions directly; no client-side data fetching.
 4. **Hybrid SSR:** Index and slug `page.tsx` files are `async` and `await` non-list Notion content (hero + page/article blocks) so it lands in the initial HTML. Lists (`/projects`, `/writings`, Home's projects and posts, "More posts") are also awaited in parallel with the page, so they render without JS. Suspense + skeleton fallbacks (`src/components/skeletons/`) are used only for the interactive reactions row; its skeleton mirrors the real row's line boxes exactly. Avoid index `loading.tsx` — it would replace the whole page shell and hide awaited HTML from no-JS clients.
 
@@ -45,10 +45,10 @@ Run a single test file: `pnpm vitest run src/utils/formatter.test.ts`
 **Routing:** `[slug]` dynamic segments under `/app/blog/` and `/app/work/`. Static params generated via `generateStaticParams()` at build time.
 
 **Component rules:**
-- `src/components/content-blocks/` — Notion block renderers. These are Server Components. Never add `useEffect` or other client hooks here unless the file is explicitly marked `"use client"`.
+- Notion page bodies render with [notionic](https://notionic.dev)'s `NotionRenderer` in `src/sections/content.tsx`, which sets the article typography via `className`. Overrides: `src/components/notion-image.tsx` (`CoverImage`) and `src/components/notion-code.tsx` (from the `@notionic` shadcn registry, highlighted on the server with shiki). Hero/lede descriptions use the site's own `src/components/rich-text.tsx`.
 - `src/components/ui/` — shadcn primitives. Prefer extending these over creating parallel UI components.
 - `src/sections/` — Full-page-width layout sections (hero, posts, projects).
-- Client components are the exception, not the rule — currently: `theme-toggle`, `navigation-list`, `input-group`, `separator`, `code-block-highlight`, `post-reactions`, `ai-elements/persona`, `ui/tooltip`, `webmcp-provider`.
+- Client components are the exception, not the rule — currently: `theme-toggle`, `navigation-list`, `input-group`, `separator`, `ui/code-block`, `ui/hover-card`, `cover-image`, `link-preview-image`, `post-reactions`, `ai-elements/persona`, `ui/tooltip`, `webmcp-provider`.
 
 **Styling:** Tailwind CSS v4 via `@tailwindcss/postcss`. Theme tokens are CSS variables in `src/app/globals.css` using oklch color space. Dark mode is class-based (`.dark`). Use `cn()` from `src/lib/utils.ts` for conditional class merging.
 
