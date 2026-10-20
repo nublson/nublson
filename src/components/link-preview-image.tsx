@@ -19,7 +19,7 @@ export function LinkPreviewImage({ src }: { src: string }) {
       loading="lazy"
       decoding="async"
       onError={() => setFailed(true)}
-      className="aspect-[1.91/1] w-full border-b border-black/10 object-cover dark:border-white/10"
+      className="aspect-[2/1] w-full border-b border-black/10 object-cover dark:border-white/10"
     />
   );
 }

@@ -35,19 +35,19 @@ async function LinkPreviewCard({ href, children }: LinkPreviewProps) {
       <HoverCardTrigger asChild>{children}</HoverCardTrigger>
       <HoverCardContent
         collisionPadding={16}
-        className="w-80 max-w-(--radix-hover-card-content-available-width) overflow-hidden p-0"
+        className="w-64 max-w-(--radix-hover-card-content-available-width) overflow-hidden p-0"
       >
         {preview.image && <LinkPreviewImage src={preview.image} />}
-        <div className="flex flex-col gap-1 p-3">
-          <p className="line-clamp-2 font-medium text-balance text-foreground">
+        <div className="flex flex-col gap-1 p-2.5">
+          <p className="line-clamp-2 text-[13px] leading-5 font-medium text-balance text-foreground">
             {preview.title}
           </p>
           {preview.description && (
-            <p className="line-clamp-3 text-[13px] leading-5 text-pretty text-muted-foreground">
+            <p className="line-clamp-2 text-xs leading-4 text-pretty text-muted-foreground">
               {preview.description}
             </p>
           )}
-          <p className="truncate pt-1 text-xs text-subtle-foreground">
+          <p className="truncate pt-0.5 text-xs text-subtle-foreground">
             <SiteFavicon href={href} />
             {preview.siteName ?? hostLabel(href)}
           </p>
