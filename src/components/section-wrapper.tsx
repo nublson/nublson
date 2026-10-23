@@ -22,7 +22,6 @@ export function SectionWrapper({
       {...props}
       id={id}
       aria-labelledby={headingId}
-      data-stream
       className={cn(
         "flex w-full flex-col items-stretch justify-start gap-3.5",
         className,

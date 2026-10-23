@@ -20,6 +20,12 @@ export function MorePosts({ posts }: { posts: PostMetadata[] }) {
   if (posts.length === 0) return null;
 
   return (
-    <PostsSection title="More posts" href="/writings" id="blog" posts={posts} />
+    <PostsSection
+      title="More posts"
+      href="/writings"
+      id="blog"
+      posts={posts}
+      className="page-enter-after"
+    />
   );
 }

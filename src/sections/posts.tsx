@@ -9,6 +9,7 @@ interface PostsSectionProps {
   posts: PostMetadata[];
   groupByYear?: boolean;
   collapseAfter?: number;
+  className?: string;
 }
 
 export default function PostsSection({
@@ -18,9 +19,10 @@ export default function PostsSection({
   posts,
   groupByYear = false,
   collapseAfter,
+  className,
 }: PostsSectionProps) {
   return (
-    <SectionWrapper title={title} path={href} id={id}>
+    <SectionWrapper title={title} path={href} id={id} className={className}>
       <PostList
         posts={posts}
         groupByYear={groupByYear}
