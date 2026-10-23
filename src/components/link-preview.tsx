@@ -1,9 +1,9 @@
 import { getLinkPreview } from "@/services/link-preview";
 import { Suspense, type ReactElement } from "react";
+import { LinkHoverCard } from "./link-hover-card";
 import { notionLinkAttributes } from "./link-attributes";
 import { LinkPreviewImage } from "./link-preview-image";
 import { SiteFavicon } from "./site-favicon";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
 type LinkPreviewProps = {
   href: string;
@@ -31,29 +31,23 @@ async function LinkPreviewCard({ href, children }: LinkPreviewProps) {
   if (!preview) return children;
 
   return (
-    <HoverCard openDelay={300} closeDelay={100}>
-      <HoverCardTrigger asChild>{children}</HoverCardTrigger>
-      <HoverCardContent
-        collisionPadding={16}
-        className="w-64 max-w-(--radix-hover-card-content-available-width) overflow-hidden p-0"
-      >
-        {preview.image && <LinkPreviewImage src={preview.image} />}
-        <div className="flex flex-col gap-1 p-2.5">
-          <p className="line-clamp-2 text-[13px] leading-5 font-medium text-balance text-foreground">
-            {preview.title}
+    <LinkHoverCard trigger={children}>
+      {preview.image && <LinkPreviewImage src={preview.image} />}
+      <div className="flex flex-col gap-1 p-2.5">
+        <p className="line-clamp-2 text-[13px] leading-5 font-medium text-balance text-foreground">
+          {preview.title}
+        </p>
+        {preview.description && (
+          <p className="line-clamp-2 text-xs leading-4 text-pretty text-muted-foreground">
+            {preview.description}
           </p>
-          {preview.description && (
-            <p className="line-clamp-2 text-xs leading-4 text-pretty text-muted-foreground">
-              {preview.description}
-            </p>
-          )}
-          <p className="truncate pt-0.5 text-xs text-subtle-foreground">
-            <SiteFavicon href={href} />
-            {preview.siteName ?? hostLabel(href)}
-          </p>
-        </div>
-      </HoverCardContent>
-    </HoverCard>
+        )}
+        <p className="truncate pt-0.5 text-xs text-subtle-foreground">
+          <SiteFavicon href={href} />
+          {preview.siteName ?? hostLabel(href)}
+        </p>
+      </div>
+    </LinkHoverCard>
   );
 }
 

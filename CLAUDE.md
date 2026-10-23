@@ -48,7 +48,7 @@ Run a single test file: `pnpm vitest run src/utils/formatter.test.ts`
 - Notion page bodies render with [notionic](https://notionic.dev)'s `NotionRenderer` in `src/sections/content.tsx`, which sets the article typography via `className`. Overrides: `src/components/notion-image.tsx` (`CoverImage`) `src/components/notion-code.tsx` (from the `@notionic` shadcn registry, highlighted on the server with shiki) wrapped in `withMermaid` so `mermaid` code blocks draw as diagrams, and `src/components/notion-equation.tsx` (KaTeX, rendered on the server). Hero/lede descriptions use the site's own `src/components/rich-text.tsx`.
 - `src/components/ui/` — shadcn primitives. Prefer extending these over creating parallel UI components.
 - `src/sections/` — Full-page-width layout sections (hero, posts, projects).
-- Client components are the exception, not the rule — currently: `theme-toggle`, `navigation-list`, `input-group`, `separator`, `ui/code-block`, `ui/hover-card`, `cover-image`, `link-preview-image`, `mermaid-diagram`, `project-icon-image`, `post-reactions`, `ai-elements/persona`, `ui/tooltip`, `webmcp-provider`.
+- Client components are the exception, not the rule — currently: `theme-toggle`, `navigation-list`, `input-group`, `separator`, `ui/code-block`, `ui/hover-card`, `cover-image`, `link-hover-card`, `link-preview-image`, `mermaid-diagram`, `project-icon-image`, `post-reactions`, `ai-elements/persona`, `ui/tooltip`, `webmcp-provider`.
 
 **Styling:** Tailwind CSS v4 via `@tailwindcss/postcss`. Theme tokens are CSS variables in `src/app/globals.css` using oklch color space. Dark mode is class-based (`.dark`). Use `cn()` from `src/lib/utils.ts` for conditional class merging.
 
