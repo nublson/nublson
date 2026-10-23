@@ -188,6 +188,10 @@ export function PostReactions({
     null,
   );
   const [views, setViews] = useState(initialViews);
+  // On a first visit the reactions GET mints the session cookie; the view POST
+  // waits for it, so both requests use one session and a returning reader's
+  // view isn't recorded under an ID the cookie no longer holds.
+  const sessionReadyRef = useRef<Promise<unknown>>(Promise.resolve());
   const [shareCopied, setShareCopied] = useState(false);
   const shareResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [purlState, setPurlState] = useState<PurlState>("idle");
@@ -237,9 +241,11 @@ export function PostReactions({
   useEffect(() => {
     if (initialData !== undefined) return;
     let cancelled = false;
+    const request = fetchSummary(postId);
+    sessionReadyRef.current = request.catch(() => undefined);
     (async () => {
       try {
-        const data = await fetchSummary(postId);
+        const data = await request;
         if (!cancelled) setSummary(data);
       } catch {
         if (!cancelled)
@@ -262,6 +268,7 @@ export function PostReactions({
     (async () => {
       try {
         if (!sessionStorage.getItem(storageKey)) {
+          await sessionReadyRef.current;
           const next = await recordView(postId, postSlug);
           sessionStorage.setItem(storageKey, "1");
           if (!cancelled) setViews(next);

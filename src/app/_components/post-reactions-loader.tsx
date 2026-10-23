@@ -1,14 +1,16 @@
 import { PostReactions } from "@/components/post-reactions";
 import { getDatabasePageBySlug } from "@/services/notion";
-import { getPostReactions } from "@/services/reactions";
 import { getViewCount } from "@/services/views";
-import { randomUUID } from "crypto";
-import { cookies } from "next/headers";
-
-const SESSION_COOKIE = "reaction_session_id";
 
 export type PostReactionsContentMedia = "Blog" | "Project";
 
+/**
+ * Renders only what is the same for every visitor (the view count), so the
+ * post page stays static (ISR). Reading the reaction session cookie here would
+ * make the whole route render per request; `PostReactions` fetches the
+ * visitor's reactions from `/api/reactions/[postId]` instead, which owns the
+ * session cookie, and shows its skeleton until then.
+ */
 export async function PostReactionsLoader({
   params,
   media,
@@ -26,16 +28,12 @@ export async function PostReactionsLoader({
 
   const postId = found.page.id;
   const trackViews = media === "Blog";
-  const jar = await cookies();
-  const sessionId = jar.get(SESSION_COOKIE)?.value ?? randomUUID();
-  const initialData = await getPostReactions(postId, sessionId);
   const initialViews = trackViews ? await getViewCount(postId) : 0;
 
   return (
     <PostReactions
       postId={postId}
       postSlug={slug}
-      initialData={initialData}
       trackViews={trackViews}
       initialViews={initialViews}
     />
