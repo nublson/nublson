@@ -235,7 +235,6 @@ body {
   from {
     opacity: 0;
     transform: translateY(6px);
-    filter: blur(2px);
   }
 }
 
