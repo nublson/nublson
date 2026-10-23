@@ -22,19 +22,12 @@ function lineAt(el: Element, x: number, y: number): number {
 }
 
 /**
- * A hover card anchored to the line of the link it was opened from, so a
- * link that wraps doesn't place it mid-paragraph. Keyboard focus anchors it
- * to the first line. The line is kept as an index and measured on every
- * position update, so the card follows the link on scroll and resize.
+ * Which of a link's line boxes the card anchors to: the one under the pointer
+ * while the card is closed, and the first line otherwise, so keyboard focus
+ * never reuses a line from an earlier hover. The line is kept as an index and
+ * measured on every position update, so the card follows scroll and resize.
  */
-export function LinkHoverCard({
-  trigger,
-  children,
-}: {
-  /** The link: an anchor element, which becomes the trigger. */
-  trigger: ReactElement;
-  children: ReactNode;
-}) {
+export function useLineAnchor() {
   const triggerRef = useRef<HTMLAnchorElement>(null);
   const line = useRef(0);
   const open = useRef(false);
@@ -53,30 +46,53 @@ export function LinkHoverCard({
     [],
   );
 
-  // Track the line under the pointer until the card opens, so it doesn't jump
-  // while the pointer moves onto it.
+  // Follow the pointer only while closed, so the card doesn't jump as the
+  // pointer moves onto it.
   const trackLine = (event: PointerEvent<HTMLAnchorElement>) => {
     if (!open.current) {
       line.current = lineAt(event.currentTarget, event.clientX, event.clientY);
     }
   };
 
+  return {
+    triggerRef,
+    anchor,
+    onOpenChange: (next: boolean) => {
+      open.current = next;
+      if (!next) line.current = 0;
+    },
+    triggerProps: {
+      onPointerEnter: trackLine,
+      onPointerMove: trackLine,
+      onPointerLeave: () => {
+        if (!open.current) line.current = 0;
+      },
+    },
+  };
+}
+
+/**
+ * A hover card anchored to the line of the link it was opened from, so a
+ * link that wraps doesn't place it mid-paragraph.
+ */
+export function LinkHoverCard({
+  trigger,
+  children,
+}: {
+  /** The link: an anchor element, which becomes the trigger. */
+  trigger: ReactElement;
+  children: ReactNode;
+}) {
+  const { triggerRef, anchor, onOpenChange, triggerProps } = useLineAnchor();
+
   return (
-    <HoverCard
-      onOpenChange={(next) => {
-        open.current = next;
-      }}
-    >
+    <HoverCard onOpenChange={onOpenChange}>
       <HoverCardTrigger
         ref={triggerRef}
         render={trigger}
         delay={300}
         closeDelay={100}
-        onPointerEnter={trackLine}
-        onPointerMove={trackLine}
-        onPointerLeave={() => {
-          if (!open.current) line.current = 0;
-        }}
+        {...triggerProps}
       />
       <HoverCardContent
         anchor={anchor}
