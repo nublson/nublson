@@ -248,6 +248,11 @@ body {
 .article-layout > :nth-child(5) { animation-delay: 240ms; }
 .article-layout > :nth-child(n + 6) { animation-delay: 300ms; }
 
+/* A block after an article ("More posts") enters with the page, once the article's two blocks have. */
+.page-enter-after {
+  animation: page-enter 500ms var(--ease-out) 120ms both;
+}
+
 /*
  * Streamed sections (Suspense content) replace their skeleton as a new node,
  * so they fade in once, opacity only, instead of replaying the page entrance.
