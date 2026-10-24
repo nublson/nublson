@@ -22,13 +22,17 @@ export type ShareMetadataOptions = {
   tags?: string[];
   /** Explicit canonical URL path (e.g. '/about'). Resolved against metadataBase. */
   canonical?: string;
+  /** Share image when there's no thumbnail, e.g. a generated `opengraph-image` card. */
+  fallbackImage?: string;
 };
 
 export function buildShareMetadata(
   { title, description, thumbnail }: ShareMetadataInput,
   options?: ShareMetadataOptions,
 ): Metadata {
-  const ogImage = thumbnail?.trim() ? thumbnail : DEFAULT_OG_IMAGE;
+  const ogImage = thumbnail?.trim()
+    ? thumbnail
+    : (options?.fallbackImage ?? DEFAULT_OG_IMAGE);
   const openGraphType = options?.openGraphType ?? "website";
   const isArticle = openGraphType === "article";
 
