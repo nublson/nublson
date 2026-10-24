@@ -57,8 +57,8 @@ importers:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       notionic:
-        specifier: ^0.9.0
-        version: 0.9.0(react@19.2.4)
+        specifier: ^0.10.0
+        version: 0.10.0(react@19.2.4)
       radix-ui:
         specifier: ^1.4.3
         version: 1.4.3(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -4080,8 +4080,8 @@ packages:
   node-releases@2.0.38:
     resolution: {integrity: sha512-3qT/88Y3FbH/Kx4szpQQ4HzUbVrHPKTLVpVocKiLfoYvw9XSGOX2FmD2d6DrXbVYyAQTF2HeF6My8jmzx7/CRw==}
 
-  notionic@0.9.0:
-    resolution: {integrity: sha512-qwwSFcSvyp2aWTClaFZjQiB4t8ipVUXzJOPWTLY6z5sM+J7QLOK5DcGOmOigpA6RdZSlIdr5hlRA1HekKtdcSA==}
+  notionic@0.10.0:
+    resolution: {integrity: sha512-iNZT1rkq8vhzzhYYNNgfyXMUhrj7/79XCSiMnwKA/Yfoh4mShswCeFfjS3rlOX4qagb5tjJ+uUUrkIJPnZNS+A==}
     peerDependencies:
       react: ^19.0.0
 
@@ -9160,7 +9160,7 @@ snapshots:
 
   node-releases@2.0.38: {}
 
-  notionic@0.9.0(react@19.2.4):
+  notionic@0.10.0(react@19.2.4):
     dependencies:
       react: 19.2.4
 
