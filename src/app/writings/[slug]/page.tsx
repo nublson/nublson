@@ -44,6 +44,8 @@ export async function generateMetadata({
     },
     {
       canonical: `/writings/${slug}`,
+      // The generated title card, instead of the square app icon.
+      fallbackImage: `/writings/${slug}/opengraph-image`,
       openGraphType: "article",
       publishedTime: found.metadata.published_date,
       section: found.metadata.category,
