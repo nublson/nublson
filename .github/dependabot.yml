@@ -1,0 +1,13 @@
+# Opens a PR into develop when notionic publishes a new version. Other
+# dependencies are updated by hand.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: daily
+    allow:
+      - dependency-name: notionic
+    commit-message:
+      prefix: chore
