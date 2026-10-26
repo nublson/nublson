@@ -15,10 +15,10 @@ const FAVICON_CONCURRENCY = 10;
  * Cached favicon per hostname: `{ src }` with a data URL, or `{ src: null }`
  * when the site has none. Wrapped in an object so "no icon" is a cached value.
  *
- * Links in page bodies get theirs from `fetchBlocks` (`linkFavicons`), cached
- * with the blocks; this serves the links notionic doesn't render, such as
- * descriptions, through the same lookup (Google's favicon service, then
- * DuckDuckGo's).
+ * Every link favicon goes through here (page bodies, descriptions, the link
+ * preview card), rather than `fetchBlocks`' `linkFavicons`, which doesn't
+ * cache and would refetch every host each time the blocks revalidate. The
+ * lookup is notionic's: Google's favicon service, then DuckDuckGo's.
  */
 const getFaviconCached = unstable_cache(
   async (host: string): Promise<{ src: string | null }> => ({

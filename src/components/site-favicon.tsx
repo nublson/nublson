@@ -13,11 +13,10 @@ function externalHost(href: string): string | null {
 }
 
 /**
- * The linked site's favicon for links outside a Notion page body (hero and
- * lede descriptions, the link preview card), looked up and cached here since
- * no `fetchBlocks` attached it. Rendered by notionic's `LinkFavicon`, so it
- * matches the links in article bodies: the icon inlined as a data URL, or a
- * muted globe when the site has none.
+ * The linked site's favicon for every link (page bodies, hero and lede
+ * descriptions, the link preview card), from the cached lookup in
+ * `@/services/favicon`. Rendered by notionic's `LinkFavicon`: the icon
+ * inlined as a data URL, or a muted globe when the site has none.
  */
 export async function SiteFavicon({
   href,

@@ -5,6 +5,11 @@ import { prerender } from "react-dom/static";
 import { describe, expect, it, vi } from "vitest";
 import ContentSection from "./content";
 
+const getFavicon = vi.hoisted(() =>
+  vi.fn(async (host: string) => (host === "notionic.dev" ? "data:image/png;base64,AAAA" : null)),
+);
+vi.mock("@/services/favicon", () => ({ getFavicon }));
+
 const text = (content: string, href: string | null = null) =>
   ({
     type: "text",
@@ -75,21 +80,18 @@ describe("ContentSection", () => {
     expect(html).toContain("--shiki-light");
   });
 
-  it("shows the favicons fetchBlocks attached, and a globe for a site without one", async () => {
+  it("shows the linked site's favicon, and a globe for a site without one", async () => {
     const { prelude } = await prerender(
       <ContentSection
         blocks={[
-          {
-            ...block("p2", "paragraph", {
-              rich_text: [
-                text("notionic", "https://notionic.dev"),
-                text(" and "),
-                text("GitHub", "https://github.com/nublson"),
-              ],
-              color: "default",
-            }),
-            linkFavicons: { "notionic.dev": "data:image/png;base64,AAAA" },
-          },
+          block("p2", "paragraph", {
+            rich_text: [
+              text("notionic", "https://notionic.dev"),
+              text(" and "),
+              text("GitHub", "https://github.com/nublson"),
+            ],
+            color: "default",
+          }),
         ]}
       />,
     );
@@ -104,19 +106,17 @@ describe("ContentSection", () => {
       const { prelude } = await prerender(
         <ContentSection
           blocks={[
-            {
-              ...block("p3", "paragraph", {
-                rich_text: [text("about", "https://nublson.com/about")],
-                color: "default",
-              }),
-              linkFavicons: { "nublson.com": "data:image/png;base64,BBBB" },
-            },
+            block("p3", "paragraph", {
+              rich_text: [text("about", "https://nublson.com/about")],
+              color: "default",
+            }),
           ]}
         />,
       );
       const html = await new Response(prelude).text();
       expect(html).toMatch(/<a href="https:\/\/nublson.com\/about"[^>]*>about<\/a>/);
       expect(html).not.toContain("<img");
+      expect(getFavicon).not.toHaveBeenCalledWith("nublson.com");
     } finally {
       vi.unstubAllEnvs();
     }
