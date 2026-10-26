@@ -66,7 +66,14 @@ export function getFavicon(host: string): Promise<string | null> {
   if (memoized) return memoized;
 
   const lookup = getFaviconCached(host).then(
-    ({ src }) => src,
+    ({ src }) => {
+      // A null answer may be a provider outage rather than a site without an
+      // icon, so keep it out of the memo: the data cache's day, not the
+      // process lifetime, bounds how long the globe shows. Links rendered
+      // while the lookup was in flight still shared this one promise.
+      if (src === null) faviconMemo.delete(host);
+      return src;
+    },
     () => {
       // Forget failures so the next render asks again.
       faviconMemo.delete(host);
