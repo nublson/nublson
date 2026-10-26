@@ -1,10 +1,6 @@
-import { cn } from "@/lib/utils";
 import { getFavicon } from "@/services/favicon";
-import { RiGlobalLine } from "@remixicon/react";
+import { LinkFavicon } from "notionic";
 import { notionLinkAttributes } from "./link-attributes";
-
-/** Same box as `SocialIcon`, so profile and plain links line up. */
-const ICON_CLASS = "inline-block size-[13px] shrink-0 align-[-2px] mr-[5px]";
 
 /** The host to show an icon for, or null for links to this site. */
 function externalHost(href: string): string | null {
@@ -17,8 +13,11 @@ function externalHost(href: string): string | null {
 }
 
 /**
- * The linked site's favicon, inlined as a data URL so it is in the initial
- * HTML. Falls back to a globe in the text colour when the site has none.
+ * The linked site's favicon for links outside a Notion page body (hero and
+ * lede descriptions, the link preview card), looked up and cached here since
+ * no `fetchBlocks` attached it. Rendered by notionic's `LinkFavicon`, so it
+ * matches the links in article bodies: the icon inlined as a data URL, or a
+ * muted globe when the site has none.
  */
 export async function SiteFavicon({
   href,
@@ -30,29 +29,5 @@ export async function SiteFavicon({
   const host = externalHost(href);
   if (!host) return null;
 
-  const src = await getFavicon(host);
-  if (!src) {
-    return (
-      <RiGlobalLine
-        aria-hidden
-        data-slot="site-favicon"
-        className={cn(ICON_CLASS, "text-muted-foreground", className)}
-      />
-    );
-  }
-
-  return (
-    // A tiny inline data URL: next/image would only add a wrapper.
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={src}
-      alt=""
-      aria-hidden
-      data-slot="site-favicon"
-      width={13}
-      height={13}
-      decoding="async"
-      className={cn(ICON_CLASS, "rounded-[2px]", className)}
-    />
-  );
+  return <LinkFavicon favicon={await getFavicon(host)} className={className} />;
 }

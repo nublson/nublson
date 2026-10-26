@@ -1,7 +1,14 @@
 import type { RichTextItemResponse } from "@notionhq/client";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { RichDescription } from "./rich-description";
+
+// SiteFavicon is an async server component, which Testing Library can't render.
+vi.mock("./site-favicon", () => ({
+  SiteFavicon: ({ href }: { href: string }) => (
+    <span data-testid="site-favicon" data-href={href} />
+  ),
+}));
 
 const text = (content: string, url?: string) =>
   ({
@@ -32,11 +39,12 @@ describe("RichDescription", () => {
     expect(paragraphs[1].textContent).toBe("Find me on GitHub.");
   });
 
-  it("renders profile links with their icon", () => {
+  it("renders links with the linked site's favicon before the text", () => {
     render(<RichDescription items={[text("GitHub", "https://github.com/nublson")]} />);
     const link = screen.getByRole("link", { name: /GitHub/ });
     expect(link).toHaveAttribute("href", "https://github.com/nublson");
-    expect(link.querySelector("svg")).not.toBeNull();
+    expect(link.firstElementChild).toBe(screen.getByTestId("site-favicon"));
+    expect(screen.getByTestId("site-favicon")).toHaveAttribute("data-href", "https://github.com/nublson");
   });
 
   it("renders nothing without text", () => {

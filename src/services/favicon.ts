@@ -1,8 +1,12 @@
-import { resolveFavicon } from "@/lib/favicon";
 import { unstable_cache } from "next/cache";
+import { fetchLinkFavicon } from "notionic/fetch";
 
-/** Favicons rarely change; a month keeps redesigns showing up eventually. */
-const FAVICON_REVALIDATE_SECONDS = 60 * 60 * 24 * 30;
+/**
+ * Favicons rarely change, but `fetchLinkFavicon` answers null for a provider
+ * outage as well as for a site without an icon, so a day bounds how long a
+ * missed lookup shows the globe.
+ */
+const FAVICON_REVALIDATE_SECONDS = 60 * 60 * 24;
 
 /** Same budget as page-block fetching and blur generation. */
 const FAVICON_CONCURRENCY = 10;
@@ -11,14 +15,16 @@ const FAVICON_CONCURRENCY = 10;
  * Cached favicon per hostname: `{ src }` with a data URL, or `{ src: null }`
  * when the site has none. Wrapped in an object so "no icon" is a cached value.
  *
- * Throws on a transient provider failure, so it is not written into the cache
- * and the next render retries.
+ * Links in page bodies get theirs from `fetchBlocks` (`linkFavicons`), cached
+ * with the blocks; this serves the links notionic doesn't render, such as
+ * descriptions, through the same lookup (Google's favicon service, then
+ * DuckDuckGo's).
  */
 const getFaviconCached = unstable_cache(
   async (host: string): Promise<{ src: string | null }> => ({
-    src: await withSlot(() => resolveFavicon(host)),
+    src: await withSlot(() => fetchLinkFavicon(host)),
   }),
-  ["favicon-v1"],
+  ["favicon-v2"],
   { tags: ["favicons"], revalidate: FAVICON_REVALIDATE_SECONDS },
 );
 
@@ -53,7 +59,7 @@ async function withSlot<T>(task: () => Promise<T>): Promise<T> {
 
 /**
  * The favicon for `host` as a data URL, or null to draw the globe instead.
- * Never throws: a failed lookup shows the globe now and retries next render.
+ * Never throws: a failed cache read shows the globe now and retries next render.
  */
 export function getFavicon(host: string): Promise<string | null> {
   const memoized = faviconMemo.get(host);

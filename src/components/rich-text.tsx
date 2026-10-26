@@ -1,7 +1,5 @@
-import { FaviconLink } from "@/components/favicon-link";
 import { LinkPreview } from "@/components/link-preview";
 import { SiteFavicon } from "@/components/site-favicon";
-import { findSocialProfile } from "@/utils/social-profiles";
 import React from "react";
 
 type RichTextAnnotationsLike = {
@@ -147,6 +145,8 @@ export function renderRichTextNode(
       href={link}
       target={resolvedLinkAttributes?.target ?? "_blank"}
       rel={resolvedLinkAttributes?.rel}
+      // Property text has no blocks to carry favicons, so look them up here.
+      icon={<SiteFavicon href={link} />}
     >
       {styledText}
     </TextLink>
@@ -154,36 +154,23 @@ export function renderRichTextNode(
 }
 
 /**
- * A link in Notion text: social profiles with their icon, other sites with
- * their favicon and a preview card on hover, and links to this site plain.
+ * A link in Notion text: other sites with their favicon (`icon`) and a
+ * preview card on hover, and links to this site plain.
  */
 export function TextLink({
   href,
   target,
   rel,
+  icon,
   children,
 }: {
   href: string;
   target?: React.HTMLAttributeAnchorTarget;
   rel?: string;
+  /** The linked site's favicon, rendered before the text. */
+  icon?: React.ReactNode;
   children: React.ReactNode;
 }) {
-  const profile = findSocialProfile(href);
-  if (profile) {
-    return (
-      <LinkPreview href={href}>
-        <FaviconLink
-          href={href}
-          label={profile.label}
-          target={target}
-          rel={rel ?? "noopener noreferrer"}
-        >
-          {children}
-        </FaviconLink>
-      </LinkPreview>
-    );
-  }
-
   return (
     <LinkPreview href={href}>
       <a
@@ -192,7 +179,7 @@ export function TextLink({
         target={target}
         rel={rel}
       >
-        <SiteFavicon href={href} />
+        {icon}
         {children}
       </a>
     </LinkPreview>

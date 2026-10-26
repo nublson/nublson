@@ -530,6 +530,9 @@ const fetchPageBlocksCached = unstable_cache(
       await fetchBlocks(api, pageId, {
         maxDepth: MAX_BLOCK_DEPTH,
         concurrency: PAGE_BLOCKS_FETCH_CONCURRENCY,
+        // Favicons of linked sites ride along with the blocks, so they are
+        // cached with them and cost nothing at render time.
+        linkFavicons: true,
       }),
     ),
   ["notion-page-blocks"],

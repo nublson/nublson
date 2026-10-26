@@ -42,6 +42,7 @@ export default function ContentSection({ blocks }: ContentSectionProps) {
       <NotionRenderer
         blocks={blocks}
         components={components}
+        linkFavicons
         className={ARTICLE_CLASS}
       />
     </section>
