@@ -18,13 +18,18 @@ const FAVICON_CONCURRENCY = 10;
  * Every link favicon goes through here (page bodies, descriptions, the link
  * preview card), rather than `fetchBlocks`' `linkFavicons`, which doesn't
  * cache and would refetch every host each time the blocks revalidate. The
- * lookup is notionic's: Google's favicon service, then DuckDuckGo's.
+ * lookup is notionic's: with `siteIcons`, the icon the site declares for
+ * itself (its SVG, the smallest PNG of 32px or more, or `/favicon.ico`), then
+ * Google's favicon service, then DuckDuckGo's, whose stored copies can be
+ * stale or re-encoded. `siteIcons` fetches URLs the linked sites choose;
+ * notionic refuses private addresses, and on Vercel's functions there is
+ * nothing private to reach.
  */
 const getFaviconCached = unstable_cache(
   async (host: string): Promise<{ src: string | null }> => ({
-    src: await withSlot(() => fetchLinkFavicon(host)),
+    src: await withSlot(() => fetchLinkFavicon(host, { siteIcons: true })),
   }),
-  ["favicon-v2"],
+  ["favicon-v3"],
   { tags: ["favicons"], revalidate: FAVICON_REVALIDATE_SECONDS },
 );
 
