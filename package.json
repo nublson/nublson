@@ -40,7 +40,7 @@
     "mermaid": "^12.2.0",
     "next": "16.2.4",
     "next-themes": "^0.4.6",
-    "notionic": "^0.11.1",
+    "notionic": "^0.12.0",
     "radix-ui": "^1.4.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
