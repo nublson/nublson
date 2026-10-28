@@ -5,6 +5,9 @@ on:
     branches:
       - develop
       - main
+  # The notionic Update workflow dispatches this on its branch: a PR it opens
+  # with GITHUB_TOKEN does not start pull_request runs.
+  workflow_dispatch:
   workflow_call:
 
 concurrency:
