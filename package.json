@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
-    "@modelcontextprotocol/server": "^2.0.0",
+    "@modelcontextprotocol/server": "^2.3.0",
     "@notionhq/client": "^5.20.0",
     "@rive-app/react-webgl2": "^4.34.3",
     "@supabase/supabase-js": "^2.105.4",
