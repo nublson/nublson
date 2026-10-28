@@ -65,7 +65,8 @@ function escapeYamlValue(value: string): string {
 /**
  * Notion page body as Markdown. Uploaded images already point to the
  * `/api/notion-image` proxy (see `getPageBlocks`); they are made absolute here
- * so the Markdown works off-site. Notion's heading 1 becomes `##`.
+ * so the Markdown works off-site. Notion's heading 2 becomes `##`, below the
+ * title's `#`.
  */
 export function notionBlocksToMarkdown(blocks: BlockWithChildren[]): string {
   return blocksToMarkdown(blocks, {

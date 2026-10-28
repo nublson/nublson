@@ -40,7 +40,7 @@ describe("ContentSection", () => {
       <ContentSection
         blocks={[
           block("p1", "paragraph", { rich_text: [text("Hello there.")], color: "default" }),
-          block("h1", "heading_1", { rich_text: [text("A heading")], color: "default", is_toggleable: false }),
+          block("h2", "heading_2", { rich_text: [text("A heading")], color: "default", is_toggleable: false }),
         ]}
       />,
     );
