@@ -75,6 +75,8 @@ Copy `.env.example` to `.env`. Required vars:
 
 Optional: `NOTION_SLUG_PROPERTY=Slug` — if set, slug lookups use this Notion property instead of scanning all records.
 
+Optional: `NOTION_EMBED_HOSTS=figma.com,sanding.space` — hosts (subdomains included) whose Notion embeds load live in notionic's sandboxed iframe; other embeds render as preview cards. The site's own host is always dropped (`src/lib/embed-hosts.ts`). Figma only frames `embed.figma.com` URLs.
+
 ## Branch Workflow
 
 `develop` is the default integration branch. Open PRs against `develop`; `main` is for production promotion only.

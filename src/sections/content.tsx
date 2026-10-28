@@ -6,6 +6,7 @@ import {
 import { NotionImage } from "@/components/notion-image";
 import { NotionLink } from "@/components/notion-link";
 import { withMermaid } from "@/components/notion-mermaid";
+import { parseEmbedHosts } from "@/lib/embed-hosts";
 import { BlockWithChildren } from "@/services/notion";
 import { NotionRenderer } from "notionic";
 
@@ -20,6 +21,12 @@ const components = {
   image: NotionImage,
   link: NotionLink,
 };
+
+/** Sites whose embeds load live; every other embed stays a preview card. */
+const EMBED_HOSTS = parseEmbedHosts(
+  process.env.NOTION_EMBED_HOSTS,
+  process.env.BASE_URL,
+);
 
 /**
  * The site's article type on notionic's defaults: `Typography`'s article size
@@ -42,6 +49,7 @@ export default function ContentSection({ blocks }: ContentSectionProps) {
       <NotionRenderer
         blocks={blocks}
         components={components}
+        embeds={EMBED_HOSTS}
         className={ARTICLE_CLASS}
       />
     </section>
