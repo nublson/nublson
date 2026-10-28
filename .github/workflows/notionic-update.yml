@@ -1,0 +1,132 @@
+name: notionic Update
+
+# notionic ships often. Once a day, if npm has a newer notionic than develop's
+# lockfile, open (or refresh) a single PR from deps/notionic into develop.
+# A PR opened or pushed with GITHUB_TOKEN does not start pull_request
+# workflows, so this workflow dispatches PR Checks on the branch itself.
+on:
+  schedule:
+    - cron: "23 6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: notionic-update
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  bump:
+    name: Bump notionic
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: deps/notionic
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: 📥 Checkout develop
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: ⚙️ Setup Node + pnpm
+        uses: ./.github/actions/setup-pnpm
+
+      # Versions come from the lockfile, so a range like ^0.12.0 that already
+      # resolves to the latest release counts as current.
+      - name: 🔎 Compare versions
+        id: versions
+        run: |
+          locked() { sed -n 's/^  notionic@\([^:(]*\):$/\1/p' | head -n 1; }
+          current=$(locked < pnpm-lock.yaml)
+          latest=$(npm view notionic version)
+          if [ -z "$current" ] || [ -z "$latest" ]; then
+            echo "::error::Could not read notionic versions (lockfile: '$current', npm: '$latest')."
+            exit 1
+          fi
+
+          proposed=""
+          if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
+            git fetch --depth=1 origin "$BRANCH"
+            proposed=$(git show FETCH_HEAD:pnpm-lock.yaml | locked)
+          fi
+
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+          echo "latest=$latest" >> "$GITHUB_OUTPUT"
+          if [ "$current" = "$latest" ]; then
+            echo "develop already has notionic $current."
+            echo "action=close" >> "$GITHUB_OUTPUT"
+          elif [ "$proposed" = "$latest" ]; then
+            # A run that pushed the branch but failed before the PR or checks
+            # would otherwise leave this release stuck: redo just those steps.
+            # A PR closed on this exact commit means the release was turned
+            # down, so it waits for the next one.
+            head=$(git rev-parse FETCH_HEAD)
+            state=$(gh pr list --head "$BRANCH" --state all --json state,headRefOid \
+              --jq "map(select(.headRefOid == \"$head\"))[0].state // \"\"")
+            checks=$(gh run list --workflow pr-checks.yml --commit "$head" \
+              --json databaseId --jq length)
+            if [ -n "$state" ] && [ "$state" != "OPEN" ]; then
+              echo "The PR for notionic $latest was closed; waiting for the next release."
+              echo "action=none" >> "$GITHUB_OUTPUT"
+            elif [ "$state" = "OPEN" ] && [ "$checks" -gt 0 ]; then
+              echo "$BRANCH already proposes notionic $latest."
+              echo "action=none" >> "$GITHUB_OUTPUT"
+            else
+              echo "$BRANCH has notionic $latest but no open PR or PR Checks run; retrying them."
+              echo "action=retry" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "Upgrading notionic $current → $latest."
+            echo "action=bump" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 🧹 Close a bump PR that develop has caught up with
+        if: steps.versions.outputs.action == 'close'
+        env:
+          CURRENT: ${{ steps.versions.outputs.current }}
+        run: |
+          if [ "$(gh pr view "$BRANCH" --json state --jq .state 2> /dev/null)" = "OPEN" ]; then
+            gh pr close "$BRANCH" --delete-branch \
+              --comment "develop already has notionic $CURRENT."
+          fi
+
+      - name: ⬆️ Upgrade notionic
+        if: steps.versions.outputs.action == 'bump'
+        env:
+          LATEST: ${{ steps.versions.outputs.latest }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git switch -C "$BRANCH"
+          pnpm add "notionic@$LATEST"
+          git add package.json pnpm-lock.yaml
+          git commit -m "chore: upgrade notionic to $LATEST"
+          git push --force origin "$BRANCH"
+
+      - name: 🔀 Open or update the PR and run PR Checks
+        if: contains(fromJSON('["bump", "retry"]'), steps.versions.outputs.action)
+        env:
+          CURRENT: ${{ steps.versions.outputs.current }}
+          LATEST: ${{ steps.versions.outputs.latest }}
+        run: |
+          title="chore: upgrade notionic to $LATEST"
+          cat > "$RUNNER_TEMP/body.md" << EOF
+          Upgrades notionic from $CURRENT to $LATEST.
+
+          - [Release notes](https://github.com/nublson/notionic/releases/tag/v$LATEST)
+          - [Changes since $CURRENT](https://github.com/nublson/notionic/compare/v$CURRENT...v$LATEST)
+
+          Opened by the notionic Update workflow. Check the release notes for changes to \`fetchBlocks\`, \`NotionRenderer\` and the block component types before merging.
+          EOF
+
+          if [ "$(gh pr view "$BRANCH" --json state --jq .state 2> /dev/null)" = "OPEN" ]; then
+            gh pr edit "$BRANCH" --title "$title" --body-file "$RUNNER_TEMP/body.md"
+          else
+            gh pr create --base develop --head "$BRANCH" \
+              --title "$title" --body-file "$RUNNER_TEMP/body.md"
+          fi
+
+          gh workflow run pr-checks.yml --ref "$BRANCH"
