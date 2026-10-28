@@ -30,14 +30,15 @@ const EMBED_HOSTS = parseEmbedHosts(
 
 /**
  * The site's article type on notionic's defaults: `Typography`'s article size
- * for text, and its h3/h4 for headings (Notion's heading 1 renders as an h2).
+ * for text, and its h3/h4 for headings. Notion's heading levels render as
+ * the same HTML level; the page title is the h1, so sections use heading 2.
  * `!` because notionic's root classes aren't merged with these.
  */
 const ARTICLE_CLASS = [
   "w-full gap-[18px]! text-[15px] leading-[26px]! text-muted-foreground!",
-  "[&_:is(h2,h3,h4,h5)]:text-foreground [&_:is(h2,h3,h4,h5)]:tracking-[-0.01em]",
-  "[&_:is(h2,h3)]:text-[15px] [&_:is(h2,h3)]:leading-[26px]",
-  "[&_:is(h4,h5)]:text-sm [&_:is(h4,h5)]:leading-[22px]",
+  "[&_:is(h1,h2,h3,h4)]:text-foreground [&_:is(h1,h2,h3,h4)]:tracking-[-0.01em]",
+  "[&_:is(h1,h2)]:text-[15px] [&_:is(h1,h2)]:leading-[26px]",
+  "[&_:is(h3,h4)]:text-sm [&_:is(h3,h4)]:leading-[22px]",
 ].join(" ");
 
 export default function ContentSection({ blocks }: ContentSectionProps) {

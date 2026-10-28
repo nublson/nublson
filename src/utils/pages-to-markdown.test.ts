@@ -38,7 +38,7 @@ function block(type: string, payload: object): BlockWithChildren {
 }
 
 const BLOCKS = [
-  block("heading_1", { rich_text: [text("Intro")] }),
+  block("heading_2", { rich_text: [text("Intro")] }),
   block("paragraph", { rich_text: [text("Hello.")] }),
   block("image", { type: "file", file: { url: PROXY_URL }, caption: [] }),
 ];
@@ -52,7 +52,7 @@ afterEach(() => {
 });
 
 describe("notionBlocksToMarkdown", () => {
-  it("demotes heading 1 and makes proxied images absolute", () => {
+  it("keeps heading levels and makes proxied images absolute", () => {
     expect(notionBlocksToMarkdown(BLOCKS)).toBe(
       `## Intro\n\nHello.\n\n![](https://example.com${PROXY_URL})`,
     );
