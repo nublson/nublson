@@ -18,7 +18,7 @@ const AUDIO_STATUS_TO_PERSONA_STATE: Record<AudioStatus, PersonaState> = {
 
 const AUDIO_STATUS_LABEL: Record<AudioStatus, string> = {
   idle: "Listen",
-  loading: "Generating…",
+  loading: "Loading…",
   playing: "Pause",
   paused: "Resume",
   error: "Try again",
@@ -26,10 +26,10 @@ const AUDIO_STATUS_LABEL: Record<AudioStatus, string> = {
 
 const AUDIO_STATUS_ACCESSIBLE_LABEL: Record<AudioStatus, string> = {
   idle: "Listen to this post",
-  loading: "Generating narration",
+  loading: "Loading narration",
   playing: "Pause narration",
   paused: "Resume narration",
-  error: "Couldn't load the audio. Try again",
+  error: "Couldn't load the narration. Try again",
 };
 
 /** Narration control for the article meta line. */
@@ -89,7 +89,21 @@ export function ListenButton({ postSlug }: { postSlug: string }) {
             )}
           />
         </span>
-        <span aria-hidden>{AUDIO_STATUS_LABEL[status]}</span>
+        {/* Every label sits in one grid cell so the button keeps the width of
+            the widest one and the meta line doesn't reflow between states. */}
+        <span aria-hidden className="grid text-left">
+          {Object.entries(AUDIO_STATUS_LABEL).map(([labelStatus, label]) => (
+            <span
+              key={labelStatus}
+              className={cn(
+                "col-start-1 row-start-1",
+                labelStatus !== status && "invisible",
+              )}
+            >
+              {label}
+            </span>
+          ))}
+        </span>
       </button>
       <audio
         ref={audioRef}
