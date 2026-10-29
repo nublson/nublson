@@ -14,7 +14,7 @@ export function NotionImage({ block, context }: BlockProps<"image">) {
     <figure>
       <CoverImage src={src} alt={plainText(caption)} />
       {caption.length > 0 && (
-        <figcaption className="mt-2 text-sm text-muted-foreground">
+        <figcaption className="mt-2 text-[13px] leading-5 text-subtle-foreground">
           <RichText text={caption} context={context} />
         </figcaption>
       )}
