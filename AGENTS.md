@@ -35,3 +35,13 @@ Non-obvious runtime gotchas:
 - `pnpm build` calls `generateStaticParams()`, which queries Notion at build time, so a production build also needs valid Notion credentials. Use `pnpm dev` for local work.
 - `pnpm test` (Vitest + jsdom) runs fully offline — coverage excludes app routes and the Notion/Supabase service layers, so no secrets are needed for the test suite, lint, or type-check.
 - Link favicons: every link (article bodies via `NotionLink`, descriptions, the link preview card) goes through `SiteFavicon` → `@/services/favicon`, which caches notionic's `fetchLinkFavicon` per host and renders with notionic's `LinkFavicon`. Don't enable `fetchBlocks`' `linkFavicons`: it doesn't cache, so it would refetch every linked host each time page blocks revalidate (every 10 seconds). There are no hand-drawn social icons; every external link gets its real favicon or notionic's globe.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
