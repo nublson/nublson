@@ -89,7 +89,21 @@ export function ListenButton({ postSlug }: { postSlug: string }) {
             )}
           />
         </span>
-        <span aria-hidden>{AUDIO_STATUS_LABEL[status]}</span>
+        {/* Every label sits in one grid cell so the button keeps the width of
+            the widest one and the meta line doesn't reflow between states. */}
+        <span aria-hidden className="grid text-left">
+          {Object.entries(AUDIO_STATUS_LABEL).map(([labelStatus, label]) => (
+            <span
+              key={labelStatus}
+              className={cn(
+                "col-start-1 row-start-1",
+                labelStatus !== status && "invisible",
+              )}
+            >
+              {label}
+            </span>
+          ))}
+        </span>
       </button>
       <audio
         ref={audioRef}

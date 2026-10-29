@@ -31,10 +31,12 @@ export function ArticleMeta({
   );
 
   return (
-    <p className="flex flex-wrap items-center gap-2 text-subtle-foreground tabular-nums">
+    // One line: a long category truncates rather than pushing actions onto
+    // their own row.
+    <p className="flex items-center gap-2 whitespace-nowrap text-subtle-foreground tabular-nums">
       {date && <time dateTime={dateTime}>{date}</time>}
       {date && category && separator}
-      {category && <span>{category}</span>}
+      {category && <span className="min-w-0 truncate">{category}</span>}
       {actions && (date || category) && separator}
       {actions}
     </p>
