@@ -30,7 +30,7 @@ export function withMermaid(Code: CodeComponent): CodeComponent {
           fallback={<Code {...props} block={source} />}
         />
         {caption.length > 0 ? (
-          <figcaption className="text-center text-sm text-muted-foreground">
+          <figcaption className="text-center text-[13px] leading-5 text-subtle-foreground">
             <RichText text={caption} context={context} />
           </figcaption>
         ) : null}

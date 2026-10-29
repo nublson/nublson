@@ -65,16 +65,14 @@ export default function HeroSection({
       )}
       {children}
       {isArticle && thumbnail && (
-        <div className="relative w-full overflow-hidden rounded-[10px] after:pointer-events-none after:absolute after:inset-0 after:rounded-[10px] after:shadow-[inset_0_0_0_1px_var(--image-outline)]">
-          <CoverImage
-            src={thumbnail}
-            alt=""
-            blurDataURL={blurDataURL}
-            priority
-            sizes="(max-width: 672px) 100vw, 640px"
-            className="aspect-video"
-          />
-        </div>
+        <CoverImage
+          src={thumbnail}
+          alt=""
+          blurDataURL={blurDataURL}
+          priority
+          sizes="(max-width: 672px) 100vw, 640px"
+          className="aspect-video"
+        />
       )}
     </header>
   );
