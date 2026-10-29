@@ -18,7 +18,7 @@ const AUDIO_STATUS_TO_PERSONA_STATE: Record<AudioStatus, PersonaState> = {
 
 const AUDIO_STATUS_LABEL: Record<AudioStatus, string> = {
   idle: "Listen",
-  loading: "Generating…",
+  loading: "Loading…",
   playing: "Pause",
   paused: "Resume",
   error: "Try again",
@@ -26,10 +26,10 @@ const AUDIO_STATUS_LABEL: Record<AudioStatus, string> = {
 
 const AUDIO_STATUS_ACCESSIBLE_LABEL: Record<AudioStatus, string> = {
   idle: "Listen to this post",
-  loading: "Generating narration",
+  loading: "Loading narration",
   playing: "Pause narration",
   paused: "Resume narration",
-  error: "Couldn't load the audio. Try again",
+  error: "Couldn't load the narration. Try again",
 };
 
 /** Narration control for the article meta line. */
