@@ -9,7 +9,9 @@ import { useEffect, useRef, useState } from "react";
  * Next image that fades in (300ms, opacity) over its blur placeholder instead
  * of swapping in a single frame. The placeholder sits on the wrapper so it
  * stays visible while the image is transparent. Without scripting the image
- * is never hidden (see `.fade-in-image` in globals.css).
+ * is never hidden (see `.fade-in-image` in globals.css). An inset hairline
+ * (`--image-outline`) on an ::after layer above the image keeps light or dark
+ * images edged against the page.
  */
 export function CoverImage({
   src,
@@ -32,7 +34,7 @@ export function CoverImage({
 
   return (
     <span
-      className="block w-full overflow-hidden rounded-[10px] bg-cover bg-center"
+      className="relative block w-full overflow-hidden rounded-[10px] bg-cover bg-center after:pointer-events-none after:absolute after:inset-0 after:rounded-[10px] after:shadow-[inset_0_0_0_1px_var(--image-outline)]"
       // Flat 1x1 PNG when the caller has no generated placeholder. Read from
       // the JSON directly rather than from `@/lib/blur-placeholder`, which
       // imports `sharp` and must stay out of the component bundle graph.
