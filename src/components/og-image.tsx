@@ -35,6 +35,9 @@ const PLAIN = {
 };
 const ON_IMAGE = { foreground: "#ffffff", subtle: "rgba(255,255,255,0.75)" };
 
+// A slow font or logo host falls back instead of holding the card.
+const ASSET_TIMEOUT_MS = 3000;
+
 // Base64 grows the bytes by a third; this keeps the data URL well under 10 MB.
 const MAX_THUMBNAIL_BYTES = 6 * 1024 * 1024;
 
@@ -49,13 +52,17 @@ async function fetchGoogleFont(family: string): Promise<ArrayBuffer> {
           "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1",
       },
       cache: "force-cache",
+      signal: AbortSignal.timeout(ASSET_TIMEOUT_MS),
     },
   ).then((res) => res.text());
 
   const url = css.match(/src: url\((.+?)\) format\('truetype'\)/)?.[1];
   if (!url) throw new Error(`No TTF for ${family}`);
 
-  const res = await fetch(url, { cache: "force-cache" });
+  const res = await fetch(url, {
+    cache: "force-cache",
+    signal: AbortSignal.timeout(ASSET_TIMEOUT_MS),
+  });
   if (!res.ok) throw new Error(`Font ${family}: ${res.status}`);
   return res.arrayBuffer();
 }
@@ -82,7 +89,10 @@ async function fetchLogoAsDataUrl(color: string): Promise<string | undefined> {
     const url = toAbsoluteAssetUrl("/logo.svg");
     if (!url?.startsWith("http")) return undefined;
 
-    const res = await fetch(url, { cache: "force-cache" });
+    const res = await fetch(url, {
+      cache: "force-cache",
+      signal: AbortSignal.timeout(ASSET_TIMEOUT_MS),
+    });
     if (!res.ok) return undefined;
 
     const svg = (await res.text()).replaceAll("#202020", color);
