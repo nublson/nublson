@@ -3,37 +3,30 @@ import {
   toAbsoluteAssetUrl,
 } from "@/lib/notion-image";
 import { resolveNotionImageUpstream } from "@/services/notion";
-import { formatPostDateFull } from "@/utils/formatter";
 
 export type OgImageData = {
   title: string;
-  category?: string;
-  publishedDate?: string;
   thumbnailUrl?: string;
 };
 
 type OgFont = {
   name: string;
   data: ArrayBuffer;
-  weight: 400 | 500;
+  weight: 600;
   style: "normal";
 };
 
-// The site's own faces (see `src/app/layout.tsx`): Newsreader for headings,
-// Inter for everything else. next/og only bundles one regular sans.
-const OG_FONTS = [
-  { name: "Newsreader", family: "Newsreader:opsz,wght@72,500", weight: 500 },
-  { name: "Inter", family: "Inter:wght@400", weight: 400 },
-] as const;
+// The card's only text is the title, in the site's sans (see
+// `src/app/layout.tsx`) at its heading weight; next/og only bundles a regular.
+const OG_FONT = { name: "Inter", family: "Inter:wght@600", weight: 600 } as const;
 
 // Light theme tokens from `src/app/globals.css`, in hex for Satori. Over a
 // thumbnail the card turns white-on-dark, like the site's dark theme.
 const PLAIN = {
   background: "#fafafa", // --background oklch(0.985 0 0)
   foreground: "#171717", // --foreground oklch(0.205 0 0)
-  subtle: "#717171", // --subtle-foreground oklch(0.55 0 0)
 };
-const ON_IMAGE = { foreground: "#ffffff", subtle: "rgba(255,255,255,0.75)" };
+const ON_IMAGE = { foreground: "#ffffff" };
 
 // A slow font or logo host falls back instead of holding the card.
 const ASSET_TIMEOUT_MS = 3000;
@@ -70,14 +63,10 @@ async function fetchGoogleFont(family: string): Promise<ArrayBuffer> {
 /** Fonts for `ImageResponse`; empty when Google Fonts is unreachable, so the card still renders. */
 export async function loadOgFonts(): Promise<OgFont[]> {
   try {
-    return await Promise.all(
-      OG_FONTS.map(async ({ name, family, weight }) => ({
-        name,
-        data: await fetchGoogleFont(family),
-        weight,
-        style: "normal" as const,
-      })),
-    );
+    const { name, family, weight } = OG_FONT;
+    return [
+      { name, data: await fetchGoogleFont(family), weight, style: "normal" },
+    ];
   } catch {
     return [];
   }
@@ -130,8 +119,6 @@ async function fetchThumbnailAsDataUrl(
 
 export type OgImageProps = {
   title: string;
-  category: string;
-  date: string;
   logoSrc?: string;
   thumbnailSrc?: string;
 };
@@ -139,32 +126,43 @@ export type OgImageProps = {
 export async function resolveOgImageData(
   data: OgImageData,
 ): Promise<OgImageProps> {
-  const { title, category = "", publishedDate, thumbnailUrl } = data;
+  const { title, thumbnailUrl } = data;
   const thumbnailSrc = thumbnailUrl
     ? await fetchThumbnailAsDataUrl(thumbnailUrl)
     : undefined;
   const logoSrc = await fetchLogoAsDataUrl(
     thumbnailSrc ? ON_IMAGE.foreground : PLAIN.foreground,
   );
-  const date = publishedDate ? formatPostDateFull(publishedDate) : "";
 
-  return { title, category, date, logoSrc, thumbnailSrc };
+  return {
+    title: truncateAtWord(typographicApostrophes(title), MAX_TITLE_CHARS),
+    logoSrc,
+    thumbnailSrc,
+  };
 }
 
-export function OgImageTemplate({
-  title,
-  category,
-  date,
-  logoSrc,
-  thumbnailSrc,
-}: OgImageProps) {
-  const colors = thumbnailSrc ? ON_IMAGE : PLAIN;
-  const fontSize = title.length > 60 ? 60 : 72;
-  const meta = [date, category].filter(Boolean);
+// About two lines of the title at 60px; past it, `lineClamp` would cut mid-word.
+const MAX_TITLE_CHARS = 60;
 
-  // The article header at share size: logo top left, then the title over its
-  // date · category line at the bottom. Over a thumbnail, a gradient at each
-  // end keeps the logo and the text legible.
+function truncateAtWord(text: string, max: number): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max + 1);
+  const end = cut.lastIndexOf(" ");
+  return `${(end > 0 ? cut.slice(0, end) : text.slice(0, max)).replace(/[\s,;:.\u2013\u2014-]+$/, "")}\u2026`;
+}
+
+/** "won't" → "won’t"; Notion titles often carry the keyboard apostrophe. */
+function typographicApostrophes(text: string): string {
+  return text.replace(/(\p{L})'(\p{L})/gu, "$1\u2019$2");
+}
+
+export function OgImageTemplate({ title, logoSrc, thumbnailSrc }: OgImageProps) {
+  const colors = thumbnailSrc ? ON_IMAGE : PLAIN;
+  // Two lines at most: about 24 characters a line at 76px, 30 at 60px.
+  const fontSize = title.length > 40 ? 60 : 76;
+
+  // Logo top left, the title alone at the bottom. Over a thumbnail, a
+  // gradient at each end keeps the logo and the title legible.
   return (
     <div
       style={{
@@ -172,7 +170,6 @@ export function OgImageTemplate({
         width: "100%",
         height: "100%",
         backgroundColor: PLAIN.background,
-        fontFamily: "Inter",
         ...(thumbnailSrc
           ? {
               backgroundImage: `url(${thumbnailSrc})`,
@@ -204,39 +201,20 @@ export function OgImageTemplate({
         ) : (
           <div style={{ display: "flex" }} />
         )}
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <div
-            style={{
-              display: "block",
-              color: colors.foreground,
-              fontFamily: "Newsreader",
-              fontSize,
-              fontWeight: 500,
-              lineHeight: 1.15,
-              letterSpacing: "-0.015em",
-              lineClamp: 3,
-              maxWidth: 1000,
-            }}
-          >
-            {title}
-          </div>
-          {meta.length > 0 ? (
-            <div
-              style={{
-                display: "flex",
-                gap: 14,
-                color: colors.subtle,
-                fontSize: 28,
-              }}
-            >
-              {meta.map((part, i) => (
-                <div key={part} style={{ display: "flex", gap: 14 }}>
-                  {i > 0 ? <span style={{ opacity: 0.6 }}>·</span> : null}
-                  <span>{part}</span>
-                </div>
-              ))}
-            </div>
-          ) : null}
+        <div
+          style={{
+            display: "block",
+            color: colors.foreground,
+            fontFamily: "Inter",
+            fontSize,
+            fontWeight: 600,
+            lineHeight: 1.1,
+            letterSpacing: "-0.03em",
+            lineClamp: 2,
+            maxWidth: 1000,
+          }}
+        >
+          {title}
         </div>
       </div>
     </div>
