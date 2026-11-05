@@ -153,7 +153,7 @@ function truncateAtWord(text: string, max: number): string {
 
 /** "won't" → "won’t"; Notion titles often carry the keyboard apostrophe. */
 function typographicApostrophes(text: string): string {
-  return text.replace(/(\p{L})'(\p{L})/gu, "$1\u2019$2");
+  return text.replace(/(\p{L})'(?=\p{L})/gu, "$1\u2019");
 }
 
 export function OgImageTemplate({ title, logoSrc, thumbnailSrc }: OgImageProps) {
