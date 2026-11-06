@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
+    "@elevenlabs/elevenlabs-js": "^2.76.0",
     "@modelcontextprotocol/server": "^2.3.0",
     "@notionhq/client": "^5.20.0",
     "@rive-app/react-webgl2": "^4.34.3",
