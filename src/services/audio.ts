@@ -3,23 +3,21 @@ import { getPageBlocks, type BlockWithChildren } from "@/services/notion";
 import type { PostMetadata } from "@/utils/formatter";
 import { markdownToPlainText } from "@/utils/markdown-to-plain-text";
 import { notionBlocksToMarkdown } from "@/utils/pages-to-markdown";
+import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
 import { createHash } from "crypto";
 import { after } from "next/server";
 
-const OPENAI_SPEECH_URL =
-  process.env.OPENAI_SPEECH_URL ?? "https://api.openai.com/v1/audio/speech";
 const AUDIO_BUCKET = "post-audio";
-const TTS_MODEL = "gpt-4o-mini-tts";
-const TTS_VOICE = "cedar";
-// Ogg Opus: smaller files than MP3 at equivalent speech quality, and a
-// native fit for HTTP-chunked streaming. Safari/iOS only gained native Ogg
-// Opus playback in Safari 18.4 (macOS Sequoia 15.4, iOS/iPadOS 18.4);
-// older Safari versions have no Ogg container support and won't play it.
-const AUDIO_FORMAT = "opus";
-const AUDIO_CONTENT_TYPE = "audio/ogg; codecs=opus";
-const TTS_INSTRUCTIONS = `Voice affect: Warm, confident, and conversational — like a knowledgeable friend explaining something they find genuinely interesting, not a formal narrator reading a script.
-
-Tone: Friendly and engaging, with light enthusiasm for the subject matter. Approachable and human, never stiff or robotic.`;
+const TTS_MODEL = "eleven_v4";
+// George: a warm, narrative voice from ElevenLabs' premade library.
+const TTS_VOICE = "JBFqnCBsd6RMkjVDRZzb";
+// MP3 plays in every browser (Ogg Opus needs Safari 18.4+), and its frames
+// can be joined end to end, so chunked narration plays as one file.
+const AUDIO_FORMAT = "mp3_44100_128";
+const AUDIO_EXTENSION = "mp3";
+const AUDIO_CONTENT_TYPE = "audio/mpeg";
+// eleven_v4 accepts at most 10,000 characters per request; leave headroom.
+const MAX_REQUEST_CHARS = 9_000;
 
 export type AudioResult =
   | { type: "redirect"; url: string }
@@ -48,8 +46,48 @@ export function buildNarrationText(
     .join("\n\n");
 }
 
-function hashText(text: string): string {
-  return createHash("sha256").update(text).digest("hex");
+/**
+ * Hashes the narration with the model and voice that speak it, so changing
+ * either regenerates every post's cached audio, not only edited posts.
+ */
+function hashNarration(text: string): string {
+  return createHash("sha256")
+    .update(`${TTS_MODEL}:${TTS_VOICE}\n${text}`)
+    .digest("hex");
+}
+
+/**
+ * Splits narration into pieces of at most `maxChars`, breaking between
+ * paragraphs, then between sentences, and only mid-sentence as a last resort.
+ */
+export function splitNarration(text: string, maxChars: number): string[] {
+  const pieces: string[] = [];
+  let current = "";
+
+  const push = (unit: string, separator: string) => {
+    if (!current) {
+      current = unit;
+    } else if (current.length + separator.length + unit.length <= maxChars) {
+      current += separator + unit;
+    } else {
+      pieces.push(current);
+      current = unit;
+    }
+  };
+
+  for (const paragraph of text.split(/\n{2,}/)) {
+    if (paragraph.length <= maxChars) {
+      push(paragraph, "\n\n");
+      continue;
+    }
+    for (const sentence of paragraph.split(/(?<=[.!?…])\s+/)) {
+      for (let i = 0; i < sentence.length; i += maxChars) {
+        push(sentence.slice(i, i + maxChars), " ");
+      }
+    }
+  }
+  if (current) pieces.push(current);
+  return pieces;
 }
 
 function publicAudioUrl(audioPath: string, contentHash: string): string {
@@ -118,37 +156,47 @@ export async function getCachedAudio(
 }
 
 /**
- * Calls OpenAI's speech endpoint directly (bypassing the AI SDK's
- * generateSpeech, which buffers the full response before returning). Callers
- * decide whether to stream the response live or fully buffer it — this just
- * returns the raw Response so either is possible.
+ * Streams narration from ElevenLabs, one request per piece of at most
+ * MAX_REQUEST_CHARS, joined into a single MP3 stream. Each request gets its
+ * neighbours as context so the voice carries across the joins. The first
+ * request is awaited, so a bad key or quota error throws before any audio
+ * is sent; a later failure errors the stream, which also skips caching.
  */
-async function requestSpeech(text: string): Promise<Response> {
-  const response = await fetch(OPENAI_SPEECH_URL, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      "Content-Type": "application/json",
+async function requestSpeech(text: string): Promise<ReadableStream<Uint8Array>> {
+  const client = new ElevenLabsClient();
+  const pieces = splitNarration(text, MAX_REQUEST_CHARS);
+
+  const speak = (i: number) =>
+    client.textToSpeech.stream(TTS_VOICE, {
+      text: pieces[i],
+      modelId: TTS_MODEL,
+      outputFormat: AUDIO_FORMAT,
+      previousText: pieces[i - 1],
+      nextText: pieces[i + 1],
+    });
+
+  let next = 1;
+  let reader = (await speak(0)).getReader();
+
+  return new ReadableStream<Uint8Array>({
+    async pull(controller) {
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (!done) {
+          controller.enqueue(value);
+          return;
+        }
+        if (next >= pieces.length) {
+          controller.close();
+          return;
+        }
+        reader = (await speak(next++)).getReader();
+      }
     },
-    body: JSON.stringify({
-      model: TTS_MODEL,
-      voice: TTS_VOICE,
-      input: text,
-      instructions: TTS_INSTRUCTIONS,
-      response_format: AUDIO_FORMAT,
-      stream_format: "audio",
-      speed: 1,
-    }),
+    cancel(reason) {
+      return reader.cancel(reason);
+    },
   });
-
-  if (!response.ok || !response.body) {
-    const errorBody = await response.text().catch(() => "");
-    throw new Error(
-      `OpenAI speech request failed (${response.status}): ${errorBody.slice(0, 500)}`,
-    );
-  }
-
-  return response;
 }
 
 /** Uploads narration bytes and upserts the cache row keyed by post_slug. */
@@ -158,7 +206,7 @@ export async function cacheAudioBuffer(
   contentHash: string,
   audioBuffer: Buffer,
 ): Promise<void> {
-  const audioPath = `${postSlug}.${AUDIO_FORMAT}`;
+  const audioPath = `${postSlug}.${AUDIO_EXTENSION}`;
 
   const { error: uploadError } = await supabase.storage
     .from(AUDIO_BUCKET)
@@ -199,13 +247,13 @@ async function regenerateAndCache(
   narrationText: string,
   contentHash: string,
 ): Promise<void> {
-  const response = await requestSpeech(narrationText);
-  const audioBuffer = Buffer.from(await response.arrayBuffer());
+  const audio = await requestSpeech(narrationText);
+  const audioBuffer = Buffer.from(await new Response(audio).arrayBuffer());
   await cacheAudioBuffer(postId, postSlug, contentHash, audioBuffer);
 }
 
 /**
- * Streams narration to a live listener as OpenAI generates it, so playback
+ * Streams narration to a live listener as ElevenLabs generates it, so playback
  * can start well before the full file exists — while caching the complete
  * file in the background once the stream finishes, for instant playback on
  * every future request.
@@ -216,8 +264,8 @@ async function streamAndCache(
   narrationText: string,
   contentHash: string,
 ): Promise<ReadableStream<Uint8Array>> {
-  const response = await requestSpeech(narrationText);
-  const [clientStream, cacheStream] = response.body!.tee();
+  const audio = await requestSpeech(narrationText);
+  const [clientStream, cacheStream] = audio.tee();
 
   after(async () => {
     try {
@@ -249,7 +297,7 @@ function scheduleRevalidation(
     try {
       const blocks = await getPageBlocks(postId);
       const narrationText = buildNarrationText(metadata, blocks);
-      const freshHash = hashText(narrationText);
+      const freshHash = hashNarration(narrationText);
       if (freshHash === currentContentHash) return;
 
       await regenerateAndCache(postId, postSlug, narrationText, freshHash);
@@ -266,7 +314,7 @@ function scheduleRevalidation(
  * Resolves a post's narration audio. A cached post redirects to its public
  * URL immediately, with freshness checked against Notion in the background
  * so a slow or unavailable Notion API never blocks or breaks playback. A
- * post with no cached audio yet streams narration live as OpenAI generates
+ * post with no cached audio yet streams narration live as ElevenLabs generates
  * it, caching the complete file in the background for instant playback next
  * time.
  */
@@ -287,7 +335,7 @@ export async function getOrGenerateAudio(
 
   const blocks = await getPageBlocks(postId);
   const narrationText = buildNarrationText(metadata, blocks);
-  const contentHash = hashText(narrationText);
+  const contentHash = hashNarration(narrationText);
 
   const body = await streamAndCache(postId, postSlug, narrationText, contentHash);
   return { type: "stream", body, contentType: AUDIO_CONTENT_TYPE };

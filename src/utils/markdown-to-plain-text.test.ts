@@ -14,6 +14,20 @@ describe("markdownToPlainText", () => {
     );
   });
 
+  it("reads footnotes under a Footnotes heading without their marks", () => {
+    expect(
+      markdownToPlainText(
+        "It was Sanding Space[^1], built on tokens[^2].\n\n[^1]: Short essays.\n[^2]: See [the registry](https://example.com).",
+      ),
+    ).toBe("It was Sanding Space, built on tokens.\n\nFootnotes\n\nShort essays.\nSee the registry.");
+  });
+
+  it("keeps a Resources heading", () => {
+    expect(markdownToPlainText("## Resources\n\n- [Notionic](https://notionic.dev)")).toBe(
+      "Resources\n\nNotionic",
+    );
+  });
+
   it("drops images entirely", () => {
     expect(markdownToPlainText("Before ![alt text](https://example.com/a.png) after")).toBe(
       "Before after",

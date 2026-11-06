@@ -2,6 +2,13 @@
 export function markdownToPlainText(markdown: string): string {
   let text = markdown;
 
+  // Footnotes: notionic drops the "Footnotes" heading and writes GFM footnotes,
+  // so restore the heading before the first note, read each note without its
+  // `[^1]:` label, and drop the `[^1]` marks from the sentences.
+  text = text.replace(/^\[\^[^\]\s]+\]:[ \t]*/m, "Footnotes\n\n$&");
+  text = text.replace(/^\[\^[^\]\s]+\]:[ \t]*/gm, "");
+  text = text.replace(/\[\^[^\]\s]+\]/g, "");
+
   // Code fences: keep the code content, drop the fence/language markers.
   text = text.replace(/```[a-zA-Z0-9]*\n([\s\S]*?)```/g, "$1");
 

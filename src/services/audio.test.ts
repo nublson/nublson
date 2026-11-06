@@ -11,7 +11,9 @@ const {
   mockGetPublicUrl,
   mockFrom,
   mockStorageFrom,
+  mockTtsStream,
 } = vi.hoisted(() => {
+  const mockTtsStream = vi.fn();
   const mockMaybeSingle = vi.fn();
   const mockEq = vi.fn();
   const mockSelect = vi.fn();
@@ -45,8 +47,15 @@ const {
     mockGetPublicUrl,
     mockFrom,
     mockStorageFrom,
+    mockTtsStream,
   };
 });
+
+vi.mock("@elevenlabs/elevenlabs-js", () => ({
+  ElevenLabsClient: class {
+    textToSpeech = { stream: mockTtsStream };
+  },
+}));
 
 vi.mock("@/lib/supabase", () => ({
   supabase: {
@@ -67,11 +76,14 @@ vi.mock("next/server", () => ({
 }));
 
 import type { RichTextItemResponse } from "@notionhq/client";
+import { getPageBlocks } from "@/services/notion";
+import { after } from "next/server";
 import {
   buildNarrationText,
   cacheAudioBuffer,
   getCachedAudio,
   getOrGenerateAudio,
+  splitNarration,
 } from "./audio";
 
 const sampleMetadata = {
@@ -181,15 +193,15 @@ describe("cacheAudioBuffer", () => {
     mockUpsert.mockResolvedValue({ error: null });
   });
 
-  it("uploads Opus and upserts on post_slug conflict", async () => {
-    await cacheAudioBuffer("page-1", "hello", "hash123", Buffer.from("ogg"));
+  it("uploads MP3 and upserts on post_slug conflict", async () => {
+    await cacheAudioBuffer("page-1", "hello", "hash123", Buffer.from("mp3"));
 
     expect(mockStorageFrom).toHaveBeenCalledWith("post-audio");
     expect(mockUpload).toHaveBeenCalledWith(
-      "hello.opus",
+      "hello.mp3",
       expect.any(Buffer),
       {
-        contentType: "audio/ogg; codecs=opus",
+        contentType: "audio/mpeg",
         upsert: true,
       },
     );
@@ -198,9 +210,9 @@ describe("cacheAudioBuffer", () => {
         post_id: "page-1",
         post_slug: "hello",
         content_hash: "hash123",
-        audio_path: "hello.opus",
-        voice: "cedar",
-        model: "gpt-4o-mini-tts",
+        audio_path: "hello.mp3",
+        voice: "JBFqnCBsd6RMkjVDRZzb",
+        model: "eleven_v4",
         updated_at: expect.any(String),
       },
       { onConflict: "post_slug" },
@@ -213,7 +225,7 @@ describe("cacheAudioBuffer", () => {
     });
 
     await expect(
-      cacheAudioBuffer("page-1", "hello", "hash123", Buffer.from("ogg")),
+      cacheAudioBuffer("page-1", "hello", "hash123", Buffer.from("mp3")),
     ).rejects.toThrow("Failed to record post audio: duplicate key");
   });
 });
@@ -247,6 +259,153 @@ describe("getOrGenerateAudio", () => {
       type: "redirect",
       url: "https://example.supabase.co/storage/v1/object/public/post-audio/hello.opus?v=abcdef012345",
     });
+  });
+});
+
+describe("getOrGenerateAudio streaming", () => {
+  const bytes = (text: string) =>
+    new ReadableStream<Uint8Array>({
+      start(controller) {
+        controller.enqueue(new TextEncoder().encode(text));
+        controller.close();
+      },
+    });
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockSelect.mockReturnValue({ eq: mockEq });
+    mockEq.mockReturnValue({ maybeSingle: mockMaybeSingle });
+    mockMaybeSingle.mockResolvedValue({ data: null, error: null });
+  });
+
+  it("streams uncached narration from ElevenLabs as MP3", async () => {
+    mockTtsStream.mockResolvedValueOnce(bytes("audio"));
+
+    const result = await getOrGenerateAudio("page-1", "hello", sampleMetadata);
+
+    expect(result.type).toBe("stream");
+    if (result.type !== "stream") return;
+    expect(result.contentType).toBe("audio/mpeg");
+    await expect(new Response(result.body).text()).resolves.toBe("audio");
+    expect(mockTtsStream).toHaveBeenCalledWith("JBFqnCBsd6RMkjVDRZzb", {
+      text: "Hello",
+      modelId: "eleven_v4",
+      outputFormat: "mp3_44100_128",
+      previousText: undefined,
+      nextText: undefined,
+    });
+  });
+
+  it("joins narration over the request limit and passes neighbours as context", async () => {
+    const long = (ch: string) =>
+      ({
+        id: ch,
+        type: "paragraph",
+        has_children: false,
+        paragraph: {
+          rich_text: [
+            {
+              type: "text",
+              plain_text: ch.repeat(6000),
+              href: null,
+              annotations: { bold: false, italic: false, strikethrough: false, code: false },
+            },
+          ],
+        },
+      }) as never;
+    vi.mocked(getPageBlocks).mockResolvedValueOnce([long("a"), long("b")]);
+    mockTtsStream
+      .mockResolvedValueOnce(bytes("first-"))
+      .mockResolvedValueOnce(bytes("second"));
+
+    const result = await getOrGenerateAudio("page-1", "hello", sampleMetadata);
+    if (result.type !== "stream") throw new Error("expected a stream");
+
+    await expect(new Response(result.body).text()).resolves.toBe("first-second");
+    expect(mockTtsStream).toHaveBeenCalledTimes(2);
+    const [first, second] = mockTtsStream.mock.calls.map((call) => call[1]);
+    expect(first.text.length).toBeLessThanOrEqual(9000);
+    expect(first.nextText).toBe(second.text);
+    expect(second.previousText).toBe(first.text);
+  });
+
+  it("errors the stream and skips caching when a later request fails", async () => {
+    const long = (ch: string) =>
+      ({
+        id: ch,
+        type: "paragraph",
+        has_children: false,
+        paragraph: {
+          rich_text: [
+            {
+              type: "text",
+              plain_text: ch.repeat(6000),
+              href: null,
+              annotations: { bold: false, italic: false, strikethrough: false, code: false },
+            },
+          ],
+        },
+      }) as never;
+    vi.mocked(getPageBlocks).mockResolvedValueOnce([long("a"), long("b")]);
+    mockTtsStream
+      .mockResolvedValueOnce(bytes("first-"))
+      .mockRejectedValueOnce(new Error("Status code: 429"));
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const result = await getOrGenerateAudio("page-1", "hello", sampleMetadata);
+    if (result.type !== "stream") throw new Error("expected a stream");
+
+    await expect(new Response(result.body).text()).rejects.toThrow("Status code: 429");
+    const cacheInBackground = vi.mocked(after).mock.calls[0][0] as () => Promise<void>;
+    await cacheInBackground();
+
+    expect(mockUpload).not.toHaveBeenCalled();
+    expect(mockUpsert).not.toHaveBeenCalled();
+    expect(consoleError).toHaveBeenCalledWith(
+      expect.stringContaining("failed to cache streamed audio"),
+      expect.any(Error),
+    );
+    consoleError.mockRestore();
+  });
+
+  it("throws before streaming when the first request fails", async () => {
+    mockTtsStream.mockRejectedValueOnce(new Error("Status code: 401"));
+
+    await expect(
+      getOrGenerateAudio("page-1", "hello", sampleMetadata),
+    ).rejects.toThrow("Status code: 401");
+  });
+});
+
+describe("splitNarration", () => {
+  it("keeps short narration in one piece", () => {
+    expect(splitNarration("One.\n\nTwo.", 100)).toEqual(["One.\n\nTwo."]);
+  });
+
+  it("breaks between paragraphs first", () => {
+    expect(splitNarration("aaaa.\n\nbbbb.\n\ncccc.", 13)).toEqual([
+      "aaaa.\n\nbbbb.",
+      "cccc.",
+    ]);
+  });
+
+  it("breaks a long paragraph between sentences", () => {
+    expect(splitNarration("One two. Three four. Five.", 20)).toEqual([
+      "One two. Three four.",
+      "Five.",
+    ]);
+  });
+
+  it("cuts a sentence longer than the limit", () => {
+    const pieces = splitNarration("x".repeat(25), 10);
+    expect(pieces).toEqual(["x".repeat(10), "x".repeat(10), "x".repeat(5)]);
+  });
+
+  it("never returns a piece over the limit", () => {
+    const text = Array.from({ length: 40 }, (_, i) => `Sentence number ${i}.`).join(" ");
+    for (const piece of splitNarration(text, 50)) {
+      expect(piece.length).toBeLessThanOrEqual(50);
+    }
   });
 });
 
