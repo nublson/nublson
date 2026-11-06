@@ -77,6 +77,7 @@ vi.mock("next/server", () => ({
 
 import type { RichTextItemResponse } from "@notionhq/client";
 import { getPageBlocks } from "@/services/notion";
+import { after } from "next/server";
 import {
   buildNarrationText,
   cacheAudioBuffer,
@@ -326,6 +327,45 @@ describe("getOrGenerateAudio streaming", () => {
     expect(first.text.length).toBeLessThanOrEqual(9000);
     expect(first.nextText).toBe(second.text);
     expect(second.previousText).toBe(first.text);
+  });
+
+  it("errors the stream and skips caching when a later request fails", async () => {
+    const long = (ch: string) =>
+      ({
+        id: ch,
+        type: "paragraph",
+        has_children: false,
+        paragraph: {
+          rich_text: [
+            {
+              type: "text",
+              plain_text: ch.repeat(6000),
+              href: null,
+              annotations: { bold: false, italic: false, strikethrough: false, code: false },
+            },
+          ],
+        },
+      }) as never;
+    vi.mocked(getPageBlocks).mockResolvedValueOnce([long("a"), long("b")]);
+    mockTtsStream
+      .mockResolvedValueOnce(bytes("first-"))
+      .mockRejectedValueOnce(new Error("Status code: 429"));
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const result = await getOrGenerateAudio("page-1", "hello", sampleMetadata);
+    if (result.type !== "stream") throw new Error("expected a stream");
+
+    await expect(new Response(result.body).text()).rejects.toThrow("Status code: 429");
+    const cacheInBackground = vi.mocked(after).mock.calls[0][0] as () => Promise<void>;
+    await cacheInBackground();
+
+    expect(mockUpload).not.toHaveBeenCalled();
+    expect(mockUpsert).not.toHaveBeenCalled();
+    expect(consoleError).toHaveBeenCalledWith(
+      expect.stringContaining("failed to cache streamed audio"),
+      expect.any(Error),
+    );
+    consoleError.mockRestore();
   });
 
   it("throws before streaming when the first request fails", async () => {
