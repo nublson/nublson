@@ -9,8 +9,8 @@ import { after } from "next/server";
 
 const AUDIO_BUCKET = "post-audio";
 const TTS_MODEL = "eleven_v4";
-// George: a warm, narrative voice from ElevenLabs' premade library.
-const TTS_VOICE = "JBFqnCBsd6RMkjVDRZzb";
+// The author's own cloned voice on the ElevenLabs account.
+const TTS_VOICE = "LSe5j9I6V28KFrWYUXOw";
 // MP3 plays in every browser (Ogg Opus needs Safari 18.4+), and its frames
 // can be joined end to end, so chunked narration plays as one file.
 const AUDIO_FORMAT = "mp3_44100_128";
