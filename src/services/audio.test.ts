@@ -211,7 +211,7 @@ describe("cacheAudioBuffer", () => {
         post_slug: "hello",
         content_hash: "hash123",
         audio_path: "hello.mp3",
-        voice: "JBFqnCBsd6RMkjVDRZzb",
+        voice: "LSe5j9I6V28KFrWYUXOw",
         model: "eleven_v4",
         updated_at: expect.any(String),
       },
@@ -287,7 +287,7 @@ describe("getOrGenerateAudio streaming", () => {
     if (result.type !== "stream") return;
     expect(result.contentType).toBe("audio/mpeg");
     await expect(new Response(result.body).text()).resolves.toBe("audio");
-    expect(mockTtsStream).toHaveBeenCalledWith("JBFqnCBsd6RMkjVDRZzb", {
+    expect(mockTtsStream).toHaveBeenCalledWith("LSe5j9I6V28KFrWYUXOw", {
       text: "Hello",
       modelId: "eleven_v4",
       outputFormat: "mp3_44100_128",
