@@ -24,10 +24,7 @@ export default async function OgImage({
   );
 
   const [data, fonts] = await Promise.all([
-    resolveOgImageData({
-      title: found?.metadata.title ?? "Blog Post",
-      thumbnailUrl: found?.metadata.thumbnail,
-    }),
+    resolveOgImageData(found?.metadata.title ?? "Blog Post"),
     loadOgFonts(),
   ]);
 

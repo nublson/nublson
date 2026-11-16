@@ -1,13 +1,4 @@
-import {
-  parseNotionImageProxyUrl,
-  toAbsoluteAssetUrl,
-} from "@/lib/notion-image";
-import { resolveNotionImageUpstream } from "@/services/notion";
-
-export type OgImageData = {
-  title: string;
-  thumbnailUrl?: string;
-};
+import { toAbsoluteAssetUrl } from "@/lib/notion-image";
 
 type OgFont = {
   name: string;
@@ -20,19 +11,14 @@ type OgFont = {
 // `src/app/layout.tsx`) at its heading weight; next/og only bundles a regular.
 const OG_FONT = { name: "Inter", family: "Inter:wght@600", weight: 600 } as const;
 
-// Light theme tokens from `src/app/globals.css`, in hex for Satori. Over a
-// thumbnail the card turns white-on-dark, like the site's dark theme.
-const PLAIN = {
+// Light theme tokens from `src/app/globals.css`, in hex for Satori.
+const COLORS = {
   background: "#fafafa", // --background oklch(0.985 0 0)
   foreground: "#171717", // --foreground oklch(0.205 0 0)
 };
-const ON_IMAGE = { foreground: "#ffffff" };
 
 // A slow font or logo host falls back instead of holding the card.
 const ASSET_TIMEOUT_MS = 3000;
-
-// Base64 grows the bytes by a third; this keeps the data URL well under 10 MB.
-const MAX_THUMBNAIL_BYTES = 6 * 1024 * 1024;
 
 async function fetchGoogleFont(family: string): Promise<ArrayBuffer> {
   // An old Safari user agent makes the CSS API answer with TTF, which Satori
@@ -72,7 +58,7 @@ export async function loadOgFonts(): Promise<OgFont[]> {
   }
 }
 
-/** The header's `/logo.svg`, recolored the way the header inverts it in dark mode. */
+/** The header's `/logo.svg`, in the card's foreground color. */
 async function fetchLogoAsDataUrl(color: string): Promise<string | undefined> {
   try {
     const url = toAbsoluteAssetUrl("/logo.svg");
@@ -91,53 +77,15 @@ async function fetchLogoAsDataUrl(color: string): Promise<string | undefined> {
   }
 }
 
-async function fetchThumbnailAsDataUrl(
-  thumbnailUrl: string,
-): Promise<string | undefined> {
-  try {
-    const proxy = parseNotionImageProxyUrl(thumbnailUrl);
-    const upstreamUrl = proxy
-      ? (await resolveNotionImageUpstream(proxy.resource, proxy.id)).url
-      : toAbsoluteAssetUrl(thumbnailUrl);
-
-    if (!upstreamUrl) return undefined;
-
-    const res = await fetch(upstreamUrl, { cache: "no-store" });
-    if (!res.ok) return undefined;
-
-    const buffer = await res.arrayBuffer();
-    // The renderer parses the card as one SVG capped at 10 MB, so a larger
-    // embedded image fails the whole card. Fall back to the plain one instead.
-    if (buffer.byteLength > MAX_THUMBNAIL_BYTES) return undefined;
-    const base64 = Buffer.from(buffer).toString("base64");
-    const mimeType = res.headers.get("content-type") ?? "image/jpeg";
-    return `data:${mimeType};base64,${base64}`;
-  } catch {
-    return undefined;
-  }
-}
-
 export type OgImageProps = {
   title: string;
   logoSrc?: string;
-  thumbnailSrc?: string;
 };
 
-export async function resolveOgImageData(
-  data: OgImageData,
-): Promise<OgImageProps> {
-  const { title, thumbnailUrl } = data;
-  const thumbnailSrc = thumbnailUrl
-    ? await fetchThumbnailAsDataUrl(thumbnailUrl)
-    : undefined;
-  const logoSrc = await fetchLogoAsDataUrl(
-    thumbnailSrc ? ON_IMAGE.foreground : PLAIN.foreground,
-  );
-
+export async function resolveOgImageData(title: string): Promise<OgImageProps> {
   return {
     title: truncateAtWord(typographicApostrophes(title), MAX_TITLE_CHARS),
-    logoSrc,
-    thumbnailSrc,
+    logoSrc: await fetchLogoAsDataUrl(COLORS.foreground),
   };
 }
 
@@ -156,66 +104,43 @@ function typographicApostrophes(text: string): string {
   return text.replace(/(\p{L})'(?=\p{L})/gu, "$1\u2019");
 }
 
-export function OgImageTemplate({ title, logoSrc, thumbnailSrc }: OgImageProps) {
-  const colors = thumbnailSrc ? ON_IMAGE : PLAIN;
+export function OgImageTemplate({ title, logoSrc }: OgImageProps) {
   // Two lines at most: about 24 characters a line at 76px, 30 at 60px.
   const fontSize = title.length > 40 ? 60 : 76;
 
-  // Logo top left, the title alone at the bottom. Over a thumbnail, a
-  // gradient at each end keeps the logo and the title legible.
+  // Logo top left, the title alone at the bottom.
   return (
     <div
       style={{
         display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
         width: "100%",
         height: "100%",
-        backgroundColor: PLAIN.background,
-        ...(thumbnailSrc
-          ? {
-              backgroundImage: `url(${thumbnailSrc})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }
-          : {}),
+        padding: 80,
+        backgroundColor: COLORS.background,
       }}
     >
+      {logoSrc ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={logoSrc} alt="" width={56} height={56} />
+      ) : (
+        <div style={{ display: "flex" }} />
+      )}
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          width: "100%",
-          height: "100%",
-          padding: 80,
-          ...(thumbnailSrc
-            ? {
-                background:
-                  "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.8) 85%, rgba(0,0,0,0.9) 100%)",
-              }
-            : {}),
+          display: "block",
+          color: COLORS.foreground,
+          fontFamily: "Inter",
+          fontSize,
+          fontWeight: 600,
+          lineHeight: 1.1,
+          letterSpacing: "-0.03em",
+          lineClamp: 2,
+          maxWidth: 1000,
         }}
       >
-        {logoSrc ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={logoSrc} alt="" width={56} height={56} />
-        ) : (
-          <div style={{ display: "flex" }} />
-        )}
-        <div
-          style={{
-            display: "block",
-            color: colors.foreground,
-            fontFamily: "Inter",
-            fontSize,
-            fontWeight: 600,
-            lineHeight: 1.1,
-            letterSpacing: "-0.03em",
-            lineClamp: 2,
-            maxWidth: 1000,
-          }}
-        >
-          {title}
-        </div>
+        {title}
       </div>
     </div>
   );
