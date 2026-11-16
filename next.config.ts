@@ -70,7 +70,8 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "*.amazonaws.com",
+        // `**` so regional S3 hosts (s3.us-east-1.amazonaws.com) match too.
+        hostname: "**.amazonaws.com",
       },
       {
         protocol: "https",

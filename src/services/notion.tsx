@@ -63,9 +63,13 @@ const defaultPublishedPageSorts: PublishedPageSort[] = [
   },
 ];
 
-/** Gears are listed by category only (the gears page, MCP and markdown API). */
+/**
+ * Gears are listed by category, then oldest edit first within a category
+ * (the gears page, MCP and markdown API), matching the Notion view's sort.
+ */
 export const GEARS_SORTS: PublishedPageSort[] = [
   { property: "Category", direction: "ascending" },
+  { property: "Updated", direction: "ascending" },
 ];
 
 const publishedBaseFilters = (media?: string) => {
