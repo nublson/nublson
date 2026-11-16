@@ -99,6 +99,7 @@ const sampleMetadata = {
   category: "",
   author: "",
   status: "",
+  isbn: "",
 };
 
 describe("getCachedAudio", () => {

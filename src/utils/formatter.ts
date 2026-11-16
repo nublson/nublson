@@ -144,6 +144,8 @@ export type PostMetadata = {
   author: string;
   /** Books' reading status without its emoji ("Read"); `""` elsewhere. */
   status: string;
+  /** Books only: the ISBN their Open Library cover is looked up by. */
+  isbn: string;
 };
 
 export const formatPostMetadata = (
@@ -198,6 +200,7 @@ export const formatPostMetadata = (
             .replace(/^[^\p{L}\p{N}]+/u, "")
             .trim()
         : "";
+    const isbn = richTextProperty(page, "ISBN").plain;
     return {
       id: page.id,
       title,
@@ -213,9 +216,17 @@ export const formatPostMetadata = (
       category,
       author,
       status,
+      isbn,
     };
   });
 };
+
+/**
+ * A book's flat cover from Open Library. `default=false` makes a missing
+ * cover a 404, so `BookCover` can draw one instead of showing a blank image.
+ */
+export const bookCoverUrl = (isbn: string) =>
+  `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg?default=false`;
 
 export type BookStatusGroup = { status: string; books: PostMetadata[] };
 

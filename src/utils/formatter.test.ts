@@ -9,6 +9,7 @@ import {
   formatPageMetadata,
   formatPostMetadata,
   groupBooksByStatus,
+  bookCoverUrl,
   type PostMetadata,
   formatPostDayMonth,
   formatPostDateCompact,
@@ -296,6 +297,18 @@ describe("formatPostMetadata", () => {
     expect(post.author).toBe("James Clear");
   });
 
+  it("reads ISBN", () => {
+    expect(
+      book({
+        ISBN: {
+          type: "rich_text",
+          rich_text: [{ plain_text: " 9780735211292 " }],
+        },
+      }).isbn,
+    ).toBe("9780735211292");
+    expect(book({}).isbn).toBe("");
+  });
+
   it("strips the emoji from Status", () => {
     expect(
       book({ Status: { type: "select", select: { name: "📙 Read" } } }).status,
@@ -553,5 +566,13 @@ describe("groupBooksByStatus", () => {
     expect(groups).toHaveLength(1);
     expect(groups[0]!.status).toBe("Read");
     expect(groups[0]!.books.map((x) => x.id)).toEqual(["1", "2"]);
+  });
+});
+
+describe("bookCoverUrl", () => {
+  it("builds the Open Library cover URL", () => {
+    expect(bookCoverUrl("9780735211292")).toBe(
+      "https://covers.openlibrary.org/b/isbn/9780735211292-L.jpg?default=false",
+    );
   });
 });

@@ -47,12 +47,13 @@ const defaultPostFilterProperties: string[] = [
 ];
 
 /**
- * The post fields plus `Status`, which only the books database has (asking
- * the content database for it is a 400).
+ * The post fields plus `Status` and `ISBN`, which only the books database has
+ * (asking the content database for them is a 400).
  */
 export const BOOK_FILTER_PROPERTIES: string[] = [
   ...defaultPostFilterProperties,
   "Status",
+  "ISBN",
 ];
 
 const mediaMap = {
