@@ -8,6 +8,8 @@ import {
   formatViewCount,
   formatPageMetadata,
   formatPostMetadata,
+  groupBooksByStatus,
+  type PostMetadata,
   formatPostDayMonth,
   formatPostDateCompact,
   groupPostsByYear,
@@ -277,6 +279,34 @@ describe("formatPageMetadata", () => {
 // ---------------------------------------------------------------------------
 
 describe("formatPostMetadata", () => {
+  const book = (properties: Record<string, unknown>) =>
+    formatPostMetadata([
+      makePage({
+        properties: {
+          Name: { type: "title", title: [{ plain_text: "Atomic Habits" }] },
+          ...properties,
+        },
+      }),
+    ])[0]!;
+
+  it("reads a select Author", () => {
+    const post = book({
+      Author: { type: "select", select: { name: "James Clear" } },
+    });
+    expect(post.author).toBe("James Clear");
+  });
+
+  it("strips the emoji from Status", () => {
+    expect(
+      book({ Status: { type: "select", select: { name: "📙 Read" } } }).status,
+    ).toBe("Read");
+    expect(
+      book({ Status: { type: "select", select: { name: "📖 Reading" } } })
+        .status,
+    ).toBe("Reading");
+    expect(book({}).status).toBe("");
+  });
+
   it("keeps the description's rich text and joins every segment as plain text", () => {
     const [post] = formatPostMetadata([
       makePage({
@@ -501,5 +531,27 @@ describe("formatViewCount", () => {
     expect(formatViewCount(0)).toBe("0 views");
     expect(formatViewCount(20)).toBe("20 views");
     expect(formatViewCount(1200)).toBe("1.2K views");
+  });
+});
+
+describe("groupBooksByStatus", () => {
+  const b = (id: string, status: string) => ({ id, status }) as PostMetadata;
+
+  it("orders Reading, Read, then others", () => {
+    const groups = groupBooksByStatus([
+      b("1", "Read"),
+      b("2", "Planned"),
+      b("3", "Reading"),
+      b("4", "Read"),
+    ]);
+    expect(groups.map((g) => g.status)).toEqual(["Reading", "Read", "Planned"]);
+    expect(groups[1]!.books.map((x) => x.id)).toEqual(["1", "4"]);
+  });
+
+  it("files an empty status under Read", () => {
+    const groups = groupBooksByStatus([b("1", ""), b("2", "Read")]);
+    expect(groups).toHaveLength(1);
+    expect(groups[0]!.status).toBe("Read");
+    expect(groups[0]!.books.map((x) => x.id)).toEqual(["1", "2"]);
   });
 });

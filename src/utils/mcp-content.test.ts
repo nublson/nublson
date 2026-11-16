@@ -20,6 +20,7 @@ function post(overrides: Partial<PostMetadata>): PostMetadata {
     source: "",
     category: "",
     author: "",
+    status: "",
     ...overrides,
   };
 }

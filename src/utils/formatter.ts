@@ -142,6 +142,8 @@ export type PostMetadata = {
   source: string;
   category: string;
   author: string;
+  /** Books' reading status without its emoji ("Read"); `""` elsewhere. */
+  status: string;
 };
 
 export const formatPostMetadata = (
@@ -176,6 +178,8 @@ export const formatPostMetadata = (
       page.properties.Category?.type === "select"
         ? (page.properties.Category.select?.name ?? "")
         : "";
+    // A person in the content database; a select in the books database,
+    // whose authors aren't Notion users.
     const author =
       page.properties.Author?.type === "people"
         ? (() => {
@@ -184,6 +188,15 @@ export const formatPostMetadata = (
               ? (firstAuthor.name ?? "")
               : "";
           })()
+        : page.properties.Author?.type === "select"
+          ? (page.properties.Author.select?.name ?? "")
+          : "";
+    // Books only: "📙 Read" → "Read".
+    const status =
+      page.properties.Status?.type === "select"
+        ? (page.properties.Status.select?.name ?? "")
+            .replace(/^[^\p{L}\p{N}]+/u, "")
+            .trim()
         : "";
     return {
       id: page.id,
@@ -199,9 +212,34 @@ export const formatPostMetadata = (
       source,
       category,
       author,
+      status,
     };
   });
 };
+
+export type BookStatusGroup = { status: string; books: PostMetadata[] };
+
+/** Section order on /books; other statuses follow in first-seen order. */
+const BOOK_STATUS_ORDER = ["Reading", "Read"];
+
+/**
+ * Groups already-sorted books by reading status, keeping their order within
+ * a group. A book with no status counts as read.
+ */
+export function groupBooksByStatus(books: PostMetadata[]): BookStatusGroup[] {
+  const groups = new Map<string, PostMetadata[]>();
+  for (const book of books) {
+    const status = book.status || "Read";
+    groups.set(status, [...(groups.get(status) ?? []), book]);
+  }
+  const rank = (status: string) => {
+    const index = BOOK_STATUS_ORDER.indexOf(status);
+    return index === -1 ? BOOK_STATUS_ORDER.length : index;
+  };
+  return [...groups]
+    .map(([status, books]) => ({ status, books }))
+    .sort((a, b) => rank(a.status) - rank(b.status));
+}
 
 export const formatPostDate = (date: string) => {
   return new Date(date).toLocaleDateString("en-US", {

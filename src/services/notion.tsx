@@ -190,7 +190,8 @@ export type PublishedSitemapEntry = {
  */
 async function getAllPublishedEntriesWithTimestamps(
   databaseId: string,
-  media: keyof typeof mediaMap,
+  /** Omit for databases without a `Media` property (books). */
+  media?: keyof typeof mediaMap,
 ): Promise<PublishedSitemapEntry[]> {
   const out: PublishedSitemapEntry[] = [];
   let cursor: string | undefined;
@@ -198,7 +199,7 @@ async function getAllPublishedEntriesWithTimestamps(
     const { pages, next_cursor } = await queryPublishedPagesPage(
       databaseId,
       { pageSize: QUERY_PAGE_SIZE, start_cursor: cursor },
-      mediaMap[media],
+      media ? mediaMap[media] : undefined,
     );
     const metadataList = formatPostMetadata(pages);
     for (let i = 0; i < pages.length; i++) {
@@ -218,7 +219,8 @@ async function getAllPublishedEntriesWithTimestamps(
  */
 export async function getAllPublishedSlugsForStaticParams(
   databaseId: string,
-  media: keyof typeof mediaMap,
+  /** Omit for databases without a `Media` property (books). */
+  media?: keyof typeof mediaMap,
 ): Promise<{ slug: string }[]> {
   const entries = await getAllPublishedEntriesWithTimestamps(databaseId, media);
   const uniqueSlugs = new Set<string>();
@@ -234,7 +236,7 @@ export async function getAllPublishedSlugsForStaticParams(
 
   if (duplicateSlugs.size > 0) {
     console.warn(
-      `[notion] Duplicate slugs found in "${media}" static params for database ${databaseId}: ${Array.from(duplicateSlugs).join(", ")}`,
+      `[notion] Duplicate slugs found in "${media ?? "all"}" static params for database ${databaseId}: ${Array.from(duplicateSlugs).join(", ")}`,
     );
   }
 
@@ -244,7 +246,8 @@ export async function getAllPublishedSlugsForStaticParams(
 /** Same pages as static params, including `lastModified` from Notion for sitemaps. */
 export function getAllPublishedEntriesForSitemap(
   databaseId: string,
-  media: keyof typeof mediaMap,
+  /** Omit for databases without a `Media` property (books). */
+  media?: keyof typeof mediaMap,
 ): Promise<PublishedSitemapEntry[]> {
   return getAllPublishedEntriesWithTimestamps(databaseId, media);
 }
@@ -255,7 +258,8 @@ export function getAllPublishedEntriesForSitemap(
  */
 export async function getAllPublishedPostsForFeed(
   databaseId: string,
-  media: keyof typeof mediaMap,
+  /** Omit for databases without a `Media` property (books). */
+  media?: keyof typeof mediaMap,
 ): Promise<PostMetadata[]> {
   const out: PostMetadata[] = [];
   let cursor: string | undefined;
@@ -263,7 +267,7 @@ export async function getAllPublishedPostsForFeed(
     const { pages, next_cursor } = await queryPublishedPagesPage(
       databaseId,
       { pageSize: QUERY_PAGE_SIZE, start_cursor: cursor },
-      mediaMap[media],
+      media ? mediaMap[media] : undefined,
     );
     out.push(...formatPostMetadata(pages));
     cursor = next_cursor;
@@ -285,7 +289,12 @@ export async function getAboutPageLastModified(): Promise<Date | null> {
 
 /** Resolves a published database row by URL slug (derived from the page title). */
 export const getDatabasePageBySlug = cache(
-  async (databaseId: string, media: keyof typeof mediaMap, slug: string) => {
+  async (
+    databaseId: string,
+    /** Omit for databases without a `Media` property (books). */
+    media: keyof typeof mediaMap | undefined,
+    slug: string,
+  ) => {
     const slugProperty = process.env.NOTION_SLUG_PROPERTY?.trim();
     if (slugProperty) {
       try {
@@ -300,7 +309,7 @@ export const getDatabasePageBySlug = cache(
               },
             ],
           },
-          mediaMap[media],
+          media ? mediaMap[media] : undefined,
         );
         if (pages.length > 0) {
           const metadataList = formatPostMetadata(pages);
@@ -322,7 +331,7 @@ export const getDatabasePageBySlug = cache(
       const { pages, next_cursor } = await queryPublishedPagesPage(
         databaseId,
         { pageSize: QUERY_PAGE_SIZE, start_cursor: cursor },
-        mediaMap[media],
+        media ? mediaMap[media] : undefined,
       );
       const metadataList = formatPostMetadata(pages);
       const index = metadataList.findIndex((m) => m.slug === slug);
