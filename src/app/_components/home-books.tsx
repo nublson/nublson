@@ -18,7 +18,11 @@ export function HomeBooks({ books }: { books: PostMetadata[] }) {
   if (books.length === 0) return null;
   return (
     <SectionWrapper title="Books" path="/books" id="books">
-      <BookGrid books={books} />
+      {/* One full row: three columns on phones, so the fourth book hides. */}
+      <BookGrid
+        books={books}
+        className="max-[560px]:[&>li:nth-child(n+4)]:hidden"
+      />
     </SectionWrapper>
   );
 }

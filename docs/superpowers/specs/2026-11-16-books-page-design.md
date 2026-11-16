@@ -149,7 +149,7 @@ copy). Replaces the Writing-style rows on `/books`.
 - **Data:** `BOOK_FILTER_PROPERTIES` also requests `ISBN`; `PostMetadata`
   gains `isbn` (`""` when absent).
 - **`/books`:** one section per status (Reading, Read, …). Cards four across,
-  two under 560px: book-shaped cover (spine crease, hairline edge, soft
+  three under 560px: book-shaped cover (spine crease, hairline edge, soft
   shadow), title, author, finish year. The Reading book gets a thin ring.
   Covers lift 4px on hover; no motion with `prefers-reduced-motion`. Cards
   link to `/books/[slug]`.

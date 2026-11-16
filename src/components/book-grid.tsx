@@ -3,14 +3,25 @@ import type { PostMetadata } from "@/utils/formatter";
 import { BookCover } from "./book-cover";
 
 /**
- * Books as cover cards: four across, two on phones. Each card shows the
+ * Books as cover cards: four across, three on phones. Each card shows the
  * cover, title and author, and opens the book's `Path` (where to
  * get it) in a new tab; a book without one is a plain card. The book being
  * read gets a thin ring around its cover.
  */
-export function BookGrid({ books }: { books: PostMetadata[] }) {
+export function BookGrid({
+  books,
+  className,
+}: {
+  books: PostMetadata[];
+  className?: string;
+}) {
   return (
-    <ul className="grid grid-cols-4 gap-x-5 gap-y-8 max-[560px]:grid-cols-2">
+    <ul
+      className={cn(
+        "grid grid-cols-4 gap-x-5 gap-y-8 max-[560px]:grid-cols-3 max-[560px]:gap-x-3",
+        className,
+      )}
+    >
       {books.map((book) => {
         const card = (
           <>
