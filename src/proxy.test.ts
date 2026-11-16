@@ -18,6 +18,7 @@ describe("proxy markdown negotiation", () => {
     ["/about", "about"],
     ["/writings", "blog"],
     ["/projects", "work"],
+    ["/gears", "gears"],
   ])("rewrites %s to pages/%s for text/markdown", (path, page) => {
     const response = proxy(request(path, "text/markdown"));
     expect(rewriteTarget(response)).toBe(
