@@ -137,3 +137,31 @@ so books update even before a per-book Notion automation exists.
   directly or get thin `books-*` wrappers like gears.
 - Tests: formatter (select author, status emoji strip) and `PostList` base path.
 - Placeholder copy for the Books hero page.
+
+## Refinement: cover grid and Home teaser (approved 2026-11-16)
+
+Mockup picked: **A · Grid** (inspired by gustavofior.com's books page, not a
+copy). Replaces the Writing-style rows on `/books`.
+
+- **Notion:** add `ISBN` (rich text) to the books data source; fill the 7
+  published books and The Creative Act with ISBNs whose Open Library covers
+  were verified.
+- **Data:** `BOOK_FILTER_PROPERTIES` also requests `ISBN`; `PostMetadata`
+  gains `isbn` (`""` when absent).
+- **`/books`:** one section per status (Reading, Read, …). Cards four across,
+  two under 560px: book-shaped cover (spine crease, hairline edge, soft
+  shadow), title, author, finish year. The Reading book gets a thin ring.
+  Covers lift 4px on hover; no motion with `prefers-reduced-motion`. Cards
+  link to `/books/[slug]`.
+- **Covers:** plain lazy `<img>` from
+  `https://covers.openlibrary.org/b/isbn/<isbn>-L.jpg?default=false` (not
+  next/image — Open Library redirects to archive.org hosts). No ISBN, or an
+  image error → a drawn cover: title and author on a muted card, same shape.
+- **Home teaser:** a "Books" section after Writing with the first four books
+  in shelf order (Reading first, then newest Read), the same cards, and the
+  section header's "All" link to `/books` ("View all books").
+- **Book pages:** unchanged (photo cover as header and share image).
+
+Approaches: direct `<img>` from Open Library (chosen) vs. proxying through
+next/image (needs redirect hosts allowlisted; little gain for ~8 small
+images).
