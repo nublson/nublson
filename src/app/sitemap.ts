@@ -3,6 +3,7 @@ import {
   getAllPublishedEntriesForSitemap,
   type PublishedSitemapEntry,
 } from "@/services/notion";
+import { getBooks } from "@/app/_components/books-shelf";
 import type { MetadataRoute } from "next";
 
 function maxLastModified(dates: Date[]): Date {
@@ -14,11 +15,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = process.env.BASE_URL!;
   const databaseId = process.env.NOTION_DATABASE_CONTENT_ID!;
 
-  const [blogEntries, workEntries, bookEntries, aboutLastModified] =
+  const [blogEntries, workEntries, books, aboutLastModified] =
     await Promise.all([
       getAllPublishedEntriesForSitemap(databaseId, "Blog"),
       getAllPublishedEntriesForSitemap(databaseId, "Project"),
-      getAllPublishedEntriesForSitemap(process.env.NOTION_DATABASE_BOOKS_ID!),
+      getBooks(),
       getAboutPageLastModified(),
     ]);
 
@@ -53,7 +54,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       path: "/books",
-      lastModified: maxLastModified(bookEntries.map((e) => e.lastModified)),
+      lastModified: maxLastModified(
+        books.map((book) => new Date(book.updated_date)),
+      ),
     },
   ].map(({ path, lastModified }) => ({
     url: `${base}${path}`,

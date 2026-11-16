@@ -171,5 +171,6 @@ images).
 Books won't get summaries any more, so `/books/[slug]` (page, hero, share
 card), the sitemap's book URLs, the `"book"` revalidate type and `PostList`'s
 `basePath` are removed. Cards link to the book's `Path` in a new tab (a book
-without one is a plain card) and show no date. `Publish Date` still orders
-books within a status, so the Notion field stays.
+without one is a plain card) and show no date. Books sort A to Z by title
+within a status. The books query requests only the fields books use (no
+`Publish Date` or `Source`), so those can be deleted in Notion.

@@ -1,17 +1,38 @@
 import { BookGrid } from "@/components/book-grid";
 import { SectionWrapper } from "@/components/section-wrapper";
 import {
-  BOOK_FILTER_PROPERTIES,
   getAllPublishedPostsForFeed,
+  type PublishedPageSort,
 } from "@/services/notion";
 import { groupBooksByStatus, type PostMetadata } from "@/utils/formatter";
 
-/** Every published book (`State = Done`), newest `Publish Date` first. */
+/**
+ * The books' own fields. Notion returns only what's requested (so `Status`
+ * and `ISBN` must be here) and answers 400 for a field that doesn't exist
+ * (so nothing books don't use, like `Publish Date`).
+ */
+const BOOK_FILTER_PROPERTIES = [
+  "title",
+  "Description",
+  "Path",
+  "Category",
+  "Author",
+  "Status",
+  "ISBN",
+];
+
+/** A to Z by title; `groupBooksByStatus` keeps this order within a section. */
+const BOOK_SORTS: PublishedPageSort[] = [
+  { property: "Name", direction: "ascending" },
+];
+
+/** Every published book (`State = Done`), A to Z. */
 export async function getBooks(): Promise<PostMetadata[]> {
   return getAllPublishedPostsForFeed(
     process.env.NOTION_DATABASE_BOOKS_ID!,
     undefined,
     BOOK_FILTER_PROPERTIES,
+    BOOK_SORTS,
   );
 }
 
