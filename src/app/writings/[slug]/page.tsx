@@ -40,8 +40,7 @@ export async function generateMetadata({
     {
       title: found.metadata.title,
       description: found.metadata.description,
-      // Always the generated title card, never the cover image.
-      thumbnail: `/writings/${slug}/opengraph-image`,
+      image: `/writings/${slug}/opengraph-image`,
     },
     {
       canonical: `/writings/${slug}`,

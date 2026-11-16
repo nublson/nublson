@@ -1,4 +1,5 @@
 import { toAbsoluteAssetUrl } from "@/lib/notion-image";
+import { ImageResponse } from "next/og";
 
 type OgFont = {
   name: string;
@@ -144,4 +145,17 @@ export function OgImageTemplate({ title, logoSrc }: OgImageProps) {
       </div>
     </div>
   );
+}
+
+/** The share card for a page titled `title`, for an `opengraph-image` route. */
+export async function renderOgImage(title: string): Promise<ImageResponse> {
+  const [data, fonts] = await Promise.all([
+    resolveOgImageData(title),
+    loadOgFonts(),
+  ]);
+  return new ImageResponse(<OgImageTemplate {...data} />, {
+    width: 1200,
+    height: 630,
+    fonts,
+  });
 }

@@ -8,7 +8,8 @@ const DEFAULT_OG_IMAGE = "/apple-icon.png";
 export type ShareMetadataInput = {
   title: string;
   description: string;
-  thumbnail?: string;
+  /** The page's generated `opengraph-image` title card. */
+  image?: string;
 };
 
 export type ShareMetadataOptions = {
@@ -25,10 +26,10 @@ export type ShareMetadataOptions = {
 };
 
 export function buildShareMetadata(
-  { title, description, thumbnail }: ShareMetadataInput,
+  { title, description, image }: ShareMetadataInput,
   options?: ShareMetadataOptions,
 ): Metadata {
-  const ogImage = thumbnail?.trim() ? thumbnail : DEFAULT_OG_IMAGE;
+  const ogImage = image?.trim() ? image : DEFAULT_OG_IMAGE;
   const openGraphType = options?.openGraphType ?? "website";
   const isArticle = openGraphType === "article";
 

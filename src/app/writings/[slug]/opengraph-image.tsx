@@ -1,10 +1,5 @@
-import {
-  loadOgFonts,
-  OgImageTemplate,
-  resolveOgImageData,
-} from "@/components/og-image";
+import { renderOgImage } from "@/components/og-image";
 import { getDatabasePageBySlug } from "@/services/notion";
-import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -23,10 +18,5 @@ export default async function OgImage({
     slug,
   );
 
-  const [data, fonts] = await Promise.all([
-    resolveOgImageData(found?.metadata.title ?? "Blog Post"),
-    loadOgFonts(),
-  ]);
-
-  return new ImageResponse(<OgImageTemplate {...data} />, { ...size, fonts });
+  return renderOgImage(found?.metadata.title ?? "Blog Post");
 }
