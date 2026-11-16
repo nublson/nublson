@@ -71,6 +71,8 @@ Copy `.env.example` to `.env`. Required vars:
 | `NOTION_PAGE_ABOUT_ID` | About page Notion page |
 | `NOTION_PAGE_WORK_ID` | Work section header page |
 | `NOTION_PAGE_BLOG_ID` | Blog section header page |
+| `NOTION_DATABASE_BOOKS_ID` | Books data source (`/books`; same field names as the content database) |
+| `NOTION_PAGE_BOOKS_ID` | Books section header page |
 | `REVALIDATION_SECRET` | Token for ISR webhook |
 
 Optional: `NOTION_SLUG_PROPERTY=Slug` — if set, slug lookups use this Notion property instead of scanning all records.
