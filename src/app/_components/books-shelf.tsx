@@ -1,10 +1,17 @@
 import PostsSection from "@/sections/posts";
-import { getAllPublishedPostsForFeed } from "@/services/notion";
+import {
+  BOOK_FILTER_PROPERTIES,
+  getAllPublishedPostsForFeed,
+} from "@/services/notion";
 import { groupBooksByStatus, type PostMetadata } from "@/utils/formatter";
 
 /** Every published book (`State = Done`), newest `Publish Date` first. */
 export async function getBooks(): Promise<PostMetadata[]> {
-  return getAllPublishedPostsForFeed(process.env.NOTION_DATABASE_BOOKS_ID!);
+  return getAllPublishedPostsForFeed(
+    process.env.NOTION_DATABASE_BOOKS_ID!,
+    undefined,
+    BOOK_FILTER_PROPERTIES,
+  );
 }
 
 /** One section per reading status: Reading, Read, then any others. */

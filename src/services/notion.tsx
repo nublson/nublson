@@ -46,6 +46,15 @@ const defaultPostFilterProperties: string[] = [
   "Author",
 ];
 
+/**
+ * The post fields plus `Status`, which only the books database has (asking
+ * the content database for it is a 400).
+ */
+export const BOOK_FILTER_PROPERTIES: string[] = [
+  ...defaultPostFilterProperties,
+  "Status",
+];
+
 const mediaMap = {
   Blog: "Blog",
   Project: "Project",
@@ -260,13 +269,15 @@ export async function getAllPublishedPostsForFeed(
   databaseId: string,
   /** Omit for databases without a `Media` property (books). */
   media?: keyof typeof mediaMap,
+  /** Properties to return; defaults to the post fields. */
+  filterProperties?: string[],
 ): Promise<PostMetadata[]> {
   const out: PostMetadata[] = [];
   let cursor: string | undefined;
   do {
     const { pages, next_cursor } = await queryPublishedPagesPage(
       databaseId,
-      { pageSize: QUERY_PAGE_SIZE, start_cursor: cursor },
+      { pageSize: QUERY_PAGE_SIZE, start_cursor: cursor, filterProperties },
       media ? mediaMap[media] : undefined,
     );
     out.push(...formatPostMetadata(pages));
