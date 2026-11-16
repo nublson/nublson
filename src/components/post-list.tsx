@@ -20,21 +20,25 @@ interface PostListProps {
    * `<details>` toggle. They stay in the HTML for scrapers and no-JS readers.
    */
   collapseAfter?: number;
+  /** Where rows link: `${basePath}/${slug}`. */
+  basePath?: string;
 }
 
 function PostRows({
   posts,
   formatDate,
+  basePath,
 }: {
   posts: PostMetadata[];
   formatDate: (date: string) => string;
+  basePath: string;
 }) {
   return (
     <ul className="group/list min-w-0">
       {posts.map((post) => (
         <li key={post.id} className="border-t border-border first:border-t-0">
           <Link
-            href={`/writings/${post.slug}`}
+            href={`${basePath}/${post.slug}`}
             aria-label={`${post.title} — read post`}
             className="press group/row flex items-baseline justify-between gap-4 py-2.5"
           >
@@ -57,8 +61,10 @@ function PostRows({
 function YearGroups({
   groups,
   continuesYear = false,
+  basePath,
 }: {
   groups: PostYearGroup[];
+  basePath: string;
   /** The first group carries on a year already shown above, so its label is blank. */
   continuesYear?: boolean;
 }) {
@@ -73,7 +79,11 @@ function YearGroups({
       <span data-year className="py-2.5 text-subtle-foreground tabular-nums">
         {index === 0 && continuesYear ? "" : group.year || "—"}
       </span>
-      <PostRows posts={group.posts} formatDate={formatPostDayMonth} />
+      <PostRows
+        posts={group.posts}
+        formatDate={formatPostDayMonth}
+        basePath={basePath}
+      />
     </div>
   ));
 }
@@ -83,6 +93,7 @@ export function PostList({
   groupByYear = false,
   currentYear,
   collapseAfter,
+  basePath = "/writings",
 }: PostListProps) {
   if (posts.length === 0) return null;
 
@@ -92,6 +103,7 @@ export function PostList({
         <PostRows
           posts={posts}
           formatDate={(date) => formatPostDateCompact(date, currentYear)}
+          basePath={basePath}
         />
       </div>
     );
@@ -107,7 +119,7 @@ export function PostList({
 
   return (
     <div className="w-full border-y border-border">
-      <YearGroups groups={shown} />
+      <YearGroups groups={shown} basePath={basePath} />
       {olderCount > 0 && (
         <details className="group/older border-t border-border">
           <summary className="press flex cursor-pointer list-none justify-between gap-4 py-2.5 text-subtle-foreground hover:text-foreground [&::-webkit-details-marker]:hidden">
@@ -128,6 +140,7 @@ export function PostList({
             <YearGroups
               groups={older}
               continuesYear={shown.at(-1)?.year === older[0]?.year}
+              basePath={basePath}
             />
           </div>
         </details>

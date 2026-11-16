@@ -10,6 +10,8 @@ interface PostsSectionProps {
   groupByYear?: boolean;
   collapseAfter?: number;
   className?: string;
+  /** Where rows link; see `PostList`. */
+  basePath?: string;
 }
 
 export default function PostsSection({
@@ -20,6 +22,7 @@ export default function PostsSection({
   groupByYear = false,
   collapseAfter,
   className,
+  basePath,
 }: PostsSectionProps) {
   return (
     <SectionWrapper title={title} path={href} id={id} className={className}>
@@ -27,6 +30,7 @@ export default function PostsSection({
         posts={posts}
         groupByYear={groupByYear}
         collapseAfter={collapseAfter}
+        basePath={basePath}
       />
     </SectionWrapper>
   );

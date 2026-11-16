@@ -92,4 +92,19 @@ describe("PostList", () => {
       );
     });
   });
+
+  it("links rows under basePath", () => {
+    render(<PostList posts={posts} basePath="/books" />);
+    expect(
+      screen.getByRole("link", { name: "Building in Public — read post" }),
+    ).toHaveAttribute("href", "/books/a");
+  });
+
+  it("renders an undated row without a date", () => {
+    const { container } = render(
+      <PostList posts={[post("x", "Draft", "")]} />,
+    );
+    expect(screen.getByRole("link", { name: "Draft — read post" })).toBeInTheDocument();
+    expect(container.querySelector("time")?.textContent).toBe("");
+  });
 });
