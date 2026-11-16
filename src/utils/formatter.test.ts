@@ -309,6 +309,22 @@ describe("formatPostMetadata", () => {
     expect(book({}).isbn).toBe("");
   });
 
+  it("strips hyphens and spaces from ISBN", () => {
+    expect(
+      book({
+        ISBN: {
+          type: "rich_text",
+          rich_text: [{ plain_text: "978-0-7352 1129-2" }],
+        },
+      }).isbn,
+    ).toBe("9780735211292");
+    expect(
+      book({
+        ISBN: { type: "rich_text", rich_text: [{ plain_text: "0-8044-2957-x" }] },
+      }).isbn,
+    ).toBe("080442957X");
+  });
+
   it("strips the emoji from Status", () => {
     expect(
       book({ Status: { type: "select", select: { name: "📙 Read" } } }).status,

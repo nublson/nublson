@@ -200,7 +200,11 @@ export const formatPostMetadata = (
             .replace(/^[^\p{L}\p{N}]+/u, "")
             .trim()
         : "";
-    const isbn = richTextProperty(page, "ISBN").plain;
+    // ISBNs are often typed with hyphens or spaces; Open Library wants digits
+    // (and a final X).
+    const isbn = richTextProperty(page, "ISBN")
+      .plain.replace(/[^0-9Xx]/g, "")
+      .toUpperCase();
     return {
       id: page.id,
       title,
