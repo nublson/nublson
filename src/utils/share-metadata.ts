@@ -8,7 +8,8 @@ const DEFAULT_OG_IMAGE = "/apple-icon.png";
 export type ShareMetadataInput = {
   title: string;
   description: string;
-  thumbnail?: string;
+  /** The page's generated `opengraph-image` title card. */
+  image?: string;
 };
 
 export type ShareMetadataOptions = {
@@ -22,17 +23,13 @@ export type ShareMetadataOptions = {
   tags?: string[];
   /** Explicit canonical URL path (e.g. '/about'). Resolved against metadataBase. */
   canonical?: string;
-  /** Share image when there's no thumbnail, e.g. a generated `opengraph-image` card. */
-  fallbackImage?: string;
 };
 
 export function buildShareMetadata(
-  { title, description, thumbnail }: ShareMetadataInput,
+  { title, description, image }: ShareMetadataInput,
   options?: ShareMetadataOptions,
 ): Metadata {
-  const ogImage = thumbnail?.trim()
-    ? thumbnail
-    : (options?.fallbackImage ?? DEFAULT_OG_IMAGE);
+  const ogImage = image?.trim() ? image : DEFAULT_OG_IMAGE;
   const openGraphType = options?.openGraphType ?? "website";
   const isArticle = openGraphType === "article";
 

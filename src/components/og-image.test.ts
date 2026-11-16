@@ -1,11 +1,8 @@
-import { describe, expect, it, vi } from "vitest";
-
-vi.mock("@/services/notion", () => ({ resolveNotionImageUpstream: vi.fn() }));
-
-const { resolveOgImageData } = await import("./og-image");
+import { describe, expect, it } from "vitest";
+import { resolveOgImageData } from "./og-image";
 
 const titleOf = async (title: string) =>
-  (await resolveOgImageData({ title })).title;
+  (await resolveOgImageData(title)).title;
 
 describe("resolveOgImageData title", () => {
   it("curls every apostrophe between letters", async () => {
