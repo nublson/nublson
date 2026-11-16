@@ -1,4 +1,5 @@
-import PostsSection from "@/sections/posts";
+import { BookGrid } from "@/components/book-grid";
+import { SectionWrapper } from "@/components/section-wrapper";
 import {
   BOOK_FILTER_PROPERTIES,
   getAllPublishedPostsForFeed,
@@ -19,13 +20,9 @@ export function BooksShelf({ books }: { books: PostMetadata[] }) {
   return (
     <div data-stream className="flex w-full flex-col gap-14">
       {groupBooksByStatus(books).map(({ status, books }) => (
-        <PostsSection
-          key={status}
-          title={status}
-          id={status.toLowerCase()}
-          posts={books}
-          basePath="/books"
-        />
+        <SectionWrapper key={status} title={status} id={status.toLowerCase()}>
+          <BookGrid books={books} />
+        </SectionWrapper>
       ))}
     </div>
   );
