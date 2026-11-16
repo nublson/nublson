@@ -92,4 +92,13 @@ describe("PostList", () => {
       );
     });
   });
+
+
+  it("renders an undated row without a date", () => {
+    const { container } = render(
+      <PostList posts={[post("x", "Draft", "")]} />,
+    );
+    expect(screen.getByRole("link", { name: "Draft — read post" })).toBeInTheDocument();
+    expect(container.querySelector("time")?.textContent).toBe("");
+  });
 });

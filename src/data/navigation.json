@@ -6,6 +6,10 @@
       "path": "/about"
     },
     {
+      "label": "Books",
+      "path": "/books"
+    },
+    {
       "label": "Gear",
       "path": "/gears"
     },

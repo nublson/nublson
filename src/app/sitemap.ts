@@ -3,6 +3,7 @@ import {
   getAllPublishedEntriesForSitemap,
   type PublishedSitemapEntry,
 } from "@/services/notion";
+import { getBooks } from "@/app/_components/books-shelf";
 import type { MetadataRoute } from "next";
 
 function maxLastModified(dates: Date[]): Date {
@@ -14,11 +15,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = process.env.BASE_URL!;
   const databaseId = process.env.NOTION_DATABASE_CONTENT_ID!;
 
-  const [blogEntries, workEntries, aboutLastModified] = await Promise.all([
-    getAllPublishedEntriesForSitemap(databaseId, "Blog"),
-    getAllPublishedEntriesForSitemap(databaseId, "Project"),
-    getAboutPageLastModified(),
-  ]);
+  const [blogEntries, workEntries, books, aboutLastModified] =
+    await Promise.all([
+      getAllPublishedEntriesForSitemap(databaseId, "Blog"),
+      getAllPublishedEntriesForSitemap(databaseId, "Project"),
+      getBooks(),
+      getAboutPageLastModified(),
+    ]);
 
   const blogDates = blogEntries.map(
     (e: PublishedSitemapEntry) => e.lastModified,
@@ -49,6 +52,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       path: "/projects",
       lastModified: maxLastModified(workDates),
     },
+    {
+      path: "/books",
+      lastModified: maxLastModified(
+        books.map((book) => new Date(book.updated_date)),
+      ),
+    },
   ].map(({ path, lastModified }) => ({
     url: `${base}${path}`,
     lastModified,
@@ -65,6 +74,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
-  // Projects have no pages of their own; their rows on /projects link out.
+  // Projects and books have no pages of their own; their rows link out.
   return [...staticRoutes, ...blogRoutes];
 }
