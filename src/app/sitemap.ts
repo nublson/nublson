@@ -71,13 +71,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
-  const bookRoutes = bookEntries.map(({ slug, lastModified }) => ({
-    url: `${base}/books/${slug}`,
-    lastModified,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
-
-  // Projects have no pages of their own; their rows on /projects link out.
-  return [...staticRoutes, ...blogRoutes, ...bookRoutes];
+  // Projects and books have no pages of their own; their rows link out.
+  return [...staticRoutes, ...blogRoutes];
 }

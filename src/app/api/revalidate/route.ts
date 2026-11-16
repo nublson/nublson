@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
-  let body: { type?: "blog" | "work" | "book"; slug?: string } = {};
+  let body: { type?: "blog" | "work"; slug?: string } = {};
   const rawBody = await request.text();
 
   if (rawBody.trim().length > 0) {
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       const parsedBody = JSON.parse(rawBody) as unknown;
 
       if (parsedBody && typeof parsedBody === "object") {
-        body = parsedBody as { type?: "blog" | "work" | "book"; slug?: string };
+        body = parsedBody as { type?: "blog" | "work"; slug?: string };
       } else {
         return NextResponse.json(
           { message: "Invalid JSON body: expected an object" },
@@ -31,13 +31,8 @@ export async function POST(request: NextRequest) {
   }
 
   if (body.type && body.slug) {
-    const base =
-      body.type === "blog"
-        ? "/writings"
-        : body.type === "book"
-          ? "/books"
-          : "/projects";
-    const path = `${base}/${body.slug}`;
+    const path =
+      body.type === "blog" ? `/writings/${body.slug}` : `/projects/${body.slug}`;
     revalidatePath(path, "page");
   } else {
     revalidateTag("notion-blocks", "default");

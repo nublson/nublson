@@ -12,29 +12,29 @@ const book = (overrides: Partial<PostMetadata>) =>
     isbn: "9780735211292",
     status: "Read",
     published_date: "2021-01-13",
+    path: "https://amzn.to/4ax82J8",
     ...overrides,
   }) as PostMetadata;
 
 describe("BookGrid", () => {
-  it("links each card to its book", () => {
+  it("links each card to the book's Path in a new tab", () => {
     render(<BookGrid books={[book({})]} />);
-    expect(screen.getByRole("link")).toHaveAttribute(
-      "href",
-      "/books/atomic-habits",
-    );
+    const link = screen.getByRole("link");
+    expect(link).toHaveAttribute("href", "https://amzn.to/4ax82J8");
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", "noopener noreferrer");
   });
 
-  it("shows the finish year, not a date", () => {
-    render(<BookGrid books={[book({})]} />);
-    expect(screen.getByText("2021")).toBeInTheDocument();
-    expect(screen.queryByText(/13/)).toBeNull();
+  it("renders a card without a link when there is no Path", () => {
+    render(<BookGrid books={[book({ path: "" })]} />);
+    expect(screen.queryByRole("link")).toBeNull();
+    expect(screen.getByText("Atomic Habits")).toBeInTheDocument();
   });
 
-  it("omits the year when undated", () => {
-    const { container } = render(
-      <BookGrid books={[book({ published_date: "" })]} />,
-    );
+  it("shows no date", () => {
+    const { container } = render(<BookGrid books={[book({})]} />);
     expect(container.querySelector("time")).toBeNull();
+    expect(screen.queryByText("2021")).toBeNull();
   });
 
   it("rings the book being read", () => {

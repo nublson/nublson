@@ -165,3 +165,11 @@ copy). Replaces the Writing-style rows on `/books`.
 Approaches: direct `<img>` from Open Library (chosen) vs. proxying through
 next/image (needs redirect hosts allowlisted; little gain for ~8 small
 images).
+
+## Change: no book pages (2026-11-16)
+
+Books won't get summaries any more, so `/books/[slug]` (page, hero, share
+card), the sitemap's book URLs, the `"book"` revalidate type and `PostList`'s
+`basePath` are removed. Cards link to the book's `Path` in a new tab (a book
+without one is a plain card) and show no date. `Publish Date` still orders
+books within a status, so the Notion field stays.
