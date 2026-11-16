@@ -7,7 +7,6 @@ import Link from "next/link";
 const VIEW_ALL_LABELS: Record<string, string> = {
   "/writings": "View all posts",
   "/projects": "View all projects",
-  "/books": "View all books",
 };
 
 interface SectionHeaderProps {

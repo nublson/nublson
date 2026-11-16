@@ -1,4 +1,3 @@
-import { getHomeBooks, HomeBooks } from "@/app/_components/home-books";
 import { HomeHero } from "@/app/_components/home-hero";
 import { getHomePosts, HomePosts } from "@/app/_components/home-posts";
 import { getHomeProjects, HomeProjects } from "@/app/_components/home-projects";
@@ -17,11 +16,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const [page, projects, posts, books] = await Promise.all([
+  const [page, projects, posts] = await Promise.all([
     getPageData(process.env.NOTION_PAGE_HOME_ID!),
     getHomeProjects(),
     getHomePosts(),
-    getHomeBooks(),
   ]);
   const heroMetadata = formatPageMetadata(page);
 
@@ -30,7 +28,6 @@ export default async function Home() {
       <HomeHero metadata={heroMetadata} />
       <HomeProjects posts={projects} />
       <HomePosts posts={posts} />
-      <HomeBooks books={books} />
     </section>
   );
 }

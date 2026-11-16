@@ -174,3 +174,7 @@ card), the sitemap's book URLs, the `"book"` revalidate type and `PostList`'s
 without one is a plain card) and show no date. Books sort A to Z by title
 within a status. The books query requests only the fields books use (no
 `Publish Date` or `Source`), so those can be deleted in Notion.
+
+## Change: no Home teaser (2026-11-16)
+
+Books are reached from the footer only; the Home "Books" section is removed.
