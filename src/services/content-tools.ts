@@ -1,5 +1,6 @@
 import social from "@/data/social.json";
 import {
+  GEARS_SORTS,
   getDatabasePageBySlug,
   getDatabasePages,
   getPageBlocks,
@@ -11,8 +12,10 @@ import {
   formatPostMetadata,
 } from "@/utils/formatter";
 import {
+  groupGears,
   postToolItem,
   profileFromHero,
+  type GearGroup,
   type PostToolItem,
   type Profile,
 } from "@/utils/mcp-content";
@@ -77,6 +80,21 @@ export const fetchPostMarkdownCached = unstable_cache(
     });
   },
   ["mcp-post-markdown"],
+  { revalidate: 10 },
+);
+
+export const fetchGearGroupsCached = unstable_cache(
+  async (): Promise<GearGroup[]> => {
+    const pages = await getDatabasePages(
+      process.env.NOTION_DATABASE_GEARS_ID!,
+      undefined,
+      50,
+      GEARS_SORTS,
+      ["title", "Description", "Category", "Path"],
+    );
+    return groupGears(formatPostMetadata(pages));
+  },
+  ["mcp-gears"],
   { revalidate: 10 },
 );
 

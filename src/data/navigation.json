@@ -6,6 +6,10 @@
       "path": "/about"
     },
     {
+      "label": "Gear",
+      "path": "/gears"
+    },
+    {
       "label": "For AI agents",
       "path": "/agents.txt"
     },
