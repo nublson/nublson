@@ -9,30 +9,19 @@ const images = (metadata: ReturnType<typeof buildShareMetadata>) => ({
 });
 
 describe("buildShareMetadata", () => {
-  it("shares the thumbnail when there is one", () => {
-    const metadata = buildShareMetadata(
-      { ...input, thumbnail: "https://x.dev/cover.jpg" },
-      { fallbackImage: "/writings/a-post/opengraph-image" },
-    );
-    expect(images(metadata)).toEqual({
-      og: "https://x.dev/cover.jpg",
-      twitter: "https://x.dev/cover.jpg",
+  it("shares the given image", () => {
+    const metadata = buildShareMetadata({
+      ...input,
+      image: "/writings/a-post/opengraph-image",
     });
-  });
-
-  it("shares the fallback image when there is no thumbnail", () => {
-    const metadata = buildShareMetadata(
-      { ...input, thumbnail: " " },
-      { fallbackImage: "/writings/a-post/opengraph-image" },
-    );
     expect(images(metadata)).toEqual({
       og: "/writings/a-post/opengraph-image",
       twitter: "/writings/a-post/opengraph-image",
     });
   });
 
-  it("falls back to the app icon without a fallback image", () => {
-    expect(images(buildShareMetadata(input))).toEqual({
+  it("falls back to the app icon without an image", () => {
+    expect(images(buildShareMetadata({ ...input, image: " " }))).toEqual({
       og: "/apple-icon.png",
       twitter: "/apple-icon.png",
     });

@@ -1,5 +1,5 @@
 import { getLinkPreview } from "@/services/link-preview";
-import { Suspense, type ReactElement } from "react";
+import { Suspense, type ReactElement, type ReactNode } from "react";
 import { LinkHoverCard } from "./link-hover-card";
 import { notionLinkAttributes } from "./link-attributes";
 import { LinkPreviewImage } from "./link-preview-image";
@@ -32,22 +32,53 @@ async function LinkPreviewCard({ href, children }: LinkPreviewProps) {
 
   return (
     <LinkHoverCard trigger={children}>
-      {preview.image && <LinkPreviewImage src={preview.image} />}
+      <LinkPreviewCardBody
+        href={href}
+        title={preview.title}
+        description={preview.description}
+        siteName={preview.siteName}
+        image={preview.image && <LinkPreviewImage src={preview.image} />}
+      />
+    </LinkHoverCard>
+  );
+}
+
+/**
+ * The hover card's content: an optional image over the title, description
+ * and the linked site's favicon and name. Shared by link previews and gear
+ * rows, which fill it from Notion instead of the linked page.
+ */
+export function LinkPreviewCardBody({
+  href,
+  title,
+  description,
+  siteName,
+  image,
+}: {
+  href: string;
+  title: string;
+  description?: string;
+  siteName?: string;
+  image?: ReactNode;
+}) {
+  return (
+    <>
+      {image}
       <div className="flex flex-col gap-1 p-2.5">
         <p className="line-clamp-2 text-[13px] leading-5 font-medium text-balance text-foreground">
-          {preview.title}
+          {title}
         </p>
-        {preview.description && (
+        {description && (
           <p className="line-clamp-2 text-xs leading-4 text-pretty text-muted-foreground">
-            {preview.description}
+            {description}
           </p>
         )}
         <p className="truncate pt-0.5 text-xs text-subtle-foreground">
           <SiteFavicon href={href} />
-          {preview.siteName ?? hostLabel(href)}
+          {siteName ?? hostLabel(href)}
         </p>
       </div>
-    </LinkHoverCard>
+    </>
   );
 }
 

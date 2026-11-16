@@ -14,6 +14,7 @@ const deps: A2AContentDeps = {
           { title: "Case study", slug: "case", url: "u" },
         ],
   getPost: async (_t, slug) => (slug === "hello" ? "# Hello world" : null),
+  listGears: async () => [{ category: "Desk", items: [{ title: "Keyboard" }] }],
   getProfile: async () => ({ name: "Nubelson Fernandes", url: "u", social: [] }),
 };
 
