@@ -65,6 +65,11 @@ Books data source `7a6b03dc-…` (its title property is already `Name`, which
 | `category` | `Category` |
 | `author` (select) | `Author` (select, unchanged type) |
 | `status` (select: 📖 Reading, 🗃 Planned, 📙 Read) | `Status` |
+| — | `Source` (url, empty) — added because the shared slug query requests it and Notion answers 400 on unknown `filter_properties` |
+
+Grouping by status happens in code (`groupBooksByStatus`) on top of the
+default `Publish Date` descending order, so no separate `BOOKS_SORTS` is
+needed.
 
 Value map: planning → To Do, resuming → In Progress, published → Done. After the
 rename, every book keeps its state (8 Done, 3 To Do today). If renaming an
