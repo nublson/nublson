@@ -36,7 +36,7 @@ export async function generateMetadata({
     {
       title: found.metadata.title,
       description: found.metadata.description,
-      image: found.metadata.thumbnail,
+      image: `/books/${slug}/opengraph-image`,
     },
     {
       canonical: `/books/${slug}`,
