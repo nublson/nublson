@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import type { PostMetadata } from "@/utils/formatter";
 import { BookCover } from "./book-cover";
 import { BookLink } from "./book-link";
@@ -14,7 +15,7 @@ export function BookReading({ books }: { books: PostMetadata[] }) {
           key={book.id}
           className="grid grid-cols-[72px_1fr] items-start gap-[18px] py-6 first:pt-0 last:pb-0 not-first:border-t not-first:border-border max-[560px]:grid-cols-[60px_1fr] max-[560px]:gap-3.5"
         >
-          <BookLink href={book.path} tabIndex={-1} aria-hidden className="group/book block">
+          <BookLink href={book.path} tabIndex={-1} aria-hidden className={cn("block", book.path && "group/book")}>
             <BookCover
               book={book}
               className="transition-transform duration-200 ease-(--ease-out) group-hover/book:-translate-y-1 motion-reduce:transform-none"

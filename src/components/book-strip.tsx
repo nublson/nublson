@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import type { PostMetadata } from "@/utils/formatter";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -100,7 +101,7 @@ export function BookStrip({
             key={book.id}
             className="w-[calc((100%-7*0.875rem)/7.4)] flex-none snap-start max-[560px]:w-[calc((100%-4*0.875rem)/4.4)]"
           >
-            <BookLink href={book.path} className="group/book block">
+            <BookLink href={book.path} className={cn("block", book.path && "group/book")}>
               <BookCover
                 book={book}
                 className="transition-transform duration-200 ease-(--ease-out) group-hover/book:-translate-y-1 motion-reduce:transform-none"
@@ -108,7 +109,9 @@ export function BookStrip({
               <span className="mt-2 line-clamp-2 text-xs leading-snug font-medium break-words text-pretty text-foreground">
                 {book.title}
               </span>
-              <span className="block text-xs text-subtle-foreground">{book.author}</span>
+              <span className="block text-xs text-subtle-foreground transition-colors duration-150 ease-(--ease-out) group-hover/book:text-muted-foreground">
+                {book.author}
+              </span>
             </BookLink>
           </li>
         ))}

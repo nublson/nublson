@@ -12,12 +12,16 @@ const READ_STATUSES = new Set(["Reading", "Read", ""]);
  */
 export function BookList({ books }: { books: PostMetadata[] }) {
   return (
-    <ul className="grid grid-cols-2 gap-x-6 gap-y-3 max-[560px]:grid-cols-1">
+    <ul className="-mx-2.5 grid grid-cols-2 gap-x-1 gap-y-1 max-[560px]:grid-cols-1">
       {books.map((book) => (
         <li key={book.id}>
           <BookLink
             href={book.path}
-            className="group/book grid grid-cols-[28px_1fr] items-center gap-3"
+            className={cn(
+              "grid grid-cols-[28px_1fr] items-center gap-3 rounded-lg px-2.5 py-2",
+              // Same hover as project and gear rows; only linked books are interactive.
+              book.path && "group/book press hover:bg-muted",
+            )}
           >
             <BookCover
               book={book}
@@ -30,7 +34,9 @@ export function BookList({ books }: { books: PostMetadata[] }) {
               <span className="block leading-snug font-medium break-words text-foreground">
                 {book.title}
               </span>
-              <span className="block text-subtle-foreground">{book.author}</span>
+              <span className="block text-subtle-foreground transition-colors duration-150 ease-(--ease-out) group-hover/book:text-muted-foreground">
+                {book.author}
+              </span>
             </span>
           </BookLink>
         </li>
