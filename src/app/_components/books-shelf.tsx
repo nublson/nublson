@@ -49,7 +49,7 @@ export async function getBooks(): Promise<PostMetadata[]> {
  */
 export function BooksShelf({ books }: { books: PostMetadata[] }) {
   return (
-    <div data-stream className="flex w-full flex-col gap-14">
+    <div className="flex w-full flex-col gap-14">
       {groupBooksByStatus(books).map(({ status, books }) => {
         const id = status.toLowerCase();
         if (status === "Reading") {
