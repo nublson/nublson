@@ -146,6 +146,8 @@ export type PostMetadata = {
   status: string;
   /** Books only: the ISBN their Open Library cover is looked up by. */
   isbn: string;
+  /** Books only: ticked to show the book on Home. */
+  featured: boolean;
 };
 
 export const formatPostMetadata = (
@@ -205,6 +207,9 @@ export const formatPostMetadata = (
     const isbn = richTextProperty(page, "ISBN")
       .plain.replace(/[^0-9Xx]/g, "")
       .toUpperCase();
+    const featured =
+      page.properties.Featured?.type === "checkbox" &&
+      page.properties.Featured.checkbox;
     return {
       id: page.id,
       title,
@@ -221,6 +226,7 @@ export const formatPostMetadata = (
       author,
       status,
       isbn,
+      featured,
     };
   });
 };

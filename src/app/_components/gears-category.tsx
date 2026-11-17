@@ -24,10 +24,7 @@ export function GearsCategory({ posts: gearsPostMetadata }: { posts: PostMetadat
   const uniqueCategories = [...new Set(categories)];
 
   return (
-    <div
-      data-stream
-      className="w-full flex flex-col items-stretch justify-start gap-14"
-    >
+    <div className="w-full flex flex-col items-stretch justify-start gap-14">
       {uniqueCategories.map((category) => (
         <GearsSection
           key={category}

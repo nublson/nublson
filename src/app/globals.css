@@ -326,3 +326,103 @@ details[open] > .older-posts {
     opacity: 1;
   }
 }
+
+/*
+ * Scroll fades: a scroll container's edge dissolves only where there is more
+ * to scroll to. Each edge's fade grows over the first `--fade-size` (3rem
+ * unless the element sets it) of
+ * scrolling toward it and shrinks over the last, driven by the container's
+ * own scroll position. A mask, not an overlay: it works on any background and
+ * doesn't block clicks. Without scroll timelines both edges keep a fixed fade.
+ * (https://craft.gustavofior.com/scroll-fades)
+ */
+@property --fade-start {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --fade-end {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@keyframes scroll-fade-start {
+  from {
+    --fade-start: 0px;
+  }
+  to {
+    --fade-start: var(--fade-size, 3rem);
+  }
+}
+@keyframes scroll-fade-end {
+  from {
+    --fade-end: var(--fade-size, 3rem);
+  }
+  to {
+    --fade-end: 0px;
+  }
+}
+
+@utility scroll-fade-x {
+  --fade-start: var(--fade-size, 3rem);
+  --fade-end: var(--fade-size, 3rem);
+  /* Eased (smoothstep) stops, not a straight ramp, so the edge dissolves
+     instead of showing a grey band. */
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    rgb(0 0 0 / 0.1) calc(var(--fade-start) * 0.25),
+    rgb(0 0 0 / 0.5) calc(var(--fade-start) * 0.5),
+    rgb(0 0 0 / 0.9) calc(var(--fade-start) * 0.75),
+    #000 var(--fade-start),
+    #000 calc(100% - var(--fade-end)),
+    rgb(0 0 0 / 0.9) calc(100% - var(--fade-end) * 0.75),
+    rgb(0 0 0 / 0.5) calc(100% - var(--fade-end) * 0.5),
+    rgb(0 0 0 / 0.1) calc(100% - var(--fade-end) * 0.25),
+    transparent
+  );
+  @supports (animation-timeline: scroll()) {
+    /* Nothing to scroll leaves the timeline inactive: no fade at all. */
+    --fade-start: 0px;
+    --fade-end: 0px;
+    animation:
+      scroll-fade-start linear both,
+      scroll-fade-end linear both;
+    /* After the shorthand, which resets the timeline. */
+    animation-timeline: scroll(self x), scroll(self x);
+    animation-range:
+      0 var(--fade-size, 3rem),
+      calc(100% - var(--fade-size, 3rem)) 100%;
+  }
+}
+
+@utility scroll-fade-y {
+  --fade-start: var(--fade-size, 3rem);
+  --fade-end: var(--fade-size, 3rem);
+  /* Eased (smoothstep) stops, not a straight ramp, so the edge dissolves
+     instead of showing a grey band. */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(0 0 0 / 0.1) calc(var(--fade-start) * 0.25),
+    rgb(0 0 0 / 0.5) calc(var(--fade-start) * 0.5),
+    rgb(0 0 0 / 0.9) calc(var(--fade-start) * 0.75),
+    #000 var(--fade-start),
+    #000 calc(100% - var(--fade-end)),
+    rgb(0 0 0 / 0.9) calc(100% - var(--fade-end) * 0.75),
+    rgb(0 0 0 / 0.5) calc(100% - var(--fade-end) * 0.5),
+    rgb(0 0 0 / 0.1) calc(100% - var(--fade-end) * 0.25),
+    transparent
+  );
+  @supports (animation-timeline: scroll()) {
+    --fade-start: 0px;
+    --fade-end: 0px;
+    animation:
+      scroll-fade-start linear both,
+      scroll-fade-end linear both;
+    animation-timeline: scroll(self y), scroll(self y);
+    animation-range:
+      0 var(--fade-size, 3rem),
+      calc(100% - var(--fade-size, 3rem)) 100%;
+  }
+}

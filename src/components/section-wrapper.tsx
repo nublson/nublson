@@ -4,12 +4,15 @@ import { SectionHeader } from "./section-header";
 interface SectionWrapperProps extends React.HTMLAttributes<HTMLElement> {
   title: string;
   path?: string;
+  /** Controls for the header's right side (see `SectionHeader`). */
+  action?: React.ReactNode;
   children: React.ReactNode;
 }
 
 export function SectionWrapper({
   title,
   path,
+  action,
   children,
   id,
   className,
@@ -27,7 +30,12 @@ export function SectionWrapper({
         className,
       )}
     >
-      <SectionHeader title={title} href={path} titleId={headingId} />
+      <SectionHeader
+        title={title}
+        href={path}
+        titleId={headingId}
+        action={action}
+      />
 
       {children}
     </section>
