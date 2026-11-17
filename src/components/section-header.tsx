@@ -7,6 +7,7 @@ import Link from "next/link";
 const VIEW_ALL_LABELS: Record<string, string> = {
   "/writings": "View all posts",
   "/projects": "View all projects",
+  "/books": "View all books",
 };
 
 interface SectionHeaderProps {
@@ -14,15 +15,23 @@ interface SectionHeaderProps {
   href?: string;
   /** When set, labels this region for assistive tech (pairs with `section` `aria-labelledby`). */
   titleId?: string;
+  /** Controls shown on the right instead of the "All" link. */
+  action?: React.ReactNode;
 }
 
-export function SectionHeader({ title, href, titleId }: SectionHeaderProps) {
+export function SectionHeader({
+  title,
+  href,
+  titleId,
+  action,
+}: SectionHeaderProps) {
   return (
     <div className="flex w-full items-baseline justify-between gap-4">
       <h2 id={titleId} className="text-sm font-normal text-subtle-foreground">
         {title}
       </h2>
-      {href && (
+      {action}
+      {!action && href && (
         <Link
           href={href}
           aria-label={VIEW_ALL_LABELS[href] ?? `View all ${title.toLowerCase()}`}

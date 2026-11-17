@@ -178,3 +178,36 @@ within a status. The books query requests only the fields books use (no
 ## Change: no Home teaser (2026-11-16)
 
 Books are reached from the footer only; the Home "Books" section is removed.
+
+## Change: "Reading now" layout (2026-11-17)
+
+Picked from a mockup of six layouts (D1 · Polished). The cover grid is
+replaced by one treatment per status:
+
+- **Reading now** (`BookReading`): one row per book — a 72px cover (60px on
+  phones), the title in the heading face, author, a two-line description,
+  then a "Get it ↗" link to `Path` (no category; the books query no longer
+  requests `Category`). Rows are split by a
+  hairline.
+- **Read** (`BookStrip`, client): one sideways row, seven across (about four
+  on phones), with ← → buttons in the section header that page one view at a
+  time and disable at either end. Smooth scroll unless reduced motion.
+- **Any other status, e.g. Wishlist** (`BookList`): tiny greyed covers beside
+  title and author, two columns (one on phones).
+
+`SectionHeader`/`SectionWrapper` gained an `action` slot for the arrows.
+`BookLink` holds the "link to `Path` in a new tab, or plain" rule all three
+share. `BookGrid` is removed.
+
+## Change: Home books and database tidy-up (2026-11-17)
+
+- **Home "Books" section** (`HomeBooks`): the `BookList` look (tiny cover,
+  title, author) with an "All" link to `/books`. Shows only books ticked
+  **Featured** in Notion, in shelf order (Reading, Read, Wishlist), four at
+  most; hidden when none are featured. `BookList` greys covers only for
+  books not yet read, so Home covers stay in colour.
+- **Notion:** `Publish Date` renamed to **Read Date**; `State` trimmed to
+  To Do / Done (no row used In Progress); **Featured** checkbox added and
+  ticked on the four books Home showed before.
+- **Order:** books sort by `Read Date` newest first, then title A to Z, so
+  undated books follow the dated ones alphabetically.

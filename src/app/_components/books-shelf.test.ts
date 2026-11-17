@@ -14,12 +14,12 @@ const callArgs = async () => {
 };
 
 describe("getBooks", () => {
-  it("requests Status and ISBN, which the shelf groups and draws by", async () => {
+  it("requests Status, ISBN and Featured, which the shelf and Home use", async () => {
     // Notion returns only the requested properties; without Status every
     // book would fall under "Read".
     const [, , filterProperties] = await callArgs();
     expect(filterProperties).toEqual(
-      expect.arrayContaining(["Status", "ISBN"]),
+      expect.arrayContaining(["Status", "ISBN", "Featured"]),
     );
   });
 
@@ -29,10 +29,14 @@ describe("getBooks", () => {
     const [, , filterProperties] = await callArgs();
     expect(filterProperties).not.toContain("Publish Date");
     expect(filterProperties).not.toContain("Source");
+    expect(filterProperties).not.toContain("Category");
   });
 
-  it("sorts books by title, A to Z", async () => {
+  it("sorts books by Read Date, newest first, then by title", async () => {
     const [, , , sorts] = await callArgs();
-    expect(sorts).toEqual([{ property: "Name", direction: "ascending" }]);
+    expect(sorts).toEqual([
+      { property: "Read Date", direction: "descending" },
+      { property: "Name", direction: "ascending" },
+    ]);
   });
 });

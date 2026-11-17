@@ -100,6 +100,7 @@ const sampleMetadata = {
   author: "",
   status: "",
   isbn: "",
+  featured: false,
 };
 
 describe("getCachedAudio", () => {

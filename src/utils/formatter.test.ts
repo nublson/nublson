@@ -325,6 +325,16 @@ describe("formatPostMetadata", () => {
     ).toBe("080442957X");
   });
 
+  it("reads the Featured checkbox", () => {
+    expect(book({ Featured: { type: "checkbox", checkbox: true } }).featured).toBe(
+      true,
+    );
+    expect(
+      book({ Featured: { type: "checkbox", checkbox: false } }).featured,
+    ).toBe(false);
+    expect(book({}).featured).toBe(false);
+  });
+
   it("strips the emoji from Status", () => {
     expect(
       book({ Status: { type: "select", select: { name: "📙 Read" } } }).status,

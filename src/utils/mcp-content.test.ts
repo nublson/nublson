@@ -23,6 +23,7 @@ function post(overrides: Partial<PostMetadata>): PostMetadata {
     author: "",
     status: "",
     isbn: "",
+    featured: false,
     ...overrides,
   };
 }
